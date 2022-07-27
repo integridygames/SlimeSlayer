@@ -1,5 +1,4 @@
-﻿using Game.Gameplay.Controllers.SampleScene;
-using Zenject;
+﻿using Zenject;
 
 namespace Game.Installers.SampleScene
 {
@@ -7,7 +6,7 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<DayTimeController>().AsSingle();
+           
         }
     }
 }

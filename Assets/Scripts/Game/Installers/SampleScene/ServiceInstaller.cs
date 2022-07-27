@@ -7,7 +7,7 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<VibrationService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<VibrationService>().AsSingle();           
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TegridyCore.Base
 {
-    public abstract class ControllerBase<T> where T : ViewBase
+    public abstract class ControllerBase<T>
 
     {
         protected readonly T ControlledEntity;

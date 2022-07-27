@@ -1,11 +1,11 @@
 using Game.Gameplay.States;
 using Game.Gameplay.Systems;
-using Game.Gameplay.Systems.SampleScene;
 using Game.Gameplay.Transitions;
 using TegridyCore.FiniteStateMachine;
 using TegridyCore.StateBindings;
 using TegridyUtils.Extensions;
 using Zenject;
+using Game.Gameplay.Systems.Character;
 
 namespace Game.Installers.SampleScene
 {
@@ -52,9 +52,9 @@ namespace Game.Installers.SampleScene
         {
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
-            
-            var dayTimeSystem = Container.Instantiate<DayTimeSystem>();
-            Container.BindUpdateSystemWithState(dayTimeSystem, _gameState);
+            var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
+            Container.BindInitializeSystem(inverseKinematicsSystem);
+            Container.BindUpdateSystem(inverseKinematicsSystem);
         }
     }
 }

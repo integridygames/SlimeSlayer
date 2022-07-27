@@ -4,19 +4,28 @@ using Zenject;
 namespace Game.Installers
 {
     public class ViewsInstaller : MonoInstaller
-    {
+    {      
         public override void InstallBindings()
         {
-            InstallViews();
+            InstallViews();      
         }
 
         private void InstallViews()
         {
-            var views= FindObjectsOfType<ViewBase>(true);
+            var views = FindObjectsOfType<ViewBase>(true);
 
             foreach (var view in views)
-            {
-                Container.Bind(view.GetType()).FromInstance(view).AsSingle();
+            {            
+                var binder = Container.Bind(view.GetType()).FromInstance(view);
+
+                if (view.IsCached) 
+                {
+                    binder.AsCached();
+                }
+                else 
+                {
+                    binder.AsSingle();
+                }
             }
         }
     }
