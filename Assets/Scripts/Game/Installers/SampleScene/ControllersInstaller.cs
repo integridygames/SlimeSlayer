@@ -1,6 +1,4 @@
-﻿using Game.Gameplay.Controllers.SampleScene;
-using Game.Gameplay.Controllers.Character.IK;
-using Zenject;
+﻿using Zenject;
 
 namespace Game.Installers.SampleScene
 {
@@ -9,11 +7,6 @@ namespace Game.Installers.SampleScene
         public override void InstallBindings()
         {
            
-        }
-
-        private void InstallIK() 
-        {
-            
         }
     }
 }

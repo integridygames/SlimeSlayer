@@ -14,7 +14,6 @@ namespace TegridyUtils.Extensions
             container.Bind<IPreInitializeSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
-                .AsSingle()
                 .WhenInjectedInto<SystemManager>();
         }
         
@@ -24,7 +23,6 @@ namespace TegridyUtils.Extensions
             container.Bind<IInitializeSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
-                .AsSingle()
                 .WhenInjectedInto<SystemManager>();
         }
         
@@ -34,7 +32,6 @@ namespace TegridyUtils.Extensions
             container.Bind<ICoroutineSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
-                .AsSingle()
                 .WhenInjectedInto<SystemManager>();
         }
 
@@ -44,7 +41,6 @@ namespace TegridyUtils.Extensions
             container.Bind<IUpdateSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
-                .AsSingle()
                 .WhenInjectedInto<SystemManager>();
         }
 
@@ -54,7 +50,6 @@ namespace TegridyUtils.Extensions
             container.Bind<IFixedSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
-                .AsSingle()
                 .WhenInjectedInto<SystemManager>();
         }
 

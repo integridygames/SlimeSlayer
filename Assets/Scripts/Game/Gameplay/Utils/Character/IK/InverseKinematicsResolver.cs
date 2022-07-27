@@ -4,9 +4,9 @@ using Game.Gameplay.Views.Character.Targets;
 using Game.Gameplay.Views.Character.Poles;
 using Game.Gameplay.Views.Character.Bones;
 
-namespace Game.Gameplay.Controllers.Character.IK 
+namespace Game.Gameplay.Utils.Character.IK 
 {
-    public class InverseKinematicsController
+    public class InverseKinematicsResolver
     {
         protected readonly CharacterView CharacterView;
         protected readonly HandTargetView HandTargetView;
@@ -31,7 +31,7 @@ namespace Game.Gameplay.Controllers.Character.IK
 
         protected int ChainLengthPlusOne = ChainLength + 1;
 
-        public InverseKinematicsController(CharacterView characterView, HandIKView handIKView)
+        public InverseKinematicsResolver(CharacterView characterView, HandIKView handIKView)
         {
             this.CharacterView = characterView;
             this.HandTargetView = handIKView.HandTargetView;

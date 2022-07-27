@@ -53,6 +53,7 @@ namespace Game.Installers.SampleScene
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
+            Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
         }
     }
