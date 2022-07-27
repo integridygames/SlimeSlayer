@@ -5,6 +5,10 @@ namespace TegridyCore.Base
 {
     public abstract class ViewBase : MonoBehaviour
     {
+        [SerializeField] private bool _isCached;
+
+        public bool IsCached => _isCached;
+
         public event Action OnShow;
         
         public event Action OnHide;

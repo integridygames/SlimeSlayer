@@ -1,8 +1,5 @@
 ﻿using TegridyCore.Base;
 using Zenject;
-using UnityEngine;
-using Game.Gameplay.Views.Character.Targets;
-using Game.Gameplay.Views.Character.Bones;
 
 namespace Game.Installers
 {
@@ -19,7 +16,16 @@ namespace Game.Installers
 
             foreach (var view in views)
             {            
-                Container.Bind(view.GetType()).FromInstance(view).AsSingle();
+                var binder = Container.Bind(view.GetType()).FromInstance(view);
+
+                if (view.IsCached) 
+                {
+                    binder.AsCached();
+                }
+                else 
+                {
+                    binder.AsSingle();
+                }
             }
         }
     }

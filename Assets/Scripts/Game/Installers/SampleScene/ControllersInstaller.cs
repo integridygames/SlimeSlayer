@@ -8,9 +8,12 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<DayTimeController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InverseKinematicsLeftHandController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InverseKinematicsRightHandController>().AsSingle();
+           
+        }
+
+        private void InstallIK() 
+        {
+            
         }
     }
 }

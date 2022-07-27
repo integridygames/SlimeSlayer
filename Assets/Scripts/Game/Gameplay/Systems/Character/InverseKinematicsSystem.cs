@@ -3,23 +3,20 @@ using Game.Gameplay.Views.Character;
 using Game.Gameplay.Controllers.Character.IK;
 using TegridyCore.Base;
 
-namespace Game.Services 
+namespace Game.Gameplay.Systems.Character 
 {
-    public class InverseKinematicsService : IInitializeSystem, IUpdateSystem
+    public class InverseKinematicsSystem : IUpdateSystem
     {
         private List<HandIKView> _handIKViews;
         private List<InverseKinematicsController> _controllerIK;
 
-        public InverseKinematicsService(List<HandIKView> handIKViews, CharacterView characterView) 
+        public InverseKinematicsSystem(List<HandIKView> handIKViews, CharacterView characterView) 
         {
             _handIKViews = handIKViews;
             _controllerIK = new List<InverseKinematicsController>();
-            foreach(var handIKView in _handIKViews)
+            foreach(var handIKView in _handIKViews)            
                 _controllerIK.Add(new InverseKinematicsController(characterView, handIKView));
-        }
 
-        public void Initialize()
-        {
             foreach (var controllerIK in _controllerIK)
                 controllerIK.InitIK();
         }
