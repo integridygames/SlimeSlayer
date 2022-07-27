@@ -1,8 +1,8 @@
-using TegridyCore.Base;
+using UnityEngine;
 
 namespace Game.Gameplay.Views.Character.Poles 
 {
-    public abstract class HandPoleView : ViewBase
+    public class HandPoleView : MonoBehaviour
     {
 
     }

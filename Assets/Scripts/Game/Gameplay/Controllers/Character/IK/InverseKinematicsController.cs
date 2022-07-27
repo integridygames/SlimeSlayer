@@ -1,20 +1,17 @@
-using System;
 using Game.Gameplay.Views.Character;
-using TegridyCore.Base;
-using Zenject;
 using UnityEngine;
 using Game.Gameplay.Views.Character.Targets;
+using Game.Gameplay.Views.Character.Poles;
 using Game.Gameplay.Views.Character.Bones;
 
 namespace Game.Gameplay.Controllers.Character.IK 
 {
-    public abstract class InverseKinematicsController<T, V, K, W>  : ControllerBase<W>, IInitializable, IUpdateSystem 
-        where T : ViewBase where V : ViewBase where K : ViewBase
+    public class InverseKinematicsController
     {
-        protected readonly W CharacterView;
-        protected readonly T HandTargetView;
-        protected readonly V HandBone;
-        protected readonly K HandPole;
+        protected readonly CharacterView CharacterView;
+        protected readonly HandTargetView HandTargetView;
+        protected readonly HandBoneView HandBone;
+        protected readonly HandPoleView HandPole;
 
         protected Transform[] Bones;
         protected Vector3[] Positions;
@@ -22,7 +19,7 @@ namespace Game.Gameplay.Controllers.Character.IK
         protected float CompleteLength;
 
         //start states
-        protected Vector3[] StartDirectionsSucc;
+        protected Vector3[] StartDirections;
         protected Quaternion[] StartRotationBones;
         protected Quaternion StartRotationTarget;
         protected Quaternion StartRotationRoot;
@@ -34,34 +31,24 @@ namespace Game.Gameplay.Controllers.Character.IK
 
         protected int ChainLengthPlusOne = ChainLength + 1;
 
-        protected InverseKinematicsController(W characterView, T handTargetView, V handBone, K handPole) : base(characterView)
+        public InverseKinematicsController(CharacterView characterView, HandIKView handIKView)
         {
-            CharacterView = characterView;
-            HandTargetView = handTargetView;
-            HandBone = handBone;
-            HandPole = handPole;
+            this.CharacterView = characterView;
+            this.HandTargetView = handIKView.HandTargetView;
+            HandBone = handIKView.HandBoneView;
+            HandPole = handIKView.HandPoleView;
         }
 
-        public void Initialize()
-        {
-            InitIK();
-        }
-
-        public void Update()
-        {
-            ResolveIK();
-        }
-
-        protected void InitIK() 
+        public void InitIK() 
         {
             Bones = new Transform[ChainLengthPlusOne];
             Positions = new Vector3[ChainLengthPlusOne];
             BonesLength = new float[ChainLength];
             CompleteLength = 0;
 
-            StartDirectionsSucc = new Vector3[ChainLengthPlusOne];
+            StartDirections = new Vector3[ChainLengthPlusOne];
             StartRotationBones = new Quaternion[ChainLengthPlusOne];
-            StartRotationTarget = HandTargetView.transform.rotation;
+            StartRotationTarget = this.HandTargetView.transform.rotation;
             StartRotationRoot = HandBone.transform.rotation;
 
             var current = HandBone.transform;
@@ -73,12 +60,12 @@ namespace Game.Gameplay.Controllers.Character.IK
 
                 if (i == Bones.Length - 1)
                 {
-                    StartDirectionsSucc[i] = HandTargetView.transform.position - current.position;
+                    StartDirections[i] = this.HandTargetView.transform.position - current.position;
                 }
                 else
                 {
-                    StartDirectionsSucc[i] = Bones[i + 1].position - current.position;
-                    BonesLength[i] = StartDirectionsSucc[i].magnitude;
+                    StartDirections[i] = Bones[i + 1].position - current.position;
+                    BonesLength[i] = StartDirections[i].magnitude;
                     CompleteLength += BonesLength[i];
                 }
 
@@ -86,9 +73,9 @@ namespace Game.Gameplay.Controllers.Character.IK
             }
         }
 
-        protected void ResolveIK() 
+        public void ResolveIK() 
         {
-            if (HandTargetView == null)
+            if (this.HandTargetView == null)
                 return;
 
             if (BonesLength.Length != ChainLength)
@@ -101,9 +88,9 @@ namespace Game.Gameplay.Controllers.Character.IK
             Quaternion handRotationDiff = handRotation * Quaternion.Inverse(StartRotationRoot);
 
 
-            if ((HandTargetView.transform.position - Bones[0].position).sqrMagnitude >= CompleteLength * CompleteLength)
+            if ((this.HandTargetView.transform.position - Bones[0].position).sqrMagnitude >= CompleteLength * CompleteLength)
             {
-                var direction = (HandTargetView.transform.position - Positions[0]).normalized;
+                var direction = (this.HandTargetView.transform.position - Positions[0]).normalized;
                 for (int i = 1; i < Positions.Length; i++)
                     Positions[i] = Positions[i - 1] + direction * BonesLength[i - 1];
             }
@@ -114,7 +101,7 @@ namespace Game.Gameplay.Controllers.Character.IK
                     for (int i = Positions.Length - 1; i > 0; i--)
                     {
                         if (i == Positions.Length - 1)
-                            Positions[i] = HandTargetView.transform.position;
+                            Positions[i] = this.HandTargetView.transform.position;
                         else
                             Positions[i] = Positions[i + 1] + (Positions[i] - Positions[i + 1]).normalized * BonesLength[i];
                     }
@@ -122,7 +109,7 @@ namespace Game.Gameplay.Controllers.Character.IK
                     for (int i = 1; i < Positions.Length; i++)
                         Positions[i] = Positions[i - 1] + (Positions[i] - Positions[i - 1]).normalized * BonesLength[i - 1];
 
-                    if ((Positions[Positions.Length - 1] - HandTargetView.transform.position).sqrMagnitude < Delta * Delta)
+                    if ((Positions[Positions.Length - 1] - this.HandTargetView.transform.position).sqrMagnitude < Delta * Delta)
                         break;
                 }
             }
@@ -142,9 +129,9 @@ namespace Game.Gameplay.Controllers.Character.IK
             for (int i = 0; i < Positions.Length; i++) 
             {
                 if (i == Positions.Length - 1)
-                    Bones[i].rotation = HandTargetView.transform.rotation * Quaternion.Inverse(StartRotationTarget) * StartRotationBones[i];
+                    Bones[i].rotation = this.HandTargetView.transform.rotation * Quaternion.Inverse(StartRotationTarget) * StartRotationBones[i];
                 else
-                    Bones[i].rotation = Quaternion.FromToRotation(StartDirectionsSucc[i], Positions[i + 1] - Positions[i]) * StartRotationBones[i];
+                    Bones[i].rotation = Quaternion.FromToRotation(StartDirections[i], Positions[i + 1] - Positions[i]) * StartRotationBones[i];
 
                 Bones[i].position = Positions[i];
             }               

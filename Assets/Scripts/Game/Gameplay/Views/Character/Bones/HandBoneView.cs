@@ -1,8 +1,8 @@
-using TegridyCore.Base;
+using UnityEngine;
 
 namespace Game.Gameplay.Views.Character.Bones 
 {
-    public abstract class HandBoneView : ViewBase
+    public class HandBoneView : MonoBehaviour
     {
 
     }

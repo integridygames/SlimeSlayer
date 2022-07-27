@@ -15,12 +15,12 @@ namespace Game.Gameplay.Transitions
 
         public override void OnTransitionAdded()
         {
-            _gameScreenView.ToStartScreenButton.OnReleased += DoTransition;
+            
         }
 
         public override void OnTransitionRemoved()
         {
-            _gameScreenView.ToStartScreenButton.OnReleased -= DoTransition;
+            
         }
     }
 }

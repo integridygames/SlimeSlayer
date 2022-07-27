@@ -1,8 +1,8 @@
-using TegridyCore.Base;
+using UnityEngine;
 
 namespace Game.Gameplay.Views.Character.Targets 
 {
-    public abstract class HandTargetView : ViewBase
+    public class HandTargetView : MonoBehaviour
     {
 
     }
