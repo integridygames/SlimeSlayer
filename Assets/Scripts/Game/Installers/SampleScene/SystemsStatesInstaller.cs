@@ -6,6 +6,7 @@ using TegridyCore.StateBindings;
 using TegridyUtils.Extensions;
 using Zenject;
 using Game.Gameplay.Systems.Character;
+using Game.Gameplay.Systems.Level;
 
 namespace Game.Installers.SampleScene
 {
@@ -50,6 +51,8 @@ namespace Game.Installers.SampleScene
 
         private void CreateSystems()
         {
+            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
+            Container.BindInitializeSystem(levelInitialzieSystem);
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();

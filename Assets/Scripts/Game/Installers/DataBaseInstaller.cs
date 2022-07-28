@@ -10,7 +10,7 @@ namespace Game.Installers
 
         public override void InstallBindings()
         {
-
+            Container.BindInstance(_levelsDataBase).AsSingle();
         }
     }
 }
