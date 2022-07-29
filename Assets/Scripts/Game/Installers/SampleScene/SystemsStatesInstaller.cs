@@ -51,10 +51,10 @@ namespace Game.Installers.SampleScene
 
         private void CreateSystems()
         {
-            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindInitializeSystem(levelInitialzieSystem);
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
+            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
+            Container.BindInitializeSystem(levelInitialzieSystem);
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
