@@ -66,9 +66,9 @@ namespace Game.Gameplay.Systems.Character
                         SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), _rotationSpeed * Time.fixedDeltaTime);
                     break;
                 case (false, false):
-                    _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
+                    _leftRotationCenter.transform.localRotation = Quaternion.RotateTowards(_leftRotationCenter.transform.localRotation,
                         _rotationToZero, _rotationSpeed * Time.fixedDeltaTime);
-                    _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
+                    _rightRotationCenter.transform.localRotation = Quaternion.RotateTowards(_rightRotationCenter.transform.localRotation,
                         _rotationToZero, _rotationSpeed * Time.fixedDeltaTime);
                     break;
             }
