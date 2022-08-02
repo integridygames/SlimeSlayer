@@ -1,4 +1,5 @@
 using Game.Gameplay.Models.Level;
+using Game.Gameplay.Models.Heap;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -7,7 +8,9 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            Container.Bind<LevelInfo>().AsSingle();   
+            Container.Bind<LevelInfo>().AsSingle();
+            Container.Bind<HeapInfo>().AsSingle();
+            Container.Bind<RaycastInfo>().AsSingle();
         }
     }
 }

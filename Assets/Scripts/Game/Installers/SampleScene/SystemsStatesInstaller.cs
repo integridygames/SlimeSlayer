@@ -58,6 +58,14 @@ namespace Game.Installers.SampleScene
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
+            var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
+            Container.BindInitializeSystem(handTargetsSetterSystem);
+            var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
+            Container.BindUpdateSystem(nearestHeapFinderSystem);
+            var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterToNearestHeapMoverSystem>();
+            Container.BindFixedSystem(characterToNearestHeapMoverSystem);
+            var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
+            Container.BindFixedSystem(handsTargetsMoverSystem);
         }
     }
 }

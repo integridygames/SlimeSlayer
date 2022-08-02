@@ -12,13 +12,13 @@ namespace TegridyCore
         private readonly List<IInitializeSystem> _initializeSystems;
         private readonly List<ICoroutineSystem> _coroutineSystems;
         private readonly List<IUpdateSystem> _updateSystems;
-        private readonly List<IFixedSystem> _fixedSystems;
+        private readonly List<IFixedUpdateSystem> _fixedSystems;
         private readonly List<IDestroySystem> _destroySystems;
         private readonly CoroutineStarter _coroutineStarter;
 
         public SystemManager(List<IPreInitializeSystem> preInitializeSystems, List<IInitializeSystem> initializeSystems,
             List<ICoroutineSystem> coroutineSystems, List<IUpdateSystem> updateSystems,
-            List<IFixedSystem> fixedSystems, List<IDestroySystem> destroySystems,
+            List<IFixedUpdateSystem> fixedSystems, List<IDestroySystem> destroySystems,
             CoroutineStarter coroutineStarter)
         {
             _preInitializeSystems = preInitializeSystems;
@@ -52,17 +52,17 @@ namespace TegridyCore
             _updateSystems.Remove(updateSystem);
         }
 
-        public bool ContainsFixedSystem(IFixedSystem fixedSystem)
+        public bool ContainsFixedSystem(IFixedUpdateSystem fixedSystem)
         {
             return _fixedSystems.Contains(fixedSystem);
         }
 
-        public void AddFixedSystem(IFixedSystem fixedSystem)
+        public void AddFixedSystem(IFixedUpdateSystem fixedSystem)
         {
             _fixedSystems.Add(fixedSystem);
         }
 
-        public void RemoveFixedSystem(IFixedSystem fixedSystem)
+        public void RemoveFixedSystem(IFixedUpdateSystem fixedSystem)
         {
             _fixedSystems.Remove(fixedSystem);
         }
