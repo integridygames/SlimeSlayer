@@ -26,8 +26,8 @@ namespace TegridyCore.StateBindings
         private readonly Dictionary<StateBase, List<IUpdateSystem>> _boundUpdateSystems =
             new Dictionary<StateBase, List<IUpdateSystem>>();
 
-        private readonly Dictionary<StateBase, List<IFixedSystem>> _boundFixedSystems =
-            new Dictionary<StateBase, List<IFixedSystem>>();
+        private readonly Dictionary<StateBase, List<IFixedUpdateSystem>> _boundFixedSystems =
+            new Dictionary<StateBase, List<IFixedUpdateSystem>>();
 
         private readonly Dictionary<StateBase, List<IDestroySystem>> _boundDestroySystems =
             new Dictionary<StateBase, List<IDestroySystem>>();
@@ -170,7 +170,7 @@ namespace TegridyCore.StateBindings
             }
         }
 
-        public void BindFixedSystem(IFixedSystem system, StateBase state)
+        public void BindFixedSystem(IFixedUpdateSystem system, StateBase state)
         {
             if (_boundFixedSystems.TryGetValue(state, out var updateSystems))
             {
@@ -178,7 +178,7 @@ namespace TegridyCore.StateBindings
             }
             else
             {
-                _boundFixedSystems[state] = new List<IFixedSystem> {system};
+                _boundFixedSystems[state] = new List<IFixedUpdateSystem> {system};
             }
 
             if (!state.IsActive)

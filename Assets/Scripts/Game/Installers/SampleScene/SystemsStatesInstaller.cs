@@ -54,10 +54,14 @@ namespace Game.Installers.SampleScene
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindInitializeSystem(levelInitialzieSystem);
+            Container.BindInitializeSystem(levelInitialzieSystem);         
+            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializatorSystem>();
+            Container.BindInitializeSystem(weaponInitializatorSystem);
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
+            var shootingSystem = Container.Instantiate<ShootingSystem>();
+            Container.BindFixedUpdateSystem(shootingSystem);
         }
     }
 }
