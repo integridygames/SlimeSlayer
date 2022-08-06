@@ -3,26 +3,27 @@ using Game.Gameplay.Views.Character;
 using System.Collections.Generic;
 using TegridyCore.Base;
 using UnityEngine;
+using System;
 
 namespace Game.Gameplay.Systems.Character 
 {
     public class NearestHeapFinderSystem : IUpdateSystem
     {
         private CharacterView _characterView;
-        private List<List<Collider>> _fieldOfViewParts;
+        private List<Collider>[] _fieldOfViewParts;
         private HeapInfo _heapInfo;
-        private RaycastInfo _raycastInfo;
+        private RaycastToEnemiesInfo _raycastToEnemiesInfo;
   
-        private const int _circlePartsQuantity = 4;
+        private const int CirclePartsQuantity = 4;
 
-        public NearestHeapFinderSystem(CharacterView characterView, HeapInfo heapInfo, RaycastInfo raycastInfo) 
+        public NearestHeapFinderSystem(CharacterView characterView, HeapInfo heapInfo, RaycastToEnemiesInfo raycastToEnemiesInfo) 
         {
             _characterView = characterView;
             _heapInfo = heapInfo;
-            _raycastInfo = raycastInfo;
-            _fieldOfViewParts = new List<List<Collider>>();
-            for(int i = 0; i < _circlePartsQuantity; i++)
-                _fieldOfViewParts.Add(new List<Collider>());
+            _raycastToEnemiesInfo = raycastToEnemiesInfo;
+            _fieldOfViewParts = new List<Collider>[CirclePartsQuantity];
+            for(int i = 0; i < CirclePartsQuantity; i++)
+                _fieldOfViewParts[i] = new List<Collider>();
         }
 
         public void Update()
@@ -32,14 +33,14 @@ namespace Game.Gameplay.Systems.Character
 
         private Vector3 DetectNearestEnemiesHeap()
         {            
-            Collider[] targets = Physics.OverlapSphere(_characterView.transform.position, _raycastInfo.Radius, _raycastInfo.LayerNumber);
+            Collider[] targets = TryToFindEnemies();
 
-            if(targets.Length > 0) 
+            if (targets.Length > 0)
             {
-                TryToFindEnemies(targets);
-                Dictionary<int, Vector3> averageVectors = CalculateAverageHeapsVectors();
+                DetermineFieldOfViewParts(targets);
+                List<Vector3> averageVectors = CalculateAverageHeapsVectors();
 
-                Dictionary<int, float> distances = CalculateHeapDistancesToCharacter(averageVectors);
+                List<float> distances = CalculateHeapDistancesToCharacter(averageVectors);
                 int minIndex = FindMinDistancesIndex(distances);
                 return averageVectors[minIndex];
             }
@@ -47,7 +48,12 @@ namespace Game.Gameplay.Systems.Character
                 return Vector3.zero;
         }
 
-        private void TryToFindEnemies(Collider[] targets) 
+        private Collider[] TryToFindEnemies() 
+        {
+            return Physics.OverlapSphere(_characterView.transform.position, _raycastToEnemiesInfo.Radius, _raycastToEnemiesInfo.LayerNumber);
+        }
+
+        private void DetermineFieldOfViewParts(Collider[] targets) 
         {
             foreach (var fieldOfViewPart in _fieldOfViewParts)
                 fieldOfViewPart.Clear();
@@ -96,14 +102,14 @@ namespace Game.Gameplay.Systems.Character
             }
         }
 
-        private Dictionary<int, Vector3> CalculateAverageHeapsVectors() 
+        private List<Vector3> CalculateAverageHeapsVectors() 
         {
             Vector3 averageVector = Vector3.zero;
             Vector3 vectorsSummary;       
 
-            Dictionary<int, Vector3> averageVectors = new Dictionary<int,Vector3>();
+            List<Vector3> averageVectors = new List<Vector3>();
 
-            for (int i = 0; i< _fieldOfViewParts.Count; i++) 
+            for (int i = 0; i< _fieldOfViewParts.Length; i++) 
             {
                 vectorsSummary = Vector3.zero;
 
@@ -117,40 +123,39 @@ namespace Game.Gameplay.Systems.Character
                     else
                         averageVector = vectorsSummary;
 
-                    averageVectors.Add(i, averageVector);
+                    averageVectors.Add(averageVector);
                 }              
             }
 
             return averageVectors;
         }
 
-        private Dictionary<int, float> CalculateHeapDistancesToCharacter(Dictionary<int, Vector3> averageVectors) 
+        private List<float> CalculateHeapDistancesToCharacter(List<Vector3> averageVectors) 
         {
             float currentDistance = 0;
-            Dictionary<int, float> distances = new Dictionary<int, float>();
+            List<float> distances = new List<float>();
 
             foreach (var averageVector in averageVectors) 
             {
-                currentDistance = Vector3.Distance(_characterView.transform.position, averageVector.Value);
-                distances.Add(averageVector.Key, currentDistance);
+                currentDistance = Vector3.Distance(_characterView.transform.position, averageVector);
+                distances.Add(currentDistance);
             }
 
             return distances;
         }
 
-        private int FindMinDistancesIndex(Dictionary<int, float> distances) 
+        private int FindMinDistancesIndex(List<float> distances) 
         {
             float minDistance = float.MaxValue;
             int minIndex = 0;           
 
-            foreach(var distance in distances) 
+            for(int i = 0; i < distances.Count; i++) 
             {
-                if(distance.Value < minDistance) 
+                if(distances[i] < minDistance) 
                 {
-                    minDistance = distance.Value;
-                    minIndex = distance.Key;
+                    minDistance = distances[i];
+                    minIndex = i;
                 }
-
             }
 
             return minIndex;

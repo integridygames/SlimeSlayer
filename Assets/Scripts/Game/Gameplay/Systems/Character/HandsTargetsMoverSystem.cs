@@ -9,26 +9,19 @@ namespace Game.Gameplay.Systems.Character
 {
     public class HandsTargetsMoverSystem : IFixedUpdateSystem
     {
-        private HandTargetView _leftHandTargetView;
-        private HandTargetView _rightHandTargetView;
         private HandRotationCenterView _leftRotationCenter;
         private HandRotationCenterView _rightRotationCenter;
         private CharacterView _characterView;
-        private RaycastInfo _raycastInfo;
+        private RaycastToEnemiesInfo _raycastInfo;
         private Quaternion _rotationToZero;
 
-        private const float _maxAngle = 80;
-        private const float _rotationSpeed = 100;
+        private const float MaxAngle = 80;
+        private const float RotationSpeed = 100;
 
-        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, RaycastInfo raycastInfo)
+        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, RaycastToEnemiesInfo raycastInfo)
         {
             foreach (var handIKView in handIKViews)
-            {
-                if (handIKView.HandTargetView.IsLeft)
-                    _leftHandTargetView = handIKView.HandTargetView;
-                else
-                    _rightHandTargetView = handIKView.HandTargetView;
-
+            {              
                 if (handIKView.HandRotationCenterView.IsLeft)
                     _leftRotationCenter = handIKView.HandRotationCenterView;
                 else
@@ -52,24 +45,24 @@ namespace Game.Gameplay.Systems.Character
             {
                 case (true, false):                  
                     _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation, 
-                        SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position), _rotationSpeed * Time.fixedDeltaTime);
+                        SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
                     _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position), _rotationSpeed * Time.fixedDeltaTime);
+                        SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
                     break;
                 case (true, true):
                     DetermineSide(nearestTarget, secondNearestTarget, _leftRotationCenter.transform.position, _rightRotationCenter.transform.position,
                          out Vector3 nearestForLeft, out Vector3 nearestForRight);
 
                     _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position), _rotationSpeed * Time.fixedDeltaTime);
+                        SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
                     _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), _rotationSpeed * Time.fixedDeltaTime);
+                        SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
                     break;
                 case (false, false):
                     _leftRotationCenter.transform.localRotation = Quaternion.RotateTowards(_leftRotationCenter.transform.localRotation,
-                        _rotationToZero, _rotationSpeed * Time.fixedDeltaTime);
+                        _rotationToZero, RotationSpeed * Time.fixedDeltaTime);
                     _rightRotationCenter.transform.localRotation = Quaternion.RotateTowards(_rightRotationCenter.transform.localRotation,
-                        _rotationToZero, _rotationSpeed * Time.fixedDeltaTime);
+                        _rotationToZero, RotationSpeed * Time.fixedDeltaTime);
                     break;
             }
         }
@@ -82,7 +75,7 @@ namespace Game.Gameplay.Systems.Character
                 Vector3 characterDirectionVector = new Vector3(_characterView.transform.forward.x, 0, _characterView.transform.forward.z);
                 Vector3 characterVector = new Vector3(_characterView.transform.position.x, 0, _characterView.transform.position.z);
                 Vector3 targetToCharacterVector = new Vector3(target.transform.position.x, 0, target.transform.position.z) - characterVector;
-                if(Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= _maxAngle) 
+                if(Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= MaxAngle) 
                 {
                     filteredTargets.Add(target);
                 }

@@ -62,7 +62,7 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(handTargetsSetterSystem);
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystem(nearestHeapFinderSystem);
-            var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterToNearestHeapMoverSystem>();
+            var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
             Container.BindFixedSystem(characterToNearestHeapMoverSystem);
             var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
             Container.BindFixedSystem(handsTargetsMoverSystem);

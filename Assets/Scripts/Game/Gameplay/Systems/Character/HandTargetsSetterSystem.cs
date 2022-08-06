@@ -11,21 +11,21 @@ namespace Game.Gameplay.Systems.Character
         private HandTargetView _leftHandTargetView;
         private HandTargetView _rightHandTargetView;
         
-        private const float _leftPositionX = 0.05319402f;
-        private const float _leftPositionY = 0.008044004f;
-        private const float _leftPositionZ = 0.7770309f;
+        private const float LeftPositionX = 0.05319402f;
+        private const float LeftPositionY = 0.008044004f;
+        private const float LeftPositionZ = 0.7770309f;
 
-        private const float _rightPositionX = -0.02426209f;
-        private const float _rightPositionY = 0.008044004f;
-        private const float _rightPositionZ = 0.7970156f;
+        private const float RightPositionX = -0.02426209f;
+        private const float RightPositionY = 0.008044004f;
+        private const float RightPositionZ = 0.7970156f;
       
-        private const float _leftRotationX = -68f;
-        private const float _leftRotationY = -48.6f;
-        private const float _leftRotationZ = 54.2f;
+        private const float LeftRotationX = -68f;
+        private const float LeftRotationY = -48.6f;
+        private const float LeftRotationZ = 54.2f;
 
-        private const float _rightRotationX = -68f;
-        private const float _rightRotationY = 48.6f;
-        private const float _rightRotationZ = -54.2f;
+        private const float RightRotationX = -68f;
+        private const float RightRotationY = 48.6f;
+        private const float RightRotationZ = -54.2f;
 
         public HandTargetsSetterSystem(List<HandIKView> handIKViews) 
         {
@@ -40,10 +40,10 @@ namespace Game.Gameplay.Systems.Character
 
         public void Initialize()
         {
-            _leftHandTargetView.transform.localPosition = new Vector3(_leftPositionX, _leftPositionY, _leftPositionZ);
-            _rightHandTargetView.transform.localPosition = new Vector3(_rightPositionX, _rightPositionY, _rightPositionZ);
-            _leftHandTargetView.transform.localRotation = Quaternion.Euler(_leftRotationX, _leftRotationY, _leftRotationZ);
-            _rightHandTargetView.transform.localRotation = Quaternion.Euler(_rightRotationX, _rightRotationY, _rightRotationZ);
+            _leftHandTargetView.transform.localPosition = new Vector3(LeftPositionX, LeftPositionY, LeftPositionZ);
+            _rightHandTargetView.transform.localPosition = new Vector3(RightPositionX, RightPositionY, RightPositionZ);
+            _leftHandTargetView.transform.localRotation = Quaternion.Euler(LeftRotationX, LeftRotationY, LeftRotationZ);
+            _rightHandTargetView.transform.localRotation = Quaternion.Euler(RightRotationX, RightRotationY, RightRotationZ);
         }
     }
 }
