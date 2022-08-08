@@ -1,18 +1,18 @@
 using Game.Gameplay.Models.Heap;
 using TegridyCore.Base;
 using Game.Gameplay.Views.Character;
-using Game.Gameplay.Models.Character;
+using Game.Gameplay.Models.Character.TargetSystem;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Character 
+namespace Game.Gameplay.Systems.Character.TargetSystem 
 {
     public class CharacterRotatorToNearestHeapSystem : IFixedUpdateSystem
     {
-        private CharacterView _characterView;
-        private HeapInfo _heapInfo;
-        private float _rotationSpeed;
+        private readonly CharacterView _characterView;
+        private readonly HeapInfo _heapInfo;
+        private readonly float _rotationSpeed;
 
-        public CharacterRotatorToNearestHeapSystem(CharacterView characterView, HeapInfo heapInfo, CharacterHandsMovingStatsInfo statsInfo)
+        public CharacterRotatorToNearestHeapSystem(CharacterView characterView, HeapInfo heapInfo, CharacterHandsMovingStats statsInfo)
         {
             _heapInfo = heapInfo;
             _characterView = characterView;

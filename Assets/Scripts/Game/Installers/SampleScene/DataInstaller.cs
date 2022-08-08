@@ -1,6 +1,6 @@
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
-using Game.Gameplay.Models.Character;
+using Game.Gameplay.Models.Character.TargetSystem;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -11,8 +11,8 @@ namespace Game.Installers.SampleScene
         {
             Container.Bind<LevelInfo>().AsSingle();
             Container.Bind<HeapInfo>().AsSingle();
-            Container.Bind<RaycastToEnemiesInfo>().AsSingle();
-            Container.Bind<CharacterHandsMovingStatsInfo>().AsSingle();
+            Container.Bind<CharacterHandsMovingStats>().AsSingle();
+            Container.Bind<TargetsInfo>().AsSingle();
         }
     }
 }

@@ -1,24 +1,25 @@
-using Game.Gameplay.Models.Heap;
+using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.Character.Targets;
 using System.Collections.Generic;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Character 
+namespace Game.Gameplay.Systems.Character.TargetSystem
 {
     public class HandsTargetsMoverSystem : IFixedUpdateSystem
     {
-        private HandRotationCenterView _leftRotationCenter;
-        private HandRotationCenterView _rightRotationCenter;
-        private CharacterView _characterView;
-        private RaycastToEnemiesInfo _raycastInfo;
-        private Quaternion _rotationToZero;
+        private readonly HandRotationCenterView _leftRotationCenter;
+        private readonly HandRotationCenterView _rightRotationCenter;
+        private readonly CharacterView _characterView;
+        private readonly Quaternion _rotationToZero;
+        private readonly TargetsInfo _targetsInfo;
 
         private const float MaxAngle = 80;
         private const float RotationSpeed = 100;
 
-        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, RaycastToEnemiesInfo raycastInfo)
+        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, TargetsInfo targetsInfo, 
+            CharacterHandsMovingStats statsInfo)
         {
             foreach (var handIKView in handIKViews)
             {              
@@ -29,13 +30,13 @@ namespace Game.Gameplay.Systems.Character
             }           
 
             _characterView = characterView;
-            _raycastInfo = raycastInfo;
             _rotationToZero = Quaternion.Euler(0, 0, 0);
+            _targetsInfo = targetsInfo;
         }
 
         public void FixedUpdate()
         {
-            Collider[] targets = Physics.OverlapSphere(_characterView.transform.position, _raycastInfo.Radius, _raycastInfo.LayerNumber);
+            Collider[] targets = _targetsInfo.Targets;
             List<Collider> filteredTargets = FilterTargets(targets);
 
             FindTwoNearestTargets(filteredTargets, out Vector3 nearestTarget, out Vector3 secondNearestTarget,
@@ -43,28 +44,43 @@ namespace Game.Gameplay.Systems.Character
 
             switch (nearestTargetExists, secondNearestTargetExists) 
             {
-                case (true, false):                  
-                    _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation, 
-                        SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
-                    _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
+                case (true, false):
+                    RotateArmsToOneSide(Time.fixedDeltaTime, nearestTarget);
                     break;
                 case (true, true):
-                    DetermineSide(nearestTarget, secondNearestTarget, _leftRotationCenter.transform.position, _rightRotationCenter.transform.position,
-                         out Vector3 nearestForLeft, out Vector3 nearestForRight);
-
-                    _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
-                    _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                        SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), RotationSpeed * Time.fixedDeltaTime);
+                    RotateArmsToDifferentSides(Time.fixedDeltaTime, nearestTarget, secondNearestTarget);                  
                     break;
                 case (false, false):
-                    _leftRotationCenter.transform.localRotation = Quaternion.RotateTowards(_leftRotationCenter.transform.localRotation,
-                        _rotationToZero, RotationSpeed * Time.fixedDeltaTime);
-                    _rightRotationCenter.transform.localRotation = Quaternion.RotateTowards(_rightRotationCenter.transform.localRotation,
-                        _rotationToZero, RotationSpeed * Time.fixedDeltaTime);
+                    RotateArmsToDefaultRotation(Time.fixedDeltaTime);
                     break;
             }
+        }
+
+        private void RotateArmsToOneSide(float fixedDeltaTime, Vector3 nearestTarget) 
+        {
+            _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
+                SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+            _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
+                SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+        }
+
+        private void RotateArmsToDifferentSides(float fixedDeltaTime, Vector3 nearestTarget, Vector3 secondNearestTarget) 
+        {
+            DetermineSide(nearestTarget, secondNearestTarget, _leftRotationCenter.transform.position, _rightRotationCenter.transform.position,
+                        out Vector3 nearestForLeft, out Vector3 nearestForRight);
+
+            _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
+                SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+            _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
+                SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+        }
+
+        private void RotateArmsToDefaultRotation(float fixedDeltaTime) 
+        {
+            _leftRotationCenter.transform.localRotation = Quaternion.RotateTowards(_leftRotationCenter.transform.localRotation,
+                       _rotationToZero, RotationSpeed * fixedDeltaTime);
+            _rightRotationCenter.transform.localRotation = Quaternion.RotateTowards(_rightRotationCenter.transform.localRotation,
+                _rotationToZero, RotationSpeed * fixedDeltaTime);
         }
 
         private List<Collider> FilterTargets(Collider[] targets) 

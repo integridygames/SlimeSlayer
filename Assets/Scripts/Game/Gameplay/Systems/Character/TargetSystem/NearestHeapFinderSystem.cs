@@ -1,29 +1,29 @@
 using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Views.Character;
+using Game.Gameplay.Models.Character.TargetSystem;
 using System.Collections.Generic;
 using TegridyCore.Base;
 using UnityEngine;
-using System;
 
-namespace Game.Gameplay.Systems.Character 
+namespace Game.Gameplay.Systems.Character.TargetSystem
 {
     public class NearestHeapFinderSystem : IUpdateSystem
     {
-        private CharacterView _characterView;
-        private List<Collider>[] _fieldOfViewParts;
-        private HeapInfo _heapInfo;
-        private RaycastToEnemiesInfo _raycastToEnemiesInfo;
+        private readonly CharacterView _characterView;
+        private readonly List<Collider>[] _fieldOfViewParts;
+        private readonly HeapInfo _heapInfo;
+        private readonly TargetsInfo _targetsInfo;
   
         private const int CirclePartsQuantity = 4;
 
-        public NearestHeapFinderSystem(CharacterView characterView, HeapInfo heapInfo, RaycastToEnemiesInfo raycastToEnemiesInfo) 
+        public NearestHeapFinderSystem(CharacterView characterView, HeapInfo heapInfo, TargetsInfo targetsInfo) 
         {
             _characterView = characterView;
             _heapInfo = heapInfo;
-            _raycastToEnemiesInfo = raycastToEnemiesInfo;
             _fieldOfViewParts = new List<Collider>[CirclePartsQuantity];
             for(int i = 0; i < CirclePartsQuantity; i++)
                 _fieldOfViewParts[i] = new List<Collider>();
+            _targetsInfo = targetsInfo;
         }
 
         public void Update()
@@ -32,8 +32,8 @@ namespace Game.Gameplay.Systems.Character
         }
 
         private Vector3 DetectNearestEnemiesHeap()
-        {            
-            Collider[] targets = TryToFindEnemies();
+        {
+            Collider[] targets = _targetsInfo.Targets;
 
             if (targets.Length > 0)
             {
@@ -46,11 +46,6 @@ namespace Game.Gameplay.Systems.Character
             }
             else
                 return Vector3.zero;
-        }
-
-        private Collider[] TryToFindEnemies() 
-        {
-            return Physics.OverlapSphere(_characterView.transform.position, _raycastToEnemiesInfo.Radius, _raycastToEnemiesInfo.LayerNumber);
         }
 
         private void DetermineFieldOfViewParts(Collider[] targets) 

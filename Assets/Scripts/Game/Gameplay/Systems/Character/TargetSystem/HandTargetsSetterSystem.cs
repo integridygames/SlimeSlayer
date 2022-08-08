@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Character 
+namespace Game.Gameplay.Systems.Character.TargetSystem
 {
     public class HandTargetsSetterSystem : IInitializeSystem
     {
