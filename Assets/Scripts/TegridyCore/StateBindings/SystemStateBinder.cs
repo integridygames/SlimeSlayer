@@ -13,7 +13,7 @@ namespace TegridyCore.StateBindings
         private readonly List<SystemStateBindRecord<IInitializeSystem>> _initializeSystemStateBindRecords;
         private readonly List<SystemStateBindRecord<ICoroutineSystem>> _coroutineSystemStateBindRecords;
         private readonly List<SystemStateBindRecord<IUpdateSystem>> _updateSystemStateBindRecords;
-        private readonly List<SystemStateBindRecord<IFixedSystem>> _fixedSystemStateBindRecords;
+        private readonly List<SystemStateBindRecord<IFixedUpdateSystem>> _fixedSystemStateBindRecords;
         private readonly List<SystemStateBindRecord<IDestroySystem>> _destroySystemStateBindRecords;
 
         public SystemStateBinder(SystemStateBindService systemStateBindService,
@@ -21,7 +21,7 @@ namespace TegridyCore.StateBindings
             List<SystemStateBindRecord<IInitializeSystem>> initializeSystemStateBindRecords,
             List<SystemStateBindRecord<ICoroutineSystem>> coroutineSystemStateBindRecords,
             List<SystemStateBindRecord<IUpdateSystem>> updateSystemStateBindRecords,
-            List<SystemStateBindRecord<IFixedSystem>> fixedSystemStateBindRecords,
+            List<SystemStateBindRecord<IFixedUpdateSystem>> fixedSystemStateBindRecords,
             List<SystemStateBindRecord<IDestroySystem>> destroySystemStateBindRecords
         )
         {

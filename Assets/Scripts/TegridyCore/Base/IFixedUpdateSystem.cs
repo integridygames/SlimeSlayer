@@ -1,6 +1,6 @@
 ﻿namespace TegridyCore.Base
 {
-    public interface IFixedSystem
+    public interface IFixedUpdateSystem
     {
         void FixedUpdate();
     }
