@@ -45,9 +45,9 @@ namespace TegridyUtils.Extensions
         }
 
         public static void BindFixedSystem<TSystem>(this DiContainer container, TSystem system)
-            where TSystem : IFixedSystem
+            where TSystem : IFixedUpdateSystem
         {
-            container.Bind<IFixedSystem>()
+            container.Bind<IFixedUpdateSystem>()
                 .To<TSystem>()
                 .FromInstance(system)
                 .WhenInjectedInto<SystemManager>();
@@ -107,12 +107,12 @@ namespace TegridyUtils.Extensions
                 .WhenInjectedInto<SystemStateBinder>();
         }
 
-        public static void BindFixedSystemWithState(this DiContainer container, IFixedSystem system,
+        public static void BindFixedSystemWithState(this DiContainer container, IFixedUpdateSystem system,
             StateBase state)
         {
-            var systemStateBindRecord = new SystemStateBindRecord<IFixedSystem>(system, state);
+            var systemStateBindRecord = new SystemStateBindRecord<IFixedUpdateSystem>(system, state);
 
-            container.Bind<SystemStateBindRecord<IFixedSystem>>()
+            container.Bind<SystemStateBindRecord<IFixedUpdateSystem>>()
                 .FromInstance(systemStateBindRecord)
                 .WhenInjectedInto<SystemStateBinder>();
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.Views.Character.Targets 
 {
-    public class HandTargetView : MonoBehaviour
+    public class HandRotationCenterView : MonoBehaviour
     {
         [SerializeField] private bool _isLeft;
 
