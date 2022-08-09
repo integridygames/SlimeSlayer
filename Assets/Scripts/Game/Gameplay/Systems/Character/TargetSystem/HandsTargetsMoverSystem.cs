@@ -88,13 +88,16 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
             List<Collider> filteredTargets = new List<Collider>();
             foreach(var target in targets) 
             {
-                Vector3 characterDirectionVector = new Vector3(_characterView.transform.forward.x, 0, _characterView.transform.forward.z);
-                Vector3 characterVector = new Vector3(_characterView.transform.position.x, 0, _characterView.transform.position.z);
-                Vector3 targetToCharacterVector = new Vector3(target.transform.position.x, 0, target.transform.position.z) - characterVector;
-                if(Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= MaxAngle) 
+                if(target != null) 
                 {
-                    filteredTargets.Add(target);
-                }
+                    Vector3 characterDirectionVector = new Vector3(_characterView.transform.forward.x, 0, _characterView.transform.forward.z);
+                    Vector3 characterVector = new Vector3(_characterView.transform.position.x, 0, _characterView.transform.position.z);
+                    Vector3 targetToCharacterVector = new Vector3(target.transform.position.x, 0, target.transform.position.z) - characterVector;
+                    if (Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= MaxAngle)
+                    {
+                        filteredTargets.Add(target);
+                    }
+                }               
             }
 
             return filteredTargets;

@@ -20,7 +20,7 @@ namespace Game.Gameplay.Views.Weapons
 
         public virtual void Shoot()
         {
-            var bullet = Instantiate(BulletPrefab, ShootingPoint);
+            var bullet = Instantiate(BulletPrefab, ShootingPoint.transform.position, Quaternion.identity);
             var rigibody = bullet.GetComponent<Rigidbody>();
 
             rigibody.AddForce(transform.forward * ShootingForce, ForceMode.Impulse);
