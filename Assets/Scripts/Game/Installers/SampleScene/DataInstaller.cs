@@ -1,6 +1,6 @@
 using Game.Gameplay.Models.Level;
-using Game.Gameplay.Models.Ammo;
-using Game.Gameplay.Models.Weapon;
+using Game.Gameplay.Models.Heap;
+using Game.Gameplay.Models.Character.TargetSystem;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -10,8 +10,9 @@ namespace Game.Installers.SampleScene
         public override void InstallBindings()
         {
             Container.Bind<LevelInfo>().AsSingle();
-            Container.Bind<WeaponsInfo>().AsSingle();
-            Container.Bind<AmmoInfo>().AsSingle();
+            Container.Bind<HeapInfo>().AsSingle();
+            Container.Bind<CharacterHandsMovingStats>().AsSingle();
+            Container.Bind<TargetsInfo>().AsSingle();
         }
     }
 }

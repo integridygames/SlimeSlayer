@@ -11,9 +11,11 @@ namespace Game.Gameplay.Views.Character
         [SerializeField] private HandBoneView _handBoneView;
         [SerializeField] private HandTargetView _handTargetView;
         [SerializeField] private HandPoleView _handPoleView;
+        [SerializeField] private HandRotationCenterView _handRotationCenter;
 
         public HandBoneView HandBoneView => _handBoneView;
         public HandTargetView HandTargetView => _handTargetView;
         public HandPoleView HandPoleView => _handPoleView;
+        public HandRotationCenterView HandRotationCenterView => _handRotationCenter;
     }
 }

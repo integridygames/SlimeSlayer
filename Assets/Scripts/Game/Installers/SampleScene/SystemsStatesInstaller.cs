@@ -7,6 +7,7 @@ using TegridyUtils.Extensions;
 using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
+using Game.Gameplay.Systems.Character.TargetSystem;
 
 namespace Game.Installers.SampleScene
 {
@@ -54,14 +55,29 @@ namespace Game.Installers.SampleScene
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindInitializeSystem(levelInitialzieSystem);         
-            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializatorSystem>();
-            Container.BindInitializeSystem(weaponInitializatorSystem);
+            Container.BindInitializeSystem(levelInitialzieSystem);
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
-            var shootingSystem = Container.Instantiate<ShootingSystem>();
-            Container.BindFixedUpdateSystem(shootingSystem);
+            CreateTargetSystems();
+        }
+
+        private void CreateTargetSystems()
+        {
+            var targetsInitializeSystem = Container.Instantiate<TargetsInitializeSystem>();
+            Container.BindInitializeSystem(targetsInitializeSystem);
+            var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
+            Container.BindInitializeSystem(handTargetsSetterSystem);
+            var enemiesFinderSystem = Container.Instantiate<EnemiesFinderSystem>();
+
+            Container.BindUpdateSystem(enemiesFinderSystem);
+            var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
+            Container.BindUpdateSystem(nearestHeapFinderSystem);
+            var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
+
+            Container.BindFixedSystem(characterToNearestHeapMoverSystem);
+            var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
+            Container.BindFixedSystem(handsTargetsMoverSystem);
         }
     }
 }

@@ -1,29 +1,20 @@
 using UnityEngine;
 
-namespace Game.Gameplay.Views.Enemy 
+namespace Game.Gameplay.Views.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
-        [SerializeField] private float _MaxHealth;
-
-        private float _currentHP;
-        public float HP => _currentHP;
-
-        private void Awake()
+        private MeshFilter _meshFilter;
+        
+        private void OnDrawGizmos()
         {
-            _currentHP = _MaxHealth;
-        }
+            if (_meshFilter == null)
+            {
+                _meshFilter = GetComponent<MeshFilter>();
+            }
 
-        public void TakeDamage(float damage) 
-        {
-            _currentHP -= damage;
-            if (_currentHP <= 0)
-                Die();
-        }      
-
-        private void Die() 
-        {
-            Destroy(gameObject);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawMesh(_meshFilter.sharedMesh, transform.position);
         }
     }
 }

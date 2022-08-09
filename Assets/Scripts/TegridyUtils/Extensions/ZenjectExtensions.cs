@@ -44,7 +44,7 @@ namespace TegridyUtils.Extensions
                 .WhenInjectedInto<SystemManager>();
         }
 
-        public static void BindFixedUpdateSystem<TSystem>(this DiContainer container, TSystem system)
+        public static void BindFixedSystem<TSystem>(this DiContainer container, TSystem system)
             where TSystem : IFixedUpdateSystem
         {
             container.Bind<IFixedUpdateSystem>()
