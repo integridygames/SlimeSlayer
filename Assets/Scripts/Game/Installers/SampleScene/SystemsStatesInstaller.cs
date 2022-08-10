@@ -8,6 +8,7 @@ using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
+using Game.Gameplay.Systems.Weapon;
 
 namespace Game.Installers.SampleScene
 {
@@ -66,6 +67,10 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystem(inverseKinematicsSystem);
             var shootingSystem = Container.Instantiate<ShootingSystem>();
             Container.BindUpdateSystem(shootingSystem);
+            var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
+            Container.BindUpdateSystem(bulletsDestroyerSystem);
+            var bulletsPoolCleanerSystem = Container.Instantiate<BulletsPoolCleanerSystem>();
+            Container.BindUpdateSystem(bulletsPoolCleanerSystem);
 
             CreateTargetSystems();
         }

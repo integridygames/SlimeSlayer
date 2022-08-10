@@ -407,7 +407,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelsDataBase: {fileID: 11400000, guid: 3982d388ed552a54f831664319fccb7e, type: 2}
   _weaponsDataBase: {fileID: 11400000, guid: 303c816bd0cfec44abba4df8b96725da, type: 2}
-  _ammoDataBase: {fileID: 11400000, guid: da073b60907403d4d840151f3dda1eb1, type: 2}
 --- !u!114 &88344988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,14 +803,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 626525774}
     m_Modifications:
-    - target: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: Duration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: ShootingForce
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 3094002282751718009, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -855,10 +846,6 @@ PrefabInstance:
     - target: {fileID: 3094002282751718009, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.232
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094002282751718011, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3094002282751718014, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_Name
@@ -1367,6 +1354,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac660d45143624eb0ff79ad4f70d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1718112329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718112331}
+  - component: {fileID: 1718112330}
+  m_Layer: 0
+  m_Name: BulletsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1718112330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718112329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63a7bd0e3e9c7443bb5ee8c91e395f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isCached: 0
+  Bullets: []
+--- !u!4 &1718112331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718112329}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.633702, y: -3.5277457, z: -1.3365698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1867079062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,12 +1755,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 441033183}
     m_Modifications:
     - target: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: Duration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: ShootingForce
-      value: 20
+      propertyPath: IsAmmoUnlimited
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3094002282751718009, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_RootOrder
@@ -1772,10 +1801,6 @@ PrefabInstance:
     - target: {fileID: 3094002282751718009, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -21.679
-      objectReference: {fileID: 0}
-    - target: {fileID: 3094002282751718011, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3094002282751718014, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
       propertyPath: m_Name

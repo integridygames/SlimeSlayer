@@ -1,61 +1,73 @@
-using Game.Gameplay.Models.Ammo;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Utils.Layers;
 using Game.Gameplay.Views.Weapons;
+using Game.Gameplay.Models.Bullets;
 using TegridyCore.Base;
 using UnityEngine;
 
-public class ShootingSystem : IUpdateSystem
-{
-    private WeaponsInfo _weaponsInfo;
-    private AmmoInfo _ammoInfo;
-    private bool _isTimeToShoot;
-    private float _currentTimeBeforeShooting;
-
-    private const float MaxDistance = 30f;
-    private const int BulletsPerShot = 1;
-
-    public ShootingSystem(WeaponsInfo weaponsInfo, AmmoInfo ammoInfo) 
+namespace Game.Gameplay.Systems.Weapon 
+{   
+    public class ShootingSystem : IUpdateSystem
     {
-        _weaponsInfo = weaponsInfo;
-        _ammoInfo = ammoInfo;
-        _isTimeToShoot = true;
-        _currentTimeBeforeShooting = 0;
-    }
+        private readonly WeaponsInfo _weaponsInfo;
+        private readonly BulletsPool _bulletsPool;
+        private readonly Transform _poolTranform;
+        private bool _isTimeToShoot;
+        private float _currentTimeBeforeShooting;
 
-    public void Update()
-    {
-        if (_isTimeToShoot) 
+        private const float MaxDistance = 30f;
+        private const int BulletsPerShot = 1;
+
+        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPool bulletsPool) 
         {
-            TryToShoot(_weaponsInfo.CurrentWeaponViewLeft.Value);
-            TryToShoot(_weaponsInfo.CurrentWeaponViewRight.Value);
-            _isTimeToShoot = false;
+            _weaponsInfo = weaponsInfo;
+            _isTimeToShoot = true;
+            _currentTimeBeforeShooting = 0;
+            _bulletsPool = bulletsPool;
+            _bulletsPool.TryGetComponent<Transform>(out _poolTranform);
         }
-        else 
+
+        public void Update()
         {
-            _currentTimeBeforeShooting += Time.deltaTime;
-            if (_currentTimeBeforeShooting >= _weaponsInfo.CurrentWeaponViewLeft.Value.DurationValue) 
+            if (_isTimeToShoot) 
             {
-                _isTimeToShoot = true;
-                _currentTimeBeforeShooting = 0;
+                TryToShoot(_weaponsInfo.CurrentWeaponViewLeft.Value);
+                TryToShoot(_weaponsInfo.CurrentWeaponViewRight.Value);
+                _isTimeToShoot = false;
             }
-        }
-    }
-
-    private void TryToShoot(WeaponView weaponView) 
-    {
-        if(Physics.Raycast(weaponView.ShootingPointTranform.position, weaponView.ShootingPointTranform.forward, MaxDistance, (int)Layers.Enemy)) 
-        {            
-            if (!_ammoInfo.CurrentAmmoView.Value.IsUnlimited) 
+            else 
             {
-                if (_ammoInfo.CurrentAmmoView.Value.Quantity > 0) 
+                _currentTimeBeforeShooting += Time.deltaTime;
+                if (_currentTimeBeforeShooting >= _weaponsInfo.CurrentWeaponViewLeft.Value.DurationValue) 
                 {
-                    _ammoInfo.CurrentAmmoView.Value.RemoveAmmo(BulletsPerShot);
-                    weaponView.Shoot();
+                    _isTimeToShoot = true;
+                    _currentTimeBeforeShooting = 0;
                 }
             }
-            else
-                weaponView.Shoot();
+        }
+
+        private void TryToShoot(WeaponView weaponView) 
+        {
+            if(Physics.Raycast(weaponView.ShootingPointTranform.position, weaponView.ShootingPointTranform.forward, MaxDistance, (int)Layers.Enemy)) 
+            {            
+                if (!weaponView.IsUnlimited) 
+                {
+                    if (weaponView.CurrentAmmoQuantity > 0) 
+                    {
+                        weaponView.RemoveAmmo(BulletsPerShot);
+                        Shoot(weaponView);
+                    }
+                }
+                else 
+                    Shoot(weaponView);
+            }
+        }
+
+        private void Shoot(WeaponView weaponView) 
+        {
+            var bullet = weaponView.Shoot();
+            bullet.GetComponent<Transform>().SetParent(_poolTranform);
+            _bulletsPool.Bullets.Add(bullet);
         }
     }
 }

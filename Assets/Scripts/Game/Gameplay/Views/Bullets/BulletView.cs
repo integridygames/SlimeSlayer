@@ -10,8 +10,12 @@ namespace Game.Gameplay.Views.Bullets
     {
         [SerializeField] private string Identificator;
         [SerializeField] private WeaponView _weaponView;
+        [SerializeField] private float _lifeTime;
+
+        public float CurrentLifeTime = 0;
 
         public string ID => Identificator;
+        public float LifeTime => _lifeTime;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -19,6 +23,11 @@ namespace Game.Gameplay.Views.Bullets
             {
                 enemyView.TakeDamage(_weaponView.DamageValue);               
             }
+            Die();
+        }
+
+        public void Die() 
+        {
             Destroy(gameObject);
         }
     }

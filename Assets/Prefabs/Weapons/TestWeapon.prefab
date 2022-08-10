@@ -58,7 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3094002282751718014}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.34}
   m_ConstrainProportionsScale: 0
@@ -125,7 +125,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3094002282751718014}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -145,7 +145,10 @@ MonoBehaviour:
   _isCached: 1
   Identificator: 0
   Damage: 1
-  Duration: 1
+  Duration: 0.5
   BulletPrefab: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
   ShootingPoint: {fileID: 3094002281144089856}
-  ShootingForce: 10
+  ShootingForce: 5
+  IsAmmoUnlimited: 1
+  MaxAmmoQunatity: 0
+  CurrentAmmoQuantity: 0
