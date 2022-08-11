@@ -8,6 +8,7 @@ using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
+using Game.Gameplay.Systems.Input.Joystick;
 
 namespace Game.Installers.SampleScene
 {
@@ -56,9 +57,19 @@ namespace Game.Installers.SampleScene
             Container.BindPreInitializeSystem(gameInitializeSystem);
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
             Container.BindInitializeSystem(levelInitialzieSystem);
+
+            var joystickInitializerSystem = Container.Instantiate<JoystickInitializeSystem>();
+            Container.BindInitializeSystem(joystickInitializerSystem);
+
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
+
+            var joystickSwitcherSystem = Container.Instantiate<JoystickSwitcherSystem>();
+            Container.BindUpdateSystem(joystickSwitcherSystem);
+            var joystickPositionerSystem = Container.Instantiate<JoystickPositionerSystem>();
+            Container.BindUpdateSystem(joystickPositionerSystem);
+
             CreateTargetSystems();
         }
 
