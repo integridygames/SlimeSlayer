@@ -1,26 +1,21 @@
 using UnityEngine;
-using TegridyCore.Base;
 using Game.Gameplay.Views.SampleScene.Screens;
+using Game.Gameplay.Models.Raycast;
 
 namespace Game.Gameplay.Systems.Input.Joystick 
 {  
-    public class JoystickPositionerSystem : IUpdateSystem
+    public class JoystickPositionerSystem : JoystickUpdateSystem
     {
         private readonly RectTransform _joystickRectTransform;
-        private readonly GameScreenView _gameScreenView;
 
-        public JoystickPositionerSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView) 
+        public JoystickPositionerSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView, MouseRaycastInfo mouseRaycastInfo) : base(gameScreenView, mouseRaycastInfo)
         {
             joystick.TryGetComponent<RectTransform>(out _joystickRectTransform);
-            _gameScreenView = gameScreenView;
         }
 
-        public void Update()
-        {
-            if (_gameScreenView.gameObject.activeInHierarchy) 
-            {
-                TryToSetPosition();
-            }          
+        protected override void DoUpateMethod()
+        {           
+            TryToSetPosition();                     
         }
 
         private void TryToSetPosition() 
@@ -37,6 +32,5 @@ namespace Game.Gameplay.Systems.Input.Joystick
                 _joystickRectTransform.position.z);
             _joystickRectTransform.position = targetPosition;           
         }
-
     }
 }

@@ -3,13 +3,13 @@ using TegridyCore.Base;
 using Zenject;
 using Game.Gameplay.Views.SampleScene.Screens;
 
-namespace Game.Gameplay.Controllers.Joystick 
+namespace Game.Gameplay.Controllers.GameScreen 
 {
-    public class JoystickController : ControllerBase<GameScreenView>, IInitializable, IDisposable
+    public class GameScreenController : ControllerBase<GameScreenView>, IInitializable, IDisposable
     {
         private readonly Views.Input.Joystick _joystick;
 
-        public JoystickController(GameScreenView gameScreenView, Views.Input.Joystick joystick) : base(gameScreenView) 
+        public GameScreenController(GameScreenView gameScreenView, Views.Input.Joystick joystick) : base(gameScreenView) 
         {
             _joystick = joystick;
         }

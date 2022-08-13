@@ -1,24 +1,22 @@
-using TegridyCore.Base;
 using Game.Gameplay.Views.SampleScene.Screens;
+using Game.Gameplay.Models.Raycast;
 
 namespace Game.Gameplay.Systems.Input.Joystick
 {
-    public class JoystickSwitcherSystem : IUpdateSystem
+    public class JoystickSwitcherSystem : JoystickUpdateSystem
     {
         private readonly Views.Input.Joystick _joystick;
-        private readonly GameScreenView _gameScreenView;
 
-        public JoystickSwitcherSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView) 
+        public JoystickSwitcherSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView, MouseRaycastInfo mouseRaycastInfo) : base(gameScreenView, mouseRaycastInfo)
         {
             _joystick = joystick;
-            _gameScreenView = gameScreenView;
         }
 
-        public void Update()
+        public override void Update()
         {
-            if (_gameScreenView.gameObject.activeInHierarchy) 
-            {
-                SwitchState(UnityEngine.Input.GetMouseButtonDown(0), true);
+            if (GameScreenView.gameObject.activeInHierarchy) 
+            {                
+                SwitchState(UnityEngine.Input.GetMouseButtonDown(0) && !MouseRaycastInfo.IsMouseOverUI, true);
                 SwitchState(UnityEngine.Input.GetMouseButtonUp(0), false);          
             }
         }

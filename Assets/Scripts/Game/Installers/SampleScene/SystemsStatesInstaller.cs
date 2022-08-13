@@ -9,6 +9,8 @@ using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.Input.Joystick;
+using Game.Gameplay.Systems.Input.Raycast;
+using Game.Gameplay.Systems.Character.MovementSystem;
 
 namespace Game.Installers.SampleScene
 {
@@ -55,9 +57,9 @@ namespace Game.Installers.SampleScene
         {
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
+
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
             Container.BindInitializeSystem(levelInitialzieSystem);
-
             var joystickInitializerSystem = Container.Instantiate<JoystickInitializeSystem>();
             Container.BindInitializeSystem(joystickInitializerSystem);
 
@@ -65,10 +67,19 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
 
+            var mouseRaycastOnUISystem = Container.Instantiate<MouseRaycastOnUISystem>();
+            Container.BindUpdateSystem(mouseRaycastOnUISystem);
             var joystickSwitcherSystem = Container.Instantiate<JoystickSwitcherSystem>();
             Container.BindUpdateSystem(joystickSwitcherSystem);
             var joystickPositionerSystem = Container.Instantiate<JoystickPositionerSystem>();
             Container.BindUpdateSystem(joystickPositionerSystem);
+
+            var joystickHandlerMoveSystem = Container.Instantiate<JoystickHandleMoveSystem>();
+            Container.BindFixedSystem(joystickHandlerMoveSystem);
+            var joystickBackgroundMoveSystem = Container.Instantiate<JoystickBackgroundMoveSystem>();
+            Container.BindFixedSystem(joystickBackgroundMoveSystem);
+            var characterMoveSystem = Container.Instantiate<CharacterMoveSystem>();
+            Container.BindFixedSystem(characterMoveSystem);
 
             CreateTargetSystems();
         }

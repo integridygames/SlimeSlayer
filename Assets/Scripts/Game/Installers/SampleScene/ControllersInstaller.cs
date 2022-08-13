@@ -1,5 +1,5 @@
 ﻿using Zenject;
-using Game.Gameplay.Controllers.Joystick;
+using Game.Gameplay.Controllers.GameScreen;
 
 namespace Game.Installers.SampleScene
 {
@@ -7,7 +7,7 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            BindController<JoystickController>();
+            BindController<GameScreenController>();
         }
 
         private void BindController<TController>()
