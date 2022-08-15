@@ -11,6 +11,7 @@ using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.Input.Joystick;
 using Game.Gameplay.Systems.Input.Raycast;
 using Game.Gameplay.Systems.Character.MovementSystem;
+using Game.Gameplay.Systems.CameraContainer;
 
 namespace Game.Installers.SampleScene
 {
@@ -62,6 +63,8 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(levelInitialzieSystem);
             var joystickInitializerSystem = Container.Instantiate<JoystickInitializeSystem>();
             Container.BindInitializeSystem(joystickInitializerSystem);
+            var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
+            Container.BindInitializeSystem(cameraContainerInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
@@ -73,6 +76,8 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystem(joystickSwitcherSystem);
             var joystickPositionerSystem = Container.Instantiate<JoystickPositionerSystem>();
             Container.BindUpdateSystem(joystickPositionerSystem);
+            var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
+            Container.BindUpdateSystem(cameraContainerUpdateSystem);
 
             var joystickHandlerMoveSystem = Container.Instantiate<JoystickHandleMoveSystem>();
             Container.BindFixedSystem(joystickHandlerMoveSystem);

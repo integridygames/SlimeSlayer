@@ -7,10 +7,12 @@ namespace Game.Gameplay.Systems.Input.Joystick
     public class JoystickPositionerSystem : JoystickUpdateSystem
     {
         private readonly RectTransform _joystickRectTransform;
+        private readonly Views.Input.Joystick _joystick;
 
         public JoystickPositionerSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView, MouseRaycastInfo mouseRaycastInfo) : base(gameScreenView, mouseRaycastInfo)
         {
             joystick.TryGetComponent<RectTransform>(out _joystickRectTransform);
+            _joystick = joystick;
         }
 
         protected override void DoUpateMethod()
@@ -30,7 +32,11 @@ namespace Game.Gameplay.Systems.Input.Joystick
         {
             Vector3 targetPosition = new Vector3(UnityEngine.Input.mousePosition.x, UnityEngine.Input.mousePosition.y,
                 _joystickRectTransform.position.z);
-            _joystickRectTransform.position = targetPosition;           
+
+            _joystick.Handle.localPosition = Vector3.zero;
+            _joystick.Background.localPosition = Vector3.zero;
+            _joystickRectTransform.position = targetPosition;
+            
         }
     }
 }
