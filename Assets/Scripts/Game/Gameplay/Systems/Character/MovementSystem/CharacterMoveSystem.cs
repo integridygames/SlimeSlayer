@@ -47,7 +47,7 @@ namespace Game.Gameplay.Systems.Character.MovementSystem
             directionX = DetermineDirection(_joystick.Handle.transform.position.x, _joystick.Background.transform.position.x);
             directionZ = DetermineDirection(_joystick.Handle.transform.position.y, _joystick.Background.transform.position.y);
             
-            return new Vector3(-directionX, 0, -directionZ);
+            return new Vector3(directionX, 0, directionZ);
         }
 
         private float DetermineDirection(float handlePosition, float centerPosition) 

@@ -15,7 +15,7 @@ namespace Game.Gameplay.Systems.Input.Joystick
             _joystick = joystick;
         }
 
-        protected override void DoUpateMethod()
+        protected override void DoUpdateMethod()
         {           
             TryToSetPosition();                     
         }
@@ -32,11 +32,8 @@ namespace Game.Gameplay.Systems.Input.Joystick
         {
             Vector3 targetPosition = new Vector3(UnityEngine.Input.mousePosition.x, UnityEngine.Input.mousePosition.y,
                 _joystickRectTransform.position.z);
-
-            _joystick.Handle.localPosition = Vector3.zero;
-            _joystick.Background.localPosition = Vector3.zero;
-            _joystickRectTransform.position = targetPosition;
-            
+         
+            _joystickRectTransform.position = targetPosition;           
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Game.Gameplay.Systems.Input.Joystick
         private readonly Views.Input.Joystick _joystick;
         private readonly float _maxDistance;
 
-        private const float Speed = 2000f;
+        private const float Speed = 4000f;
 
         public JoystickBackgroundMoveSystem(GameScreenView gameScreenView, MouseRaycastInfo mouseRaycastInfo, Views.Input.Joystick joystick) : base(gameScreenView, mouseRaycastInfo)
         {

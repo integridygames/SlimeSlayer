@@ -17,15 +17,17 @@ namespace Game.Gameplay.Systems.Input.Joystick
 
         public virtual void Update()
         {
-            if (GameScreenView.gameObject.activeInHierarchy && !MouseRaycastInfo.IsMouseOverUI)
+            if (CheckIfAllowed())
             {
-                DoUpateMethod();
+                DoUpdateMethod();
             }
         }
 
-        protected virtual void DoUpateMethod()
+        protected virtual bool CheckIfAllowed() 
         {
-
+            return GameScreenView.gameObject.activeInHierarchy && !MouseRaycastInfo.IsMouseOverUI;
         }
+
+        protected abstract void DoUpdateMethod();      
     }
 }

@@ -78,6 +78,8 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystem(joystickPositionerSystem);
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
+            var characterMoveAnimatorSystem = Container.Instantiate<CharacterMoveAnimatorSystem>();
+            Container.BindUpdateSystem(characterMoveAnimatorSystem);
 
             var joystickHandlerMoveSystem = Container.Instantiate<JoystickHandleMoveSystem>();
             Container.BindFixedSystem(joystickHandlerMoveSystem);

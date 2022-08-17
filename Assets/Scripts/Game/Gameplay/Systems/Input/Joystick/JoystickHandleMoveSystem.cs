@@ -11,8 +11,6 @@ namespace Game.Gameplay.Systems.Input.Joystick
         private Vector3 _currentPosition;
         private Vector3 _previousPosition;
 
-        private const float Speed = 2000f;
-
         public JoystickHandleMoveSystem(Views.Input.Joystick joystick, GameScreenView gameScreenView, MouseRaycastInfo mouseRaycastInfo) : base(gameScreenView, mouseRaycastInfo)
         {
             _joystick = joystick;
@@ -43,8 +41,8 @@ namespace Game.Gameplay.Systems.Input.Joystick
         private void Move() 
         {
             if(_currentPosition.x != _previousPosition.x || _currentPosition.y != _previousPosition.y) 
-            {           
-                _joystick.Handle.position = Vector3.MoveTowards(_joystick.Handle.position, _currentPosition, Time.fixedDeltaTime * Speed);
+            {
+                _joystick.Handle.position = _currentPosition;
                 _previousPosition = _currentPosition;
             }
         }
