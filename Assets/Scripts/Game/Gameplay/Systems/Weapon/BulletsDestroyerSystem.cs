@@ -6,7 +6,7 @@ namespace Game.Gameplay.Systems.Weapon
 {
     public class BulletsDestroyerSystem : IUpdateSystem
     {
-        private BulletsPool _bulletsPool;
+        private readonly BulletsPool _bulletsPool;
 
         public BulletsDestroyerSystem(BulletsPool bulletsPool) 
         {

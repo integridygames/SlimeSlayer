@@ -7,8 +7,8 @@ namespace Game.Gameplay.Systems.Weapon
 {
     public class BulletsPoolCleanerSystem : IUpdateSystem
     {
-        public BulletsPool _bulletsPool;
-        private List<BulletView> _bulletsForDelete;
+        public readonly BulletsPool _bulletsPool;
+        private readonly List<BulletView> _bulletsForDelete;
 
         public BulletsPoolCleanerSystem(BulletsPool bulletsPool) 
         {
