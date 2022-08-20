@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCached: 1
-  Identificator: 0
+  Identificator: 1
   Damage: 1
   Duration: 0.5
   BulletPrefab: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
@@ -151,4 +151,3 @@ MonoBehaviour:
   ShootingForce: 5
   IsAmmoUnlimited: 1
   MaxAmmoQunatity: 0
-  CurrentAmmoQuantity: 0

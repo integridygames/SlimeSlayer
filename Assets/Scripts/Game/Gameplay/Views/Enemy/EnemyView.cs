@@ -4,16 +4,16 @@ namespace Game.Gameplay.Views.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
-        [SerializeField] private float _MaxHealth;
+        [SerializeField] private float _maxHealth;
 
         private MeshFilter _meshFilter;
 
-        private float _currentHP;
-        public float HP => _currentHP;
+        private float _currentHp;
+        public float HP => _currentHp;
 
         private void Awake()
         {
-            _currentHP = _MaxHealth;
+            _currentHp = _maxHealth;
         }
 
         private void OnDrawGizmos()
@@ -29,8 +29,8 @@ namespace Game.Gameplay.Views.Enemy
 
         public void TakeDamage(float damage)
         {
-            _currentHP -= damage;
-            if (_currentHP <= 0)
+            _currentHp -= damage;
+            if (_currentHp <= 0)
                 Die();
         }
 

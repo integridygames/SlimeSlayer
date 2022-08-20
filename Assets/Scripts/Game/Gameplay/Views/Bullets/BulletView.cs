@@ -8,13 +8,14 @@ namespace Game.Gameplay.Views.Bullets
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : ViewBase
     {
-        [SerializeField] private string Identificator;
+        [SerializeField] private string _identificator;
         [SerializeField] private WeaponView _weaponView;
         [SerializeField] private float _lifeTime;
 
-        public float CurrentLifeTime = 0;
+        private float _currentLifeTime = 0;
 
-        public string ID => Identificator;
+        public float CurrentLifeTime => _currentLifeTime;
+        public string ID => _identificator;
         public float LifeTime => _lifeTime;
 
         private void OnTriggerEnter(Collider other)
@@ -29,6 +30,11 @@ namespace Game.Gameplay.Views.Bullets
         public void Die() 
         {
             Destroy(gameObject);
+        }
+
+        public void AddToCurrentLifeTime(float time) 
+        {
+            _currentLifeTime += time;
         }
     }
 }

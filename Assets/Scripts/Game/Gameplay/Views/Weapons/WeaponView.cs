@@ -6,7 +6,7 @@ namespace Game.Gameplay.Views.Weapons
 {
     public abstract class WeaponView : ViewBase
     {
-        [SerializeField] protected string Identificator;
+        [SerializeField] protected Utils.Weapons.Weapons Identificator;
         [SerializeField] protected float Damage;
         [SerializeField] protected float Duration;
         [SerializeField] protected BulletView BulletPrefab;
@@ -15,9 +15,10 @@ namespace Game.Gameplay.Views.Weapons
         [SerializeField] protected bool IsAmmoUnlimited;
         [SerializeField] protected float MaxAmmoQunatity;
 
-        public float CurrentAmmoQuantity;
+        private float _currentAmmoQuantity;
 
-        public string ID => Identificator;
+        public float CurrentAmmoQuantity => _currentAmmoQuantity;
+        public int ID => (int)Identificator;
         public float DamageValue => Damage;
         public float DurationValue => Duration;
         public Transform ShootingPointTranform => ShootingPoint;
@@ -35,16 +36,16 @@ namespace Game.Gameplay.Views.Weapons
 
         public void AddAmmo(float quantity) 
         {
-            float currentQuantity = CurrentAmmoQuantity - quantity;
+            float currentQuantity = _currentAmmoQuantity + quantity;
             currentQuantity = Mathf.Clamp(currentQuantity, 0, MaxAmmoQunatity);
-            CurrentAmmoQuantity = currentQuantity;
+            _currentAmmoQuantity = currentQuantity;
         }
 
         public void RemoveAmmo(float quantity) 
         {
-            float currentQuantity = CurrentAmmoQuantity + quantity;
+            float currentQuantity = _currentAmmoQuantity - quantity;
             currentQuantity = Mathf.Clamp(currentQuantity, 0, MaxAmmoQunatity);
-            CurrentAmmoQuantity = currentQuantity;
+            _currentAmmoQuantity = currentQuantity;
         }
     }
 }

@@ -7,14 +7,14 @@ using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Weapon 
 {  
-    public class WeaponInitializatorSystem : IInitializeSystem
+    public class WeaponInitializeSystem : IInitializeSystem
     {
         private readonly WeaponsInfo _weaponsInfo;
         private readonly WeaponsDataBase _weaponsDB;
         private readonly WeaponPlacer _leftPlacerView;
         private readonly WeaponPlacer _rightPlacerView;
 
-        public WeaponInitializatorSystem(WeaponsInfo weaopnsInfo, 
+        public WeaponInitializeSystem(WeaponsInfo weaopnsInfo, 
             WeaponsDataBase weaponsDB, List<WeaponPlacer> weaponPlacers) 
         {
             _weaponsInfo = weaopnsInfo;
@@ -34,8 +34,8 @@ namespace Game.Gameplay.Systems.Weapon
             _weaponsInfo.PlayerArsenal.Add(_weaponsDB.GetWeaponPrefabByIndex(0));
             _weaponsInfo.CurrentWeaponViewLeft = _leftPlacerView.GetComponentInChildren<WeaponView>();
             _weaponsInfo.CurrentWeaponViewRight = _rightPlacerView.GetComponentInChildren<WeaponView>();
-            _weaponsInfo.CurrentWeaponViewLeft.Value.CurrentAmmoQuantity = _weaponsInfo.CurrentWeaponViewLeft.Value.MaxBulletsQunatity;
-            _weaponsInfo.CurrentWeaponViewRight.Value.CurrentAmmoQuantity = _weaponsInfo.CurrentWeaponViewRight.Value.MaxBulletsQunatity;
+            _weaponsInfo.CurrentWeaponViewLeft.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewLeft.Value.MaxBulletsQunatity);
+            _weaponsInfo.CurrentWeaponViewRight.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewRight.Value.MaxBulletsQunatity);
         }
     }
 }

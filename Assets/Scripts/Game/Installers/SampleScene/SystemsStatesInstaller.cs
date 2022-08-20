@@ -59,7 +59,7 @@ namespace Game.Installers.SampleScene
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
             Container.BindInitializeSystem(levelInitialzieSystem);
 
-            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializatorSystem>();
+            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializatorSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
@@ -68,9 +68,7 @@ namespace Game.Installers.SampleScene
             var shootingSystem = Container.Instantiate<ShootingSystem>();
             Container.BindUpdateSystem(shootingSystem);
             var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
-            Container.BindUpdateSystem(bulletsDestroyerSystem);
-            var bulletsPoolCleanerSystem = Container.Instantiate<BulletsPoolCleanerSystem>();
-            Container.BindUpdateSystem(bulletsPoolCleanerSystem);
+            Container.BindUpdateSystem(bulletsDestroyerSystem);       
 
             CreateTargetSystems();
         }
