@@ -8,10 +8,8 @@ using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
-using Game.Gameplay.Systems.Input.Joystick;
-using Game.Gameplay.Systems.Input.Raycast;
-using Game.Gameplay.Systems.Character.MovementSystem;
 using Game.Gameplay.Systems.CameraContainer;
+using Game.Gameplay.Systems.Character.Movement;
 
 namespace Game.Installers.SampleScene
 {
@@ -61,34 +59,15 @@ namespace Game.Installers.SampleScene
 
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
             Container.BindInitializeSystem(levelInitialzieSystem);
-            var joystickInitializerSystem = Container.Instantiate<JoystickInitializeSystem>();
-            Container.BindInitializeSystem(joystickInitializerSystem);
             var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
-
-            var mouseRaycastOnUISystem = Container.Instantiate<MouseRaycastOnUISystem>();
-            Container.BindUpdateSystem(mouseRaycastOnUISystem);
-            var joystickSwitcherSystem = Container.Instantiate<JoystickSwitcherSystem>();
-            Container.BindUpdateSystem(joystickSwitcherSystem);
-            var joystickPositionerSystem = Container.Instantiate<JoystickPositionerSystem>();
-            Container.BindUpdateSystem(joystickPositionerSystem);
+            
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
-            var characterMoveAnimatorSystem = Container.Instantiate<CharacterMoveAnimatorSystem>();
-            Container.BindUpdateSystem(characterMoveAnimatorSystem);
-            var joystickHandlePositionCalculateSystem = Container.Instantiate<JoystickHandlePositionCalculateSystem>();
-            Container.BindUpdateSystem(joystickHandlePositionCalculateSystem);
-
-            var joystickHandlerMoveSystem = Container.Instantiate<JoystickHandleMoveSystem>();
-            Container.BindFixedSystem(joystickHandlerMoveSystem);
-            var joystickBackgroundMoveSystem = Container.Instantiate<JoystickBackgroundMoveSystem>();
-            Container.BindFixedSystem(joystickBackgroundMoveSystem);
-            var characterMoveSystem = Container.Instantiate<CharacterMoveSystem>();
-            Container.BindFixedSystem(characterMoveSystem);
 
             CreateTargetSystems();
         }
@@ -97,18 +76,30 @@ namespace Game.Installers.SampleScene
         {
             var targetsInitializeSystem = Container.Instantiate<TargetsInitializeSystem>();
             Container.BindInitializeSystem(targetsInitializeSystem);
+            
             var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
             Container.BindInitializeSystem(handTargetsSetterSystem);
+            
             var enemiesFinderSystem = Container.Instantiate<EnemiesFinderSystem>();
-
             Container.BindUpdateSystem(enemiesFinderSystem);
+            
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystem(nearestHeapFinderSystem);
+            
             var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
-
             Container.BindFixedSystem(characterToNearestHeapMoverSystem);
+            
             var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
             Container.BindFixedSystem(handsTargetsMoverSystem);
+
+            var characterInputVelocitySystem = Container.Instantiate<CharacterInputVelocitySystem>();
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
+
+            var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
+            Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
+
+            var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
+            Container.BindUpdateSystemWithState(characterAnimationSystem, _gameState);
         }
     }
 }

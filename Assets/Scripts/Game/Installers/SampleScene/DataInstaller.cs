@@ -1,3 +1,4 @@
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Models.Character.TargetSystem;
@@ -15,6 +16,8 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterHandsMovingStats>().AsSingle();
             Container.Bind<TargetsInfo>().AsSingle();
             Container.Bind<MouseRaycastInfo>().AsSingle();
+            Container.Bind<CharacterMovingData>().AsSingle();
+            Container.Bind<CharacterStats>().AsSingle();
         }
     }
 }
