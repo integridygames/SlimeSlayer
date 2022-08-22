@@ -1,6 +1,7 @@
 using Game.Gameplay.Views.Weapons;
 using UnityEngine;
 using TegridyUtils.Extensions;
+using Game.Gameplay.Utils.Weapons;
 
 namespace Game.ScriptableObjects 
 {
@@ -19,7 +20,7 @@ namespace Game.ScriptableObjects
             return _weapons.GetRandomElement();
         }
 
-        public WeaponView GetWeaponPrefabByID(int ID)
+        public WeaponView GetWeaponPrefabByID(Weapons ID)
         {
             foreach(var weapon in _weapons) 
             {

@@ -14,11 +14,9 @@ namespace Game.Gameplay.Views.Weapons
         [SerializeField] protected float ShootingForce;
         [SerializeField] protected bool IsAmmoUnlimited;
         [SerializeField] protected float MaxAmmoQunatity;
-
-        private float _currentAmmoQuantity;
-
-        public float CurrentAmmoQuantity => _currentAmmoQuantity;
-        public int ID => (int)Identificator;
+    
+        public float CurrentAmmoQuantity { get; private set; }
+        public Utils.Weapons.Weapons ID => Identificator;
         public float DamageValue => Damage;
         public float DurationValue => Duration;
         public Transform ShootingPointTranform => ShootingPoint;
@@ -36,16 +34,16 @@ namespace Game.Gameplay.Views.Weapons
 
         public void AddAmmo(float quantity) 
         {
-            float currentQuantity = _currentAmmoQuantity + quantity;
+            float currentQuantity = CurrentAmmoQuantity + quantity;
             currentQuantity = Mathf.Clamp(currentQuantity, 0, MaxAmmoQunatity);
-            _currentAmmoQuantity = currentQuantity;
+            CurrentAmmoQuantity = currentQuantity;
         }
 
         public void RemoveAmmo(float quantity) 
         {
-            float currentQuantity = _currentAmmoQuantity - quantity;
+            float currentQuantity = CurrentAmmoQuantity - quantity;
             currentQuantity = Mathf.Clamp(currentQuantity, 0, MaxAmmoQunatity);
-            _currentAmmoQuantity = currentQuantity;
+            CurrentAmmoQuantity = currentQuantity;
         }
     }
 }
