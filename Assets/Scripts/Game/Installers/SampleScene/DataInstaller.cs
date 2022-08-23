@@ -3,6 +3,7 @@ using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Models.Raycast;
+using Game.Gameplay.Models.Weapon;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -18,6 +19,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<MouseRaycastInfo>().AsSingle();
             Container.Bind<CharacterMovingData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
+            Container.Bind<WeaponsInfo>().AsSingle();
         }
     }
 }
