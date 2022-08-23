@@ -26,7 +26,8 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
                 Vector3 direction = _heapInfo.HeapVector - _characterView.transform.position;
                 direction = new Vector3(direction.x, _characterView.transform.position.y, direction.z);
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                _characterView.transform.rotation = Quaternion.RotateTowards(_characterView.transform.rotation, 
+                
+                _characterView.Rigidbody.rotation = Quaternion.RotateTowards(_characterView.transform.rotation, 
                     targetRotation, Time.fixedDeltaTime * _rotationSpeed);
             }
         }

@@ -1,24 +1,14 @@
 using TegridyCore.Base;
 using UnityEngine;
-using Zenject;
-using Game.Gameplay.Views.Character.Placers;
 
-namespace Game.Gameplay.Views.Character 
+namespace Game.Gameplay.Views.Character
 {
-    public class CharacterView : ViewBase, IInitializable
+    public class CharacterView : ViewBase
     {
-        [SerializeField] private WeaponPlacer _leftWeaponPosition;
-        [SerializeField] private WeaponPlacer _rightWeaponPosition;
-
         private Animator _animator;
-        public WeaponPlacer LeftWeaponPosition => _leftWeaponPosition;
-        public WeaponPlacer RightWeaponPosition => _rightWeaponPosition;
+        public Animator Animator => _animator ??= GetComponentInChildren<Animator>();
 
-        public Animator Animator => _animator;     
-
-        public void Initialize()
-        {
-            _animator = GetComponentInChildren<Animator>();
-        }
+        private Rigidbody _rigidbody;
+        public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
     }
 }

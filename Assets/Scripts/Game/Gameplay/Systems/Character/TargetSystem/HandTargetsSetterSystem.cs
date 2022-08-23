@@ -18,14 +18,14 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private const float RightPositionX = -0.02426209f;
         private const float RightPositionY = 0.008044004f;
         private const float RightPositionZ = 0.7970156f;
+      
+        private const float LeftRotationX = -101.261f;
+        private const float LeftRotationY = 150.343f;
+        private const float LeftRotationZ = -68.05899f;
 
-        private const float LeftRotationX = -68f;
-        private const float LeftRotationY = -48.6f;
-        private const float LeftRotationZ = 54.2f;
-
-        private const float RightRotationX = -68f;
-        private const float RightRotationY = 48.6f;
-        private const float RightRotationZ = -54.2f;
+        private const float RightRotationX = -101.261f;
+        private const float RightRotationY = -150.343f;
+        private const float RightRotationZ = 68.05899f;
 
         public HandTargetsSetterSystem(List<HandIKView> handIKViews) 
         {

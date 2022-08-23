@@ -8,7 +8,8 @@ using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
-using Game.Gameplay.Systems.Weapon;
+using Game.Gameplay.Systems.CameraContainer;
+using Game.Gameplay.Systems.Character.Movement;
 
 namespace Game.Installers.SampleScene
 {
@@ -58,50 +59,47 @@ namespace Game.Installers.SampleScene
 
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
             Container.BindInitializeSystem(levelInitialzieSystem);
-
-            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializeSystem>();
-            Container.BindInitializeSystem(weaponInitializatorSystem);
+            var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
+            Container.BindInitializeSystem(cameraContainerInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
-            var shootingSystem = Container.Instantiate<ShootingSystem>();
-            Container.BindUpdateSystem(shootingSystem);
-            var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
-            Container.BindUpdateSystem(bulletsDestroyerSystem);       
+            
+            var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
+            Container.BindUpdateSystem(cameraContainerUpdateSystem);
 
             CreateTargetSystems();
         }
 
-        private void CreateTargetSystems() 
-        {
-            CreateInitializeTargetSystems();
-            CreateUpdateTargetSystems();
-            CreateFixedUpdateTargetSystems();
-        }
-
-        private void CreateInitializeTargetSystems()
+        private void CreateTargetSystems()
         {
             var targetsInitializeSystem = Container.Instantiate<TargetsInitializeSystem>();
             Container.BindInitializeSystem(targetsInitializeSystem);
+            
             var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
             Container.BindInitializeSystem(handTargetsSetterSystem);
-        }
-
-        private void CreateUpdateTargetSystems() 
-        {
+            
             var enemiesFinderSystem = Container.Instantiate<EnemiesFinderSystem>();
             Container.BindUpdateSystem(enemiesFinderSystem);
+            
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystem(nearestHeapFinderSystem);
-        }
-
-        private void CreateFixedUpdateTargetSystems() 
-        {
+            
             var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
             Container.BindFixedSystem(characterToNearestHeapMoverSystem);
+            
             var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
             Container.BindFixedSystem(handsTargetsMoverSystem);
+
+            var characterInputVelocitySystem = Container.Instantiate<CharacterInputVelocitySystem>();
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
+
+            var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
+            Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
+
+            var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
+            Container.BindUpdateSystemWithState(characterAnimationSystem, _gameState);
         }
     }
 }
