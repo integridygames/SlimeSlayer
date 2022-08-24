@@ -20,7 +20,7 @@ namespace Game.ScriptableObjects
             return _weapons.GetRandomElement();
         }
 
-        public WeaponView GetWeaponPrefabByID(Weapons ID)
+        public WeaponView GetWeaponPrefabByID(WeaponsEnum ID)
         {
             foreach(var weapon in _weapons) 
             {

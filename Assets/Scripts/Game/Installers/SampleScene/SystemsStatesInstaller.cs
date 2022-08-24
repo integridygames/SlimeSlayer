@@ -11,6 +11,7 @@ using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.CameraContainer;
 using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
+using Game.Gameplay.Systems.Bullet;
 
 namespace Game.Installers.SampleScene
 {
@@ -64,6 +65,8 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
             var weaponInitializatorSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializatorSystem);
+            var bulletsPoolInitializeSystem = Container.Instantiate<BulletsPoolInitializeSystem>();
+            Container.BindInitializeSystem(bulletsPoolInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);

@@ -1,12 +1,13 @@
 using TegridyCore.Base;
 using UnityEngine;
 using Game.Gameplay.Views.Bullets;
+using Game.Gameplay.Utils.Weapons;
 
 namespace Game.Gameplay.Views.Weapons 
 {
     public abstract class WeaponView : ViewBase
     {
-        [SerializeField] protected Utils.Weapons.Weapons Identificator;
+        [SerializeField] protected WeaponsEnum Identificator;
         [SerializeField] protected float Damage;
         [SerializeField] protected float Duration;
         [SerializeField] protected BulletView BulletPrefab;
@@ -16,19 +17,19 @@ namespace Game.Gameplay.Views.Weapons
         [SerializeField] protected float MaxAmmoQunatity;
     
         public float CurrentAmmoQuantity { get; private set; }
-        public Utils.Weapons.Weapons ID => Identificator;
+        public WeaponsEnum ID => Identificator;
         public float DamageValue => Damage;
         public float DurationValue => Duration;
         public Transform ShootingPointTranform => ShootingPoint;
         public bool IsUnlimited => IsAmmoUnlimited;
         public float MaxBulletsQunatity => MaxAmmoQunatity;
+        public BulletView BulletTemplate => BulletPrefab;
 
-        public virtual BulletView Shoot()
+        public virtual BulletView Shoot(BulletView bullet)
         {
-            var bullet = Instantiate(BulletPrefab, ShootingPoint.transform.position, Quaternion.identity);
-            var rigibody = bullet.GetComponent<Rigidbody>();
-
-            rigibody.velocity = transform.forward * ShootingForce;
+            bullet.transform.position = ShootingPoint.transform.position;
+            bullet.gameObject.SetActive(true);
+            bullet.Rigidbody.velocity = transform.forward * ShootingForce;     
             return bullet;
         }
 

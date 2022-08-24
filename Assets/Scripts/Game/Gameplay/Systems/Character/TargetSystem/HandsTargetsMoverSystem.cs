@@ -227,9 +227,9 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private float DetermineDirection(Vector3 target) 
         {
             return (target.x - _characterView.transform.position.x) *
-                (_characterView.transform.forward.z - _characterView.transform.position.z) -
+                _characterView.transform.forward.z -
                 (target.z - _characterView.transform.position.z) *
-                (_characterView.transform.forward.x - _characterView.transform.position.x);
+                _characterView.transform.forward.x;
         }
     }
 }

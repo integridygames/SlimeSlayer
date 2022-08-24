@@ -11,12 +11,14 @@ namespace Game.Gameplay.Views.Bullets
         [SerializeField] private string _identificator;
         [SerializeField] private WeaponView _weaponView;
         [SerializeField] private float _lifeTime;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private float _currentLifeTime = 0;
 
         public float CurrentLifeTime => _currentLifeTime;
         public string ID => _identificator;
         public float LifeTime => _lifeTime;
+        public Rigidbody Rigidbody => _rigidbody;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -29,7 +31,8 @@ namespace Game.Gameplay.Views.Bullets
 
         public void Die() 
         {
-            Destroy(gameObject);
+            _currentLifeTime = 0;
+            gameObject.SetActive(false);
         }
 
         public void AddToCurrentLifeTime(float time) 

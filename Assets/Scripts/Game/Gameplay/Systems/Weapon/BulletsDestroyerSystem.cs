@@ -2,41 +2,41 @@ using UnityEngine;
 using TegridyCore.Base;
 using Game.Gameplay.Models.Bullets;
 using Game.Gameplay.Views.Bullets;
+using System.Collections.Generic;
 
 namespace Game.Gameplay.Systems.Weapon 
 {
     public class BulletsDestroyerSystem : IUpdateSystem
     {
-        private readonly BulletsPool _bulletsPool;
+        private readonly BulletsPool _leftBulletsPool;
+        private readonly BulletsPool _rightBulletsPool;
 
-        public BulletsDestroyerSystem(BulletsPool bulletsPool) 
+        public BulletsDestroyerSystem(List<BulletsPool> bulletsPools) 
         {
-            _bulletsPool = bulletsPool;
+            foreach (var pool in bulletsPools)
+            {
+                if (pool.IsLeft)
+                    _leftBulletsPool = pool;
+                else
+                    _rightBulletsPool = pool;
+            }
         }
 
         public void Update()
-        {           
-            foreach (BulletView bullet in _bulletsPool.Bullets) 
+        {
+            CalculateLifeTime(Time.deltaTime, _leftBulletsPool);
+            CalculateLifeTime(Time.deltaTime, _rightBulletsPool);
+        }
+
+        private void CalculateLifeTime(float deltaTime, BulletsPool pool) 
+        {
+            foreach (BulletView bullet in pool.Bullets)
             {
-                bullet.AddToCurrentLifeTime(Time.deltaTime);
+                bullet.AddToCurrentLifeTime(deltaTime);
 
-                if(CheckIfLifeTimeIsOver(bullet))                
-                    DestroyBullet(bullet);             
+                if (CheckIfLifeTimeIsOver(bullet))
+                    DestroyBullet(bullet);
             }
-
-            TryToDeleteFromBulletsList();
-        }
-
-        private void TryToDeleteFromBulletsList()
-        {
-            if (_bulletsPool.BulletsForDelete.Count > 0)
-                DeleteFromBulletsList();
-        }
-
-        private void DeleteFromBulletsList() 
-        {
-            foreach (var bullet in _bulletsPool.BulletsForDelete)           
-                _bulletsPool.Bullets.Remove(bullet);          
         }
 
         private bool CheckIfLifeTimeIsOver(BulletView bullet) 
@@ -46,7 +46,7 @@ namespace Game.Gameplay.Systems.Weapon
 
         private void DestroyBullet(BulletView bullet) 
         {
-            _bulletsPool.BulletsForDelete.Add(bullet);
+            bullet.Rigidbody.velocity = Vector3.zero;
             bullet.Die();
         }
     }  
