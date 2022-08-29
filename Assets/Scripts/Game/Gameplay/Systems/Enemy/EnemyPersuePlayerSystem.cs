@@ -73,8 +73,9 @@ namespace Game.Gameplay.Systems.Enemy
 
         private void Rotate(EnemyView enemy, float deltaTime)
         {
-            Vector3 direction = (_characterView.transform.position - enemy.transform.position) * deltaTime * enemy.RotationSpeed;
-            enemy.transform.rotation = Quaternion.LookRotation(direction);
+            Vector3 direction = _characterView.transform.position - enemy.transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, deltaTime * enemy.RotationSpeed);
         }
     }
 }
