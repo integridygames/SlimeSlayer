@@ -58,13 +58,15 @@ namespace Game.Installers.SampleScene
         {
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
-
             var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindInitializeSystem(levelInitialzieSystem);
-            var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
-            Container.BindInitializeSystem(cameraContainerInitializeSystem);
+            Container.BindPreInitializeSystem(levelInitialzieSystem);
+
             var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
             Container.BindInitializeSystem(zonesInitializeSystem);
+            var zoneTriggersInitializeSystem = Container.Instantiate<ZoneTriggersInitializeSystem>();
+            Container.BindInitializeSystem(zoneTriggersInitializeSystem);
+            var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
+            Container.BindInitializeSystem(cameraContainerInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
@@ -72,6 +74,8 @@ namespace Game.Installers.SampleScene
             
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
+            var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();
+            Container.BindUpdateSystem(currentZoneCatchSystem);
             var enemyPatrolSystem = Container.Instantiate<EnemyPatrolSystem>();
             Container.BindUpdateSystem(enemyPatrolSystem);
 

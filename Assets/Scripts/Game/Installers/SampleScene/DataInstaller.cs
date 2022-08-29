@@ -4,6 +4,7 @@ using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Models.Raycast;
 using Zenject;
+using Game.Gameplay.Models.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -18,6 +19,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<MouseRaycastInfo>().AsSingle();
             Container.Bind<CharacterMovingData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
+            Container.Bind<ZonesInfo>().AsSingle();
         }
     }
 }

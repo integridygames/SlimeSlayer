@@ -6,7 +6,7 @@ using TegridyCore.Base;
 namespace Game.Gameplay.Systems.Level
 {
     [UsedImplicitly]
-    public class LevelInitializeSystem : IInitializeSystem
+    public class LevelInitializeSystem : IPreInitializeSystem
     {
         private readonly LevelFactory _levelFactory;
         private readonly LevelInfo _levelInfo;      
@@ -18,7 +18,7 @@ namespace Game.Gameplay.Systems.Level
             _levelInfo = levelInfo;         
         }
 
-        public void Initialize()
+        public void PreInitialize()
         {
             var levelView = _levelFactory.Create();
 

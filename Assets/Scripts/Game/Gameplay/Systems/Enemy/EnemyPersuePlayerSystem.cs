@@ -21,7 +21,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public void FixedUpdate()
         {   
-            if (!CheckIfCurrentZoneIsTriggered())
+            if (CheckIfCurrentZoneIsTriggered())
             {
                 PursusePlayer(Time.fixedDeltaTime);
             }        

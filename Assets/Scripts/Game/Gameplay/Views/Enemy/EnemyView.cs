@@ -12,7 +12,12 @@ namespace Game.Gameplay.Views.Enemy
         public Vector3 CurrentPatrolPoint { get; private set; }
 
         private MeshFilter _meshFilter;
-        
+
+        private void Start()
+        {
+            CurrentPatrolPoint = transform.position;
+        }
+
         private void OnDrawGizmos()
         {
             if (_meshFilter == null)

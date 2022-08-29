@@ -1,6 +1,6 @@
+using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Views.Enemy;
 using Game.Gameplay.Views.Zone;
-using System.Collections.Generic;
 using TegridyCore.Base;
 using UnityEngine;
 
@@ -8,18 +8,18 @@ namespace Game.Gameplay.Systems.Enemy
 {
     public class EnemyPatrolSystem : IUpdateSystem
     {
-        private readonly List<ZoneView> _zones;
+        private readonly ZonesInfo _zonesInfo;
 
         private const float Inaccuracy = 0.1f;
 
-        public EnemyPatrolSystem(List<ZoneView> zones) 
+        public EnemyPatrolSystem(ZonesInfo zonesInfo) 
         {
-            _zones = zones;
+            _zonesInfo = zonesInfo;
         }
 
         public void Update()
         {
-            foreach(var zone in _zones) 
+            foreach(var zone in _zonesInfo.Zones) 
             {
                 if (!CheckIfZoneIsTriggered(zone)) 
                 {

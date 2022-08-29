@@ -10,13 +10,16 @@ namespace Game.Gameplay.Views.Zone
     {
         [SerializeField] private Vector2 zoneSize;
 
+        public List<ZoneTrigger> ZoneTriggers { get; private set; }
         public List<EnemyView> EnemiesPool { get; private set; }
 
         public bool IsZoneTriggered { get; private set; } = false;      
 
         public void Initialize()
         {
+            EnemiesPool = new List<EnemyView>();
             EnemiesPool = GetComponentsInChildren<EnemyView>().ToList();
+            ZoneTriggers = GetComponentsInChildren<ZoneTrigger>().ToList();
         }
 
         public void ClearPool() 

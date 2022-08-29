@@ -2,7 +2,6 @@ using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Gameplay.Views.Zone 
 {
@@ -14,16 +13,15 @@ namespace Game.Gameplay.Views.Zone
 
         private ZonesInfo _zonesInfo;
 
-        [Inject]
-        public void Construct(ZonesInfo zonesInfo) 
+        public void Initialize(ZonesInfo zonesInfo) 
         {
             _zonesInfo = zonesInfo;
         }
 
-        private void OnTriggerEnter(Collider body)
+        private void OnTriggerEnter(Collider other)
         {
-            if (body.TryGetComponent<CharacterView>(out CharacterView characterView)) 
-            {              
+            if (other.TryGetComponent<CharacterView>(out CharacterView characterView))
+            {
                 _zoneView.ChangeZoneState(_isEntranceZone);
                 TryToSetCurrentZoneToNull();
                 _isEntranceZone = !_isEntranceZone;

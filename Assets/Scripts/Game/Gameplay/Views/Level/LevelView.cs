@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Game.Gameplay.Views.Enemy;
+using Game.Gameplay.Views.Zone;
 
 namespace Game.Gameplay.Views.Level
 {
     public class LevelView : MonoBehaviour
     {
         [SerializeField] private ObstacleView[] _obstacleViews;
-        [SerializeField] private EnemyView[] _enemiesViews;
+        [SerializeField] private ZoneView[] _zonesViews;
         [SerializeField] private SpawnPointView _spawnPointView;
 
         public IReadOnlyCollection<ObstacleView> ObstacleViews => _obstacleViews;
-        public IReadOnlyCollection<EnemyView> EnemiesViews => _enemiesViews;
+        public IReadOnlyCollection<ZoneView> ZonesViews => _zonesViews;
         public SpawnPointView SpawnPointView => _spawnPointView;
 
         private void Awake()
         {
             _obstacleViews = GetComponentsInChildren<ObstacleView>();
-            _enemiesViews = GetComponentsInChildren<EnemyView>();
         }
 
         public void Destroy()

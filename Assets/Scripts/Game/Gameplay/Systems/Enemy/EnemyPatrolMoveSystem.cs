@@ -1,25 +1,25 @@
-using System.Collections.Generic;
 using UnityEngine;
 using TegridyCore.Base;
 using Game.Gameplay.Views.Zone;
 using Game.Gameplay.Views.Enemy;
+using Game.Gameplay.Models.Zone;
 
 namespace Game.Gameplay.Systems.Enemy 
 {  
     public class EnemyPatrolMoveSystem : IFixedUpdateSystem
     {
-        private readonly List<ZoneView> _zones;
+        private readonly ZonesInfo _zonesInfo;
 
         public const float Inaccuracy = 0.1f;
 
-        public EnemyPatrolMoveSystem(List<ZoneView> zones)
+        public EnemyPatrolMoveSystem(ZonesInfo zonesInfo)
         {
-            _zones = zones;
+            _zonesInfo = zonesInfo;
         }
 
         public void FixedUpdate()
         {
-            foreach (var zone in _zones)
+            foreach (var zone in _zonesInfo.Zones)
             {
                 if (!CheckIfZoneIsTriggered(zone))
                 {
@@ -39,20 +39,23 @@ namespace Game.Gameplay.Systems.Enemy
             {
                 if (enemy.gameObject.activeInHierarchy) 
                 {
-                    RotateToPointIfNecessary(enemy, deltaTime);
-
-                    enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.CurrentPatrolPoint, deltaTime * enemy.MovementSpeed);
+                    MakeMovement(enemy, deltaTime);
                 }
             }
         }
 
-        private void RotateToPointIfNecessary(EnemyView enemy, float deltaTime) 
+        private void MakeMovement(EnemyView enemy, float deltaTime) 
         {
             Quaternion rotationToPoint = GetRotation(enemy);
-            if (!CheckRotation(enemy, rotationToPoint))
-            {
-                Rotate(enemy, deltaTime);
-            }
+            if (!CheckRotation(enemy, rotationToPoint))           
+                Rotate(enemy, deltaTime);           
+            else            
+                Move(enemy, deltaTime);            
+        }
+
+        private void Move(EnemyView enemy, float deltaTime) 
+        {
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.CurrentPatrolPoint, deltaTime * enemy.MovementSpeed);
         }
 
         private bool CheckRotation(EnemyView enemy, Quaternion rotaion) 
@@ -70,8 +73,9 @@ namespace Game.Gameplay.Systems.Enemy
 
         private void Rotate(EnemyView enemy, float deltaTime) 
         {
-            Vector3 direction = (enemy.CurrentPatrolPoint - enemy.transform.position) * deltaTime * enemy.RotationSpeed;
-            enemy.transform.rotation = Quaternion.LookRotation(direction);
+            Vector3 direction = enemy.CurrentPatrolPoint - enemy.transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, deltaTime * enemy.RotationSpeed);
         }
     }
 }
