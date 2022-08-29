@@ -10,6 +10,8 @@ using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.CameraContainer;
 using Game.Gameplay.Systems.Character.Movement;
+using Game.Gameplay.Systems.Zone;
+using Game.Gameplay.Systems.Enemy;
 
 namespace Game.Installers.SampleScene
 {
@@ -61,6 +63,8 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(levelInitialzieSystem);
             var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
+            var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
+            Container.BindInitializeSystem(zonesInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
@@ -68,6 +72,13 @@ namespace Game.Installers.SampleScene
             
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
+            var enemyPatrolSystem = Container.Instantiate<EnemyPatrolSystem>();
+            Container.BindUpdateSystem(enemyPatrolSystem);
+
+            var enemyPatrolMoveSystem = Container.Instantiate<EnemyPatrolMoveSystem>();
+            Container.BindFixedSystem(enemyPatrolMoveSystem);
+            var enemyPersuePlayerSystem = Container.Instantiate<EnemyPersuePlayerSystem>();
+            Container.BindFixedSystem(enemyPersuePlayerSystem);
 
             CreateTargetSystems();
         }
