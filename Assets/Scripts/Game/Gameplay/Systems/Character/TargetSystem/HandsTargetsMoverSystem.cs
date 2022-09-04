@@ -88,13 +88,16 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
             List<Collider> filteredTargets = new List<Collider>();
             foreach(var target in targets) 
             {
-                Vector3 characterDirectionVector = new Vector3(_characterView.transform.forward.x, 0, _characterView.transform.forward.z);
-                Vector3 characterVector = new Vector3(_characterView.transform.position.x, 0, _characterView.transform.position.z);
-                Vector3 targetToCharacterVector = new Vector3(target.transform.position.x, 0, target.transform.position.z) - characterVector;
-                if(Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= MaxAngle) 
+                if(target != null) 
                 {
-                    filteredTargets.Add(target);
-                }
+                    Vector3 characterDirectionVector = new Vector3(_characterView.transform.forward.x, 0, _characterView.transform.forward.z);
+                    Vector3 characterVector = new Vector3(_characterView.transform.position.x, 0, _characterView.transform.position.z);
+                    Vector3 targetToCharacterVector = new Vector3(target.transform.position.x, 0, target.transform.position.z) - characterVector;
+                    if (Vector3.Angle(characterDirectionVector, targetToCharacterVector) <= MaxAngle)
+                    {
+                        filteredTargets.Add(target);
+                    }
+                }               
             }
 
             return filteredTargets;
@@ -148,19 +151,85 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private void DetermineSide(Vector3 nearestTarget, Vector3 secondNearestTarget, Vector3 leftRotationCenter, Vector3 rightRotationCenter,
             out Vector3 nearestForLeft, out Vector3 nearestForRight) 
         {
-            float leftDistanceToNearest = Vector3.Distance(nearestTarget, leftRotationCenter);
-            float rightDistanceToNearest = Vector3.Distance(nearestTarget, rightRotationCenter);
+            nearestForLeft = Vector3.zero;
+            nearestForRight = Vector3.zero;
 
-            if(leftDistanceToNearest < rightDistanceToNearest) 
+            DetermineDirections(nearestTarget, secondNearestTarget, out float directionNearest, out float directionSecondNearest);
+            NormalizeDirections(directionNearest, directionSecondNearest, out float directionNearestNormalized, out float directionSecondNearestNormalized);
+          
+            switch ((directionNearestNormalized, directionSecondNearestNormalized)) 
+            {
+                case (0, 0):
+                    SetTargetsIfBothZero(nearestTarget, secondNearestTarget, out nearestForLeft, out nearestForRight);                
+                    break;
+                case (-1, -1):
+                    SetTargetsIfEqual(directionNearest, directionSecondNearest, nearestTarget, secondNearestTarget, out nearestForLeft, out nearestForRight);
+                    break;
+                case (1, 1):
+                    SetTargetsIfEqual(directionNearest, directionSecondNearest, nearestTarget, secondNearestTarget, out nearestForLeft, out nearestForRight);
+                    break;
+                case (-1, 1):
+                    SetTargetsIfNotEqual(nearestTarget, secondNearestTarget, out nearestForLeft, out nearestForRight);
+                    break;
+                case (1, -1):
+                    SetTargetsIfNotEqual(secondNearestTarget, nearestTarget, out nearestForLeft, out nearestForRight);
+                    break;
+            }
+        }
+
+        private void SetTargetsIfBothZero(Vector3 nearestTarget, Vector3 secondNearestTarget, out Vector3 nearestForLeft, out Vector3 nearestForRight) 
+        {
+            if (Vector3.Distance(_characterView.transform.position, nearestTarget) < Vector3.Distance(_characterView.transform.position, secondNearestTarget))
+            {
+                nearestForLeft = nearestTarget;
+                nearestForRight = nearestTarget;
+            }
+            else
+            {
+                nearestForLeft = secondNearestTarget;
+                nearestForRight = secondNearestTarget;
+            }
+        }
+
+        private void SetTargetsIfEqual(float directionNearest, float directionSecondNearest, Vector3 nearestTarget, Vector3 secondNearestTarget,
+            out Vector3 nearestForLeft, out Vector3 nearestForRight) 
+        {
+            if (directionNearest < directionSecondNearest)
             {
                 nearestForLeft = nearestTarget;
                 nearestForRight = secondNearestTarget;
             }
-            else 
+            else
             {
                 nearestForLeft = secondNearestTarget;
                 nearestForRight = nearestTarget;
             }
+        }
+
+        private void SetTargetsIfNotEqual(Vector3 firstNearest, Vector3 secondNearest, out Vector3 nearestForLeft, out Vector3 nearestForRight) 
+        {
+            nearestForLeft = firstNearest;
+            nearestForRight = secondNearest;
+        }
+
+        private void NormalizeDirections(float directionNearest, float directionSecondNearest, out float directionNearestNormalized, out float directionSecondNearestNormalized) 
+        {
+            directionNearestNormalized = directionNearest / Mathf.Abs(directionNearest);
+            directionSecondNearestNormalized = directionSecondNearest / Mathf.Abs(directionSecondNearest);
+        }
+
+        private void DetermineDirections(Vector3 nearestTarget, Vector3 secondNearestTarget, out float directionNearest, out float directionSecondNearest) 
+        {
+            directionNearest = DetermineDirection(nearestTarget);
+            directionSecondNearest = DetermineDirection(secondNearestTarget);
+        }
+
+        private float DetermineDirection(Vector3 target) 
+        {
+            return (target.x - _characterView.transform.position.x) *
+                _characterView.transform.forward.z -
+                (target.z - _characterView.transform.position.z) *
+                _characterView.transform.forward.x;
         }
     }
 }
