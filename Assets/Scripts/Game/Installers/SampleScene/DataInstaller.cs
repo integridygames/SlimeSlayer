@@ -1,3 +1,4 @@
+using Game.Gameplay.Models.Bullets;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
@@ -20,6 +21,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterMovingData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<WeaponsInfo>().AsSingle();
+            Container.Bind<ActiveBulletsContainer>().AsSingle();
         }
     }
 }

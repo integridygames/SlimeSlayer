@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCached: 1
-  _identificator: 0
-  _weaponView: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-  _lifeTime: 5
+  _weaponType: 1
   _rigidbody: {fileID: 1007694132603375785}
+  _lifeTime: 5
+  _damage: 0

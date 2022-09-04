@@ -14,10 +14,10 @@ namespace Game.Gameplay.Systems.Weapon
         private readonly WeaponPlacer _leftPlacerView;
         private readonly WeaponPlacer _rightPlacerView;
 
-        public WeaponInitializeSystem(WeaponsInfo weaopnsInfo, 
+        public WeaponInitializeSystem(WeaponsInfo weaponsInfo, 
             WeaponsDataBase weaponsDB, List<WeaponPlacer> weaponPlacers) 
         {
-            _weaponsInfo = weaopnsInfo;
+            _weaponsInfo = weaponsInfo;
             _weaponsDB = weaponsDB;
 
             foreach(var placer in weaponPlacers) 
@@ -31,11 +31,11 @@ namespace Game.Gameplay.Systems.Weapon
 
         public void Initialize()
         {
-            _weaponsInfo.PlayerArsenal.Add(_weaponsDB.GetWeaponPrefabByIndex(0));
-            _weaponsInfo.CurrentWeaponViewLeft = _leftPlacerView.GetComponentInChildren<WeaponView>();
-            _weaponsInfo.CurrentWeaponViewRight = _rightPlacerView.GetComponentInChildren<WeaponView>();
-            _weaponsInfo.CurrentWeaponViewLeft.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewLeft.Value.MaxBulletsQunatity);
-            _weaponsInfo.CurrentWeaponViewRight.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewRight.Value.MaxBulletsQunatity);
+            _weaponsInfo.PlayerArsenal.Add(_weaponsDB.GetWeaponRecordByIndex(0)._weaponViewPrefab);
+            _weaponsInfo.CurrentWeaponViewLeft = _leftPlacerView.GetComponentInChildren<WeaponViewBase>();
+            _weaponsInfo.CurrentWeaponViewRight = _rightPlacerView.GetComponentInChildren<WeaponViewBase>();
+            _weaponsInfo.CurrentWeaponViewLeft.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewLeft.Value.MaxBulletsQuantity);
+            _weaponsInfo.CurrentWeaponViewRight.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewRight.Value.MaxBulletsQuantity);
         }
     }
 }

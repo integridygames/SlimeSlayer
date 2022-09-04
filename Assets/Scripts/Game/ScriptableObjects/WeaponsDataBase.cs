@@ -1,4 +1,3 @@
-using Game.Gameplay.Views.Weapons;
 using UnityEngine;
 using TegridyUtils.Extensions;
 using Game.Gameplay.Utils.Weapons;
@@ -8,9 +7,9 @@ namespace Game.ScriptableObjects
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
     public class WeaponsDataBase : ScriptableObject
     {
-        [SerializeField] private WeaponView[] _weapons;
+        [SerializeField] private WeaponRecord[] _weapons;
 
-        public WeaponView GetWeaponPrefabByIndex(int index)
+        public WeaponRecord GetWeaponRecordByIndex(int index)
         {
             if (index < _weapons.Length)
             {
@@ -20,11 +19,11 @@ namespace Game.ScriptableObjects
             return _weapons.GetRandomElement();
         }
 
-        public WeaponView GetWeaponPrefabByID(WeaponsEnum ID)
+        public WeaponRecord GetWeaponRecordByType(WeaponType weaponType)
         {
             foreach(var weapon in _weapons) 
             {
-                if(weapon.ID == ID) 
+                if(weapon._weaponType == weaponType) 
                 {
                     return weapon;
                 }

@@ -1,43 +1,39 @@
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Utils.Layers;
 using Game.Gameplay.Views.Weapons;
-using Game.Gameplay.Models.Bullets;
 using TegridyCore.Base;
 using UnityEngine;
 using Game.Gameplay.Models.Character.TargetSystem;
-using System.Collections.Generic;
+using Game.Gameplay.Factories;
+using Game.Gameplay.Models.Bullets;
 
 namespace Game.Gameplay.Systems.Weapon 
 {   
     public class ShootingSystem : IUpdateSystem
     {
         private readonly WeaponsInfo _weaponsInfo;
-        private readonly BulletsPool _leftBulletsPool;
-        private readonly BulletsPool _rightBulletsPool;
+        private readonly BulletsPoolFactory _bulletsPoolFactory;
+        private readonly TargetsInfo _targetsInfo;
+        private readonly ActiveBulletsContainer _activeBulletsContainer;
+
         private bool _isTimeToShootForLeft;
         private bool _isTimeToShootForRight;
         private float _currentTimeBeforeShootingLeft;
         private float _currentTimeBeforeShootingRight;
-        private TargetsInfo _targetsInfo;
+
 
         private const float MaxDistance = 30f;
         private const int BulletsPerShot = 1;
 
-        public ShootingSystem(WeaponsInfo weaponsInfo, List<BulletsPool> bulletsPools, TargetsInfo targetsInfo) 
+        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPoolFactory bulletsPool, TargetsInfo targetsInfo, ActiveBulletsContainer activeBulletsContainer)  
         {
             _weaponsInfo = weaponsInfo;
             _currentTimeBeforeShootingLeft = 0;
             _currentTimeBeforeShootingRight = 0;
-
-            foreach (var pool in bulletsPools)
-            {
-                if (pool.IsLeft)
-                    _leftBulletsPool = pool;
-                else
-                    _rightBulletsPool = pool;
-            }
+            _bulletsPoolFactory = bulletsPool;
 
             _targetsInfo = targetsInfo;
+            _activeBulletsContainer = activeBulletsContainer;
             _isTimeToShootForLeft = true;
             _isTimeToShootForRight = true;
         }
@@ -46,14 +42,14 @@ namespace Game.Gameplay.Systems.Weapon
         {
             if(CheckShootingNecessity()) 
             {
-                CheckIfTimeToShoot(_isTimeToShootForLeft, _weaponsInfo.CurrentWeaponViewLeft.Value, _leftBulletsPool, Time.deltaTime, _currentTimeBeforeShootingLeft, 
+                CheckIfTimeToShoot(_isTimeToShootForLeft, _weaponsInfo.CurrentWeaponViewLeft.Value, Time.deltaTime, _currentTimeBeforeShootingLeft, 
                     out _isTimeToShootForLeft, out _currentTimeBeforeShootingLeft);
-                CheckIfTimeToShoot(_isTimeToShootForRight, _weaponsInfo.CurrentWeaponViewRight.Value, _rightBulletsPool, Time.deltaTime, _currentTimeBeforeShootingRight, 
+                CheckIfTimeToShoot(_isTimeToShootForRight, _weaponsInfo.CurrentWeaponViewRight.Value, Time.deltaTime, _currentTimeBeforeShootingRight, 
                     out _isTimeToShootForRight, out _currentTimeBeforeShootingRight);
             }
         }
 
-        private void CheckIfTimeToShoot(bool isTimeToShoot, WeaponView weaponView, BulletsPool pool, float deltaTime, float currentTimeBeforeShooting, out bool isTimeToShootReturned,  
+        private void CheckIfTimeToShoot(bool isTimeToShoot, WeaponViewBase weaponView, float deltaTime, float currentTimeBeforeShooting, out bool isTimeToShootReturned,  
             out float currentTimeBeforeShootingReturned) 
         {
             isTimeToShootReturned = isTimeToShoot;
@@ -62,7 +58,7 @@ namespace Game.Gameplay.Systems.Weapon
             switch (isTimeToShoot)
             {
                 case true:
-                    TryToShoot(weaponView, pool);
+                    TryToShoot(weaponView);
                     isTimeToShootReturned = false;
                     break;
                 case false:
@@ -76,7 +72,7 @@ namespace Game.Gameplay.Systems.Weapon
         {
             currentTimeBeforeShootingReturned = currentTimeBeforeShooting;
             currentTimeBeforeShootingReturned += deltaTime;
-            if (currentTimeBeforeShootingReturned >= _weaponsInfo.CurrentWeaponViewLeft.Value.DurationValue)
+            if (currentTimeBeforeShootingReturned >= _weaponsInfo.CurrentWeaponViewLeft.Value.Duration)
             {
                 isTimeToShootReturned = true;
                 currentTimeBeforeShootingReturned = 0;
@@ -90,26 +86,28 @@ namespace Game.Gameplay.Systems.Weapon
             return _targetsInfo.Targets.Length > 0 || _isTimeToShootForLeft || _isTimeToShootForRight;
         }
 
-        private void TryToShoot(WeaponView weaponView, BulletsPool pool) 
+        private void TryToShoot(WeaponViewBase weaponView) 
         {
-            if(Physics.Raycast(weaponView.ShootingPointTranform.position, weaponView.ShootingPointTranform.forward, MaxDistance, (int)Layers.Enemy)) 
+            if(Physics.Raycast(weaponView.ShootingPoint.position, weaponView.ShootingPoint.forward, MaxDistance, (int)Layers.Enemy)) 
             {            
-                if (!weaponView.IsUnlimited) 
+                if (!weaponView.IsAmmoUnlimited) 
                 {
                     if (weaponView.CurrentAmmoQuantity > 0) 
                     {
                         weaponView.RemoveAmmo(BulletsPerShot);
-                        Shoot(weaponView, pool);
+                        Shoot(weaponView);
                     }
                 }
                 else 
-                    Shoot(weaponView, pool);
+                    Shoot(weaponView);
             }
         }
 
-        private void Shoot(WeaponView weaponView, BulletsPool pool) 
+        private void Shoot(WeaponViewBase weaponView) 
         {
-            var bullet = pool.TakeNextBullet();
+            var bullet = _bulletsPoolFactory.TakeNextBullet(weaponView.ID);
+            _activeBulletsContainer.AddBullet(bullet);
+            
             weaponView.Shoot(bullet);
         }
     }

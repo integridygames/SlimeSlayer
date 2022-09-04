@@ -1,6 +1,6 @@
 namespace Game.Gameplay.Views.Weapons.Pistols 
 {
-    public class PistolView : WeaponView
+    public class PistolView : WeaponViewBase
     {
 
     }

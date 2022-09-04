@@ -8,12 +8,11 @@ namespace Game.Gameplay.Views.Enemy
 
         private MeshFilter _meshFilter;
 
-        private float _currentHp;
-        public float HP => _currentHp;
+        public float CurrentHealth { get; private set; }
 
         private void Awake()
         {
-            _currentHp = _maxHealth;
+            CurrentHealth = _maxHealth;
         }
 
         private void OnDrawGizmos()
@@ -29,8 +28,9 @@ namespace Game.Gameplay.Views.Enemy
 
         public void TakeDamage(float damage)
         {
-            _currentHp -= damage;
-            if (_currentHp <= 0)
+            CurrentHealth -= damage;
+            
+            if (CurrentHealth <= 0)
                 Die();
         }
 

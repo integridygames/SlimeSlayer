@@ -1,6 +1,6 @@
 namespace Game.Gameplay.Utils.Weapons 
 {
-    public enum WeaponsEnum
+    public enum WeaponType
     {
         Pistol = 1
     }  

@@ -1,5 +1,6 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models;
+using TegridyUtils.Extensions;
 using Zenject;
 
 namespace Game.Installers 
@@ -10,6 +11,7 @@ namespace Game.Installers
         {
             Container.Bind<LevelFactory>().AsSingle();
             Container.Bind<ApplicationData>().FromFactory<ApplicationDataFactory>().AsSingle();
+            Container.Bind<BulletsPoolFactory>().AsSingle();
         }
     }
 }

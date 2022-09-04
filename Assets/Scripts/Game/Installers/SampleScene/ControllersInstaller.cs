@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Game.Gameplay.Controllers.Bullets;
+using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
 
 namespace Game.Installers.SampleScene
@@ -8,6 +9,7 @@ namespace Game.Installers.SampleScene
         public override void InstallBindings()
         {
             BindController<GameScreenController>();
+            BindController<BulletsController>();
         }
 
         private void BindController<TController>()
