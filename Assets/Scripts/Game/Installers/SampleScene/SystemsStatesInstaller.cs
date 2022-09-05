@@ -10,8 +10,7 @@ using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.CameraContainer;
 using Game.Gameplay.Systems.Character.Movement;
-using Game.Gameplay.Systems.Zone;
-using Game.Gameplay.Systems.Enemy;
+using Game.Gameplay.Systems.Weapon;
 
 namespace Game.Installers.SampleScene
 {
@@ -58,15 +57,13 @@ namespace Game.Installers.SampleScene
         {
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
-            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindPreInitializeSystem(levelInitialzieSystem);
 
-            var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
-            Container.BindInitializeSystem(zonesInitializeSystem);
-            var zoneTriggersInitializeSystem = Container.Instantiate<ZoneTriggersInitializeSystem>();
-            Container.BindInitializeSystem(zoneTriggersInitializeSystem);
+            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
+            Container.BindInitializeSystem(levelInitialzieSystem);
             var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
+            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializeSystem>();
+            Container.BindInitializeSystem(weaponInitializatorSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
@@ -74,15 +71,10 @@ namespace Game.Installers.SampleScene
             
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
-            var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();
-            Container.BindUpdateSystem(currentZoneCatchSystem);
-            var enemyPatrolSystem = Container.Instantiate<EnemyPatrolSystem>();
-            Container.BindUpdateSystem(enemyPatrolSystem);
-
-            var enemyPatrolMoveSystem = Container.Instantiate<EnemyPatrolMoveSystem>();
-            Container.BindFixedSystem(enemyPatrolMoveSystem);
-            var enemyPersuePlayerSystem = Container.Instantiate<EnemyPersuePlayerSystem>();
-            Container.BindFixedSystem(enemyPersuePlayerSystem);
+            var shootingSystem = Container.Instantiate<ShootingSystem>();
+            Container.BindUpdateSystem(shootingSystem);
+            var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
+            Container.BindUpdateSystem(bulletsDestroyerSystem);
 
             CreateTargetSystems();
         }

@@ -4,18 +4,15 @@ namespace Game.Gameplay.Views.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
-        [SerializeField] private float _movementSpeed;
-        [SerializeField] private float _rotationSpeed;
-
-        public float MovementSpeed => _movementSpeed;
-        public float RotationSpeed => _rotationSpeed;
-        public Vector3 CurrentPatrolPoint { get; private set; }
+        [SerializeField] private float _maxHealth;
 
         private MeshFilter _meshFilter;
 
-        private void Start()
+        public float CurrentHealth { get; private set; }
+
+        private void Awake()
         {
-            CurrentPatrolPoint = transform.position;
+            CurrentHealth = _maxHealth;
         }
 
         private void OnDrawGizmos()
@@ -29,9 +26,17 @@ namespace Game.Gameplay.Views.Enemy
             Gizmos.DrawMesh(_meshFilter.sharedMesh, transform.position);
         }
 
-        public void SetPatrolPoint(Vector3 point) 
+        public void TakeDamage(float damage)
         {
-            CurrentPatrolPoint = point;
+            CurrentHealth -= damage;
+            
+            if (CurrentHealth <= 0)
+                Die();
+        }
+
+        private void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }
