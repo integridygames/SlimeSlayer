@@ -6,6 +6,7 @@ using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Models.Raycast;
 using Game.Gameplay.Models.Weapon;
 using Zenject;
+using Game.Gameplay.Models.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -22,6 +23,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<WeaponsInfo>().AsSingle();
             Container.Bind<ActiveBulletsContainer>().AsSingle();
+            Container.Bind<ZonesInfo>().AsSingle();
         }
     }
 }

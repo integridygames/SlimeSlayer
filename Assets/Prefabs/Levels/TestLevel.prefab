@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 8500289414862571049}
   - component: {fileID: 1099083235047720106}
   - component: {fileID: 5071074716965147069}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cd908db45dbdb4cb3f648ec3b46204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 1
   _movementSpeed: 1
   _rotationSpeed: 100
 --- !u!1 &3003305536826325557
@@ -223,7 +224,7 @@ GameObject:
   - component: {fileID: 3552094197618010011}
   - component: {fileID: 3709012136021821238}
   - component: {fileID: 2162016755334002988}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cd908db45dbdb4cb3f648ec3b46204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 1
   _movementSpeed: 1
   _rotationSpeed: 100
 --- !u!1 &3815346183876453691
@@ -710,7 +712,7 @@ GameObject:
   - component: {fileID: 4030455494864678812}
   - component: {fileID: 2918859954981006384}
   - component: {fileID: 4759944398873783588}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -808,6 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cd908db45dbdb4cb3f648ec3b46204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 1
   _movementSpeed: 1
   _rotationSpeed: 100
 --- !u!1 &5347773886203265764
@@ -1201,7 +1204,7 @@ GameObject:
   - component: {fileID: 5451229075891996348}
   - component: {fileID: 539954888999638839}
   - component: {fileID: 7237018846478369780}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1299,6 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cd908db45dbdb4cb3f648ec3b46204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 1
   _movementSpeed: 1
   _rotationSpeed: 100
 --- !u!1 &8577520160259691725

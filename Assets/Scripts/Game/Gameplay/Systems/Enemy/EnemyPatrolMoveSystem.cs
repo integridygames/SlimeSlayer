@@ -68,7 +68,10 @@ namespace Game.Gameplay.Systems.Enemy
         private Quaternion GetRotation(EnemyView enemy) 
         {
             Vector3 direction = enemy.CurrentPatrolPoint - enemy.transform.position;
-            return  Quaternion.LookRotation(direction);
+            if (direction != Vector3.zero)
+                return Quaternion.LookRotation(direction);
+            
+             return   Quaternion.identity;
         }
 
         private void Rotate(EnemyView enemy, float deltaTime) 

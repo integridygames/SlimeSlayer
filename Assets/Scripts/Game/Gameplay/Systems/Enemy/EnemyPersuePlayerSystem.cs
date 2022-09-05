@@ -46,7 +46,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         private void MoveToPlayer(EnemyView enemy, float deltaTime) 
         {
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, _characterView.transform.position, deltaTime * enemy.MovementSpeed);
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, new Vector3(_characterView.transform.position.x, enemy.transform.position.y, _characterView.transform.position.z), deltaTime * enemy.MovementSpeed);
         }
 
         private void RotateToPlayerIfNecessary(EnemyView enemy, float deltaTime)
