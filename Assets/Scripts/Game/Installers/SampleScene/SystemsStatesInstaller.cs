@@ -18,6 +18,9 @@ namespace Game.Installers.SampleScene
     {
         private StartScreenState _startScreenState;
         private GameState _gameState;
+        private PauseScreenState _pauseScreenState;
+        private GunCabinetState _gunCabinetState;
+        private EndScreenState _endScreenState;
 
         public override void InstallBindings()
         {
@@ -31,12 +34,23 @@ namespace Game.Installers.SampleScene
         {
             _startScreenState = Container.CreateAndBindState<StartScreenState>();
             _gameState = Container.CreateAndBindState<GameState>();
+            _pauseScreenState = Container.CreateAndBindState<PauseScreenState>();
+            _gunCabinetState = Container.CreateAndBindState<GunCabinetState>();
+            _endScreenState = Container.CreateAndBindState<EndScreenState>();
         }
 
         private void CreateTransitions()
         {
             Container.CreateAndBindTransition<StartScreenToGameTransition>(_startScreenState, _gameState);
-            Container.CreateAndBindTransition<GameToStartScreenTransition>(_gameState, _startScreenState);
+
+            Container.CreateAndBindTransition<GameToPauseScreenTransition>(_gameState, _pauseScreenState);
+            Container.CreateAndBindTransition<PauseScreenToGameTransition>(_pauseScreenState, _gameState);
+
+            Container.CreateAndBindTransition<GameToGunCabinetTransition>(_gameState, _gunCabinetState);
+            Container.CreateAndBindTransition<GunCabinetToGameTransition>(_gunCabinetState, _gameState);
+
+            Container.CreateAndBindTransition<GameToEndScreenTransition>(_gameState, _endScreenState);
+            Container.CreateAndBindTransition<EndScreenToStartScreenTransition>(_endScreenState, _startScreenState);
         }
 
         private void CreateStateMachine()
@@ -58,23 +72,48 @@ namespace Game.Installers.SampleScene
             var gameInitializeSystem = Container.Instantiate<GameInitializeSystem>();
             Container.BindPreInitializeSystem(gameInitializeSystem);
 
-            var levelInitialzieSystem = Container.Instantiate<LevelInitializeSystem>();
-            Container.BindInitializeSystem(levelInitialzieSystem);
+            var levelInitializeSystem = Container.Instantiate<LevelInitializeSystem>();
+            Container.BindPreInitializeSystemWithState(levelInitializeSystem, _startScreenState);
+
+            var levelDestroySystem = Container.Instantiate<LevelDestroySystem>();
+            Container.BindDestroySystemWithState(levelDestroySystem, _endScreenState);
+
             var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
-            var weaponInitializatorSystem = Container.Instantiate<WeaponInitializeSystem>();
-            Container.BindInitializeSystem(weaponInitializatorSystem);
+
+            var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
+            Container.BindInitializeSystem(weaponInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
-            
+
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
             Container.BindUpdateSystem(cameraContainerUpdateSystem);
+
             var shootingSystem = Container.Instantiate<ShootingSystem>();
-            Container.BindUpdateSystem(shootingSystem);
+            Container.BindUpdateSystemWithState(shootingSystem, _gameState);
+
             var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
-            Container.BindUpdateSystem(bulletsDestroyerSystem);
+            Container.BindUpdateSystemWithState(bulletsDestroyerSystem, _gameState);
+            
+            var characterSpawnSystem = Container.Instantiate<CharacterSpawnSystem>();
+            Container.BindInitializeSystemWithState(characterSpawnSystem, _startScreenState);
+
+            var characterInputVelocitySystem = Container.Instantiate<CharacterInputVelocitySystem>();
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _endScreenState);
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
+            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gunCabinetState);
+            
+            var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
+            Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
+            
+            var characterEndMoveSystem = Container.Instantiate<CharacterEndMoveSystem>();
+            Container.BindDestroySystemWithState(characterEndMoveSystem, _gameState);
+
+            var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
+            Container.BindUpdateSystem(characterAnimationSystem);
 
             CreateTargetSystems();
         }
@@ -83,30 +122,21 @@ namespace Game.Installers.SampleScene
         {
             var targetsInitializeSystem = Container.Instantiate<TargetsInitializeSystem>();
             Container.BindInitializeSystem(targetsInitializeSystem);
-            
+
             var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
             Container.BindInitializeSystem(handTargetsSetterSystem);
-            
+
             var enemiesFinderSystem = Container.Instantiate<EnemiesFinderSystem>();
-            Container.BindUpdateSystem(enemiesFinderSystem);
-            
+            Container.BindUpdateSystemWithState(enemiesFinderSystem, _gameState);
+
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
-            Container.BindUpdateSystem(nearestHeapFinderSystem);
-            
+            Container.BindUpdateSystemWithState(nearestHeapFinderSystem, _gameState);
+
             var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
-            Container.BindFixedSystem(characterToNearestHeapMoverSystem);
-            
+            Container.BindFixedSystemWithState(characterToNearestHeapMoverSystem, _gameState);
+
             var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
-            Container.BindFixedSystem(handsTargetsMoverSystem);
-
-            var characterInputVelocitySystem = Container.Instantiate<CharacterInputVelocitySystem>();
-            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
-
-            var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
-            Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
-
-            var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
-            Container.BindUpdateSystemWithState(characterAnimationSystem, _gameState);
+            Container.BindFixedSystemWithState(handsTargetsMoverSystem, _gameState);
         }
     }
 }

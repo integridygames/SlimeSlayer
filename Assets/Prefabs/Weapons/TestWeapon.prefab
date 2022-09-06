@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isCached: 1
   _id: 1
-  _duration: 0.05
+  _duration: 0.25
   _shootingPoint: {fileID: 3094002281144089856}
   _shootingForce: 5
   _isAmmoUnlimited: 1
