@@ -14,8 +14,8 @@ TagManager:
   - UI
   - Floor
   - Rope
-  - Heli
-  - Finish
+  - 
+  - PlayerInteractable
   - Joystick
   - Coin
   - Enemy

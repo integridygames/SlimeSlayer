@@ -9,10 +9,14 @@ namespace Game.Gameplay.Views.Level
         [SerializeField] private ObstacleView[] _obstacleViews;
         [SerializeField] private EnemyView[] _enemiesViews;
         [SerializeField] private SpawnPointView _spawnPointView;
+        [SerializeField] private GunCabinetView _gunCabinetView;
+        [SerializeField] private FinishView _finishView;
 
         public IReadOnlyCollection<ObstacleView> ObstacleViews => _obstacleViews;
         public IReadOnlyCollection<EnemyView> EnemiesViews => _enemiesViews;
         public SpawnPointView SpawnPointView => _spawnPointView;
+        public GunCabinetView GunCabinetView => _gunCabinetView;
+        public FinishView FinishView => _finishView;
 
         private void Awake()
         {

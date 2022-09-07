@@ -6,8 +6,8 @@ namespace Game.Gameplay.Views.SampleScene.Screens
 {
     public class GameScreenView : ViewBase
     {
-        [SerializeField] private UiButton _toStartScreenButton;
+        [SerializeField] private UiButton _toPauseScreenButton;
 
-        public UiButton ToStartScreenButton => _toStartScreenButton;
+        public UiButton ToPauseScreenButton => _toPauseScreenButton;
     }
 }
