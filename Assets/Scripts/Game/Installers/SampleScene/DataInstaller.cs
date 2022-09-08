@@ -26,7 +26,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<ActiveBulletsContainer>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
-            Container.Bind<CharacterEssencesInfo>().AsSingle();
+            Container.Bind<CharacterEssencesData>().AsSingle();
         }
     }
 }

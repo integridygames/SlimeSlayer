@@ -11,9 +11,9 @@ namespace Game.Gameplay.Controllers.Essence
     public class EssencesController : ControllerBase<ActiveEssencesContainer>, IInitializable, IDisposable
     {
         private readonly EssencePoolFactory _essencePoolFactory;
-        private readonly CharacterEssencesInfo _characterEssenceInfo;
+        private readonly CharacterEssencesData _characterEssenceInfo;
 
-        public EssencesController(ActiveEssencesContainer controlledEntity, EssencePoolFactory essencePoolFactory, CharacterEssencesInfo characterEssenceInfo) : base(controlledEntity)
+        public EssencesController(ActiveEssencesContainer controlledEntity, EssencePoolFactory essencePoolFactory, CharacterEssencesData characterEssenceInfo) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _characterEssenceInfo = characterEssenceInfo;
@@ -33,12 +33,7 @@ namespace Game.Gameplay.Controllers.Essence
         {
             ControlledEntity.RemoveEssence(essenceView);
             _essencePoolFactory.RecycleEssence(essenceView);
-
-            foreach(var characterEssence in _characterEssenceInfo.CharacterEssences) 
-            {
-                if (characterEssence.EssenceType == essenceView.EssenceType)
-                    characterEssence.Quantity += essenceView.Quantity;
-            }
+            _characterEssenceInfo.CharacterEssences[essenceView.EssenceType] += essenceView.Quantity;
         }
     }
 }
