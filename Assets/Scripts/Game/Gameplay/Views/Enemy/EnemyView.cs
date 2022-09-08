@@ -1,14 +1,22 @@
+using Game.Gameplay.Utils.Essences;
+using System;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
+        public event Action<int, Vector3, EssenceType, EnemyView> OnEnemyDied;
+
         [SerializeField] private float _maxHealth;
+        [SerializeField] private EssenceType _essenceType;
+        [SerializeField] private int _essenceQuntity;
 
         private MeshFilter _meshFilter;
 
         public float CurrentHealth { get; private set; }
+        public EssenceType EssenceType => _essenceType;
+        public int EssenceQuntity => _essenceQuntity;
 
         private void Awake()
         {
@@ -36,7 +44,8 @@ namespace Game.Gameplay.Views.Enemy
 
         private void Die()
         {
-            Destroy(gameObject);
+            OnEnemyDied?.Invoke(_essenceQuntity, transform.position, _essenceType, this);
+            gameObject.SetActive(false);
         }
     }
 }

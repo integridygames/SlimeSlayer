@@ -8,11 +8,13 @@ namespace Game.Installers
     {
         [SerializeField] private LevelsDataBase _levelsDataBase;
         [SerializeField] private WeaponsDataBase _weaponsDataBase;
+        [SerializeField] private EssenceDataBase _essenceDataBase;
 
         public override void InstallBindings()
         {
             Container.BindInstance(_levelsDataBase).AsSingle();
             Container.BindInstance(_weaponsDataBase).AsSingle();
+            Container.BindInstance(_essenceDataBase).AsSingle();
         }
     }
 }
