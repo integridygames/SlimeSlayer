@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85646b986a2f83740abd2d2531f4dbdd, type: 3}
+  m_Name: EssenceDataBase
+  m_EditorClassIdentifier: 
+  _essences:
+  - EssenceType: 0
+    EssenceViewPrefab: {fileID: 2571016860448001523, guid: b7dcff122fe8d3843b5ed619a86803c4, type: 3}
+  - EssenceType: 1
+    EssenceViewPrefab: {fileID: 5084604967487878637, guid: f5276b3a1e1e17f4ba554ec8a5e7934c, type: 3}
+  - EssenceType: 3
+    EssenceViewPrefab: {fileID: 2222604199915008384, guid: 0386cd6e4c2ba2c448eefd78e2642754, type: 3}
+  - EssenceType: 2
+    EssenceViewPrefab: {fileID: 7403131141044049800, guid: 1a4673e61d57a2942bc5faa86a40d608, type: 3}

@@ -131,4 +131,4 @@ MonoBehaviour:
   _weaponType: 1
   _rigidbody: {fileID: 1007694132603375785}
   _lifeTime: 5
-  _damage: 0
+  _damage: 1
