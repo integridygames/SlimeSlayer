@@ -5,6 +5,7 @@ using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Models.Raycast;
 using Game.Gameplay.Models.Weapon;
+using TegridyUtils.Extensions;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -22,6 +23,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<WeaponsInfo>().AsSingle();
             Container.Bind<ActiveBulletsContainer>().AsSingle();
+            Container.Bind<CharacterHealthData>();
         }
     }
 }
