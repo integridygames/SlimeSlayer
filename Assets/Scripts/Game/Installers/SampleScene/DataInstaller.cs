@@ -23,7 +23,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<WeaponsInfo>().AsSingle();
             Container.Bind<ActiveBulletsContainer>().AsSingle();
-            Container.Bind<CharacterHealthData>();
+            Container.Bind<CharacterHealthData>().AsSingle();
         }
     }
 }

@@ -9,6 +9,7 @@ using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
 using Game.Gameplay.Systems.CameraContainer;
+using Game.Gameplay.Systems.Character.Health;
 using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
 
@@ -96,7 +97,7 @@ namespace Game.Installers.SampleScene
 
             var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
             Container.BindUpdateSystemWithState(bulletsDestroyerSystem, _gameState);
-            
+
             var characterSpawnSystem = Container.Instantiate<CharacterSpawnSystem>();
             Container.BindInitializeSystemWithState(characterSpawnSystem, _startScreenState);
 
@@ -105,15 +106,18 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _endScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gunCabinetState);
-            
+
             var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
             Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
-            
+
             var characterEndMoveSystem = Container.Instantiate<CharacterEndMoveSystem>();
             Container.BindDestroySystemWithState(characterEndMoveSystem, _gameState);
 
             var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
             Container.BindUpdateSystem(characterAnimationSystem);
+
+            var characterHealthViewMovingSystem = Container.Instantiate<CharacterHealthViewMovingSystem>();
+            Container.BindUpdateSystem(characterHealthViewMovingSystem);
 
             CreateTargetSystems();
         }
