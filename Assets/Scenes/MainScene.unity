@@ -425,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelsDataBase: {fileID: 11400000, guid: 3982d388ed552a54f831664319fccb7e, type: 2}
   _weaponsDataBase: {fileID: 11400000, guid: 303c816bd0cfec44abba4df8b96725da, type: 2}
+  _essenceDataBase: {fileID: 11400000, guid: 6177e80c86f44254189d5cca0121be66, type: 2}
 --- !u!114 &88344988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1344,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2495e3d71a13542b114e479f3c348c, type: 3}
+--- !u!1 &1459037459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459037461}
+  - component: {fileID: 1459037460}
+  m_Layer: 0
+  m_Name: EssenceContainerView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1459037460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459037459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56f8c90f6929a64ba23f43234b08e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isCached: 0
+--- !u!4 &1459037461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459037459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1507816120
 GameObject:
   m_ObjectHideFlags: 0

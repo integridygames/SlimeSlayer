@@ -12,6 +12,7 @@ using Game.Gameplay.Systems.CameraContainer;
 using Game.Gameplay.Systems.Character.Health;
 using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
+using Game.Gameplay.Systems.Enemy;
 
 namespace Game.Installers.SampleScene
 {
@@ -84,6 +85,12 @@ namespace Game.Installers.SampleScene
 
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializeSystem);
+
+            var characterEssenceInitializeSystem = Container.Instantiate<CharacterEssenceInitializeSystem>();
+            Container.BindInitializeSystem(characterEssenceInitializeSystem);
+
+            var enemiesInitializeSystem = Container.Instantiate<EnemiesInitializeSystem>();
+            Container.BindInitializeSystem(enemiesInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
