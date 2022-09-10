@@ -1,4 +1,5 @@
-﻿using Game.Services;
+﻿using Game.Gameplay.Services;
+using Game.Services;
 using Zenject;
 
 namespace Game.Installers.SampleScene
@@ -7,7 +8,8 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<VibrationService>().AsSingle();           
+            Container.BindInterfacesAndSelfTo<VibrationService>().AsSingle();
+            Container.Bind<CharacterRespawnService>().AsSingle();
         }
     }
 }

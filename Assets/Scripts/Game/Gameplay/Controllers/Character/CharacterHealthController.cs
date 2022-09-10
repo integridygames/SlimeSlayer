@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Gameplay.Models.Character;
+using Game.Gameplay.Services;
 using Game.Gameplay.Views.Character;
 using TegridyCore;
 using TegridyCore.Base;
@@ -11,27 +12,39 @@ namespace Game.Gameplay.Controllers.Character
     {
         private readonly CharacterHealthData _characterHealthData;
         private readonly CharacterStats _characterStats;
+        private readonly CharacterRespawnService _characterRespawnService;
 
         public CharacterHealthController(CharacterHealthView controlledEntity, CharacterHealthData characterHealthData,
-            CharacterStats characterStats) : base(controlledEntity)
+            CharacterStats characterStats, CharacterRespawnService characterRespawnService) : base(controlledEntity)
         {
             _characterHealthData = characterHealthData;
             _characterStats = characterStats;
+            _characterRespawnService = characterRespawnService;
         }
 
         public void Initialize()
         {
-            _characterHealthData.CurrentHealth.OnUpdate += CurrentHealthOnOnUpdate;
+            _characterHealthData.CurrentHealth.OnUpdate += CurrentHealthOnUpdateHandler;
         }
 
         public void Dispose()
         {
-            _characterHealthData.CurrentHealth.OnUpdate -= CurrentHealthOnOnUpdate;
+            _characterHealthData.CurrentHealth.OnUpdate -= CurrentHealthOnUpdateHandler;
         }
 
-        private void CurrentHealthOnOnUpdate(RxValue<int> rxValue)
+        private void CurrentHealthOnUpdateHandler(RxValue<int> rxValue)
         {
             ControlledEntity.SetHealthPercentage((float) rxValue.NewValue / _characterStats.MaxHealth);
+
+            if (rxValue.NewValue <= 0)
+            {
+                RespawnCharacter();
+            }
+        }
+
+        private void RespawnCharacter()
+        {
+            _characterRespawnService.GoToSpawnPoint();
         }
     }
 }

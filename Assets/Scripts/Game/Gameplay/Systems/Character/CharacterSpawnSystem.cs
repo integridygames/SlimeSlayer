@@ -1,23 +1,20 @@
-﻿using Game.Gameplay.Models.Level;
-using Game.Gameplay.Views.Character;
+﻿using Game.Gameplay.Services;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Character
 {
     public class CharacterSpawnSystem : IInitializeSystem
     {
-        private readonly LevelInfo _levelInfo;
-        private readonly CharacterView _characterView;
+        private readonly CharacterRespawnService _characterRespawnService;
 
-        public CharacterSpawnSystem(LevelInfo levelInfo, CharacterView characterView)
+        public CharacterSpawnSystem(CharacterRespawnService characterRespawnService)
         {
-            _levelInfo = levelInfo;
-            _characterView = characterView;
+            _characterRespawnService = characterRespawnService;
         }
 
         public void Initialize()
         {
-            _characterView.Rigidbody.MovePosition(_levelInfo.CurrentLevelView.Value.SpawnPointView.transform.position);
+            _characterRespawnService.GoToSpawnPoint();
         }
     }
 }
