@@ -2,14 +2,14 @@
 using Game.Gameplay.Utils.Weapons;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Weapons;
+using Game.ScriptableObjects.Base;
+using TegridyCore.Base;
 
 namespace Game.ScriptableObjects
 {
     [Serializable]
-    public class WeaponRecord
+    public class WeaponRecord : Record<WeaponType>
     {
-        public WeaponType _weaponType;
-        public WeaponViewBase _weaponViewPrefab;
-        public BulletView _bulletViewPrefab;
+    
     }
 }

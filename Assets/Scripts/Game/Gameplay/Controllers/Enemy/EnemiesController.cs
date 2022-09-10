@@ -3,6 +3,7 @@ using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Enemy;
+using Game.ScriptableObjects;
 using System;
 using TegridyCore.Base;
 using UnityEngine;
@@ -14,11 +15,14 @@ namespace Game.Gameplay.Controllers.Enemy
     {
         private readonly EssencePoolFactory _essencePoolFactory;
         private readonly ActiveEssencesContainer _activeEssencesContainer;
+        private readonly EssenceDataBase _essenceDataBase;
 
-        public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory, ActiveEssencesContainer activeEssencesContainer) : base(controlledEntity)
+        public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory, 
+            ActiveEssencesContainer activeEssencesContainer, EssenceDataBase essenceDataBase) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _activeEssencesContainer = activeEssencesContainer;
+            _essenceDataBase = essenceDataBase;
         }
 
         public void Initialize()
@@ -34,7 +38,7 @@ namespace Game.Gameplay.Controllers.Enemy
         private void OnEnemyDiedHandler(int quantity, Vector3 position, EssenceType essenceType, EnemyView enemyView) 
         {
             ControlledEntity.RemoveEnemy(enemyView);
-            var essenceView =_essencePoolFactory.TakeNextEssence(essenceType);
+            var essenceView =_essencePoolFactory.TakeNextElement(essenceType, _essenceDataBase);
             essenceView.SetQuantity(quantity);
             essenceView.transform.position = position;
             essenceView.gameObject.SetActive(true);

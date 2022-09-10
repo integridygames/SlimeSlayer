@@ -1,13 +1,12 @@
 using Game.Gameplay.Utils.Essences;
-using Game.Gameplay.Views.Essence;
+using Game.ScriptableObjects.Base;
 using System;
 
 namespace Game.ScriptableObjects 
 {
     [Serializable]
-    public class EssenceRecord
+    public class EssenceRecord : Record<EssenceType>
     {
-        public EssenceType EssenceType;
-        public EssenceView EssenceViewPrefab;
+    
     }   
 }

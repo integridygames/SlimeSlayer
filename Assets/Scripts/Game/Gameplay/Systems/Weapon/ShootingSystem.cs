@@ -6,6 +6,7 @@ using UnityEngine;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Bullets;
+using Game.ScriptableObjects;
 
 namespace Game.Gameplay.Systems.Weapon 
 {   
@@ -15,17 +16,18 @@ namespace Game.Gameplay.Systems.Weapon
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly TargetsInfo _targetsInfo;
         private readonly ActiveBulletsContainer _activeBulletsContainer;
+        private readonly WeaponsDataBase _weaponsDataBase;
 
         private bool _isTimeToShootForLeft;
         private bool _isTimeToShootForRight;
         private float _currentTimeBeforeShootingLeft;
         private float _currentTimeBeforeShootingRight;
 
-
         private const float MaxDistance = 30f;
         private const int BulletsPerShot = 1;
 
-        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPoolFactory bulletsPool, TargetsInfo targetsInfo, ActiveBulletsContainer activeBulletsContainer)  
+        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPoolFactory bulletsPool, TargetsInfo targetsInfo, ActiveBulletsContainer activeBulletsContainer,
+            WeaponsDataBase weaponsDataBase)  
         {
             _weaponsInfo = weaponsInfo;
             _currentTimeBeforeShootingLeft = 0;
@@ -36,6 +38,7 @@ namespace Game.Gameplay.Systems.Weapon
             _activeBulletsContainer = activeBulletsContainer;
             _isTimeToShootForLeft = true;
             _isTimeToShootForRight = true;
+            _weaponsDataBase = weaponsDataBase;
         }
 
         public void Update()
@@ -105,7 +108,7 @@ namespace Game.Gameplay.Systems.Weapon
 
         private void Shoot(WeaponViewBase weaponView) 
         {
-            var bullet = _bulletsPoolFactory.TakeNextBullet(weaponView.ID);
+            var bullet = _bulletsPoolFactory.TakeNextElement(weaponView.ID, _weaponsDataBase);
             _activeBulletsContainer.AddBullet(bullet);
             
             weaponView.Shoot(bullet);

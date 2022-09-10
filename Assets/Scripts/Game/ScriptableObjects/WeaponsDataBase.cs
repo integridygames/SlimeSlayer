@@ -1,35 +1,15 @@
 using UnityEngine;
-using TegridyUtils.Extensions;
+using Game.ScriptableObjects.Base;
 using Game.Gameplay.Utils.Weapons;
 
 namespace Game.ScriptableObjects 
 {
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
-    public class WeaponsDataBase : ScriptableObject
+    public class WeaponsDataBase : PrefabsDataBase<WeaponRecord, WeaponType>
     {
-        [SerializeField] private WeaponRecord[] _weapons;
-
-        public WeaponRecord GetWeaponRecordByIndex(int index)
+        public override bool SetCondition(WeaponType recordType, WeaponRecord record) 
         {
-            if (index < _weapons.Length)
-            {
-                return _weapons[index];
-            }
-
-            return _weapons.GetRandomElement();
-        }
-
-        public WeaponRecord GetWeaponRecordByType(WeaponType weaponType)
-        {
-            foreach(var weapon in _weapons) 
-            {
-                if(weapon._weaponType == weaponType) 
-                {
-                    return weapon;
-                }
-            }
-
-            return _weapons.GetRandomElement();
+            return record._recordType == recordType;
         }
     }
 }

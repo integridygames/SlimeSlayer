@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf3d31301945ce4d87b1e4bd5991003, type: 3}
   m_Name: WeaponsDataBase
   m_EditorClassIdentifier: 
-  _weapons:
-  - _weaponType: 1
-    _weaponViewPrefab: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
-    _bulletViewPrefab: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
+  _records:
+  - _recordType: 1
+    _prefabs:
+    - {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
+    - {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}

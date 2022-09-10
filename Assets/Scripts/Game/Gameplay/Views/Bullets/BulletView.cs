@@ -32,7 +32,7 @@ namespace Game.Gameplay.Views.Bullets
             }
         }
 
-        public void Recycle() 
+        public override void Recycle() 
         {
             _currentLifeTime = 0;
             gameObject.SetActive(false);
