@@ -31,7 +31,7 @@ namespace Game.Gameplay.Systems.Weapon
 
         public void Initialize()
         {
-            _weaponsInfo.PlayerArsenal.Add((WeaponViewBase)_weaponsDB.GetRecordByIndex(0)._prefabs[0]);
+            _weaponsInfo.PlayerArsenal.Add(_weaponsDB.GetRecordByIndex(0)._weaponPrefab);
             _weaponsInfo.CurrentWeaponViewLeft = _leftPlacerView.GetComponentInChildren<WeaponViewBase>();
             _weaponsInfo.CurrentWeaponViewRight = _rightPlacerView.GetComponentInChildren<WeaponViewBase>();
             _weaponsInfo.CurrentWeaponViewLeft.Value.AddAmmo(_weaponsInfo.CurrentWeaponViewLeft.Value.MaxBulletsQuantity);

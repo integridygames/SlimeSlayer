@@ -1,9 +1,10 @@
+using System;
 using TegridyUtils.Extensions;
 using UnityEngine;
 
-namespace Game.ScriptableObjects.Base 
+namespace Game.ScriptableObjects.Substructure
 {
-    public abstract class PrefabsDataBase<TRecord, TEnum> : ScriptableObject
+    public abstract class PrefabsDataBase<TRecord, TEnum, TView> : ScriptableObject where TRecord : Record<TEnum, TView> where TEnum : Enum
     {
         [SerializeField] protected TRecord[] _records;
 
@@ -23,7 +24,7 @@ namespace Game.ScriptableObjects.Base
         {
             foreach (TRecord record in _records)
             {
-                if (SetCondition(recordType, record))
+                if (Condition(recordType, record))
                 {
                     return record;
                 }
@@ -32,6 +33,15 @@ namespace Game.ScriptableObjects.Base
             return _records.GetRandomElement();
         }
 
-        public abstract bool SetCondition(TEnum recordType, TRecord record);
+        public bool Condition(TEnum recordType, TRecord record) 
+        {
+            int comparison = recordType.CompareTo(record._recordType);
+
+            return comparison switch
+            {
+                0 => true,
+                _ => false,
+            };
+        }     
     }   
 }

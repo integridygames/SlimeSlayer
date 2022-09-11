@@ -7,13 +7,7 @@ namespace Game.Gameplay.Factories
 {
     public class BulletsPoolFactory : PoolFactoryBase<WeaponRecord, WeaponType, BulletView>
     {    
-        private const int BulletRecordID = 1;
-
-        public BulletsPoolFactory(PoolContainerView poolContainerView) : base(poolContainerView) { }
-      
-        protected override BulletView GetPrefabFromRecord(WeaponRecord record)
-        {
-            return (BulletView)record._prefabs[BulletRecordID];
-        }
+        public BulletsPoolFactory(PoolContainerView poolContainerView, WeaponsDataBase dataBase) :
+            base(poolContainerView, dataBase) { }        
     }
 }

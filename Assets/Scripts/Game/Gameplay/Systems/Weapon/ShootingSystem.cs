@@ -16,7 +16,6 @@ namespace Game.Gameplay.Systems.Weapon
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly TargetsInfo _targetsInfo;
         private readonly ActiveBulletsContainer _activeBulletsContainer;
-        private readonly WeaponsDataBase _weaponsDataBase;
 
         private bool _isTimeToShootForLeft;
         private bool _isTimeToShootForRight;
@@ -26,8 +25,7 @@ namespace Game.Gameplay.Systems.Weapon
         private const float MaxDistance = 30f;
         private const int BulletsPerShot = 1;
 
-        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPoolFactory bulletsPool, TargetsInfo targetsInfo, ActiveBulletsContainer activeBulletsContainer,
-            WeaponsDataBase weaponsDataBase)  
+        public ShootingSystem(WeaponsInfo weaponsInfo, BulletsPoolFactory bulletsPool, TargetsInfo targetsInfo, ActiveBulletsContainer activeBulletsContainer)  
         {
             _weaponsInfo = weaponsInfo;
             _currentTimeBeforeShootingLeft = 0;
@@ -38,7 +36,6 @@ namespace Game.Gameplay.Systems.Weapon
             _activeBulletsContainer = activeBulletsContainer;
             _isTimeToShootForLeft = true;
             _isTimeToShootForRight = true;
-            _weaponsDataBase = weaponsDataBase;
         }
 
         public void Update()
@@ -108,7 +105,7 @@ namespace Game.Gameplay.Systems.Weapon
 
         private void Shoot(WeaponViewBase weaponView) 
         {
-            var bullet = _bulletsPoolFactory.TakeNextElement(weaponView.ID, _weaponsDataBase);
+            var bullet = _bulletsPoolFactory.TakeNextElement(weaponView.ID);
             _activeBulletsContainer.AddBullet(bullet);
             
             weaponView.Shoot(bullet);

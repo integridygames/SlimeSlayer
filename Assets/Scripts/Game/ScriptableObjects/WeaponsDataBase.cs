@@ -1,15 +1,13 @@
 using UnityEngine;
-using Game.ScriptableObjects.Base;
+using Game.ScriptableObjects.Substructure;
 using Game.Gameplay.Utils.Weapons;
+using Game.Gameplay.Views.Bullets;
 
 namespace Game.ScriptableObjects 
 {
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
-    public class WeaponsDataBase : PrefabsDataBase<WeaponRecord, WeaponType>
+    public class WeaponsDataBase : PrefabsDataBase<WeaponRecord, WeaponType, BulletView>
     {
-        public override bool SetCondition(WeaponType recordType, WeaponRecord record) 
-        {
-            return record._recordType == recordType;
-        }
+       
     }
 }
