@@ -1,4 +1,3 @@
-using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Container;
 using Game.Gameplay.Views.Essence;
