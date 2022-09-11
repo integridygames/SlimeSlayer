@@ -1,4 +1,5 @@
 ﻿using Game.Gameplay.Controllers.Bullets;
+using Game.Gameplay.Controllers.Character;
 using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
 using Game.Gameplay.Controllers.Essence;
@@ -12,6 +13,7 @@ namespace Game.Installers.SampleScene
         {
             BindController<GameScreenController>();
             BindController<BulletsController>();
+            BindController<CharacterHealthController>();
             BindController<EssencesController>();
             BindController<EnemiesController>();
         }
