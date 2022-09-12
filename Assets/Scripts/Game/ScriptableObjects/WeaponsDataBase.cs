@@ -1,35 +1,13 @@
 using UnityEngine;
-using TegridyUtils.Extensions;
+using Game.ScriptableObjects.Substructure;
 using Game.Gameplay.Utils.Weapons;
+using Game.Gameplay.Views.Bullets;
 
 namespace Game.ScriptableObjects 
 {
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
-    public class WeaponsDataBase : ScriptableObject
+    public class WeaponsDataBase : PrefabsDataBase<WeaponRecord, WeaponType, BulletView>
     {
-        [SerializeField] private WeaponRecord[] _weapons;
-
-        public WeaponRecord GetWeaponRecordByIndex(int index)
-        {
-            if (index < _weapons.Length)
-            {
-                return _weapons[index];
-            }
-
-            return _weapons.GetRandomElement();
-        }
-
-        public WeaponRecord GetWeaponRecordByType(WeaponType weaponType)
-        {
-            foreach(var weapon in _weapons) 
-            {
-                if(weapon._weaponType == weaponType) 
-                {
-                    return weapon;
-                }
-            }
-
-            return _weapons.GetRandomElement();
-        }
+       
     }
 }

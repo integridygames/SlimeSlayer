@@ -22,5 +22,10 @@ namespace TegridyCore.Base
         {
             OnHide?.Invoke();
         }
+
+        public virtual void Recycle() 
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

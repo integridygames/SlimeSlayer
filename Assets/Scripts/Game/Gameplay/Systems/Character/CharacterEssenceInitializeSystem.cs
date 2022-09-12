@@ -18,9 +18,9 @@ namespace Game.Gameplay.Systems.Character
         public void Initialize()
         {
             _characterEssencesInfo.CharacterEssences = new();
-            foreach (var essenceRecord in _essenceDataBase.Essences) 
+            foreach (var essenceRecord in _essenceDataBase.Records) 
             {
-                _characterEssencesInfo.CharacterEssences.Add(essenceRecord.EssenceType, 0);
+                _characterEssencesInfo.CharacterEssences.Add(essenceRecord._recordType, 0);
             }
         } 
     }   
