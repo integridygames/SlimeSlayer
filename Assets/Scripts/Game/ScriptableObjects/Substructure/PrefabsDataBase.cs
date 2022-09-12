@@ -24,7 +24,7 @@ namespace Game.ScriptableObjects.Substructure
         {
             foreach (TRecord record in _records)
             {
-                if (Condition(recordType, record))
+                if (Compare(recordType, record))
                 {
                     return record;
                 }
@@ -33,15 +33,9 @@ namespace Game.ScriptableObjects.Substructure
             return _records.GetRandomElement();
         }
 
-        public bool Condition(TEnum recordType, TRecord record) 
+        public bool Compare(TEnum recordType, TRecord record)
         {
-            int comparison = recordType.CompareTo(record._recordType);
-
-            return comparison switch
-            {
-                0 => true,
-                _ => false,
-            };
+            return recordType.CompareTo(record._recordType) == 0;
         }     
     }   
 }

@@ -12,7 +12,7 @@ namespace Game.Gameplay.Factories
         protected readonly Dictionary<TEnum, Stack<TView>> Pool = new();
         protected readonly PrefabsDataBase<TRecord, TEnum, TView> _dataBase;
 
-        public PoolFactoryBase(PoolContainerView poolContainerView, PrefabsDataBase<TRecord, TEnum, TView> dataBase)
+        protected PoolFactoryBase(PoolContainerView poolContainerView, PrefabsDataBase<TRecord, TEnum, TView> dataBase)
         {
             PoolContainerView = poolContainerView;
             _dataBase = dataBase;
@@ -70,7 +70,7 @@ namespace Game.Gameplay.Factories
 
         private TView CreateNewElement(TEnum elementType)
         {
-            TRecord record = _dataBase.GetRecordByType(elementType);
+            var record = _dataBase.GetRecordByType(elementType);
             return GetPrefabFromRecord(record);
         }     
     }   
