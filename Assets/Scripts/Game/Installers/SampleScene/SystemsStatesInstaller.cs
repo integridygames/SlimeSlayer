@@ -13,6 +13,7 @@ using Game.Gameplay.Systems.Character.Health;
 using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
 using Game.Gameplay.Systems.Enemy;
+using Game.Gameplay.Systems.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -92,6 +93,9 @@ namespace Game.Installers.SampleScene
             var enemiesInitializeSystem = Container.Instantiate<EnemiesInitializeSystem>();
             Container.BindInitializeSystem(enemiesInitializeSystem);
 
+            var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
+            Container.BindInitializeSystem(zonesInitializeSystem);
+
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
@@ -104,6 +108,9 @@ namespace Game.Installers.SampleScene
 
             var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
             Container.BindUpdateSystemWithState(bulletsDestroyerSystem, _gameState);
+
+            var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();
+            Container.BindUpdateSystem(currentZoneCatchSystem);
 
             var characterSpawnSystem = Container.Instantiate<CharacterSpawnSystem>();
             Container.BindInitializeSystemWithState(characterSpawnSystem, _startScreenState);
