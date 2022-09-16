@@ -6,6 +6,7 @@ using UnityEngine;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Bullets;
+using Game.ScriptableObjects;
 
 namespace Game.Gameplay.Systems.Weapon 
 {   
@@ -20,7 +21,6 @@ namespace Game.Gameplay.Systems.Weapon
         private bool _isTimeToShootForRight;
         private float _currentTimeBeforeShootingLeft;
         private float _currentTimeBeforeShootingRight;
-
 
         private const float MaxDistance = 30f;
         private const int BulletsPerShot = 1;
@@ -105,7 +105,7 @@ namespace Game.Gameplay.Systems.Weapon
 
         private void Shoot(WeaponViewBase weaponView) 
         {
-            var bullet = _bulletsPoolFactory.TakeNextBullet(weaponView.ID);
+            var bullet = _bulletsPoolFactory.TakeNextElement(weaponView.ID);
             _activeBulletsContainer.AddBullet(bullet);
             
             weaponView.Shoot(bullet);

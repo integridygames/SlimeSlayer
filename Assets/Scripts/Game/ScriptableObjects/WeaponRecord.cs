@@ -2,14 +2,13 @@
 using Game.Gameplay.Utils.Weapons;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Weapons;
+using Game.ScriptableObjects.Substructure;
 
 namespace Game.ScriptableObjects
 {
     [Serializable]
-    public class WeaponRecord
+    public class WeaponRecord : Record<WeaponType, BulletView>
     {
-        public WeaponType _weaponType;
-        public WeaponViewBase _weaponViewPrefab;
-        public BulletView _bulletViewPrefab;
+        public WeaponViewBase _weaponPrefab;
     }
 }
