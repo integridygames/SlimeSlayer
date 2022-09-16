@@ -96,6 +96,9 @@ namespace Game.Installers.SampleScene
             var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
             Container.BindInitializeSystem(zonesInitializeSystem);
 
+            var zoneTransitInitializeSystem = Container.Instantiate<ZoneTransitInitializeSystem>();
+            Container.BindInitializeSystem(zoneTransitInitializeSystem);
+
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
@@ -111,6 +114,15 @@ namespace Game.Installers.SampleScene
 
             var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();
             Container.BindUpdateSystem(currentZoneCatchSystem);
+
+            var zoneTransitFindingNearestSystem = Container.Instantiate<ZoneTransitFindingNearestSystem>();
+            Container.BindUpdateSystem(zoneTransitFindingNearestSystem);
+
+            var zoneTransitMenuPositioningSystem = Container.Instantiate<ZoneTransitMenuPositioningSystem>();
+            Container.BindUpdateSystem(zoneTransitMenuPositioningSystem);
+
+            var zoneTransitMenuChangingVisualSystem = Container.Instantiate<ZoneTransitMenuChangingVisualSystem>();
+            Container.BindUpdateSystem(zoneTransitMenuChangingVisualSystem);
 
             var characterSpawnSystem = Container.Instantiate<CharacterSpawnSystem>();
             Container.BindInitializeSystemWithState(characterSpawnSystem, _startScreenState);

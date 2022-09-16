@@ -23,7 +23,7 @@ namespace Game.Gameplay.Systems.Zone
         }
 
         public void Initialize()
-        {
+        {           
             var zones = _levelInfo.CurrentLevelView.Value.ZonesViews.ToList();
 
             InitializeZones(zones);
