@@ -5,7 +5,7 @@ using Game.Gameplay.Views.SampleScene.Screens;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Zone 
+namespace Game.Gameplay.Systems.Zone.ZoneTransitMenu 
 {
     public class ZoneTransitMenuPositioningSystem : IUpdateSystem
     {

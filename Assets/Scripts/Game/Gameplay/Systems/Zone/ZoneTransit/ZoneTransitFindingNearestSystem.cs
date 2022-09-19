@@ -5,7 +5,7 @@ using Game.Gameplay.Views.Zone;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Zone 
+namespace Game.Gameplay.Systems.Zone.ZoneTransit 
 {
     public class ZoneTransitFindingNearestSystem : IUpdateSystem
     {
@@ -57,13 +57,17 @@ namespace Game.Gameplay.Systems.Zone
 
         private bool ConditionForNearestZoneTransit(ZoneTransitView zoneTransit, float nearestZoneTransitDistance, out float currentNearestDistance) 
         {
-            float distance = Vector3.Distance(zoneTransit.transform.position, _characterView.transform.position);
             currentNearestDistance = nearestZoneTransitDistance;
 
-            if (distance < nearestZoneTransitDistance) 
-            {
-                currentNearestDistance = distance;
-                return true;
+            if (!zoneTransit.IsOpened) 
+            {               
+                float distance = Vector3.Distance(zoneTransit.transform.position, _characterView.transform.position);
+
+                if (distance < nearestZoneTransitDistance) 
+                {
+                    currentNearestDistance = distance;
+                    return true;
+                }
             }
 
             return false;

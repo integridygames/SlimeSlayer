@@ -534,13 +534,10 @@ MonoBehaviour:
   _essenceData:
   - EssenceType: 0
     Quantity: 3
-    EssenceColor: {r: 1, g: 0, b: 0, a: 1}
   - EssenceType: 3
     Quantity: 3
-    EssenceColor: {r: 0, g: 1, b: 0.23263979, a: 1}
   - EssenceType: 1
     Quantity: 5
-    EssenceColor: {r: 0, g: 0.12531877, b: 1, a: 1}
 --- !u!1 &2453470139725112370
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +665,6 @@ MonoBehaviour:
   _isCached: 1
   _zoneSize: {x: 30, y: 30}
   _zoneType: 0
-  _zoneTriggers: []
   _zoneTransits: []
 --- !u!1 &2480108612432802666
 GameObject:
@@ -799,11 +795,9 @@ MonoBehaviour:
   _isOpened: 0
   _essenceData:
   - EssenceType: 0
-    Quantity: 1
-    EssenceColor: {r: 1, g: 0, b: 0, a: 1}
+    Quantity: 5
   - EssenceType: 2
-    Quantity: 1
-    EssenceColor: {r: 1, g: 0.9639839, b: 0.0047169924, a: 1}
+    Quantity: 5
 --- !u!1 &2629515644578574839
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +925,6 @@ MonoBehaviour:
   _isCached: 1
   _zoneSize: {x: 30, y: 30}
   _zoneType: 0
-  _zoneTriggers: []
   _zoneTransits: []
 --- !u!1 &2806448098375741988
 GameObject:
@@ -1334,7 +1327,6 @@ MonoBehaviour:
   _isCached: 1
   _zoneSize: {x: 20, y: 30}
   _zoneType: 1
-  _zoneTriggers: []
   _zoneTransits:
   - {fileID: 8367586160220717398}
   - {fileID: 8801248269572082468}

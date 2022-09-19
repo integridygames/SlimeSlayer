@@ -14,6 +14,9 @@ using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
 using Game.Gameplay.Systems.Enemy;
 using Game.Gameplay.Systems.Zone;
+using Game.Gameplay.Systems.Character.Essence;
+using Game.Gameplay.Systems.Zone.ZoneTransit;
+using Game.Gameplay.Systems.Zone.ZoneTransitMenu;
 
 namespace Game.Installers.SampleScene
 {
@@ -132,6 +135,10 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _endScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gunCabinetState);
+
+            var zoneTransitOpeningSystem = Container.Instantiate<ZoneTransitOpeningSystem>();
+            Container.BindUpdateSystemWithState(zoneTransitOpeningSystem, _gameState);
+            Container.BindFixedSystemWithState(zoneTransitOpeningSystem, _gameState);
 
             var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
             Container.BindFixedSystemWithState(characterMovingSystem, _gameState);

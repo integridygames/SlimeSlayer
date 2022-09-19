@@ -1,6 +1,5 @@
 using Game.Gameplay.Utils.Essences;
 using System;
-using UnityEngine;
 
 namespace Game.Gameplay.Models.Zone 
 {
@@ -9,6 +8,5 @@ namespace Game.Gameplay.Models.Zone
     {
         public EssenceType EssenceType;
         public int Quantity;
-        public Color EssenceColor;
     }
 }

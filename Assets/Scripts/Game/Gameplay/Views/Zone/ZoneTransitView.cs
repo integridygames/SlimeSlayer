@@ -9,10 +9,11 @@ namespace Game.Gameplay.Views.Zone
     public class ZoneTransitView : ViewBase
     {
         public event Action OnCharacterEntered;
+        public event Action OnCharacterLeft;
 
         [SerializeField] private ZoneView _zoneToTransit;
         [SerializeField] private bool _isOpened;
-        [SerializeField] private ZoneTransitEssenceData[] _essenceData;
+        [SerializeField] private ZoneTransitEssenceData[] _essenceData;       
 
         public bool IsOpened => _isOpened;
         public ZoneTransitEssenceData[] EssenceData => _essenceData;
@@ -22,6 +23,12 @@ namespace Game.Gameplay.Views.Zone
             if (other.TryGetComponent(out CharacterView characterView) && !_isOpened)
                 OnCharacterEntered?.Invoke();
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out CharacterView characterView) && !_isOpened)
+                OnCharacterLeft?.Invoke();
+        }    
 
         public void Open() 
         {

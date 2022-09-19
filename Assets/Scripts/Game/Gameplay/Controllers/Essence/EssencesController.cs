@@ -33,7 +33,12 @@ namespace Game.Gameplay.Controllers.Essence
         {
             ControlledEntity.RemoveEssence(essenceView);
             _essencePoolFactory.RecycleElement(essenceView, essenceView.EssenceType);
-            _characterEssenceInfo.CharacterEssences[essenceView.EssenceType] += essenceView.Quantity;
+
+            if (_characterEssenceInfo.FindEssence(essenceView.EssenceType, out var characterEssence)) 
+            {
+                characterEssence.Quantity += essenceView.Quantity;
+                characterEssence.EssenceImageView.QuantityTMPText.text = characterEssence.Quantity.ToString();
+            }                   
         }
     }
 }
