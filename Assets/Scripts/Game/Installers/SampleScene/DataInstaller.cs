@@ -31,6 +31,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterEssencesData>().AsSingle();
             Container.Bind<ZonesInfo>().AsSingle();
             Container.Bind<ZoneTransitInfo>().AsSingle();
+            Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
         }
     }
 }

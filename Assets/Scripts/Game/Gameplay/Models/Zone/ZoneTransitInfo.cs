@@ -24,23 +24,16 @@ namespace Game.Gameplay.Models.Zone
         }
 
         public void SetNearestZoneTransit(ZoneTransitView nearestZoneTransitView)
-        {        
-            if(NearestZoneTransitView != null) 
-            {
-                NearestZoneTransitView.OnCharacterEntered -= OnCharacterEnteredTrigger;
-                NearestZoneTransitView.OnCharacterLeft -= OnCharacterLeftTrigger;
-            }
+        {
+            UnsubscribeFromEvents();
 
             NearestZoneTransitView = nearestZoneTransitView;
             WasButtonClicked = false;
             IsCharacterInNearestZoneTrigger = false;
 
-            if(NearestZoneTransitView != null) 
-            {
-                NearestZoneTransitView.OnCharacterEntered += OnCharacterEnteredTrigger;
-                NearestZoneTransitView.OnCharacterLeft += OnCharacterLeftTrigger;
-            }
+            SubscribeToEvents();
         }
+
 
         public void SetOpeningButtonState(bool state) 
         {
@@ -50,6 +43,24 @@ namespace Game.Gameplay.Models.Zone
         public void SetTriggerNearestZoneTransitState(bool state) 
         {
             IsCharacterInNearestZoneTrigger = state;
+        }
+
+        private void UnsubscribeFromEvents() 
+        {
+            if (NearestZoneTransitView != null)
+            {
+                NearestZoneTransitView.OnCharacterEntered -= OnCharacterEnteredTrigger;
+                NearestZoneTransitView.OnCharacterLeft -= OnCharacterLeftTrigger;
+            }
+        }
+
+        private void SubscribeToEvents() 
+        {
+            if (NearestZoneTransitView != null)
+            {
+                NearestZoneTransitView.OnCharacterEntered += OnCharacterEnteredTrigger;
+                NearestZoneTransitView.OnCharacterLeft += OnCharacterLeftTrigger;
+            }
         }
 
         private void OnClick()
