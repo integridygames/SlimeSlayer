@@ -41,31 +41,42 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransitMenu
 
         private void SetVisual() 
         {
-            for(int i = 0; i < _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews.Length; i++) 
+            SetUnactiveAllViews();
+
+            for (int i = 0; i < _zoneTransitInfo.NearestZoneTransitView.EssenceData.Length; i++) 
             {
-                if(i < _zoneTransitInfo.NearestZoneTransitView.EssenceData.Length) 
+                if (ConditionForKeyExistence(_zoneTransitInfo.NearestZoneTransitView.EssenceData[i].EssenceType))
                 {
-                    _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews[i].gameObject.SetActive(true);
-
-                    _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews[i].SetType(_zoneTransitInfo.NearestZoneTransitView.EssenceData[i].EssenceType);
-
-                    _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews[i].QuantityTMPText.text =
-                         _zoneTransitInfo.NearestZoneTransitView.EssenceData[i].Quantity.ToString();
-
-                    _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews[i].EssenceImage.color =
-                         GetColor(_zoneTransitInfo.NearestZoneTransitView.EssenceData[i].EssenceType);
-                }
-                else
-                {
-                    _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews[i].gameObject.SetActive(false);
+                    SetQuantity(_zoneTransitInfo.NearestZoneTransitView.EssenceData[i]);
+                    SetActiveView(_zoneTransitInfo.NearestZoneTransitView.EssenceData[i]);
                 }
             }
         }
 
-        private Color GetColor(EssenceType essenceType) 
+        private void SetUnactiveAllViews() 
         {
-            var record = _essenceDataBase.GetRecordByType(essenceType);
-            return record.EssenceColor;
+            foreach (var essenceImageView in _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViewsList)
+                essenceImageView.gameObject.SetActive(false);
+        }
+
+        private void SetQuantity(ZoneTransitEssenceData essenceData) 
+        {
+            _zoneTransitInfo.ZoneTransitMenuView.
+                     EssenceImageViewsDictionary[essenceData.EssenceType].
+                     QuantityTMPText.text = essenceData.Quantity.ToString();
+        }
+
+        private void SetActiveView(ZoneTransitEssenceData essenceData) 
+        {
+            _zoneTransitInfo.ZoneTransitMenuView.
+                 EssenceImageViewsDictionary[essenceData.EssenceType].gameObject.SetActive(true);
+        }
+
+        private bool ConditionForKeyExistence(EssenceType type) 
+        {
+            return _zoneTransitInfo.ZoneTransitMenuView.
+                   EssenceImageViewsDictionary.
+                   ContainsKey(type);
         }
     }
 }

@@ -1,7 +1,6 @@
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Utils.Essences;
-using Game.Gameplay.Views.Essence;
 using TegridyCore.Base;
 using UnityEngine;
 
@@ -37,25 +36,26 @@ public class ZoneTransitCharacterEssenceTransferingSystem : IFixedUpdateSystem
     {
         foreach (var essenceData in _zoneTransitInteractionInfo.CurrentEssenceDataset)
         {
-            if (TryToFindEssenceInCharacterEssenceData(essenceData.EssenceType, out var characterEssence))
+            if (ConditionForCharacterEssences(essenceData.EssenceType))
             {
-                TryToSetEssenceQuantity(characterEssence, essenceData);
+                TryToSetEssenceQuantity(_characterEssencesData.CharacterEssences[essenceData.EssenceType], essenceData);
                 TryToSetEssenceTextUI(essenceData);
             }
         }
     }
 
-    private bool TryToFindEssenceInCharacterEssenceData(EssenceType essenceType, out CharacterEssence returnedCharacterEssence) 
+    private bool ConditionForCharacterEssences(EssenceType essenceType) 
     {
-        returnedCharacterEssence = null;
-        return _characterEssencesData.FindEssence(essenceType, out returnedCharacterEssence);
+        return _characterEssencesData.CharacterEssences.ContainsKey(essenceType);
     }
 
     private void TryToSetEssenceTextUI(ZoneTransitEssenceData essenceData) 
     {
-        if (FindEssenceImageView(essenceData.EssenceType, out var essenceImageView))
+        if (_zoneTransitInfo.ZoneTransitMenuView.EssenceImageViewsDictionary.ContainsKey(essenceData.EssenceType))
         {
-            essenceImageView.QuantityTMPText.text = essenceData.Quantity.ToString();
+            _zoneTransitInfo.ZoneTransitMenuView.
+                EssenceImageViewsDictionary[essenceData.EssenceType].
+                QuantityTMPText.text = essenceData.Quantity.ToString();
         }
     }
 
@@ -94,20 +94,5 @@ public class ZoneTransitCharacterEssenceTransferingSystem : IFixedUpdateSystem
         }
 
         return null;
-    }
-
-    private bool FindEssenceImageView(EssenceType essenceType, out EssenceImageView returnedEssenceImageView)
-    {
-        foreach (var essenceImageView in _zoneTransitInfo.ZoneTransitMenuView.EssenceImageViews)
-        {
-            if (essenceImageView.EssenceType == essenceType)
-            {
-                returnedEssenceImageView = essenceImageView;
-                return true;
-            }
-        }
-        returnedEssenceImageView = null;
-
-        return false;
     }
 }

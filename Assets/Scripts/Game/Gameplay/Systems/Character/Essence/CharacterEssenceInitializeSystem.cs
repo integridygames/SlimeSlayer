@@ -4,40 +4,39 @@ using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.Essence;
 using Game.ScriptableObjects;
 using TegridyCore.Base;
-using UnityEngine;
 
 namespace Game.Gameplay.Systems.Character.Essence 
 {
     public class CharacterEssenceInitializeSystem : IInitializeSystem
     {
-        private readonly CharacterEssencesData _characterEssencesInfo;
+        private readonly CharacterEssencesData _characterEssencesData;
         private readonly EssenceDataBase _essenceDataBase;
         private readonly CharacterEssenceView _characterEssenceView;
 
-        public CharacterEssenceInitializeSystem(CharacterEssencesData characterEssencesInfo, EssenceDataBase essenceDataBase, 
+        public CharacterEssenceInitializeSystem(CharacterEssencesData characterEssencesData, EssenceDataBase essenceDataBase, 
             CharacterEssenceView characterEssenceView) 
         {
-            _characterEssencesInfo = characterEssencesInfo;
+            _characterEssencesData = characterEssencesData;
             _essenceDataBase = essenceDataBase;
             _characterEssenceView = characterEssenceView;
-
         }
 
         public void Initialize()
         {
-            InitializeCharacterEssenceInfo();
+            InitializeCharacterEssenceData();
         } 
 
-        private void InitializeCharacterEssenceInfo() 
+        private void InitializeCharacterEssenceData() 
         {
-            _characterEssencesInfo.CharacterEssences = new();
+            _characterEssencesData.Initialize();
+
+
             foreach (var essenceRecord in _essenceDataBase.Records)
             {
                 if(FindEssenceImageView(essenceRecord._recordType, out var essenceImageView)) 
                 {
-                    _characterEssencesInfo.CharacterEssences.Add(new (essenceRecord._recordType, essenceImageView,  0));
+                    _characterEssencesData.CharacterEssences.Add(essenceRecord._recordType, new(essenceImageView,  0));
                     essenceImageView.QuantityTMPText.text = "0";
-                    essenceImageView.EssenceImage.color = FindColor(essenceRecord._recordType);
                 }
             }
         }
@@ -56,18 +55,5 @@ namespace Game.Gameplay.Systems.Character.Essence
             retturnedEssenceImageView = null;
             return false;
         }     
-
-        private Color FindColor(EssenceType essenceType) 
-        {
-            foreach(var record in _essenceDataBase.Records) 
-            {
-                if(record._recordType == essenceType) 
-                {
-                    return record.EssenceColor;
-                }
-            }
-
-            return Color.black;
-        }
     }   
 }

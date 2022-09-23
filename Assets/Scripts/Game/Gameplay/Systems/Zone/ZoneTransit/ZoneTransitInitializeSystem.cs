@@ -18,6 +18,8 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
         public void Initialize()
         {
             _zoneTransitInfo.Initialize(_zoneTransitMenuView);
+            _zoneTransitMenuView.Initialzie();
+
             _zoneTransitMenuView.gameObject.SetActive(false);
         }
     }
