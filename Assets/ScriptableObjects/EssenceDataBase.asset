@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EssenceDataBase
   m_EditorClassIdentifier: 
   _records:
-  - _recordType: 0
-    _prefab: {fileID: 2571016860448001523, guid: b7dcff122fe8d3843b5ed619a86803c4, type: 3}
-  - _recordType: 1
-    _prefab: {fileID: 5084604967487878637, guid: f5276b3a1e1e17f4ba554ec8a5e7934c, type: 3}
-  - _recordType: 2
-    _prefab: {fileID: 7403131141044049800, guid: 1a4673e61d57a2942bc5faa86a40d608, type: 3}
-  - _recordType: 3
-    _prefab: {fileID: 2222604199915008384, guid: 0386cd6e4c2ba2c448eefd78e2642754, type: 3}
+  - _essenceType: 0
+    _essenceView: {fileID: 2571016860448001523, guid: b7dcff122fe8d3843b5ed619a86803c4, type: 3}
+  - _essenceType: 1
+    _essenceView: {fileID: 5084604967487878637, guid: f5276b3a1e1e17f4ba554ec8a5e7934c, type: 3}
+  - _essenceType: 2
+    _essenceView: {fileID: 7403131141044049800, guid: 1a4673e61d57a2942bc5faa86a40d608, type: 3}
+  - _essenceType: 3
+    _essenceView: {fileID: 2222604199915008384, guid: 0386cd6e4c2ba2c448eefd78e2642754, type: 3}

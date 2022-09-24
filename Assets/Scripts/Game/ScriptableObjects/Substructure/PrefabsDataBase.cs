@@ -6,7 +6,7 @@ namespace Game.ScriptableObjects.Substructure
     {
         [SerializeField] private TRecord[] _records;
 
-        protected TRecord[] Records => _records;
+        public TRecord[] Records => _records;
 
         public abstract TRecord GetRecordByType(TKey recordType);
     }   

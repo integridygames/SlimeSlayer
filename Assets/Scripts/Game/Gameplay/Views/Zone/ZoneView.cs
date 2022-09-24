@@ -1,39 +1,17 @@
-using Game.Gameplay.Views.Enemy;
-using System.Collections.Generic;
-using System.Linq;
+using Game.Gameplay.Utils.Zones;
+using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.Zone 
+namespace Game.Gameplay.Views.Zone
 {
-    public class ZoneView : MonoBehaviour
+    public class ZoneView : ViewBase
     {
-        [SerializeField] private Vector2 zoneSize;
+        [SerializeField] private Vector2 _zoneSize;
+        [SerializeField] private ZoneType _zoneType;
+        [SerializeField] private ZoneTransitView[] _zoneTransits;
 
-        public List<EnemyView> EnemiesPool { get; private set; }
-
-        public bool IsZoneTriggered { get; private set; } = false;
-
-        public void Initialize()
-        {
-            EnemiesPool = GetComponentsInChildren<EnemyView>().ToList();
-        }
-
-        public void ClearPool()
-        {
-            EnemiesPool.Clear();
-        }
-
-        public void ChangeZoneState(bool state)
-        {
-            IsZoneTriggered = state;
-        }
-
-        public Vector2 GetRandomPoint()
-        {
-            float randomX = Random.Range(-zoneSize.x / 2, zoneSize.x / 2);
-            float randomZ = Random.Range(-zoneSize.y / 2, zoneSize.y / 2);
-
-            return new Vector2(transform.position.x + randomX, transform.position.z + randomZ);
-        }
+        public ZoneType ZoneType => _zoneType;
+        public ZoneTransitView[] ZoneTransits => _zoneTransits;
+        public Vector2 ZoneSize => _zoneSize;
     }
 }

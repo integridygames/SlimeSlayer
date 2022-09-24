@@ -4,6 +4,7 @@ using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
 using Game.Gameplay.Controllers.Essence;
 using Game.Gameplay.Controllers.Enemy;
+using Game.Gameplay.Controllers.Zone.ZoneTransit;
 
 namespace Game.Installers.SampleScene
 {
@@ -16,6 +17,7 @@ namespace Game.Installers.SampleScene
             BindController<CharacterHealthController>();
             BindController<EssencesController>();
             BindController<EnemiesController>();
+            BindController<ZoneTransitController>();
         }
 
         private void BindController<TController>()
