@@ -1,5 +1,5 @@
 using System;
-using Game.Gameplay.Utils.Weapons;
+using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Enemy;
 using TegridyCore.Base;
 using UnityEngine;
@@ -32,10 +32,11 @@ namespace Game.Gameplay.Views.Bullets
             }
         }
 
-        public override void Recycle() 
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             _currentLifeTime = 0;
-            gameObject.SetActive(false);
         }
 
         public void AddToCurrentLifeTime(float time) 

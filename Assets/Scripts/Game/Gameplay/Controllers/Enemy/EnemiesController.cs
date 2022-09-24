@@ -36,7 +36,7 @@ namespace Game.Gameplay.Controllers.Enemy
         private void OnEnemyDiedHandler(int quantity, Vector3 position, EssenceType essenceType, EnemyView enemyView) 
         {
             ControlledEntity.RemoveEnemy(enemyView);
-            var essenceView =_essencePoolFactory.TakeNextElement(essenceType);
+            var essenceView =_essencePoolFactory.GetElement(essenceType);
             essenceView.SetQuantity(quantity);
             essenceView.transform.position = position;
             essenceView.gameObject.SetActive(true);

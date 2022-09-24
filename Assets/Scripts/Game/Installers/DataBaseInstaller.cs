@@ -1,4 +1,5 @@
 using Game.ScriptableObjects;
+using Game.ScriptableObjects.Weapon;
 using UnityEngine;
 using Zenject;
 

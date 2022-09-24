@@ -86,9 +86,6 @@ namespace Game.Installers.SampleScene
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializeSystem);
 
-            var characterEssenceInitializeSystem = Container.Instantiate<CharacterEssenceInitializeSystem>();
-            Container.BindInitializeSystem(characterEssenceInitializeSystem);
-
             var enemiesInitializeSystem = Container.Instantiate<EnemiesInitializeSystem>();
             Container.BindInitializeSystem(enemiesInitializeSystem);
 

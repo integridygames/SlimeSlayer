@@ -1,4 +1,4 @@
-namespace Game.Gameplay.Utils.Weapons 
+namespace Game.Gameplay.Models.Weapon
 {
     public enum WeaponType
     {

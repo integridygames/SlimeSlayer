@@ -32,8 +32,8 @@ namespace Game.Gameplay.Controllers.Essence
         private void OnEssenceCollideHandler(EssenceView essenceView)
         {
             ControlledEntity.RemoveEssence(essenceView);
-            _essencePoolFactory.RecycleElement(essenceView, essenceView.EssenceType);
-            _characterEssenceInfo.CharacterEssences[essenceView.EssenceType] += essenceView.Quantity;
+            _essencePoolFactory.RecycleElement(essenceView);
+            //_characterEssenceInfo.CharacterEssences[essenceView.EssenceType] += essenceView.Quantity;
         }
     }
 }

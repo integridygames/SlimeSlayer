@@ -42,7 +42,8 @@ namespace Game.Gameplay.Systems.Weapon
         private void DestroyBullet(BulletView bullet) 
         {
             bullet.Rigidbody.velocity = Vector3.zero;
-            _bulletsPoolFactory.RecycleElement(bullet, bullet.WeaponType);
+            _activeBulletsContainer.RemoveBullet(bullet);
+            _bulletsPoolFactory.RecycleElement(bullet);
         }
     }  
 }
