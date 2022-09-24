@@ -8,6 +8,7 @@ using Game.Gameplay.Models.Weapon;
 using Zenject;
 using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Models.Enemy;
+using Game.Gameplay.Models.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -28,6 +29,9 @@ namespace Game.Installers.SampleScene
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
             Container.Bind<CharacterEssencesData>().AsSingle();
+            Container.Bind<ZonesInfo>().AsSingle();
+            Container.Bind<ZoneTransitInfo>().AsSingle();
+            Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
         }
     }
 }

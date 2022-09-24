@@ -8,6 +8,6 @@ namespace Game.ScriptableObjects
     [Serializable]
     public class EssenceRecord : Record<EssenceType, EssenceView>
     {
-    
+        
     }   
 }
