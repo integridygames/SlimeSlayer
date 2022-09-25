@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: WeaponsDataBase
   m_EditorClassIdentifier: 
   _records:
-  - _recordType: 1
-    _prefab: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
+  - _weaponType: 1
     _weaponPrefab: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
+    _bulletView: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
+    _weaponCharacteristics:
+    - _weaponCharacteristicType: 0
+      _startValue: 4
+      _multiplier: 1.5
+    - _weaponCharacteristicType: 1
+      _startValue: 2
+      _multiplier: 1.5
+    - _weaponCharacteristicType: 2
+      _startValue: 6
+      _multiplier: 1.25

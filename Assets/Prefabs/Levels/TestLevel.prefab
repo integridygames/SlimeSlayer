@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8376379793656197379}
   - component: {fileID: 8677022481974366580}
   - component: {fileID: 2787073567129639288}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: FinishView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2755208380949676539}
   - component: {fileID: 8761259978093787930}
   - component: {fileID: 3342504378690226859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 2201016745295387217}
   - component: {fileID: 7761966443859774622}
   - component: {fileID: 7359644896255307405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 6794200033678197583}
   - component: {fileID: 2892553840065446873}
   - component: {fileID: 8238537024636522680}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 9074159767198912643}
   - component: {fileID: 8339613359892245923}
   - component: {fileID: 8801248269572082468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZoneTransit 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 916821384950260681}
   - component: {fileID: 2718184473397516428}
   - component: {fileID: 6123036740980130079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zone02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 4928513002987783937}
   - component: {fileID: 8934444017166992242}
   - component: {fileID: 8367586160220717398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZoneTransit 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 4246273086786798362}
   - component: {fileID: 7208294081581991223}
   - component: {fileID: 2542475599930065501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zone01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +940,7 @@ GameObject:
   - component: {fileID: 1741103485865085018}
   - component: {fileID: 6406810730784469024}
   - component: {fileID: 2729827643814248859}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: GunCabinetView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 3836066165888313492}
   - component: {fileID: 5928729040646728845}
   - component: {fileID: 4840926906743768038}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 4396537684855926833}
   - component: {fileID: 1652730867775071076}
   - component: {fileID: 6199308121426694402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InvisibleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1215,7 +1215,7 @@ GameObject:
   - component: {fileID: 4117149446569011365}
   - component: {fileID: 4117149446569011364}
   - component: {fileID: 5857866823014396460}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hub01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4117149447349279012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1375,7 +1375,7 @@ GameObject:
   - component: {fileID: 4117149447596830646}
   - component: {fileID: 4117149447596830645}
   - component: {fileID: 2883516806785051096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1463,7 +1463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6669321757398676276}
   - component: {fileID: 3947154366492360226}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InvisibleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 112681610665784286}
   - component: {fileID: 7339720457187960175}
   - component: {fileID: 5391633235837983323}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1607,7 +1607,7 @@ GameObject:
   - component: {fileID: 7500267344561635480}
   - component: {fileID: 8101226345205726742}
   - component: {fileID: 982502264402368118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 8505881071007307741}
   - component: {fileID: 584658978541956173}
   - component: {fileID: 7726228673491125326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1801,7 +1801,7 @@ GameObject:
   - component: {fileID: 7585760211359605436}
   - component: {fileID: 2372718551343959178}
   - component: {fileID: 6704970756019251775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1898,7 +1898,7 @@ GameObject:
   - component: {fileID: 7186252327862860634}
   - component: {fileID: 2019167720551820639}
   - component: {fileID: 3743307656001853301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1995,7 +1995,7 @@ GameObject:
   - component: {fileID: 8488778080997683178}
   - component: {fileID: 6068982427378287852}
   - component: {fileID: 7469063376222720240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2092,7 +2092,7 @@ GameObject:
   - component: {fileID: 7278973757812421322}
   - component: {fileID: 7753950472566870864}
   - component: {fileID: 2770681065791538009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2187,7 +2187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9191521825468024027}
   - component: {fileID: 1022613643783830941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InvisibleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2234,7 @@ GameObject:
   - component: {fileID: 2877605466507596140}
   - component: {fileID: 2285070080281413505}
   - component: {fileID: 5461075803969874086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2331,7 +2331,7 @@ GameObject:
   - component: {fileID: 6032900549499696026}
   - component: {fileID: 7972534136885020736}
   - component: {fileID: 4489638420459110123}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2428,7 +2428,7 @@ GameObject:
   - component: {fileID: 5004054251329668065}
   - component: {fileID: 3035720833421973198}
   - component: {fileID: 5990748929242496295}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 3877702172580767463}
   - component: {fileID: 7703105433043526679}
   - component: {fileID: 3241226142264436134}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2622,7 +2622,7 @@ GameObject:
   - component: {fileID: 3525517812899898261}
   - component: {fileID: 6437965819996345683}
   - component: {fileID: 7635817461222649958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2721,7 +2721,7 @@ GameObject:
   - component: {fileID: 5598200861412055084}
   - component: {fileID: 6647248883082181688}
   - component: {fileID: 3617100701234932414}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2818,7 +2818,7 @@ GameObject:
   - component: {fileID: 8214197560420167206}
   - component: {fileID: 1414615738487890074}
   - component: {fileID: 7984023479581698220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2966,6 +2966,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueEnemy 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
 --- !u!4 &1128271033971783766 stripped
@@ -3047,6 +3051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenEnemy 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
 --- !u!114 &3490500648119288803 stripped
@@ -3075,6 +3083,10 @@ PrefabInstance:
     - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_Name
       value: YellowEnemy 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6168178596371922744, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_RootOrder
@@ -3209,6 +3221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenEnemy 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
 --- !u!114 &2634713777955419146 stripped
@@ -3237,6 +3253,10 @@ PrefabInstance:
     - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_Name
       value: YellowEnemy 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6168178596371922744, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_RootOrder
@@ -3371,6 +3391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenEnemy 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
 --- !u!114 &1314789536883528050 stripped
@@ -3451,6 +3475,10 @@ PrefabInstance:
     - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
       propertyPath: m_Name
       value: BlueEnemy 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
@@ -3533,6 +3561,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueEnemy 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
 --- !u!4 &3752421848440594720 stripped
@@ -3613,6 +3645,10 @@ PrefabInstance:
     - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
       propertyPath: m_Name
       value: RedEnemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
@@ -3695,6 +3731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedEnemy 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
 --- !u!114 &3547401160708269775 stripped
@@ -3723,6 +3763,10 @@ PrefabInstance:
     - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_Name
       value: YellowEnemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6168178596371922744, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_RootOrder
@@ -3804,6 +3848,10 @@ PrefabInstance:
     - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_Name
       value: YellowEnemy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6168178596371922744, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_RootOrder
@@ -3938,6 +3986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedEnemy 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
 --- !u!114 &421002774055888770 stripped
@@ -4018,6 +4070,10 @@ PrefabInstance:
     - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
       propertyPath: m_Name
       value: BlueEnemy 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
@@ -4100,6 +4156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedEnemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
 --- !u!114 &859785985058905697 stripped
@@ -4180,6 +4240,10 @@ PrefabInstance:
     - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
       propertyPath: m_Name
       value: GreenEnemy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
@@ -4262,6 +4326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenEnemy 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7088419051702087845, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a184e9c535cc6ca4ead212f3cb4fa7aa, type: 3}
 --- !u!4 &3328215209229993115 stripped
@@ -4343,6 +4411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueEnemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5782001292139403896, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
 --- !u!114 &3769724018853116964 stripped
@@ -4371,6 +4443,10 @@ PrefabInstance:
     - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_Name
       value: YellowEnemy 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058601318643137421, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6168178596371922744, guid: 84de485a14aa5e94689ea43b0372f4df, type: 3}
       propertyPath: m_RootOrder
@@ -4504,6 +4580,10 @@ PrefabInstance:
     - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
       propertyPath: m_Name
       value: RedEnemy 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872276079722165088, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c3cc3bde75f4f74d964dc3e4d124131, type: 3}

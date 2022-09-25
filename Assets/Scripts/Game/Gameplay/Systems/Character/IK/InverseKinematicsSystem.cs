@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Game.Gameplay.Views.Character;
 using Game.Gameplay.Utils.Character.IK;
+using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
 
-namespace Game.Gameplay.Systems.Character 
+namespace Game.Gameplay.Systems.Character.IK
 {
     public class InverseKinematicsSystem : IInitializeSystem, IUpdateSystem
     {

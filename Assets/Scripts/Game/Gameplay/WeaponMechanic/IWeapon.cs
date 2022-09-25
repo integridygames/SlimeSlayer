@@ -4,6 +4,6 @@ namespace Game.Gameplay.WeaponMechanic
     {
         public void Shoot();
 
-        public bool IsOnReload();
+        public bool NeedToShoot();
     }
 }

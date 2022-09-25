@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.ScriptableObjects.Weapon
 {
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
-    public class WeaponsDataBase : PrefabsDataBase<WeaponRecord, WeaponType>
+    public class WeaponsDataBase : AbstractDataBase<WeaponRecord, WeaponType>
     {
         public override WeaponRecord GetRecordByType(WeaponType recordType)
         {

@@ -1,9 +1,8 @@
-using TegridyCore.Base;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.Character.Placers
 {
-    public class WeaponPlacer : ViewBase
+    public class WeaponPlacer : MonoBehaviour
     {
         [SerializeField] private bool _isLeft;
 

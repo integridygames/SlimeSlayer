@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TegridyCore.Base;
 using Game.Gameplay.Views.Bullets;
@@ -10,6 +11,8 @@ namespace Game.Gameplay.Systems.Weapon
     {
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveBulletsContainer _activeBulletsContainer;
+
+        private readonly List<BulletView> _bulletsForDestroy = new();
 
         public BulletsDestroyerSystem(BulletsPoolFactory bulletsPoolFactory, ActiveBulletsContainer activeBulletsContainer)
         {
@@ -25,13 +28,20 @@ namespace Game.Gameplay.Systems.Weapon
 
         private void CalculateLifeTime(float deltaTime) 
         {
-            foreach (var bullet in _activeBulletsContainer.ActiveBullets)
+            foreach (var bulletView in _activeBulletsContainer.ActiveBullets)
             {
-                bullet.AddToCurrentLifeTime(deltaTime);
+                bulletView.AddToCurrentLifeTime(deltaTime);
 
-                if (CheckIfLifeTimeIsOver(bullet))
-                    DestroyBullet(bullet);
+                if (CheckIfLifeTimeIsOver(bulletView))
+                    _bulletsForDestroy.Add(bulletView);
             }
+
+            foreach (var bulletView in _bulletsForDestroy)
+            {
+                DestroyBullet(bulletView);
+            }
+
+            _bulletsForDestroy.Clear();
         }
 
         private bool CheckIfLifeTimeIsOver(BulletView bullet) 

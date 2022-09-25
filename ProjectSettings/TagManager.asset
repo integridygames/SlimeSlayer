@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Floor
   - Rope
-  - 
+  - Level
   - PlayerInteractable
   - Joystick
   - Coin

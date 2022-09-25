@@ -9,7 +9,6 @@ namespace Game.Gameplay.Models.Weapon
         public RxField<IWeapon> CurrentWeaponViewLeft { get; set; } = new();
         public RxField<IWeapon> CurrentWeaponViewRight { get; set; } = new();
 
-
         public Dictionary<WeaponType, Dictionary<WeaponCharacteristicType, int>> WeaponsCharacteristics = new();
     }
 }

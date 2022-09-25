@@ -1,5 +1,4 @@
 using Game.Gameplay.Models.Weapon;
-using Game.Gameplay.Views.Weapons;
 using TegridyCore.Base;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.WeaponMechanic;
@@ -32,11 +31,11 @@ namespace Game.Gameplay.Systems.Weapon
             return _targetsInfo.Targets.Length > 0;
         }
 
-        private static void TryToShoot(IWeapon weaponView)
+        private static void TryToShoot(IWeapon weapon)
         {
-            if (weaponView.IsOnReload())
+            if (weapon.NeedToShoot())
             {
-                weaponView.Shoot();
+                weapon.Shoot();
             }
         }
     }

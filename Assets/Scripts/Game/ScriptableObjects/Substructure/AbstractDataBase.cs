@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.ScriptableObjects.Substructure
 {
-    public abstract class PrefabsDataBase<TRecord, TKey> : ScriptableObject
+    public abstract class AbstractDataBase<TRecord, TKey> : ScriptableObject
     {
         [SerializeField] private TRecord[] _records;
 

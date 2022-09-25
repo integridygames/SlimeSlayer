@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "EssenceDataBase", menuName = "ScriptableObjects/EssenceDataBase")]
-    public class EssenceDataBase : PrefabsDataBase<EssenceRecord, EssenceType>
+    public class EssenceDataBase : AbstractDataBase<EssenceRecord, EssenceType>
     {
         public override EssenceRecord GetRecordByType(EssenceType recordType)
         {

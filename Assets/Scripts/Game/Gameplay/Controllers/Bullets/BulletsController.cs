@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Bullets;
+using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Enemy;
 using TegridyCore.Base;
@@ -11,10 +12,13 @@ namespace Game.Gameplay.Controllers.Bullets
     public class BulletsController : ControllerBase<ActiveBulletsContainer>, IInitializable, IDisposable
     {
         private readonly BulletsPoolFactory _bulletsPoolFactory;
+        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
 
-        public BulletsController(ActiveBulletsContainer controlledEntity, BulletsPoolFactory bulletsPoolFactory) : base(controlledEntity)
+        public BulletsController(ActiveBulletsContainer controlledEntity, BulletsPoolFactory bulletsPoolFactory,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(controlledEntity)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
+            _currentCharacterWeaponsData = currentCharacterWeaponsData;
         }
 
         public void Initialize()
@@ -31,8 +35,14 @@ namespace Game.Gameplay.Controllers.Bullets
         {
             ControlledEntity.RemoveBullet(bulletView);
             _bulletsPoolFactory.RecycleElement(bulletView);
-            
-            enemyView.TakeDamage(bulletView.Damage);
+
+            enemyView.TakeDamage(GetDamage());
+        }
+
+        private float GetDamage()
+        {
+            var weaponsCharacteristics = _currentCharacterWeaponsData.WeaponsCharacteristics[WeaponType.Pistol];
+            return weaponsCharacteristics[WeaponCharacteristicType.Attack];
         }
     }
 }

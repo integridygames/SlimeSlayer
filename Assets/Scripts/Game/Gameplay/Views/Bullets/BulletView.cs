@@ -15,14 +15,12 @@ namespace Game.Gameplay.Views.Bullets
         [SerializeField] private Rigidbody _rigidbody;
         
         [SerializeField] private float _lifeTime;
-        [SerializeField] private float _damage;
 
         private float _currentLifeTime = 0;
         public float CurrentLifeTime => _currentLifeTime;
         public float LifeTime => _lifeTime;
         public Rigidbody Rigidbody => _rigidbody;
         public WeaponType WeaponType => _weaponType;
-        public float Damage => _damage;
 
         private void OnTriggerEnter(Collider other)
         {
