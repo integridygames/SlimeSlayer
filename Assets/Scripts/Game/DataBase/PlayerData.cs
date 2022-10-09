@@ -12,6 +12,11 @@ namespace Game.DataBase
         [SerializeField] private int _currentLevel;
         [SerializeField] private List<WeaponSaveData> _weaponsSaveData;
 
+        public PlayerData()
+        {
+            _weaponsSaveData = new List<WeaponSaveData>();
+        }
+
         public int CurrentLevel
         {
             get => _currentLevel;
