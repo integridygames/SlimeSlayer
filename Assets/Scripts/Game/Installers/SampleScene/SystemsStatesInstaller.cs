@@ -15,6 +15,7 @@ using Game.Gameplay.Systems.Weapon;
 using Game.Gameplay.Systems.Enemy;
 using Game.Gameplay.Systems.Zone;
 using Game.Gameplay.Systems.Character.IK;
+using Game.Gameplay.Systems.Essence;
 using Game.Gameplay.Systems.Zone.ZoneTransit;
 using Game.Gameplay.Systems.Zone.ZoneTransitMenu;
 
@@ -94,10 +95,10 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(weaponCharacteristicsInitializeSystem);
 
             var enemiesInitializeSystem = Container.Instantiate<EnemiesInitializeSystem>();
-            Container.BindInitializeSystem(enemiesInitializeSystem);
+            Container.BindInitializeSystemWithState(enemiesInitializeSystem,_startScreenState);
 
             var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
-            Container.BindInitializeSystem(zonesInitializeSystem);
+            Container.BindInitializeSystemWithState(zonesInitializeSystem, _startScreenState);
 
             var zoneTransitInitializeSystem = Container.Instantiate<ZoneTransitInitializeSystem>();
             Container.BindInitializeSystem(zoneTransitInitializeSystem);
@@ -151,6 +152,9 @@ namespace Game.Installers.SampleScene
 
             var characterEndMoveSystem = Container.Instantiate<CharacterEndMoveSystem>();
             Container.BindDestroySystemWithState(characterEndMoveSystem, _gameState);
+
+            var characterEssenceDestroySystem = Container.Instantiate<CharacterEssenceDestroySystem>();
+            Container.BindDestroySystemWithState(characterEssenceDestroySystem, _endScreenState);
 
             var characterAnimationSystem = Container.Instantiate<CharacterAnimationSystem>();
             Container.BindUpdateSystem(characterAnimationSystem);

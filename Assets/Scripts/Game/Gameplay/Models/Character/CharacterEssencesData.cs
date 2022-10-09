@@ -1,6 +1,7 @@
 using System;
 using Game.Gameplay.Utils.Essences;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game.Gameplay.Models.Character 
 {
@@ -40,6 +41,17 @@ namespace Game.Gameplay.Models.Character
             if (_characterEssences.ContainsKey(essenceType) == false)
             {
                 _characterEssences[essenceType] = 0;
+            }
+        }
+
+        public void ClearAll()
+        {
+            var essenceTypes = _characterEssences.Keys.ToList();
+
+            foreach (var essencesType in essenceTypes)
+            {
+                _characterEssences[essencesType] = 0;
+                OnEssenceQuantityChanged?.Invoke(essencesType, 0);
             }
         }
     }   

@@ -11,35 +11,38 @@ namespace Game.Gameplay.Systems.Zone
     [UsedImplicitly]
     public class ZonesInitializeSystem : IInitializeSystem
     {
+        private const int MinimumZonesCount = 3;
         private readonly ZonesInfo _zonesInfo;
         private readonly LevelInfo _levelInfo;
-        private readonly List<ZoneData> _zonesDatas;
 
         public ZonesInitializeSystem(ZonesInfo zonesInfo, LevelInfo levelInfo)
         {
             _zonesInfo = zonesInfo;
             _levelInfo = levelInfo;
-            _zonesDatas = new List<ZoneData>();
         }
 
         public void Initialize()
         {           
-            var zones = _levelInfo.CurrentLevelView.Value.ZonesViews.ToList();
+            var zoneViews = _levelInfo.CurrentLevelView.Value.ZonesViews.ToList();
 
-            InitializeZones(zones);
+            var zonesData = GetFilledZonesData(zoneViews);
 
-            _zonesInfo.InitializeZonesDatas(_zonesDatas);
-            _zonesInfo.SetCurrentZone(_zonesDatas[0]);
+            _zonesInfo.InitializeZonesDatas(zonesData);
+            _zonesInfo.SetCurrentZone(zonesData[0]);
         }
 
-        private void InitializeZones(List<ZoneView> zones) 
+        private List<ZoneData> GetFilledZonesData(List<ZoneView> zoneViews)
         {
-            foreach (var zone in zones)
+            var zonesData = new List<ZoneData>(MinimumZonesCount);
+
+            foreach (var zone in zoneViews)
             {
-                ZoneData zoneData = new ZoneData(zone);
+                var zoneData = new ZoneData(zone);
                 zoneData.Initialize();
-                _zonesDatas.Add(zoneData);
+                zonesData.Add(zoneData);
             }
+
+            return zonesData;
         }
     }
 }

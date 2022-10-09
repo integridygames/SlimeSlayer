@@ -55,7 +55,11 @@ namespace Game.Gameplay.WeaponMechanic.Weapons
             var transform = _pistolView.ShootingPoint.transform;
             var ray = new Ray(transform.position, transform.forward);
 
-            return Physics.SphereCast(ray, 1, 10, (int)Layers.Enemy);
+            var needToShoot = Physics.SphereCast(ray, 1, 10, (int) Layers.Enemy);
+
+            Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
+
+            return needToShoot;
         }
     }
 }
