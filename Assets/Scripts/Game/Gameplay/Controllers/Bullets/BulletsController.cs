@@ -34,7 +34,7 @@ namespace Game.Gameplay.Controllers.Bullets
         private void OnBulletCollideHandler(EnemyView enemyView, BulletView bulletView)
         {
             ControlledEntity.RemoveBullet(bulletView);
-            _bulletsPoolFactory.RecycleElement(bulletView);
+            _bulletsPoolFactory.RecycleElement(bulletView.WeaponType, bulletView);
 
             enemyView.TakeDamage(GetDamage());
         }

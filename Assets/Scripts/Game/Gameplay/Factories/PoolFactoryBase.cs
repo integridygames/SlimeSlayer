@@ -6,13 +6,16 @@ namespace Game.Gameplay.Factories
 {
     public abstract class PoolFactoryBase<TView, TKey> where TView : ViewBase
     {
-        private readonly Stack<TView> _pool = new();
+        private readonly Dictionary<TKey, Stack<TView>> _pool = new ();
 
         public void ClearPool()
         {
-            foreach (var bulletView in _pool)
+            foreach (var bulletStack in _pool.Values)
             {
-                Object.Destroy(bulletView);
+                foreach (var bulletView in bulletStack)
+                {
+                    Object.Destroy(bulletView);
+                }
             }
 
             _pool.Clear();
@@ -20,20 +23,32 @@ namespace Game.Gameplay.Factories
 
         public TView GetElement(TKey key)
         {
-            var nextElement = _pool.Count == 0 ? CreateNewElement(key) : _pool.Pop();
+            var stackForKey = GetStackForKey(key);
+
+            var nextElement = stackForKey.Count == 0 ? CreateNewElement(key) : stackForKey.Pop();
 
             nextElement.gameObject.SetActive(true);
 
             return nextElement;
         }
 
+        private Stack<TView> GetStackForKey(TKey key)
+        {
+            if (_pool.ContainsKey(key) == false)
+            {
+                _pool[key] = new Stack<TView>();
+            }
+
+            return _pool[key];
+        }
+
         protected abstract TView CreateNewElement(TKey key);
 
-        public void RecycleElement(TView elementView)
+        public void RecycleElement(TKey key, TView elementView)
         {
             elementView.gameObject.SetActive(false);
 
-            _pool.Push(elementView);
+            GetStackForKey(key).Push(elementView);
         }
     }
 }

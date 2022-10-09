@@ -14,7 +14,6 @@ using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
 using Game.Gameplay.Systems.Enemy;
 using Game.Gameplay.Systems.Zone;
-using Game.Gameplay.Systems.Character.Essence;
 using Game.Gameplay.Systems.Character.IK;
 using Game.Gameplay.Systems.Zone.ZoneTransit;
 using Game.Gameplay.Systems.Zone.ZoneTransitMenu;
@@ -88,9 +87,6 @@ namespace Game.Installers.SampleScene
             var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
             Container.BindInitializeSystem(cameraContainerInitializeSystem);
 
-            var characterEssenceInitializeSystem = Container.Instantiate<CharacterEssenceInitializeSystem>();
-            Container.BindInitializeSystemWithState(characterEssenceInitializeSystem, _startScreenState);
-
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializeSystem);
 
@@ -120,16 +116,16 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystemWithState(bulletsDestroyerSystem, _gameState);
 
             var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();
-            Container.BindUpdateSystem(currentZoneCatchSystem);
+            Container.BindUpdateSystemWithState(currentZoneCatchSystem, _gameState);
 
             var zoneTransitFindingNearestSystem = Container.Instantiate<ZoneTransitFindingNearestSystem>();
-            Container.BindUpdateSystem(zoneTransitFindingNearestSystem);
+            Container.BindUpdateSystemWithState(zoneTransitFindingNearestSystem, _gameState);
 
             var zoneTransitMenuPositioningSystem = Container.Instantiate<ZoneTransitMenuPositioningSystem>();
-            Container.BindUpdateSystem(zoneTransitMenuPositioningSystem);
+            Container.BindUpdateSystemWithState(zoneTransitMenuPositioningSystem, _gameState);
 
             var zoneTransitMenuChangingVisualSystem = Container.Instantiate<ZoneTransitMenuChangingVisualSystem>();
-            Container.BindUpdateSystem(zoneTransitMenuChangingVisualSystem);
+            Container.BindUpdateSystemWithState(zoneTransitMenuChangingVisualSystem, _gameState);
 
             var zoneTransitInteractionCheckingSystem = Container.Instantiate<ZoneTransitInteractionCheckingSystem>();
             Container.BindUpdateSystemWithState(zoneTransitInteractionCheckingSystem, _gameState);
@@ -151,7 +147,7 @@ namespace Game.Installers.SampleScene
 
             var zoneTransitCharacterEssenceTransferingSystem =
                 Container.Instantiate<ZoneTransitCharacterEssenceTransferingSystem>();
-            Container.BindFixedSystemWithState(zoneTransitCharacterEssenceTransferingSystem, _gameState);
+            Container.BindUpdateSystemWithState(zoneTransitCharacterEssenceTransferingSystem, _gameState);
 
             var characterEndMoveSystem = Container.Instantiate<CharacterEndMoveSystem>();
             Container.BindDestroySystemWithState(characterEndMoveSystem, _gameState);

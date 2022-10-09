@@ -8,12 +8,12 @@ using Zenject;
 
 namespace Game.Gameplay.Controllers.Essence 
 {
-    public class EssencesController : ControllerBase<ActiveEssencesContainer>, IInitializable, IDisposable
+    public class ActiveEssencesController : ControllerBase<ActiveEssencesContainer>, IInitializable, IDisposable
     {
         private readonly EssencePoolFactory _essencePoolFactory;
         private readonly CharacterEssencesData _characterEssenceData;
 
-        public EssencesController(ActiveEssencesContainer controlledEntity, EssencePoolFactory essencePoolFactory, CharacterEssencesData characterEssenceData) : base(controlledEntity)
+        public ActiveEssencesController(ActiveEssencesContainer controlledEntity, EssencePoolFactory essencePoolFactory, CharacterEssencesData characterEssenceData) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _characterEssenceData = characterEssenceData;
@@ -31,8 +31,10 @@ namespace Game.Gameplay.Controllers.Essence
 
         private void OnEssenceCollideHandler(EssenceView essenceView)
         {
+            _characterEssenceData.AddEssence(essenceView.EssenceType, essenceView.Quantity);
+
             ControlledEntity.RemoveEssence(essenceView);
-            _essencePoolFactory.RecycleElement(essenceView);
+            _essencePoolFactory.RecycleElement(essenceView.EssenceType, essenceView);
         }
     }
 }

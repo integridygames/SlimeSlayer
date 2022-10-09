@@ -15,7 +15,8 @@ namespace Game.Installers.SampleScene
             BindController<GameScreenController>();
             BindController<BulletsController>();
             BindController<CharacterHealthController>();
-            BindController<EssencesController>();
+            BindController<ActiveEssencesController>();
+            BindController<EssenceImageViewsController>();
             BindController<EnemiesController>();
             BindController<ZoneTransitController>();
         }

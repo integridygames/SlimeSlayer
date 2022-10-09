@@ -49,11 +49,11 @@ namespace Game.Gameplay.Systems.Weapon
             return bullet.CurrentLifeTime >= bullet.LifeTime && bullet != null;
         }
 
-        private void DestroyBullet(BulletView bullet) 
+        private void DestroyBullet(BulletView bulletView)
         {
-            bullet.Rigidbody.velocity = Vector3.zero;
-            _activeBulletsContainer.RemoveBullet(bullet);
-            _bulletsPoolFactory.RecycleElement(bullet);
+            bulletView.Rigidbody.velocity = Vector3.zero;
+            _activeBulletsContainer.RemoveBullet(bulletView);
+            _bulletsPoolFactory.RecycleElement(bulletView.WeaponType, bulletView);
         }
     }  
 }

@@ -1,12 +1,11 @@
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Zone;
-using Game.Gameplay.Utils.Essences;
 using TegridyCore.Base;
 using UnityEngine;
 
 namespace Game.Gameplay.Systems.Zone.ZoneTransit
 {
-    public class ZoneTransitCharacterEssenceTransferingSystem : IFixedUpdateSystem
+    public class ZoneTransitCharacterEssenceTransferingSystem : IUpdateSystem
     {
         private readonly ZoneTransitInteractionInfo _zoneTransitInteractionInfo;
         private readonly ZoneTransitInfo _zoneTransitInfo;
@@ -20,7 +19,7 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
             _characterEssencesData = characterEssencesData;
         }
 
-        public void FixedUpdate()
+        public void Update()
         {
             if (ConditionForTransfer())
             {
@@ -38,17 +37,24 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
         {
             foreach (var essenceData in _zoneTransitInteractionInfo.CurrentEssenceDataset)
             {
-                if (ConditionForCharacterEssences(essenceData.EssenceType))
+                if (ConditionForCharacterEssences(essenceData))
                 {
-                    TryToSetEssenceQuantity(_characterEssencesData.CharacterEssences[essenceData.EssenceType], essenceData);
+                    TransferEssence(essenceData);
+
                     TryToSetEssenceTextUI(essenceData);
                 }
             }
         }
 
-        private bool ConditionForCharacterEssences(EssenceType essenceType)
+        private bool ConditionForCharacterEssences(ZoneTransitEssenceData zoneTransitEssenceData)
         {
-            return _characterEssencesData.CharacterEssences.ContainsKey(essenceType);
+            return _characterEssencesData.GetEssenceQuantity(zoneTransitEssenceData.EssenceType) > 0 && zoneTransitEssenceData.Quantity > 0;
+        }
+
+        private void TransferEssence(ZoneTransitEssenceData essenceData)
+        {
+            _characterEssencesData.RemoveEssence(essenceData.EssenceType, 1);
+            essenceData.Quantity--;
         }
 
         private void TryToSetEssenceTextUI(ZoneTransitEssenceData essenceData)
@@ -58,15 +64,6 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
                 _zoneTransitInfo.ZoneTransitMenuView.
                     EssenceImageViewsDictionary[essenceData.EssenceType].
                     Quantity.text = essenceData.Quantity.ToString();
-            }
-        }
-
-        private void TryToSetEssenceQuantity(CharacterEssence characterEssence, ZoneTransitEssenceData essenceData)
-        {
-            if (characterEssence.Quantity > 0 && essenceData.Quantity > 0)
-            {
-                characterEssence.Quantity = Mathf.Clamp(characterEssence.Quantity, 0, --characterEssence.Quantity);
-                essenceData.Quantity--;
             }
         }
 
