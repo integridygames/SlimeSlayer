@@ -2,8 +2,8 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Bullets;
 using Game.Gameplay.Models.Weapon;
-using Game.Gameplay.Utils.Layers;
 using Game.Gameplay.Views.Weapons.Pistols;
+using TegridyUtils;
 using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanic.Weapons
@@ -50,16 +50,19 @@ namespace Game.Gameplay.WeaponMechanic.Weapons
             return _weaponsCharacteristic[WeaponCharacteristicType.FireRate];
         }
 
-        public bool NeedToShoot()
+        public bool NeedToShoot(Collider[] targets)
         {
             var transform = _pistolView.ShootingPoint.transform;
-            var ray = new Ray(transform.position, transform.forward);
 
-            var needToShoot = Physics.SphereCast(ray, 1, 10, (int) Layers.Enemy);
+            foreach (var target in targets)
+            {
+                if (MathUtils.IsInCone(transform.position, transform.forward, target.transform.position, 10, 20, true))
+                {
+                    return true;
+                }
+            }
 
-            Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
-
-            return needToShoot;
+            return false;
         }
     }
 }

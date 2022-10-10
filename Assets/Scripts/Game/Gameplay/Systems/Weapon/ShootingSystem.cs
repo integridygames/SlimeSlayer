@@ -31,9 +31,9 @@ namespace Game.Gameplay.Systems.Weapon
             return _targetsInfo.Targets.Length > 0;
         }
 
-        private static void TryToShoot(IWeapon weapon)
+        private void TryToShoot(IWeapon weapon)
         {
-            if (weapon.NeedToShoot())
+            if (weapon.NeedToShoot(_targetsInfo.Targets))
             {
                 weapon.Shoot();
             }
