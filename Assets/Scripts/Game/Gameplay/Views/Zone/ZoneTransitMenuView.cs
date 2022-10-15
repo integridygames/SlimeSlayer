@@ -1,7 +1,7 @@
-using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Essence;
 using System.Collections.Generic;
 using System.Linq;
+using Game.DataBase;
 using TegridyCore.Base;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,7 +1,6 @@
-using Game.Gameplay.Utils.Essences;
+using Game.DataBase;
 using Game.Gameplay.Views.Container;
 using Game.Gameplay.Views.Essence;
-using Game.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Gameplay.Factories 

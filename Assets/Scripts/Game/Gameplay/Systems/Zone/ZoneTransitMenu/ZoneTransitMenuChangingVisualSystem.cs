@@ -1,9 +1,8 @@
+using Game.DataBase;
 using TegridyCore.Base;
 using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Views.Zone;
 using Game.Gameplay.Views.SampleScene.Screens;
-using Game.ScriptableObjects;
-using Game.Gameplay.Utils.Essences;
 using UnityEngine;
 
 namespace Game.Gameplay.Systems.Zone.ZoneTransitMenu 

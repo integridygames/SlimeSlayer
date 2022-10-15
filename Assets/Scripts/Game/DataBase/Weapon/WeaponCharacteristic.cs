@@ -1,7 +1,7 @@
 ﻿using System;
 using Game.Gameplay.Models.Weapon;
 
-namespace Game.ScriptableObjects.Weapon
+namespace Game.DataBase.Weapon
 {
     [Serializable]
     public class WeaponCharacteristic

@@ -1,4 +1,4 @@
-namespace Game.Gameplay.Utils.Essences 
+namespace Game.DataBase
 {
     public enum EssenceType
     {

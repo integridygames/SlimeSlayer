@@ -1,9 +1,9 @@
 using System.Linq;
+using Game.DataBase.Substructure;
 using Game.Gameplay.Models.Weapon;
-using Game.ScriptableObjects.Substructure;
 using UnityEngine;
 
-namespace Game.ScriptableObjects.Weapon
+namespace Game.DataBase.Weapon
 {
     [CreateAssetMenu(fileName = "WeaponsDataBase", menuName = "ScriptableObjects/WeaponsDataBase")]
     public class WeaponsDataBase : AbstractDataBase<WeaponRecord, WeaponType>

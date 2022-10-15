@@ -1,7 +1,7 @@
 using System;
-using Game.Gameplay.Utils.Essences;
 using System.Collections.Generic;
 using System.Linq;
+using Game.DataBase;
 
 namespace Game.Gameplay.Models.Character 
 {

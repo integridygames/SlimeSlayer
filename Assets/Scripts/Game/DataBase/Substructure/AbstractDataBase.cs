@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.ScriptableObjects.Substructure
+namespace Game.DataBase.Substructure
 {
     public abstract class AbstractDataBase<TRecord, TKey> : ScriptableObject
     {

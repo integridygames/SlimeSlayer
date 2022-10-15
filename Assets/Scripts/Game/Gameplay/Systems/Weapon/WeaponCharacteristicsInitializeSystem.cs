@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
-using Game.ScriptableObjects.Weapon;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Weapon

@@ -1,4 +1,4 @@
-using Game.Gameplay.Utils.Essences;
+using Game.DataBase;
 using TegridyCore.Base;
 using TMPro;
 using UnityEngine;

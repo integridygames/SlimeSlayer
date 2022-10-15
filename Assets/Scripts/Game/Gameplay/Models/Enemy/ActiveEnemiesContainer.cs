@@ -1,7 +1,7 @@
-using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Enemy;
 using System;
 using System.Collections.Generic;
+using Game.DataBase;
 using UnityEngine;
 
 namespace Game.Gameplay.Models.Enemy 

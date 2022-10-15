@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Game.ScriptableObjects;
+using Game.DataBase;
 using UnityEngine;
 
 namespace Game.Services

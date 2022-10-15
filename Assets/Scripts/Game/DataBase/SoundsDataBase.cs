@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Game.ScriptableObjects
+namespace Game.DataBase
 {
     [CreateAssetMenu(fileName = "SoundsDataBase", menuName = "ScriptableObjects/SoundsDataBase")]
     public class SoundsDataBase : ScriptableObject

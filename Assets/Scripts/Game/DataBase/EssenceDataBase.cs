@@ -1,9 +1,8 @@
 using System.Linq;
-using Game.Gameplay.Utils.Essences;
-using Game.ScriptableObjects.Substructure;
+using Game.DataBase.Substructure;
 using UnityEngine;
 
-namespace Game.ScriptableObjects
+namespace Game.DataBase
 {
     [CreateAssetMenu(fileName = "EssenceDataBase", menuName = "ScriptableObjects/EssenceDataBase")]
     public class EssenceDataBase : AbstractDataBase<EssenceRecord, EssenceType>

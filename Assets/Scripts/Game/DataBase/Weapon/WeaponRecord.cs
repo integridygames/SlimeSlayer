@@ -4,7 +4,7 @@ using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Weapons;
 
-namespace Game.ScriptableObjects.Weapon
+namespace Game.DataBase.Weapon
 {
     [Serializable]
     public class WeaponRecord

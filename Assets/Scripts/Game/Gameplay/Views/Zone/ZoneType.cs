@@ -1,4 +1,4 @@
-namespace Game.Gameplay.Utils.Zones 
+namespace Game.Gameplay.Views.Zone
 {
     public enum ZoneType
     {

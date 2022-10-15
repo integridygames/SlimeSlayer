@@ -10,6 +10,7 @@ namespace Game.Installers.SampleScene
         {
             Container.BindInterfacesAndSelfTo<VibrationService>().AsSingle();
             Container.Bind<CharacterRespawnService>().AsSingle();
+            Container.Bind<WeaponMechanicsService>().AsSingle();
         }
     }
 }

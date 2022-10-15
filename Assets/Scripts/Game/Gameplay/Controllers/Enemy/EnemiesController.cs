@@ -1,10 +1,9 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Essence;
-using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Enemy;
-using Game.ScriptableObjects;
 using System;
+using Game.DataBase;
 using TegridyCore.Base;
 using UnityEngine;
 using Zenject;

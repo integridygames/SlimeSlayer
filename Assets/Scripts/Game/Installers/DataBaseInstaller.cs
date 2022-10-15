@@ -1,5 +1,5 @@
-using Game.ScriptableObjects;
-using Game.ScriptableObjects.Weapon;
+using Game.DataBase;
+using Game.DataBase.Weapon;
 using UnityEngine;
 using Zenject;
 

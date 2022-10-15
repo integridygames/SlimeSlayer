@@ -2,7 +2,7 @@
 using TegridyUtils.Extensions;
 using UnityEngine;
 
-namespace Game.ScriptableObjects
+namespace Game.DataBase
 {
     [CreateAssetMenu(fileName = "LevelsDataBase", menuName = "ScriptableObjects/LevelsDataBase")]
     public class LevelsDataBase : ScriptableObject

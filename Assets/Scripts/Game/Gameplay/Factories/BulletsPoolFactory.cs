@@ -1,7 +1,7 @@
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Container;
-using Game.ScriptableObjects.Weapon;
 using UnityEngine;
 
 namespace Game.Gameplay.Factories 

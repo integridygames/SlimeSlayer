@@ -1,8 +1,7 @@
 using System;
-using Game.Gameplay.Utils.Essences;
 using Game.Gameplay.Views.Essence;
 
-namespace Game.ScriptableObjects
+namespace Game.DataBase
 {
     [Serializable]
     public class EssenceRecord
