@@ -26,3 +26,6 @@ MonoBehaviour:
     - _weaponCharacteristicType: 2
       _startValue: 6
       _multiplier: 1.25
+    - _weaponCharacteristicType: 3
+      _startValue: 2
+      _multiplier: 1

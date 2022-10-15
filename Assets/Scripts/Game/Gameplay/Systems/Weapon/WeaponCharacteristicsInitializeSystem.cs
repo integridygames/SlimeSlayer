@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Game.DataBase.Weapon;
+﻿using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
 using TegridyCore.Base;
@@ -8,7 +7,7 @@ namespace Game.Gameplay.Systems.Weapon
 {
     public class WeaponCharacteristicsInitializeSystem : IInitializeSystem
     {
-        private readonly Dictionary<WeaponType, Dictionary<WeaponCharacteristicType, int>> _weaponsCharacteristics;
+        private readonly WeaponsCharacteristics _weaponsCharacteristics;
         private readonly ApplicationData _applicationData;
         private readonly WeaponsDataBase _weaponsDataBase;
 
@@ -26,43 +25,26 @@ namespace Game.Gameplay.Systems.Weapon
             {
                 foreach (var weaponCharacteristic in record._weaponCharacteristics)
                 {
-                    FillConcreteCharacteristic(record._weaponType, weaponCharacteristic);
+                    CalculateCharacteristic(weaponCharacteristic, record._weaponType);
                 }
             }
         }
 
-        private void FillConcreteCharacteristic(WeaponType weaponType, WeaponCharacteristic weaponCharacteristic)
-        {
-            var characteristicValues = GetOrCreateCharacteristicValues(weaponType);
-
-            CalculateCharacteristic(characteristicValues, weaponCharacteristic, weaponType);
-        }
-
-        private Dictionary<WeaponCharacteristicType, int> GetOrCreateCharacteristicValues(WeaponType weaponType)
-        {
-            if (_weaponsCharacteristics.TryGetValue(weaponType, out var characteristicValues) == false)
-            {
-                characteristicValues = new Dictionary<WeaponCharacteristicType, int>();
-                _weaponsCharacteristics[weaponType] = characteristicValues;
-            }
-
-            return characteristicValues;
-        }
-
-        private void CalculateCharacteristic(IDictionary<WeaponCharacteristicType, int> characteristicValues,
-            WeaponCharacteristic weaponCharacteristic, WeaponType weaponType)
+        private void CalculateCharacteristic(WeaponCharacteristic weaponCharacteristic, WeaponType weaponType)
         {
             var characteristicType = weaponCharacteristic._weaponCharacteristicType;
 
-            var characteristicValue = characteristicValues[characteristicType] = weaponCharacteristic._startValue;
+            var characteristicValue = weaponCharacteristic._startValue;
 
             if (_applicationData.PlayerData.WeaponsSaveDataByType.TryGetValue(weaponType, out var weaponSaveData))
-
+            {
                 for (var i = 0; i < weaponSaveData.Level; i++)
                 {
-                    characteristicValues[characteristicType] =
-                        (int) (weaponCharacteristic._multiplier * characteristicValue);
+                    characteristicValue += (int) (weaponCharacteristic._multiplier * characteristicValue);
                 }
+            }
+
+            _weaponsCharacteristics.SetCharacteristic(weaponType, characteristicType, characteristicValue);
         }
     }
 }

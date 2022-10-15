@@ -19,12 +19,15 @@ namespace Game.Gameplay.Systems.Weapon
             TryToShoot(_currentCharacterWeaponsData.CurrentWeaponViewRight.Value);
         }
 
-        private static void TryToShoot(IWeapon weapon)
+        private static void TryToShoot(WeaponBase weaponBase)
         {
-            if (weapon.NeedToShoot())
+            if (weaponBase.NeedReload())
             {
-                weapon.Shoot();
+                weaponBase.Reload();
+                return;
             }
+
+            weaponBase.Shoot();
         }
     }
 }

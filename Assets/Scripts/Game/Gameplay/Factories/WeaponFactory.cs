@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Factories
 {
-    public class WeaponFactory : IFactory<WeaponType, WeaponPlacer, IWeapon>
+    public class WeaponFactory : IFactory<WeaponType, WeaponPlacer, WeaponBase>
     {
         private readonly DiContainer _container;
         private readonly WeaponsDataBase _weaponsDataBase;
@@ -20,7 +20,7 @@ namespace Game.Gameplay.Factories
             _weaponsDataBase = weaponsDataBase;
         }
 
-        public IWeapon Create(WeaponType weaponType, WeaponPlacer weaponPlacer)
+        public WeaponBase Create(WeaponType weaponType, WeaponPlacer weaponPlacer)
         {
             var weaponRecord = _weaponsDataBase.GetRecordByType(weaponType);
             var weaponView = Object.Instantiate(weaponRecord._weaponPrefab, weaponPlacer.transform);

@@ -1,50 +1,29 @@
-﻿using System.Collections.Generic;
-using Game.Gameplay.Models.Weapon;
+﻿using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons.Pistols;
-using UnityEngine;
+using Game.Gameplay.WeaponMechanic.WeaponComponents.ReloadComponents;
+using Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents;
 
 namespace Game.Gameplay.WeaponMechanic.Weapons
 {
-    public class PistolWeapon : IWeapon
+    public class PistolWeapon : WeaponBase
     {
-        private const int BulletSpeed = 15;
-
-        private readonly PistolView _pistolView;
-        private readonly WeaponMechanicsService _weaponMechanicsService;
-        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
-
-        private float _previousShootTime;
-
-        private Dictionary<WeaponCharacteristicType, int> _weaponsCharacteristic;
+        private readonly BulletShootComponent _bulletShootComponent;
+        private readonly CommonReloadComponent _commonReloadComponent;
 
         public PistolWeapon(PistolView pistolView, WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
-            _pistolView = pistolView;
-            _weaponMechanicsService = weaponMechanicsService;
-            _currentCharacterWeaponsData = currentCharacterWeaponsData;
+            _bulletShootComponent =
+                new BulletShootComponent(weaponMechanicsService, currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, pistolView.ShootingPoint);
+            _commonReloadComponent =
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType.Pistol);
         }
 
-        public void Shoot()
-        {
-            if (Time.time - _previousShootTime > GetFireRate())
-            {
-                _weaponMechanicsService.ShootABullet(_pistolView.ShootingPoint, WeaponType.Pistol, BulletSpeed);
+        public sealed override WeaponType WeaponType => WeaponType.Pistol;
 
-                _previousShootTime = Time.time;
-            }
-        }
+        protected override IShootComponent ShootComponent => _bulletShootComponent;
 
-        private int GetFireRate()
-        {
-            _weaponsCharacteristic ??= _currentCharacterWeaponsData.WeaponsCharacteristics[WeaponType.Pistol];
-            return _weaponsCharacteristic[WeaponCharacteristicType.FireRate];
-        }
-
-        public bool NeedToShoot()
-        {
-            return _weaponMechanicsService.WeaponHasATarget(_pistolView.ShootingPoint);
-        }
+        protected override IReloadComponent ReloadComponent => _commonReloadComponent;
     }
 }

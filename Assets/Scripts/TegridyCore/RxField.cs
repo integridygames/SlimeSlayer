@@ -1,11 +1,10 @@
 ﻿using System;
-using TegridyCore.FiniteStateMachine;
 using UnityEngine;
 
 namespace TegridyCore
 {
     [Serializable]
-    public class RxField<T>
+    public class RxField<T> : IReadonlyRxField<T>
     {
         public event Action<RxValue<T>> OnUpdate;
 
@@ -23,7 +22,7 @@ namespace TegridyCore
             get => _value;
         }
 
-        public static implicit operator RxField<T>(T value) => new RxField<T> {_value = value};
+        public static implicit operator RxField<T>(T value) => new() {_value = value};
     }
 
     public struct RxValue<T>

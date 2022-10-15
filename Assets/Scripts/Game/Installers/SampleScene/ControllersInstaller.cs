@@ -19,6 +19,7 @@ namespace Game.Installers.SampleScene
             BindController<EssenceImageViewsController>();
             BindController<EnemiesController>();
             BindController<ZoneTransitController>();
+            BindController<WeaponReloadController>();
         }
 
         private void BindController<TController>()

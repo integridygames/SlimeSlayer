@@ -36,13 +36,12 @@ namespace Game.Gameplay.Controllers.Bullets
             ControlledEntity.RemoveBullet(bulletView);
             _bulletsPoolFactory.RecycleElement(bulletView.WeaponType, bulletView);
 
-            enemyView.TakeDamage(GetDamage());
+            enemyView.TakeDamage(GetDamage(bulletView.WeaponType));
         }
 
-        private float GetDamage()
+        private float GetDamage(WeaponType weaponType)
         {
-            var weaponsCharacteristics = _currentCharacterWeaponsData.WeaponsCharacteristics[WeaponType.Pistol];
-            return weaponsCharacteristics[WeaponCharacteristicType.Attack];
+            return _currentCharacterWeaponsData.WeaponsCharacteristics.GetCharacteristic(weaponType, WeaponCharacteristicType.Attack);
         }
     }
 }
