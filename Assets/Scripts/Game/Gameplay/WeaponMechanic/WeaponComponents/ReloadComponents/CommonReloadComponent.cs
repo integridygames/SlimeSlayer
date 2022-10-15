@@ -45,7 +45,7 @@ namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ReloadComponents
         {
             _reloadProgress.Value = 0;
 
-            var charge = _weaponsCharacteristics.GetCharacteristic(_weaponType, WeaponCharacteristicType.Charge);
+            var charge = (int) _weaponsCharacteristics.GetCharacteristic(_weaponType, WeaponCharacteristicType.Charge);
             CurrentCharge.Value = charge;
         }
     }

@@ -8,7 +8,7 @@ namespace Game.DataBase.Weapon
     {
         public WeaponCharacteristicType _weaponCharacteristicType;
 
-        public int _startValue;
+        public float _startValue;
         public float _multiplier;
     }
 }

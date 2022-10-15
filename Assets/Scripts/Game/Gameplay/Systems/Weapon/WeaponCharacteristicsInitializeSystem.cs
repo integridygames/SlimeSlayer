@@ -1,7 +1,9 @@
-﻿using Game.DataBase.Weapon;
+﻿using System;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
 using TegridyCore.Base;
+using UnityEngine;
 
 namespace Game.Gameplay.Systems.Weapon
 {
@@ -40,7 +42,7 @@ namespace Game.Gameplay.Systems.Weapon
             {
                 for (var i = 0; i < weaponSaveData.Level; i++)
                 {
-                    characteristicValue += (int) (weaponCharacteristic._multiplier * characteristicValue);
+                    characteristicValue = (float) Math.Round(characteristicValue * weaponCharacteristic._multiplier, 2);
                 }
             }
 

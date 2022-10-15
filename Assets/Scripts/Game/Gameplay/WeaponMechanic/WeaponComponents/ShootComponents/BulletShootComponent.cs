@@ -37,7 +37,7 @@ namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents
             return Time.time - _lastShotTime >= BulletsPerSecond(fireRate);
         }
 
-        private static float BulletsPerSecond(int fireRate)
+        private static float BulletsPerSecond(float fireRate)
         {
             return 1f / fireRate;
         }
