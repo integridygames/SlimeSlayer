@@ -1,3 +1,4 @@
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using TegridyCore;
 
@@ -9,6 +10,7 @@ namespace Game.Gameplay.WeaponMechanic
 
         protected abstract IShootComponent ShootComponent { get; }
         protected abstract IReloadComponent ReloadComponent { get; }
+        protected abstract IShootPossibilityComponent ShootPossibilityComponent { get; }
 
         public IReadonlyRxField<float> ReloadProgress => ReloadComponent.ReloadProgress;
 
@@ -16,9 +18,10 @@ namespace Game.Gameplay.WeaponMechanic
 
         public void Shoot()
         {
-            if (ShootComponent.CanShoot())
+            if (ShootPossibilityComponent.CanShoot())
             {
                 ShootComponent.Shoot();
+                ShootPossibilityComponent.HandleShoot();
                 ReloadComponent.CurrentCharge.Value--;
             }
         }

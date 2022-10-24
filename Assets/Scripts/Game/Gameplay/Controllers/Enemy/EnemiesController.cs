@@ -4,6 +4,7 @@ using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Views.Enemy;
 using System;
 using Game.DataBase;
+using Game.DataBase.Essence;
 using TegridyCore.Base;
 using UnityEngine;
 using Zenject;

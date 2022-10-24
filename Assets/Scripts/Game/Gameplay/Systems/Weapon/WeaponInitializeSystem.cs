@@ -1,3 +1,4 @@
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Views.Character;

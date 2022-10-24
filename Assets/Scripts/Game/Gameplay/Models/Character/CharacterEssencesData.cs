@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.DataBase;
+using Game.DataBase.Essence;
 
 namespace Game.Gameplay.Models.Character 
 {

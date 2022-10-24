@@ -1,5 +1,5 @@
 using System;
-using Game.Gameplay.Models.Weapon;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Views.Enemy;
 using TegridyCore.Base;
 using UnityEngine;
@@ -9,24 +9,34 @@ namespace Game.Gameplay.Views.Bullets
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : ViewBase
     {
-        public event Action<EnemyView, BulletView> OnBulletCollide;
-        
-        [SerializeField] private WeaponType _weaponType;
+        [SerializeField] private BulletType _bulletType;
         [SerializeField] private Rigidbody _rigidbody;
         
         [SerializeField] private float _lifeTime;
 
-        private float _currentLifeTime = 0;
-        public float CurrentLifeTime => _currentLifeTime;
+        private Action<EnemyView, BulletView> _enemyCollideHandler;
+
+        public float CurrentLifeTime { get; private set; }
+
         public float LifeTime => _lifeTime;
         public Rigidbody Rigidbody => _rigidbody;
-        public WeaponType WeaponType => _weaponType;
+        public BulletType BulletType => _bulletType;
+
+        public void AddToCurrentLifeTime(float time)
+        {
+            CurrentLifeTime += time;
+        }
+
+        public void SetEnemyCollideHandler(Action<EnemyView, BulletView> enemyCollideHandler)
+        {
+            _enemyCollideHandler = enemyCollideHandler;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out EnemyView enemyView)) 
             {
-                OnBulletCollide?.Invoke(enemyView, this);
+                _enemyCollideHandler?.Invoke(enemyView, this);
             }
         }
 
@@ -34,12 +44,7 @@ namespace Game.Gameplay.Views.Bullets
         {
             base.OnDisable();
 
-            _currentLifeTime = 0;
-        }
-
-        public void AddToCurrentLifeTime(float time) 
-        {
-            _currentLifeTime += time;
+            CurrentLifeTime = 0;
         }
     }
 }

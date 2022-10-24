@@ -1,5 +1,6 @@
 using System;
 using Game.DataBase;
+using Game.DataBase.Essence;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.Enemy

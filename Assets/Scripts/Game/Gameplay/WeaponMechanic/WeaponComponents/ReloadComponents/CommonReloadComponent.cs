@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Models.Weapon;
+﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Weapon;
 using TegridyCore;
 using UnityEngine;

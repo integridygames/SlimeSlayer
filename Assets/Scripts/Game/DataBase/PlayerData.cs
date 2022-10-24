@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using UnityEngine;
 

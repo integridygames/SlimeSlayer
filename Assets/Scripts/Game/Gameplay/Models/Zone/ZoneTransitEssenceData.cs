@@ -1,5 +1,6 @@
 using System;
 using Game.DataBase;
+using Game.DataBase.Essence;
 
 namespace Game.Gameplay.Models.Zone 
 {

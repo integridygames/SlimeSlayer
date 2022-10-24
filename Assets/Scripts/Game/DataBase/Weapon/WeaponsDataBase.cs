@@ -1,6 +1,4 @@
 using System.Linq;
-using Game.DataBase.Substructure;
-using Game.Gameplay.Models.Weapon;
 using UnityEngine;
 
 namespace Game.DataBase.Weapon
@@ -10,7 +8,7 @@ namespace Game.DataBase.Weapon
     {
         public override WeaponRecord GetRecordByType(WeaponType recordType)
         {
-            return Records.First(x => x._weaponPrefab);
+            return Records.First(x => x._weaponType == recordType);
         }
     }
 }

@@ -2,6 +2,7 @@ using Game.Gameplay.Views.Essence;
 using System.Collections.Generic;
 using System.Linq;
 using Game.DataBase;
+using Game.DataBase.Essence;
 using TegridyCore.Base;
 using UnityEngine;
 using UnityEngine.UI;

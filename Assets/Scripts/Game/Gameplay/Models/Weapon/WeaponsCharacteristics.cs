@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Game.DataBase.Weapon;
 
 namespace Game.Gameplay.Models.Weapon
 {

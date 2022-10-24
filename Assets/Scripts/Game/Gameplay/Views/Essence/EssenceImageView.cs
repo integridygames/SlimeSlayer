@@ -1,4 +1,5 @@
 using Game.DataBase;
+using Game.DataBase.Essence;
 using TegridyCore.Base;
 using TMPro;
 using UnityEngine;

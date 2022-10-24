@@ -1,25 +1,24 @@
 using Game.DataBase.Weapon;
-using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Container;
 using UnityEngine;
 
 namespace Game.Gameplay.Factories 
 {
-    public class BulletsPoolFactory : PoolFactoryBase<BulletView, WeaponType>
+    public class BulletsPoolFactory : PoolFactoryBase<BulletView, BulletType>
     {
         private readonly PoolContainerView _poolContainerView;
-        private readonly WeaponsDataBase _weaponsDataBase;
+        private readonly BulletsDataBase _bulletsDataBase;
 
-        public BulletsPoolFactory(PoolContainerView poolContainerView, WeaponsDataBase weaponsDataBase)
+        public BulletsPoolFactory(PoolContainerView poolContainerView, BulletsDataBase bulletsDataBase)
         {
             _poolContainerView = poolContainerView;
-            _weaponsDataBase = weaponsDataBase;
+            _bulletsDataBase = bulletsDataBase;
         }
 
-        protected override BulletView CreateNewElement(WeaponType key)
+        protected override BulletView CreateNewElement(BulletType key)
         {
-            var weaponRecord = _weaponsDataBase.GetRecordByType(key);
+            var weaponRecord = _bulletsDataBase.GetRecordByType(key);
 
             return Object.Instantiate(weaponRecord._bulletView, _poolContainerView.transform);
         }

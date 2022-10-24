@@ -1,4 +1,3 @@
-using Game.Gameplay.Models.Bullets;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;

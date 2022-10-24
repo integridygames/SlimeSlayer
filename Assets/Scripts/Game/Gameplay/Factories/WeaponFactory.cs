@@ -2,6 +2,7 @@
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Character.Placers;
+using Game.Gameplay.Views.Weapons;
 using Game.Gameplay.WeaponMechanic;
 using Game.Gameplay.WeaponMechanic.Weapons;
 using Zenject;
@@ -28,10 +29,17 @@ namespace Game.Gameplay.Factories
             switch (weaponType)
             {
                 case WeaponType.Pistol:
-                    return _container.Instantiate<PistolWeapon>(new object[] {weaponView});
+                    return CreateWeapon<PistolWeapon>(weaponView);
+                case WeaponType.Shotgun:
+                    return CreateWeapon<ShotgunWeapon>(weaponView);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
             }
+        }
+
+        private T CreateWeapon<T>(WeaponViewBase weaponView) where T : WeaponBase
+        {
+            return _container.Instantiate<T>(new object[] {weaponView});
         }
     }
 }

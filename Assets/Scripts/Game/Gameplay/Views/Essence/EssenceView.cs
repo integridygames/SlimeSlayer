@@ -1,6 +1,7 @@
 using Game.Gameplay.Views.Character;
 using System;
 using Game.DataBase;
+using Game.DataBase.Essence;
 using TegridyCore.Base;
 using UnityEngine;
 

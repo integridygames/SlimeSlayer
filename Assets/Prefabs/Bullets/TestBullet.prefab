@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1cb99890928d045b0e465558ad075b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCached: 1
-  _weaponType: 1
+  _isCached: 0
+  _bulletType: 0
   _rigidbody: {fileID: 1007694132603375785}
   _lifeTime: 5

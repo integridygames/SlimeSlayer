@@ -1,4 +1,5 @@
 using Game.DataBase;
+using Game.DataBase.Essence;
 using Game.Gameplay.Views.Container;
 using Game.Gameplay.Views.Essence;
 using UnityEngine;

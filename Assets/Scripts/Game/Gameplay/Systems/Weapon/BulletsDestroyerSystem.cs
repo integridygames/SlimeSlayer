@@ -3,7 +3,7 @@ using UnityEngine;
 using TegridyCore.Base;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Factories;
-using Game.Gameplay.Models.Bullets;
+using Game.Gameplay.Models.Weapon;
 
 namespace Game.Gameplay.Systems.Weapon 
 {
@@ -53,7 +53,7 @@ namespace Game.Gameplay.Systems.Weapon
         {
             bulletView.Rigidbody.velocity = Vector3.zero;
             _activeBulletsContainer.RemoveBullet(bulletView);
-            _bulletsPoolFactory.RecycleElement(bulletView.WeaponType, bulletView);
+            _bulletsPoolFactory.RecycleElement(bulletView.BulletType, bulletView);
         }
     }  
 }

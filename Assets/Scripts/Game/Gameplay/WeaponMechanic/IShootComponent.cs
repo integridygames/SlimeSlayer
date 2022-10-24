@@ -2,7 +2,6 @@
 {
     public interface IShootComponent
     {
-        bool CanShoot();
         void Shoot();
     }
 }

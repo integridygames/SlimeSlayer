@@ -13,6 +13,7 @@ namespace Game.Installers
             Container.Bind<BulletsPoolFactory>().AsSingle();
             Container.Bind<EssencePoolFactory>().AsSingle();
             Container.Bind<WeaponFactory>().AsSingle();
+            Container.Bind<RecyclableParticlesPoolFactory>().AsSingle();
         }
     }
 }
