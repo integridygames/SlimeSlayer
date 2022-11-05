@@ -1,6 +1,8 @@
-﻿using Game.DataBase.Weapon;
+﻿using Game.DataBase.FX;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
+using Game.Gameplay.Views.Bullets;
 using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents
@@ -27,7 +29,15 @@ namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents
 
         public void Shoot()
         {
-            _weaponMechanicsService.ShootGrenade(_shootingPoint, _projectileType);
+            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, _projectileType);
+            grenadeView.OnRecycle += OnGrenadeRecycleHandler;
+        }
+
+        private void OnGrenadeRecycleHandler(GrenadeView grenadeView)
+        {
+            grenadeView.OnRecycle -= OnGrenadeRecycleHandler;
+
+            _weaponMechanicsService.DoExplosion(RecyclableParticleType.GrenadeExplosion, grenadeView.transform.position);
         }
     }
 }

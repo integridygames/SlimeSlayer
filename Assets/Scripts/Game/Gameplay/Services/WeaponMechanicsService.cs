@@ -1,10 +1,12 @@
 ﻿using System;
+using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Character.TargetSystem;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Enemy;
+using Game.Gameplay.Views.FX;
 using TegridyUtils;
 using UnityEngine;
 
@@ -18,13 +20,15 @@ namespace Game.Gameplay.Services
         private readonly TargetsInfo _targetsInfo;
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
+        private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
 
         public WeaponMechanicsService(TargetsInfo targetsInfo, BulletsPoolFactory bulletsPoolFactory,
-            ActiveProjectilesContainer activeProjectilesContainer)
+            ActiveProjectilesContainer activeProjectilesContainer, RecyclableParticlesPoolFactory recyclableParticlesPoolFactory)
         {
             _targetsInfo = targetsInfo;
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
+            _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
         }
 
         public bool WeaponHasATarget(Transform shootingPoint)
@@ -58,7 +62,7 @@ namespace Game.Gameplay.Services
             Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootBullet)} wrong bulletType: {projectileType}");
         }
 
-        public void ShootGrenade(Transform shootingPoint, ProjectileType projectileType)
+        public GrenadeView ShootGrenade(Transform shootingPoint, ProjectileType projectileType)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
@@ -67,10 +71,26 @@ namespace Game.Gameplay.Services
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
 
-                return;
+                return grenadeView;
             }
 
             Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootGrenade)} wrong bulletType: {projectileType}");
+            return null;
+        }
+
+        public void DoExplosion(RecyclableParticleType particleType, Vector3 position)
+        {
+            if (_recyclableParticlesPoolFactory.GetElement(particleType) is ExplosionView explosionView)
+            {
+                explosionView.transform.position = position;
+
+                explosionView.Play();
+
+                explosionView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
+                return;
+            }
+
+            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(DoExplosion)} wrong particleType: {particleType}");
         }
 
         public void RecycleProjectile(ProjectileViewBase projectileViewBase)
@@ -78,6 +98,32 @@ namespace Game.Gameplay.Services
             projectileViewBase.Recycle();
             _activeProjectilesContainer.RemoveProjectile(projectileViewBase);
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
+        }
+
+        public void ShootFX(RecyclableParticleType recyclableParticleType, Transform shootingPoint, Action<EnemyView> enemyCollideHandler)
+        {
+            if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
+            {
+                var particlesTransform = projectileView.transform;
+
+                particlesTransform.position = shootingPoint.position;
+                particlesTransform.rotation = shootingPoint.rotation;
+
+                projectileView.Play();
+                projectileView.SetEnemyCollideHandler(enemyCollideHandler);
+
+                projectileView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
+                return;
+            }
+
+            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootFX)} wrong particleType: {recyclableParticleType}");
+        }
+
+        private void OnParticleSystemStoppedHandler(RecyclableParticleView recyclableParticleView)
+        {
+            recyclableParticleView.OnParticleSystemStopped -= OnParticleSystemStoppedHandler;
+
+            _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }
     }
 }

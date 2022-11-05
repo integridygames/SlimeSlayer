@@ -1,6 +1,5 @@
 ﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
-using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -19,12 +18,10 @@ namespace Game.Gameplay.WeaponMechanic.Weapons
         protected override IShootPossibilityComponent ShootPossibilityComponent { get; }
 
         public ShotgunWeapon(ShotgunView shotgunView, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData,
-            RecyclableParticlesPoolFactory recyclableParticlesPoolFactory)
+            CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
-            ShootComponent = new ParticlesShootComponent(recyclableParticlesPoolFactory,
-                currentCharacterWeaponsData.WeaponsCharacteristics, RecyclableParticleType.ShotgunProjectiles,
-                WeaponType, shotgunView.ShootingPoint);
+            ShootComponent = new ParticlesShootComponent(currentCharacterWeaponsData.WeaponsCharacteristics, RecyclableParticleType.ShotgunProjectiles,
+                WeaponType, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
                 new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);

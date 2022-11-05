@@ -2,6 +2,7 @@
 {
     public enum RecyclableParticleType
     {
-        ShotgunProjectiles
+        ShotgunProjectiles,
+        GrenadeExplosion,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.DataBase.FX;
 using TegridyCore.Base;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace Game.Gameplay.Views.FX
         public event Action<RecyclableParticleView> OnParticleSystemStopped;
 
         [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private RecyclableParticleType _particleType;
+
+        public RecyclableParticleType ParticleType => _particleType;
 
         public void Play()
         {
