@@ -17,14 +17,14 @@ namespace Game.Gameplay.Services
 
         private readonly TargetsInfo _targetsInfo;
         private readonly BulletsPoolFactory _bulletsPoolFactory;
-        private readonly ActiveBulletsContainer _activeBulletsContainer;
+        private readonly ActiveProjectilesContainer _activeProjectilesContainer;
 
         public WeaponMechanicsService(TargetsInfo targetsInfo, BulletsPoolFactory bulletsPoolFactory,
-            ActiveBulletsContainer activeBulletsContainer)
+            ActiveProjectilesContainer activeProjectilesContainer)
         {
             _targetsInfo = targetsInfo;
             _bulletsPoolFactory = bulletsPoolFactory;
-            _activeBulletsContainer = activeBulletsContainer;
+            _activeProjectilesContainer = activeProjectilesContainer;
         }
 
         public bool WeaponHasATarget(Transform shootingPoint)
@@ -41,23 +41,43 @@ namespace Game.Gameplay.Services
             return false;
         }
 
-        public void ShootABullet(Transform shootingPoint, BulletType bulletType, int bulletSpeed,
+        public void ShootBullet(Transform shootingPoint, ProjectileType projectileType, int bulletSpeed,
             Action<EnemyView, BulletView> onEnemyCollideHandler)
         {
-            var bulletView = _bulletsPoolFactory.GetElement(bulletType);
+            if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
+            {
+                bulletView.transform.position = shootingPoint.position;
+                bulletView.Rigidbody.velocity = shootingPoint.forward * bulletSpeed;
 
-            bulletView.Rigidbody.position = shootingPoint.position;
-            bulletView.Rigidbody.velocity = shootingPoint.forward * bulletSpeed;
+                bulletView.SetEnemyCollideHandler(onEnemyCollideHandler);
 
-            bulletView.SetEnemyCollideHandler(onEnemyCollideHandler);
+                _activeProjectilesContainer.AddProjectile(bulletView);
+                return;
+            }
 
-            _activeBulletsContainer.AddBullet(bulletView);
+            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootBullet)} wrong bulletType: {projectileType}");
         }
 
-        public void RecycleBullet(BulletView bulletView)
+        public void ShootGrenade(Transform shootingPoint, ProjectileType projectileType)
         {
-            _activeBulletsContainer.RemoveBullet(bulletView);
-            _bulletsPoolFactory.RecycleElement(bulletView.BulletType, bulletView);
+            if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
+            {
+                grenadeView.transform.position = shootingPoint.position;
+                grenadeView.Rigidbody.AddForce(shootingPoint.forward * 1400f);
+
+                _activeProjectilesContainer.AddProjectile(grenadeView);
+
+                return;
+            }
+
+            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootGrenade)} wrong bulletType: {projectileType}");
+        }
+
+        public void RecycleProjectile(ProjectileViewBase projectileViewBase)
+        {
+            projectileViewBase.Recycle();
+            _activeProjectilesContainer.RemoveProjectile(projectileViewBase);
+            _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
         }
     }
 }

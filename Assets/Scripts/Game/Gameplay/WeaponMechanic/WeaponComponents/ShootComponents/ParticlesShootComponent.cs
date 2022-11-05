@@ -30,7 +30,7 @@ namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents
 
         public void Shoot()
         {
-            if (_recyclableParticlesPoolFactory.GetElement(_particleType) is ProjectileView projectileView)
+            if (_recyclableParticlesPoolFactory.GetElement(_particleType) is CommonShootFxView projectileView)
             {
                 var particlesTransform = projectileView.transform;
 

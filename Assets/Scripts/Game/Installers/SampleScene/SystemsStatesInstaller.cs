@@ -113,7 +113,7 @@ namespace Game.Installers.SampleScene
             var shootingSystem = Container.Instantiate<ShootingSystem>();
             Container.BindUpdateSystemWithState(shootingSystem, _gameState);
 
-            var bulletsDestroyerSystem = Container.Instantiate<BulletsDestroyerSystem>();
+            var bulletsDestroyerSystem = Container.Instantiate<ProjectilesDestroyerSystem>();
             Container.BindUpdateSystemWithState(bulletsDestroyerSystem, _gameState);
 
             var currentZoneCatchSystem = Container.Instantiate<CurrentZoneCatchSystem>();

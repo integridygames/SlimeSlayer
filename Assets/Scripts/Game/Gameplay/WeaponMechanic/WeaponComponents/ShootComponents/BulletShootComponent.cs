@@ -14,30 +14,30 @@ namespace Game.Gameplay.WeaponMechanic.WeaponComponents.ShootComponents
         private readonly WeaponMechanicsService _weaponMechanicsService;
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
 
-        private readonly BulletType _bulletType;
+        private readonly ProjectileType _projectileType;
         private readonly WeaponType _weaponType;
         private readonly Transform _shootingPoint;
 
         public BulletShootComponent(WeaponMechanicsService weaponMechanicsService,
-            WeaponsCharacteristics weaponsCharacteristics, BulletType bulletType,
+            WeaponsCharacteristics weaponsCharacteristics, ProjectileType projectileType,
             WeaponType weaponType, Transform shootingPoint)
         {
             _weaponMechanicsService = weaponMechanicsService;
             _weaponsCharacteristics = weaponsCharacteristics;
-            _bulletType = bulletType;
+            _projectileType = projectileType;
             _weaponType = weaponType;
             _shootingPoint = shootingPoint;
         }
 
         public void Shoot()
         {
-            _weaponMechanicsService.ShootABullet(_shootingPoint, _bulletType, BulletSpeed, OnEnemyCollideHandler);
+            _weaponMechanicsService.ShootBullet(_shootingPoint, _projectileType, BulletSpeed, OnEnemyCollideHandler);
         }
 
         private void OnEnemyCollideHandler(EnemyView enemyView, BulletView bulletView)
         {
             enemyView.TakeDamage(GetDamage(_weaponType));
-            _weaponMechanicsService.RecycleBullet(bulletView);
+            _weaponMechanicsService.RecycleProjectile(bulletView);
         }
 
         private float GetDamage(WeaponType weaponType)

@@ -1,6 +1,5 @@
 ﻿using System;
 using Game.DataBase.Weapon;
-using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Character.Placers;
 using Game.Gameplay.Views.Weapons;
 using Game.Gameplay.WeaponMechanic;
@@ -32,6 +31,8 @@ namespace Game.Gameplay.Factories
                     return CreateWeapon<PistolWeapon>(weaponView);
                 case WeaponType.Shotgun:
                     return CreateWeapon<ShotgunWeapon>(weaponView);
+                case WeaponType.GrenadeLauncher:
+                    return CreateWeapon<GrenadeLauncherWeapon>(weaponView);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
             }

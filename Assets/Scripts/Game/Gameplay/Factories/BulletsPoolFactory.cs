@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace Game.Gameplay.Factories 
 {
-    public class BulletsPoolFactory : PoolFactoryBase<BulletView, BulletType>
+    public class BulletsPoolFactory : PoolFactoryBase<ProjectileViewBase, ProjectileType>
     {
         private readonly PoolContainerView _poolContainerView;
-        private readonly BulletsDataBase _bulletsDataBase;
+        private readonly ProjectileDataBase _projectileDataBase;
 
-        public BulletsPoolFactory(PoolContainerView poolContainerView, BulletsDataBase bulletsDataBase)
+        public BulletsPoolFactory(PoolContainerView poolContainerView, ProjectileDataBase projectileDataBase)
         {
             _poolContainerView = poolContainerView;
-            _bulletsDataBase = bulletsDataBase;
+            _projectileDataBase = projectileDataBase;
         }
 
-        protected override BulletView CreateNewElement(BulletType key)
+        protected override ProjectileViewBase CreateNewElement(ProjectileType key)
         {
-            var weaponRecord = _bulletsDataBase.GetRecordByType(key);
+            var weaponRecord = _projectileDataBase.GetRecordByType(key);
 
             return Object.Instantiate(weaponRecord._bulletView, _poolContainerView.transform);
         }

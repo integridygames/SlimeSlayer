@@ -23,7 +23,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterMovingData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<CurrentCharacterWeaponsData>().AsSingle();
-            Container.Bind<ActiveBulletsContainer>().AsSingle();
+            Container.Bind<ActiveProjectilesContainer>().AsSingle();
             Container.Bind<CharacterHealthData>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();

@@ -6,7 +6,7 @@ namespace Game.DataBase.Weapon
     [Serializable]
     public class BulletRecord
     {
-        public BulletType _bulletType;
-        public BulletView _bulletView;
+        public ProjectileType _projectileType;
+        public ProjectileViewBase _bulletView;
     }
 }

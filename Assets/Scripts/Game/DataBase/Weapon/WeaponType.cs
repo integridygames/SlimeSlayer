@@ -4,5 +4,6 @@ namespace Game.DataBase.Weapon
     {
         Pistol = 1,
         Shotgun = 2,
+        GrenadeLauncher = 3,
     }  
 }
