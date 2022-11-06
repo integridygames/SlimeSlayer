@@ -1,3 +1,4 @@
+using Game.Gameplay.Models.Camera;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
@@ -30,6 +31,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<ZonesInfo>().AsSingle();
             Container.Bind<ZoneTransitInfo>().AsSingle();
             Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
+            Container.Bind<CameraStats>().AsSingle();
         }
     }
 }

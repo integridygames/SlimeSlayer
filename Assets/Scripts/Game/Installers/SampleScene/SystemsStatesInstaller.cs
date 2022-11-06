@@ -1,5 +1,6 @@
 using Game.Gameplay.States;
 using Game.Gameplay.Systems;
+using Game.Gameplay.Systems.Camera;
 using Game.Gameplay.Transitions;
 using TegridyCore.FiniteStateMachine;
 using TegridyCore.StateBindings;
@@ -8,7 +9,6 @@ using Zenject;
 using Game.Gameplay.Systems.Character;
 using Game.Gameplay.Systems.Level;
 using Game.Gameplay.Systems.Character.TargetSystem;
-using Game.Gameplay.Systems.CameraContainer;
 using Game.Gameplay.Systems.Character.Health;
 using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
@@ -85,9 +85,6 @@ namespace Game.Installers.SampleScene
             var levelDestroySystem = Container.Instantiate<LevelDestroySystem>();
             Container.BindDestroySystemWithState(levelDestroySystem, _endScreenState);
 
-            var cameraContainerInitializeSystem = Container.Instantiate<CameraContainerInitializeSystem>();
-            Container.BindInitializeSystem(cameraContainerInitializeSystem);
-
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializeSystem);
 
@@ -106,8 +103,8 @@ namespace Game.Installers.SampleScene
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindUpdateSystem(inverseKinematicsSystem);
 
-            var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
-            Container.BindUpdateSystem(cameraContainerUpdateSystem);
+            var cameraContainerUpdateSystem = Container.Instantiate<CameraMovementSystem>();
+            Container.BindFixedSystem(cameraContainerUpdateSystem);
 
             var shootingSystem = Container.Instantiate<ShootingSystem>();
             Container.BindUpdateSystemWithState(shootingSystem, _gameState);
