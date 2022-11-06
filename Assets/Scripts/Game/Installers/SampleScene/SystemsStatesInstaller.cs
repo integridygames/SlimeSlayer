@@ -104,7 +104,6 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystem(zoneTransitInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
-            Container.BindInitializeSystem(inverseKinematicsSystem);
             Container.BindUpdateSystem(inverseKinematicsSystem);
 
             var cameraContainerUpdateSystem = Container.Instantiate<CameraContainerUpdateSystem>();
@@ -179,8 +178,11 @@ namespace Game.Installers.SampleScene
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystemWithState(nearestHeapFinderSystem, _gameState);
 
-            var characterToNearestHeapMoverSystem = Container.Instantiate<CharacterRotatorToNearestHeapSystem>();
-            Container.BindFixedSystemWithState(characterToNearestHeapMoverSystem, _gameState);
+            var characterDirectionFinderSystem = Container.Instantiate<CharacterDirectionFinderSystem>();
+            Container.BindUpdateSystemWithState(characterDirectionFinderSystem, _gameState);
+
+            var characterRotationSystem = Container.Instantiate<CharacterRotationSystem>();
+            Container.BindFixedSystemWithState(characterRotationSystem, _gameState);
 
             var handsTargetsMoverSystem = Container.Instantiate<HandsTargetsMoverSystem>();
             Container.BindFixedSystemWithState(handsTargetsMoverSystem, _gameState);

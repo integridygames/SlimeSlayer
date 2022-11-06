@@ -22,8 +22,8 @@ namespace Game.Gameplay.Systems.Weapon
 
         public void Initialize()
         {
-            _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value = _weaponFactory.Create(WeaponType.GrenadeLauncher, _characterView.LeftWeaponPlacer);
-            _currentCharacterWeaponsData.CurrentWeaponViewRight.Value = _weaponFactory.Create(WeaponType.GrenadeLauncher, _characterView.RightWeaponPlacer);
+            _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value = _weaponFactory.Create(WeaponType.Pistol, _characterView.LeftWeaponPlacer);
+            _currentCharacterWeaponsData.CurrentWeaponViewRight.Value = _weaponFactory.Create(WeaponType.Shotgun, _characterView.RightWeaponPlacer);
         }
     }
 }

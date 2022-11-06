@@ -1,4 +1,5 @@
 ﻿using Game.Gameplay.Models.Character;
+using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
 using UnityEngine;
@@ -13,19 +14,23 @@ namespace Game.Gameplay.Systems.Character.Movement
         private static readonly int PosX = Animator.StringToHash("PosX");
         
         private readonly CharacterView _characterView;
-        private readonly CharacterMovingData _characterMovingData;
+        private readonly CharacterMovementData _characterMovementData;
+        private readonly HeapInfo _heapInfo;
 
         private Vector3 _currentAnimationVelocity;
 
-        public CharacterAnimationSystem(CharacterView characterView, CharacterMovingData characterMovingData)
+        public CharacterAnimationSystem(CharacterView characterView, CharacterMovementData characterMovementData, HeapInfo heapInfo)
         {
             _characterView = characterView;
-            _characterMovingData = characterMovingData;
+            _characterMovementData = characterMovementData;
+            _heapInfo = heapInfo;
         }
         
         public void Update()
         {
-            var normalizedVelocity = _characterMovingData.Velocity.normalized;
+            /*_characterView.Animator.SetLayerWeight(1, _heapInfo.FoundHeap ? 1 : 0);*/
+
+            var normalizedVelocity = _characterMovementData.Velocity.normalized;
 
             var inversedToLocalVelocity = _characterView.transform.InverseTransformDirection(normalizedVelocity);
 

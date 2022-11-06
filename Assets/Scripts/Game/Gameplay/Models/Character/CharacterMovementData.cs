@@ -2,8 +2,10 @@
 
 namespace Game.Gameplay.Models.Character
 {
-    public class CharacterMovingData
+    public class CharacterMovementData
     {
         public Vector3 Velocity { get; set; }
+
+        public Vector3 Direction { get; set; }
     }
 }

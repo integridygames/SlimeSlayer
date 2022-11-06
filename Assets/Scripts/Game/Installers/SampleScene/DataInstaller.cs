@@ -17,10 +17,9 @@ namespace Game.Installers.SampleScene
         {
             Container.Bind<LevelInfo>().AsSingle();
             Container.Bind<HeapInfo>().AsSingle();
-            Container.Bind<CharacterHandsMovingStats>().AsSingle();
             Container.Bind<TargetsInfo>().AsSingle();
             Container.Bind<MouseRaycastInfo>().AsSingle();
-            Container.Bind<CharacterMovingData>().AsSingle();
+            Container.Bind<CharacterMovementData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
             Container.Bind<CurrentCharacterWeaponsData>().AsSingle();
             Container.Bind<ActiveProjectilesContainer>().AsSingle();

@@ -18,8 +18,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private const float MaxAngle = 80;
         private const float RotationSpeed = 100;
 
-        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, TargetsInfo targetsInfo, 
-            CharacterHandsMovingStats statsInfo)
+        public HandsTargetsMoverSystem(List<HandIKView> handIKViews, CharacterView characterView, TargetsInfo targetsInfo)
         {
             foreach (var handIKView in handIKViews)
             {              
@@ -59,9 +58,9 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private void RotateArmsToOneSide(float fixedDeltaTime, Vector3 nearestTarget) 
         {
             _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
-                SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+                SetTargetRotation(nearestTarget, _leftRotationCenter.transform.position, true), RotationSpeed * fixedDeltaTime);
             _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+                SetTargetRotation(nearestTarget, _rightRotationCenter.transform.position, false), RotationSpeed * fixedDeltaTime);
         }
 
         private void RotateArmsToDifferentSides(float fixedDeltaTime, Vector3 nearestTarget, Vector3 secondNearestTarget) 
@@ -70,9 +69,9 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
                         out Vector3 nearestForLeft, out Vector3 nearestForRight);
 
             _leftRotationCenter.transform.rotation = Quaternion.RotateTowards(_leftRotationCenter.transform.rotation,
-                SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+                SetTargetRotation(nearestForLeft, _leftRotationCenter.transform.position, true), RotationSpeed * fixedDeltaTime);
             _rightRotationCenter.transform.rotation = Quaternion.RotateTowards(_rightRotationCenter.transform.rotation,
-                SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position), RotationSpeed * fixedDeltaTime);
+                SetTargetRotation(nearestForRight, _rightRotationCenter.transform.position, false), RotationSpeed * fixedDeltaTime);
         }
 
         private void RotateArmsToDefaultRotation(float fixedDeltaTime) 
@@ -142,10 +141,10 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
             }
         }
 
-        private Quaternion SetTargetRotation(Vector3 nearestTarget, Vector3 rotationCenter) 
+        private Quaternion SetTargetRotation(Vector3 nearestTarget, Vector3 rotationCenter, bool isLeft)
         {
             Vector3 directionToTarget = nearestTarget - rotationCenter;
-            return Quaternion.LookRotation(new Vector3(directionToTarget.x, 0, directionToTarget.z));
+            return Quaternion.LookRotation(directionToTarget) * Quaternion.Euler(Vector3.forward * (isLeft ? 90f : -90f));
         }
 
         private void DetermineSide(Vector3 nearestTarget, Vector3 secondNearestTarget, Vector3 leftRotationCenter, Vector3 rightRotationCenter,

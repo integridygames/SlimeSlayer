@@ -28,24 +28,26 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
 
         public void Update()
         {
-            _heapInfo.HeapVector = DetectNearestEnemiesHeap();
+            DetectNearestEnemiesHeap();
         }
 
-        private Vector3 DetectNearestEnemiesHeap()
+        private void DetectNearestEnemiesHeap()
         {
-            Collider[] targets = _targetsInfo.Targets;
+            var targets = _targetsInfo.Targets;
 
-            if (targets.Length > 0)
+            if (targets.Length == 0)
             {
-                DetermineFieldOfViewParts(targets);
-                List<Vector3> averageVectors = CalculateAverageHeapsVectors();
-
-                List<float> distances = CalculateHeapDistancesToCharacter(averageVectors);
-                int minIndex = FindMinDistancesIndex(distances);
-                return averageVectors[minIndex];
+                _heapInfo.FoundHeap = false;
+                return;
             }
-            else
-                return Vector3.zero;
+
+            DetermineFieldOfViewParts(targets);
+            var averageVectors = CalculateAverageHeapsVectors();
+
+            var distances = CalculateHeapDistancesToCharacter(averageVectors);
+            var minIndex = FindMinDistancesIndex(distances);
+            _heapInfo.ClosestHeapPosition = averageVectors[minIndex];
+            _heapInfo.FoundHeap = true;
         }
 
         private void DetermineFieldOfViewParts(Collider[] targets) 
