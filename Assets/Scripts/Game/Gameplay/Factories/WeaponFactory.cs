@@ -2,8 +2,8 @@
 using Game.DataBase.Weapon;
 using Game.Gameplay.Views.Character.Placers;
 using Game.Gameplay.Views.Weapons;
-using Game.Gameplay.WeaponMechanic;
-using Game.Gameplay.WeaponMechanic.Weapons;
+using Game.Gameplay.WeaponMechanics;
+using Game.Gameplay.WeaponMechanics.Weapons;
 using Zenject;
 using Object = UnityEngine.Object;
 

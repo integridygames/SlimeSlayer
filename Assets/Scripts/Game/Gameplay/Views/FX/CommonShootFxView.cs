@@ -6,16 +6,16 @@ namespace Game.Gameplay.Views.FX
 {
     public class CommonShootFxView : RecyclableParticleView
     {
-        private Action<EnemyView> _enemyCollideAction;
+        private Action<EnemyViewBase> _enemyCollideAction;
 
-        public void SetEnemyCollideHandler(Action<EnemyView> enemyCollideHandler)
+        public void SetEnemyCollideHandler(Action<EnemyViewBase> enemyCollideHandler)
         {
             _enemyCollideAction = enemyCollideHandler;
         }
 
         private void OnParticleCollision(GameObject other)
         {
-            if (other.TryGetComponent(out EnemyView enemyView))
+            if (other.TryGetComponent(out EnemyViewBase enemyView))
             {
                 _enemyCollideAction?.Invoke(enemyView);
             }

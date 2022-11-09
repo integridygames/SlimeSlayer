@@ -8,7 +8,7 @@ namespace Game.Gameplay.Models.Zone
     public class ZoneData
     {
         public ZoneView ZoneView { get; private set; }
-        public List<EnemyView> EnemiesPool { get; private set; }
+        public List<EnemyViewBase> EnemiesPool { get; private set; }
         public bool IsZoneTriggered { get; private set; }
 
         public ZoneData(ZoneView zone) 
@@ -20,7 +20,7 @@ namespace Game.Gameplay.Models.Zone
         public void Initialize()
         {
             IsZoneTriggered = false;
-            EnemiesPool = ZoneView.GetComponentsInChildren<EnemyView>().ToList();
+            EnemiesPool = ZoneView.GetComponentsInChildren<EnemyViewBase>().ToList();
         }
 
         public void ClearPool()

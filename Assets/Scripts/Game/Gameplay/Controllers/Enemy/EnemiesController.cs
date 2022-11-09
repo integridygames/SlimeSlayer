@@ -1,12 +1,10 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Essence;
-using Game.Gameplay.Views.Enemy;
 using System;
-using Game.DataBase;
 using Game.DataBase.Essence;
+using Game.Gameplay.EnemiesMechanics;
 using TegridyCore.Base;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Gameplay.Controllers.Enemy 
@@ -33,13 +31,10 @@ namespace Game.Gameplay.Controllers.Enemy
             ControlledEntity.OnEnemyDied -= OnEnemyDiedHandler;
         }
 
-        private void OnEnemyDiedHandler(int quantity, Vector3 position, EssenceType essenceType, EnemyView enemyView) 
+        private void OnEnemyDiedHandler(EssenceType essenceType, EnemyBase enemyBase)
         {
-            ControlledEntity.RemoveEnemy(enemyView);
             var essenceView =_essencePoolFactory.GetElement(essenceType);
-            essenceView.SetQuantity(quantity);
-            essenceView.transform.position = position;
-            essenceView.gameObject.SetActive(true);
+            essenceView.transform.position = enemyBase.Position;
             _activeEssencesContainer.AddEssence(essenceView);
         }
     }   

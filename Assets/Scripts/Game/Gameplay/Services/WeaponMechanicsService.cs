@@ -46,7 +46,7 @@ namespace Game.Gameplay.Services
         }
 
         public void ShootBullet(Transform shootingPoint, ProjectileType projectileType, int bulletSpeed,
-            Action<EnemyView, BulletView> onEnemyCollideHandler)
+            Action<EnemyViewBase, BulletView> onEnemyCollideHandler)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
@@ -100,7 +100,7 @@ namespace Game.Gameplay.Services
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
         }
 
-        public void ShootFX(RecyclableParticleType recyclableParticleType, Transform shootingPoint, Action<EnemyView> enemyCollideHandler)
+        public void ShootFX(RecyclableParticleType recyclableParticleType, Transform shootingPoint, Action<EnemyViewBase> enemyCollideHandler)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
             {

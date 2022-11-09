@@ -1,4 +1,4 @@
-using Game.Gameplay.WeaponMechanic;
+using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
 
 namespace Game.Gameplay.Models.Weapon 

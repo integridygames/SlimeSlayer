@@ -1,6 +1,6 @@
 using Game.Gameplay.Models.Weapon;
+using Game.Gameplay.WeaponMechanics;
 using TegridyCore.Base;
-using Game.Gameplay.WeaponMechanic;
 
 namespace Game.Gameplay.Systems.Weapon
 {

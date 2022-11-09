@@ -7,6 +7,6 @@ namespace Game.Gameplay.Models.Level
     [UsedImplicitly]
     public class LevelInfo
     {
-        public RxField<LevelView> CurrentLevelView { get; set; } = new RxField<LevelView>();
+        public RxField<LevelView> CurrentLevelView { get; set; } = new();
     }
 }

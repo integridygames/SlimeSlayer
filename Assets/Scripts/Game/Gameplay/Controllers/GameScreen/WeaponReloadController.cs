@@ -1,7 +1,7 @@
 ﻿using System;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.SampleScene.Screens;
-using Game.Gameplay.WeaponMechanic;
+using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
 using TegridyCore.Base;
 using Zenject;

@@ -1,6 +1,5 @@
 using Game.Gameplay.Views.Character;
 using System;
-using Game.DataBase;
 using Game.DataBase.Essence;
 using TegridyCore.Base;
 using UnityEngine;
@@ -18,15 +17,10 @@ namespace Game.Gameplay.Views.Essence
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out CharacterView characterView))
+            if (other.TryGetComponent(out CharacterView _))
             {
                 OnEssenceCollide?.Invoke(this);
             }
-        }
-
-        public void Recycle()
-        {
-            gameObject.SetActive(false);
         }
 
         public void SetQuantity(int quantity) 

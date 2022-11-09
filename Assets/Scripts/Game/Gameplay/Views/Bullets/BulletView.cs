@@ -10,16 +10,16 @@ namespace Game.Gameplay.Views.Bullets
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
 
-        private Action<EnemyView, BulletView> _enemyCollideHandler;
+        private Action<EnemyViewBase, BulletView> _enemyCollideHandler;
 
-        public void SetEnemyCollideHandler(Action<EnemyView, BulletView> enemyCollideHandler)
+        public void SetEnemyCollideHandler(Action<EnemyViewBase, BulletView> enemyCollideHandler)
         {
             _enemyCollideHandler = enemyCollideHandler;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyView enemyView))
+            if (other.TryGetComponent(out EnemyViewBase enemyView))
             {
                 _enemyCollideHandler?.Invoke(enemyView, this);
             }
