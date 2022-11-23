@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e36ba87eeeb4911a281a373e95718a8, type: 3}
   m_Name: EnemyDataBase
   m_EditorClassIdentifier: 
-  _records: []
+  _records:
+  - _enemyType: 0
+    _enemyViewBasePrefab: {fileID: 3073140802622876864, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
+    _essenceCount: 1

@@ -3,14 +3,18 @@ using UnityEngine;
 
 namespace Game.Gameplay.Views.Zone
 {
+    [RequireComponent(typeof(MeshFilter))]
     public class ZoneView : ViewBase
     {
-        [SerializeField] private Vector2 _zoneSize;
-        [SerializeField] private ZoneType _zoneType;
-        [SerializeField] private ZoneTransitView[] _zoneTransits;
+        private ZoneTransitView[] _zoneTransitView;
+        public ZoneTransitView[] ZoneTransitView => _zoneTransitView ??= GetComponentsInChildren<ZoneTransitView>();
 
-        public ZoneType ZoneType => _zoneType;
-        public ZoneTransitView[] ZoneTransits => _zoneTransits;
-        public Vector2 ZoneSize => _zoneSize;
+        private Vector3? _zoneSize;
+        public Vector3 ZoneSize => _zoneSize ??= CalculateZoneSize();
+
+        private Vector3 CalculateZoneSize()
+        {
+            return Vector3.Scale(GetComponent<MeshFilter>().mesh.bounds.size, transform.localScale);
+        }
     }
 }

@@ -1,69 +1,58 @@
 using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Views.Character;
-using Game.Gameplay.Views.SampleScene.Screens;
 using Game.Gameplay.Views.Zone;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Systems.Zone.ZoneTransit 
+namespace Game.Gameplay.Systems.Zone.ZoneTransit
 {
     public class ZoneTransitFindingNearestSystem : IUpdateSystem
     {
-        private readonly ZonesInfo _zonesInfo;
+        private readonly ZonesDataContainer _zonesDataContainer;
         private readonly ZoneTransitInfo _zoneTransitInfo;
         private readonly CharacterView _characterView;
-        private readonly GameScreenView _gameScrennView;
 
-        public ZoneTransitFindingNearestSystem(ZonesInfo zonesInfo, ZoneTransitInfo zoneTransitInfo, CharacterView characterView, GameScreenView gameScrennView) 
+        public ZoneTransitFindingNearestSystem(ZonesDataContainer zonesDataContainer, ZoneTransitInfo zoneTransitInfo,
+            CharacterView characterView)
         {
-            _zonesInfo = zonesInfo;
+            _zonesDataContainer = zonesDataContainer;
             _zoneTransitInfo = zoneTransitInfo;
             _characterView = characterView;
-            _gameScrennView = gameScrennView;
         }
 
         public void Update()
         {
-            if (Condition()) 
-            {
-                FindNearestTransit();
-            }
+            FindNearestTransit();
         }
 
-        private void FindNearestTransit() 
+        private void FindNearestTransit()
         {
-            float nearestZoneTransitDistance = float.MaxValue;
+            var nearestZoneTransitDistance = float.MaxValue;
             ZoneTransitView nearestZoneTransitView = null;
 
-            if(ConditionIfZoneTransitsNotNull()) 
+            foreach (var zoneTransit in _zonesDataContainer.CurrentZoneData.ZoneTransitViews)
             {
-                foreach(var zoneTransit in _zonesInfo.CurrentZoneData.ZoneView.ZoneTransits) 
+                if (ConditionForNearestZoneTransit(zoneTransit, nearestZoneTransitDistance,
+                        out nearestZoneTransitDistance))
                 {
-                    if(ConditionForNearestZoneTransit(zoneTransit, nearestZoneTransitDistance, out nearestZoneTransitDistance)) 
-                    {
-                        nearestZoneTransitView = zoneTransit;
-                    }
-                }                
+                    nearestZoneTransitView = zoneTransit;
+                }
             }
 
-            if(nearestZoneTransitView != _zoneTransitInfo.NearestZoneTransitView)
+            if (nearestZoneTransitView != _zoneTransitInfo.NearestZoneTransitView)
                 _zoneTransitInfo.SetNearestZoneTransit(nearestZoneTransitView);
         }
 
-        private bool ConditionIfZoneTransitsNotNull() 
-        {
-            return _zonesInfo.CurrentZoneData.ZoneView.ZoneTransits != null;
-        }
-
-        private bool ConditionForNearestZoneTransit(ZoneTransitView zoneTransit, float nearestZoneTransitDistance, out float currentNearestDistance) 
+        private bool ConditionForNearestZoneTransit(ZoneTransitView zoneTransit, float nearestZoneTransitDistance,
+            out float currentNearestDistance)
         {
             currentNearestDistance = nearestZoneTransitDistance;
 
-            if (!zoneTransit.IsOpened) 
-            {               
-                float distance = Vector3.Distance(zoneTransit.transform.position, _characterView.transform.position);
+            if (!zoneTransit.IsOpened)
+            {
+                var distance = Vector3.Distance(zoneTransit.transform.position, _characterView.transform.position);
 
-                if (distance < nearestZoneTransitDistance) 
+                if (distance < nearestZoneTransitDistance)
                 {
                     currentNearestDistance = distance;
                     return true;
@@ -71,11 +60,6 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
             }
 
             return false;
-        }
-
-        private bool Condition() 
-        {
-            return _gameScrennView.gameObject.activeInHierarchy && _zonesInfo.CurrentZoneData.ZoneView.ZoneTransits.Length > 0;
         }
     }
 }

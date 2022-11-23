@@ -5,19 +5,15 @@ namespace Game.Gameplay.Views.Level
 {
     public class LevelView : MonoBehaviour
     {
-        [SerializeField] private SpawnPointView _spawnPointView;
-        [SerializeField] private GunCabinetView _gunCabinetView;
-        [SerializeField] private FinishView _finishView;
-        [SerializeField] private ZoneView[] _zonesViews;
+        private SpawnPointView _spawnPointView;
+        private GunCabinetView _gunCabinetView;
+        private FinishView _finishView;
+        private ZoneView[] _zonesViews;
+        private BattlefieldZoneView[] _battlefieldZones;
 
-        public SpawnPointView SpawnPointView => _spawnPointView;
-        public GunCabinetView GunCabinetView => _gunCabinetView;
-        public FinishView FinishView => _finishView;
-        public ZoneView[] ZonesViews => _zonesViews;
-
-        public void Destroy()
-        {
-            Destroy(gameObject);
-        }
+        public SpawnPointView SpawnPointView => _spawnPointView ??= GetComponentInChildren<SpawnPointView>();
+        public GunCabinetView GunCabinetView => _gunCabinetView ??= GetComponentInChildren<GunCabinetView>();
+        public FinishView FinishView => _finishView ??= GetComponentInChildren<FinishView>();
+        public ZoneView[] ZonesViews => _zonesViews ??= GetComponentsInChildren<ZoneView>();
     }
 }

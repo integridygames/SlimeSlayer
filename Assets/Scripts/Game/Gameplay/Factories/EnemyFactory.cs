@@ -14,11 +14,13 @@ namespace Game.Gameplay.Factories
     {
         private readonly DiContainer _container;
         private readonly EnemyDataBase _enemyDataBase;
+        private readonly EssenceDataBase _essenceDataBase;
 
-        public EnemyFactory(DiContainer container, EnemyDataBase enemyDataBase)
+        public EnemyFactory(DiContainer container, EnemyDataBase enemyDataBase, EssenceDataBase essenceDataBase)
         {
             _container = container;
             _enemyDataBase = enemyDataBase;
+            _essenceDataBase = essenceDataBase;
         }
 
         public EnemyBase Create(EnemyType enemyType, EssenceType essenceType, Vector3 position)
@@ -26,15 +28,14 @@ namespace Game.Gameplay.Factories
             var enemyRecord = _enemyDataBase.GetRecordByType(enemyType);
             var enemyView = Object.Instantiate(enemyRecord._enemyViewBasePrefab, position, Quaternion.identity);
 
-            enemyView.SetEssenceType(essenceType);
+            var essenceRecord = _essenceDataBase.GetRecordByType(essenceType);
+            enemyView.SetEssenceMaterial(essenceRecord._material);
 
-            switch (enemyType)
+            return enemyType switch
             {
-                case EnemyType.CommonEnemy:
-                    return CreateEnemy<CommonEnemy>(enemyView);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null);
-            }
+                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(enemyView),
+                _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
+            };
         }
 
         private T CreateEnemy<T>(EnemyViewBase enemyView) where T : EnemyBase

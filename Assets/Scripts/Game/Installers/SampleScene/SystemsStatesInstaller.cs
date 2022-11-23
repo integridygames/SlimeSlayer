@@ -158,6 +158,10 @@ namespace Game.Installers.SampleScene
             var characterHealthViewMovingSystem = Container.Instantiate<CharacterHealthViewMovingSystem>();
             Container.BindUpdateSystem(characterHealthViewMovingSystem);
 
+            var enemiesSpawnSystem = Container.Instantiate<EnemiesSpawnSystem>();
+            Container.BindInitializeSystemWithState(enemiesSpawnSystem, _gameState);
+            Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);
+
             CreateTargetSystems();
         }
 

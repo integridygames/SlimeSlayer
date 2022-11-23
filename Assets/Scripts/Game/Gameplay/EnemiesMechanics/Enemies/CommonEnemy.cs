@@ -1,20 +1,21 @@
-﻿using UnityEngine;
+﻿using Game.Gameplay.Views.Enemy;
+using UnityEngine;
 
 namespace Game.Gameplay.EnemiesMechanics.Enemies
 {
     public class CommonEnemy : EnemyBase
     {
-        private IEnemyMovementComponent _enemyMovementComponent;
-        private IEnemyAttackComponent _enemyAttackComponent;
-        private IEnemyDamageComponent _enemyDamageComponent;
-        private Vector3 _position;
+        private readonly CommonEnemyView _commonEnemyView;
 
-        protected override IEnemyMovementComponent EnemyMovementComponent => _enemyMovementComponent;
+        protected override IEnemyMovementComponent EnemyMovementComponent { get; }
+        protected override IEnemyAttackComponent EnemyAttackComponent { get; }
+        protected override IEnemyDamageComponent EnemyDamageComponent { get; }
 
-        protected override IEnemyAttackComponent EnemyAttackComponent => _enemyAttackComponent;
+        public override Vector3 Position { get; }
 
-        protected override IEnemyDamageComponent EnemyDamageComponent => _enemyDamageComponent;
-
-        public override Vector3 Position => _position;
+        public CommonEnemy(CommonEnemyView commonEnemyView)
+        {
+            _commonEnemyView = commonEnemyView;
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
             Container.Bind<CharacterEssencesData>().AsSingle();
-            Container.Bind<ZonesInfo>().AsSingle();
+            Container.Bind<ZonesDataContainer>().AsSingle();
             Container.Bind<ZoneTransitInfo>().AsSingle();
             Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
             Container.Bind<CameraStats>().AsSingle();

@@ -1,5 +1,6 @@
 using System;
 using Game.Gameplay.Views.Essence;
+using UnityEngine;
 
 namespace Game.DataBase.Essence
 {
@@ -8,5 +9,6 @@ namespace Game.DataBase.Essence
     {
         public EssenceType _essenceType;
         public EssenceView _essenceView;
+        public Material _material;
     }
 }

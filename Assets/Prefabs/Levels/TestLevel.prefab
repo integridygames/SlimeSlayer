@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 162534410545623585}
   - component: {fileID: 916821384950260681}
   - component: {fileID: 2718184473397516428}
-  - component: {fileID: 6123036740980130079}
+  - component: {fileID: 6665921253497495578}
   m_Layer: 8
   m_Name: Zone02
   m_TagString: Untagged
@@ -640,7 +640,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6123036740980130079
+--- !u!114 &6665921253497495578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -649,13 +649,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2453470139725112370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f7c21bffd441f544b206e14b4aac4f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0afe821b92224464899838b0b09b7b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCached: 1
-  _zoneSize: {x: 30, y: 30}
-  _zoneType: 0
-  _zoneTransits: []
+  _isCached: 0
+  _battlefieldSpawnSettings:
+  - _enemyType: 0
+    _essenceType: 0
+    _count: 5
+  - _enemyType: 0
+    _essenceType: 2
+    _count: 5
+  _bounds:
+    m_Center: {x: 35, y: 0, z: 0}
+    m_Extent: {x: 11.28, y: 5.39, z: 11.46}
+  _spawnTime: 3
 --- !u!1 &2480108612432802666
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,9 +911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCached: 1
-  _zoneSize: {x: 30, y: 30}
-  _zoneType: 0
-  _zoneTransits: []
 --- !u!1 &2806448098375741988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,11 +1310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCached: 1
-  _zoneSize: {x: 20, y: 30}
-  _zoneType: 1
-  _zoneTransits:
-  - {fileID: 8367586160220717398}
-  - {fileID: 8801248269572082468}
 --- !u!1 &4117149447349279011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,13 +1391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86169ccd1e6463fa1f11be858db6bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPointView: {fileID: 2883516806785051096}
-  _gunCabinetView: {fileID: 2729827643814248859}
-  _finishView: {fileID: 8677022481974366580}
-  _zonesViews:
-  - {fileID: 5857866823014396460}
-  - {fileID: 2542475599930065501}
-  - {fileID: 6123036740980130079}
 --- !u!114 &2883516806785051096
 MonoBehaviour:
   m_ObjectHideFlags: 0

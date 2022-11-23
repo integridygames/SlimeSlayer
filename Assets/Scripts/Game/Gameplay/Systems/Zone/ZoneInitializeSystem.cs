@@ -12,12 +12,12 @@ namespace Game.Gameplay.Systems.Zone
     public class ZonesInitializeSystem : IInitializeSystem
     {
         private const int MinimumZonesCount = 3;
-        private readonly ZonesInfo _zonesInfo;
+        private readonly ZonesDataContainer _zonesDataContainer;
         private readonly LevelInfo _levelInfo;
 
-        public ZonesInitializeSystem(ZonesInfo zonesInfo, LevelInfo levelInfo)
+        public ZonesInitializeSystem(ZonesDataContainer zonesDataContainer, LevelInfo levelInfo)
         {
-            _zonesInfo = zonesInfo;
+            _zonesDataContainer = zonesDataContainer;
             _levelInfo = levelInfo;
         }
 
@@ -27,18 +27,18 @@ namespace Game.Gameplay.Systems.Zone
 
             var zonesData = GetFilledZonesData(zoneViews);
 
-            _zonesInfo.InitializeZonesDatas(zonesData);
-            _zonesInfo.SetCurrentZone(zonesData[0]);
+            _zonesDataContainer.InitializeZonesData(zonesData);
+            _zonesDataContainer.SetCurrentZone(zonesData[0]);
         }
 
-        private List<ZoneData> GetFilledZonesData(List<ZoneView> zoneViews)
+        private static List<ZoneData> GetFilledZonesData(List<ZoneView> zoneViews)
         {
             var zonesData = new List<ZoneData>(MinimumZonesCount);
 
             foreach (var zone in zoneViews)
             {
-                var zoneData = new ZoneData(zone);
-                zoneData.Initialize();
+                var zoneData = zone is BattlefieldZoneView ? new BattlefieldZoneData(zone) : new ZoneData(zone);
+
                 zonesData.Add(zoneData);
             }
 

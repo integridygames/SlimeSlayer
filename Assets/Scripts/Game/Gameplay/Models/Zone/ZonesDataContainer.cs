@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Game.Gameplay.Models.Zone
 {
-    public class ZonesInfo
+    public class ZonesDataContainer
     {
-        public List<ZoneData> ZonesDatas { get; private set; }
+        public List<ZoneData> ZonesData { get; private set; }
         public ZoneData CurrentZoneData { get; private set; }
 
         public void SetCurrentZone(ZoneData zoneData)
@@ -12,9 +12,9 @@ namespace Game.Gameplay.Models.Zone
             CurrentZoneData = zoneData;
         }
 
-        public void InitializeZonesDatas(List<ZoneData> zonesDatas)
+        public void InitializeZonesData(List<ZoneData> zonesData)
         {
-            ZonesDatas = zonesDatas;
+            ZonesData = zonesData;
         }
     }
 }
