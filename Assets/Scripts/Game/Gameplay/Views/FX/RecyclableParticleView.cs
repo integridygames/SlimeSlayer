@@ -9,7 +9,7 @@ namespace Game.Gameplay.Views.FX
     {
         public event Action<RecyclableParticleView> OnParticleSystemStopped;
 
-        [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] protected ParticleSystem _particleSystem;
         [SerializeField] private RecyclableParticleType _particleType;
 
         public RecyclableParticleType ParticleType => _particleType;

@@ -1,5 +1,4 @@
-﻿using System;
-using Game.DataBase.FX;
+﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Character.TargetSystem;
@@ -14,6 +13,7 @@ namespace Game.Gameplay.Services
 {
     public class WeaponMechanicsService
     {
+        private const int BulletSpeed = 15;
         private const int ShootingDistance = 10;
         private const int ShootingRangeAngle = 20;
 
@@ -21,20 +21,29 @@ namespace Game.Gameplay.Services
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
         private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
+        private readonly WeaponsCharacteristics _weaponsCharacteristics;
 
         public WeaponMechanicsService(TargetsInfo targetsInfo, BulletsPoolFactory bulletsPoolFactory,
-            ActiveProjectilesContainer activeProjectilesContainer, RecyclableParticlesPoolFactory recyclableParticlesPoolFactory)
+            ActiveProjectilesContainer activeProjectilesContainer,
+            RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
             _targetsInfo = targetsInfo;
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
+            _weaponsCharacteristics = currentCharacterWeaponsData.WeaponsCharacteristics;
         }
 
         public bool WeaponHasATarget(Transform shootingPoint)
         {
             foreach (var target in _targetsInfo.Targets)
             {
+                if (target == null)
+                {
+                    continue;
+                }
+
                 if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, target.transform.position,
                         ShootingDistance, ShootingRangeAngle, true))
                 {
@@ -45,21 +54,32 @@ namespace Game.Gameplay.Services
             return false;
         }
 
-        public void ShootBullet(Transform shootingPoint, ProjectileType projectileType, int bulletSpeed,
-            Action<EnemyViewBase, BulletView> onEnemyCollideHandler)
+        public void ShootBullet(Transform shootingPoint, ProjectileType projectileType, WeaponType weaponType)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
-                bulletView.transform.position = shootingPoint.position;
-                bulletView.Rigidbody.velocity = shootingPoint.forward * bulletSpeed;
+                bulletView.Initialize(weaponType);
 
-                bulletView.SetEnemyCollideHandler(onEnemyCollideHandler);
+                bulletView.transform.position = shootingPoint.position;
+                bulletView.Rigidbody.velocity = shootingPoint.forward * BulletSpeed;
+
+                bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
 
                 _activeProjectilesContainer.AddProjectile(bulletView);
                 return;
             }
 
-            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootBullet)} wrong bulletType: {projectileType}");
+            Debug.LogError(
+                $"{nameof(WeaponMechanicsService)}.{nameof(ShootBullet)} wrong bulletType: {projectileType}");
+        }
+
+        private void OnBulletEnemyCollideHandler(BulletView bulletView, EnemyViewBase enemyView)
+        {
+            bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
+
+            enemyView.InvokeHit(bulletView.transform.position, GetDamage(bulletView.WeaponType));
+
+            RecycleProjectile(bulletView);
         }
 
         public GrenadeView ShootGrenade(Transform shootingPoint, ProjectileType projectileType)
@@ -74,7 +94,8 @@ namespace Game.Gameplay.Services
                 return grenadeView;
             }
 
-            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootGrenade)} wrong bulletType: {projectileType}");
+            Debug.LogError(
+                $"{nameof(WeaponMechanicsService)}.{nameof(ShootGrenade)} wrong bulletType: {projectileType}");
             return null;
         }
 
@@ -90,7 +111,8 @@ namespace Game.Gameplay.Services
                 return;
             }
 
-            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(DoExplosion)} wrong particleType: {particleType}");
+            Debug.LogError(
+                $"{nameof(WeaponMechanicsService)}.{nameof(DoExplosion)} wrong particleType: {particleType}");
         }
 
         public void RecycleProjectile(ProjectileViewBase projectileViewBase)
@@ -100,23 +122,33 @@ namespace Game.Gameplay.Services
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
         }
 
-        public void ShootFX(RecyclableParticleType recyclableParticleType, Transform shootingPoint, Action<EnemyViewBase> enemyCollideHandler)
+        public void ShootFX(Transform shootingPoint, RecyclableParticleType recyclableParticleType, WeaponType weaponType)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
             {
+                projectileView.Initialize(weaponType);
+
                 var particlesTransform = projectileView.transform;
 
                 particlesTransform.position = shootingPoint.position;
                 particlesTransform.rotation = shootingPoint.rotation;
 
                 projectileView.Play();
-                projectileView.SetEnemyCollideHandler(enemyCollideHandler);
+                projectileView.OnEnemyCollide += OnFXEnemyCollideHandler;
 
                 projectileView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
                 return;
             }
 
-            Debug.LogError($"{nameof(WeaponMechanicsService)}.{nameof(ShootFX)} wrong particleType: {recyclableParticleType}");
+            Debug.LogError(
+                $"{nameof(WeaponMechanicsService)}.{nameof(ShootFX)} wrong particleType: {recyclableParticleType}");
+        }
+
+        private void OnFXEnemyCollideHandler(CommonShootFxView commonShootFx, EnemyViewBase enemyView, Vector3 position)
+        {
+            commonShootFx.OnEnemyCollide -= OnFXEnemyCollideHandler;
+
+            enemyView.InvokeHit(position, GetDamage(commonShootFx.WeaponType));
         }
 
         private void OnParticleSystemStoppedHandler(RecyclableParticleView recyclableParticleView)
@@ -124,6 +156,11 @@ namespace Game.Gameplay.Services
             recyclableParticleView.OnParticleSystemStopped -= OnParticleSystemStoppedHandler;
 
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
+        }
+
+        private float GetDamage(WeaponType weaponType)
+        {
+            return _weaponsCharacteristics.GetCharacteristic(weaponType, WeaponCharacteristicType.Attack);
         }
     }
 }

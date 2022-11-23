@@ -33,14 +33,14 @@ namespace Game.Gameplay.Factories
 
             return enemyType switch
             {
-                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(enemyView),
+                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(essenceRecord._essenceType, enemyView),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }
 
-        private T CreateEnemy<T>(EnemyViewBase enemyView) where T : EnemyBase
+        private T CreateEnemy<T>(EssenceType essenceType, EnemyViewBase enemyView) where T : EnemyBase
         {
-            return _container.Instantiate<T>(new object[] {enemyView});
+            return _container.Instantiate<T>(new object[] {essenceType, enemyView});
         }
     }
 }

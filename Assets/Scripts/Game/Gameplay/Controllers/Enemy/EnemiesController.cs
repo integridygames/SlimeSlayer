@@ -13,12 +13,14 @@ namespace Game.Gameplay.Controllers.Enemy
     {
         private readonly EssencePoolFactory _essencePoolFactory;
         private readonly ActiveEssencesContainer _activeEssencesContainer;
+        private readonly ActiveEnemiesContainer _activeEnemiesContainer;
 
         public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory, 
-            ActiveEssencesContainer activeEssencesContainer) : base(controlledEntity)
+            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _activeEssencesContainer = activeEssencesContainer;
+            _activeEnemiesContainer = activeEnemiesContainer;
         }
 
         public void Initialize()
@@ -31,11 +33,16 @@ namespace Game.Gameplay.Controllers.Enemy
             ControlledEntity.OnEnemyDied -= OnEnemyDiedHandler;
         }
 
-        private void OnEnemyDiedHandler(EssenceType essenceType, EnemyBase enemyBase)
+        private void OnEnemyDiedHandler(EssenceType essenceType, EnemyBase enemy)
         {
+            _activeEnemiesContainer.RemoveEnemy(enemy);
+
             var essenceView =_essencePoolFactory.GetElement(essenceType);
-            essenceView.transform.position = enemyBase.Position;
+            essenceView.transform.position = enemy.Position;
+
             _activeEssencesContainer.AddEssence(essenceView);
+
+            enemy.Remove();
         }
     }   
 }

@@ -5,7 +5,7 @@ using Game.Gameplay.Services;
 using Game.Gameplay.Views.Bullets;
 using UnityEngine;
 
-namespace Game.Gameplay.WeaponMechanics.WeaponComponents.ShootComponents
+namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
 {
     public class GrenadeShootComponent : IShootComponent
     {

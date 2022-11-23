@@ -91,9 +91,6 @@ namespace Game.Installers.SampleScene
             var weaponCharacteristicsInitializeSystem = Container.Instantiate<WeaponCharacteristicsInitializeSystem>();
             Container.BindInitializeSystem(weaponCharacteristicsInitializeSystem);
 
-            var enemiesInitializeSystem = Container.Instantiate<EnemiesInitializeSystem>();
-            Container.BindInitializeSystemWithState(enemiesInitializeSystem,_startScreenState);
-
             var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
             Container.BindInitializeSystemWithState(zonesInitializeSystem, _startScreenState);
 

@@ -3,7 +3,7 @@ using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using UnityEngine;
 
-namespace Game.Gameplay.WeaponMechanics.WeaponComponents.ShootPossibilityComponents
+namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
 {
     public class FireRatePossibilityComponent : IShootPossibilityComponent
     {

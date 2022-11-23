@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
 using Game.Gameplay.Factories;
+using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Zone;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
@@ -18,15 +19,17 @@ namespace Game.Gameplay.Systems.Enemy
         private readonly ZonesDataContainer _zonesDataContainer;
         private readonly EnemyFactory _enemyFactory;
         private readonly CharacterView _characterView;
+        private readonly ActiveEnemiesContainer _activeEnemiesContainer;
 
         private List<Tuple<EnemyType, EssenceType>> _enemiesToSpawn;
 
         public EnemiesSpawnSystem(ZonesDataContainer zonesDataContainer, EnemyFactory enemyFactory,
-            CharacterView characterView)
+            CharacterView characterView, ActiveEnemiesContainer activeEnemiesContainer)
         {
             _zonesDataContainer = zonesDataContainer;
             _enemyFactory = enemyFactory;
             _characterView = characterView;
+            _activeEnemiesContainer = activeEnemiesContainer;
         }
 
         public void Initialize()
@@ -123,7 +126,9 @@ namespace Game.Gameplay.Systems.Enemy
 
         private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position)
         {
-            _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position);
+            var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position);
+
+            _activeEnemiesContainer.AddEnemy(enemy);
         }
 
         public bool IsSpawnEnded(BattlefieldZoneData battlefieldZoneData)

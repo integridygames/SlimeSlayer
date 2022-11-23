@@ -15,6 +15,13 @@ namespace Game.Gameplay.Views.Bullets
         public float StartLifeTime => _lifeTime;
         public float CurrentLifeTime { get; private set; }
 
+        public WeaponType WeaponType { get; private set; }
+
+        public void Initialize(WeaponType weaponType)
+        {
+            WeaponType = weaponType;
+        }
+
         public void AddToCurrentLifeTime(float time)
         {
             CurrentLifeTime += time;

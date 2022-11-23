@@ -7,21 +7,19 @@ namespace Game.Gameplay.Views.Bullets
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : ProjectileViewBase
     {
+        public event Action<BulletView, EnemyViewBase> OnEnemyCollide;
+
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
 
-        private Action<EnemyViewBase, BulletView> _enemyCollideHandler;
-
-        public void SetEnemyCollideHandler(Action<EnemyViewBase, BulletView> enemyCollideHandler)
-        {
-            _enemyCollideHandler = enemyCollideHandler;
-        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyViewBase enemyView))
+            var enemyView = other.GetComponentInParent<EnemyViewBase>();
+
+            if (enemyView != null)
             {
-                _enemyCollideHandler?.Invoke(enemyView, this);
+                OnEnemyCollide?.Invoke(this, enemyView);
             }
         }
 

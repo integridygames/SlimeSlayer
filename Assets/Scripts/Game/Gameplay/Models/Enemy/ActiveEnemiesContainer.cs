@@ -17,6 +17,8 @@ namespace Game.Gameplay.Models.Enemy
 
         public void AddEnemy(EnemyBase enemy)
         {
+            enemy.Initialize();
+
             enemy.OnEnemyDied += OnEnemyDied;
 
             _activeEnemies.Add(enemy);
@@ -24,6 +26,8 @@ namespace Game.Gameplay.Models.Enemy
 
         public void RemoveEnemy(EnemyBase enemy)
         {
+            enemy.Dispose();
+
             enemy.OnEnemyDied -= OnEnemyDied;
 
             _activeEnemies.Remove(enemy);

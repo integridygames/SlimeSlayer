@@ -4,7 +4,7 @@ using Game.Gameplay.Views.Weapon;
 using TegridyCore;
 using UnityEngine;
 
-namespace Game.Gameplay.WeaponMechanics.WeaponComponents.ReloadComponents
+namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
 {
     public class CommonReloadComponent : IReloadComponent
     {

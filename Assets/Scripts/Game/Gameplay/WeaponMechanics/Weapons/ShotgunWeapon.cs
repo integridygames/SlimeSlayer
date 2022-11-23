@@ -3,9 +3,9 @@ using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
-using Game.Gameplay.WeaponMechanics.WeaponComponents.ReloadComponents;
-using Game.Gameplay.WeaponMechanics.WeaponComponents.ShootComponents;
-using Game.Gameplay.WeaponMechanics.WeaponComponents.ShootPossibilityComponents;
+using Game.Gameplay.WeaponMechanics.Components.ReloadComponents;
+using Game.Gameplay.WeaponMechanics.Components.ShootComponents;
+using Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents;
 
 namespace Game.Gameplay.WeaponMechanics.Weapons
 {
@@ -20,7 +20,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         public ShotgunWeapon(ShotgunView shotgunView, WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
-            ShootComponent = new ParticlesShootComponent(currentCharacterWeaponsData.WeaponsCharacteristics, RecyclableParticleType.ShotgunProjectiles,
+            ShootComponent = new ParticlesShootComponent(RecyclableParticleType.ShotgunProjectiles,
                 WeaponType, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
