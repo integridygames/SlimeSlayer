@@ -8,6 +8,5 @@ namespace Game.DataBase.Enemies
     {
         public EnemyType _enemyType;
         public EnemyViewBase _enemyViewBasePrefab;
-        public int _essenceCount;
     }
 }

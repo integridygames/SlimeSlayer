@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Views.Enemy;
 using UnityEngine;
@@ -11,7 +10,7 @@ namespace Game.Gameplay.Views.FX
     {
         public event Action<CommonShootFxView, EnemyViewBase, Vector3> OnEnemyCollide;
 
-        private List<ParticleCollisionEvent> _collisionEvents;
+        private readonly List<ParticleCollisionEvent> _collisionEvents = new();
 
         public WeaponType WeaponType { get; private set; }
 
@@ -26,7 +25,10 @@ namespace Game.Gameplay.Views.FX
             {
                 _particleSystem.GetCollisionEvents(other, _collisionEvents);
 
-                OnEnemyCollide?.Invoke(this, enemyView, _collisionEvents.First().intersection);
+                foreach (var collisionEvent in _collisionEvents)
+                {
+                    OnEnemyCollide?.Invoke(this, enemyView, collisionEvent.intersection);
+                }
             }
         }
     }

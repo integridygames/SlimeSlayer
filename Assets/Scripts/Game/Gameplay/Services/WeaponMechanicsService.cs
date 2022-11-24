@@ -122,7 +122,8 @@ namespace Game.Gameplay.Services
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
         }
 
-        public void ShootFX(Transform shootingPoint, RecyclableParticleType recyclableParticleType, WeaponType weaponType)
+        public void ShootFX(Transform shootingPoint, RecyclableParticleType recyclableParticleType,
+            WeaponType weaponType)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
             {
@@ -136,7 +137,7 @@ namespace Game.Gameplay.Services
                 projectileView.Play();
                 projectileView.OnEnemyCollide += OnFXEnemyCollideHandler;
 
-                projectileView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
+                projectileView.OnParticleSystemStopped += OnFXEnemyCollideStoppedHandler;
                 return;
             }
 
@@ -146,9 +147,18 @@ namespace Game.Gameplay.Services
 
         private void OnFXEnemyCollideHandler(CommonShootFxView commonShootFx, EnemyViewBase enemyView, Vector3 position)
         {
-            commonShootFx.OnEnemyCollide -= OnFXEnemyCollideHandler;
-
             enemyView.InvokeHit(position, GetDamage(commonShootFx.WeaponType));
+        }
+
+        private void OnFXEnemyCollideStoppedHandler(RecyclableParticleView recyclableParticleView)
+        {
+            if (recyclableParticleView is CommonShootFxView commonShootFxView)
+            {
+                commonShootFxView.OnEnemyCollide -= OnFXEnemyCollideHandler;
+            }
+
+            recyclableParticleView.OnParticleSystemStopped -= OnFXEnemyCollideStoppedHandler;
+            _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }
 
         private void OnParticleSystemStoppedHandler(RecyclableParticleView recyclableParticleView)

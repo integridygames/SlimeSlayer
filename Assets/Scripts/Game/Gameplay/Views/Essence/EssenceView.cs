@@ -12,7 +12,7 @@ namespace Game.Gameplay.Views.Essence
 
         [SerializeField] private EssenceType _essenceType;
 
-        public int Quantity { get; private set; }
+        public int Quantity => 1;
         public EssenceType EssenceType => _essenceType;
 
         private void OnTriggerEnter(Collider other)
@@ -21,11 +21,6 @@ namespace Game.Gameplay.Views.Essence
             {
                 OnEssenceCollide?.Invoke(this);
             }
-        }
-
-        public void SetQuantity(int quantity) 
-        {
-            Quantity = quantity;
         }
     }
 }

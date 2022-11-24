@@ -9,7 +9,7 @@ using TegridyCore.Base;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Gameplay.Controllers.Enemy 
+namespace Game.Gameplay.Controllers.Enemy
 {
     public class EnemiesController : ControllerBase<ActiveEnemiesContainer>, IInitializable, IDisposable
     {
@@ -18,8 +18,9 @@ namespace Game.Gameplay.Controllers.Enemy
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly ZonesDataContainer _zonesDataContainer;
 
-        public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory, 
-            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer, ZonesDataContainer zonesDataContainer) : base(controlledEntity)
+        public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory,
+            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer,
+            ZonesDataContainer zonesDataContainer) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _activeEssencesContainer = activeEssencesContainer;
@@ -43,9 +44,8 @@ namespace Game.Gameplay.Controllers.Enemy
         {
             _activeEnemiesContainer.RemoveEnemy(enemy, enemy.ZoneId);
 
-            var essenceView =_essencePoolFactory.GetElement(essenceType);
+            var essenceView = _essencePoolFactory.GetElement(essenceType);
             essenceView.transform.position = enemy.Position;
-
             _activeEssencesContainer.AddEssence(essenceView);
 
             enemy.Remove();
@@ -59,7 +59,8 @@ namespace Game.Gameplay.Controllers.Enemy
                 return;
             }
 
-            Debug.LogError($"{nameof(EnemiesController)}.{nameof(OnLastInZoneEnemyDiedHandler)} wrong zone type for enemy death");
+            Debug.LogError(
+                $"{nameof(EnemiesController)}.{nameof(OnLastInZoneEnemyDiedHandler)} wrong zone type for enemy death");
         }
-    }   
+    }
 }

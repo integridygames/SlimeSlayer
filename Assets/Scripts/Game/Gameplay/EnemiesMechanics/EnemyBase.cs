@@ -13,7 +13,7 @@ namespace Game.Gameplay.EnemiesMechanics
 
         private readonly EnemyViewBase _enemyViewBase;
         private readonly EssenceType _essenceType;
-        private readonly RxField<float> _health = 5;
+        private readonly RxField<float> _health = 25;
 
         protected abstract IEnemyMovementComponent EnemyMovementComponent { get; }
         protected abstract IEnemyDamageComponent EnemyDamageComponent { get; }
