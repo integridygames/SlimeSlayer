@@ -18,8 +18,8 @@ namespace Game.Gameplay.Systems.Zone
 
         public void Update()
         {
-            foreach(var zoneData in _zonesDataContainer.ZonesData)
-                if(Condition(zoneData)) 
+            foreach(var zoneData in _zonesDataContainer.ZonesData.Values)
+                if(Condition(zoneData))
                     _zonesDataContainer.SetCurrentZone(zoneData);
         }
 
@@ -52,7 +52,7 @@ namespace Game.Gameplay.Systems.Zone
             return new Vector3(leftUpperCornerX, zoneData.Position.y, leftUpperCornerZ);
         }
 
-        private float CalculateRectangleCoordinate(float zonePosition, float zoneSize, bool isAddition)
+        private static float CalculateRectangleCoordinate(float zonePosition, float zoneSize, bool isAddition)
         {
             return isAddition switch
             {

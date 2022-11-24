@@ -15,6 +15,7 @@ namespace Game.Gameplay.Systems.Enemy
     public class EnemiesSpawnSystem : IUpdateSystem, IInitializeSystem
     {
         private const int CountInBranch = 3;
+        private const int EnemyRespawnTime = 10;
 
         private readonly ZonesDataContainer _zonesDataContainer;
         private readonly EnemyFactory _enemyFactory;
@@ -34,7 +35,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public void Initialize()
         {
-            foreach (var zoneData in _zonesDataContainer.ZonesData)
+            foreach (var zoneData in _zonesDataContainer.ZonesData.Values)
             {
                 if (zoneData is not BattlefieldZoneData battlefieldZoneData) continue;
 
@@ -44,7 +45,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public void Update()
         {
-            foreach (var zoneData in _zonesDataContainer.ZonesData)
+            foreach (var zoneData in _zonesDataContainer.ZonesData.Values)
             {
                 if (zoneData is not BattlefieldZoneData battlefieldZoneData) continue;
 
@@ -70,7 +71,8 @@ namespace Game.Gameplay.Systems.Enemy
 
         public bool ReadyToSpawn(BattlefieldZoneData battlefieldZoneData)
         {
-            return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBounds(_characterView.transform.position);
+            return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBounds(_characterView.transform.position) &&
+                   Time.time - battlefieldZoneData.LastEnemyKilledTime >= EnemyRespawnTime;
         }
 
         public void BeginSpawn(BattlefieldZoneData battlefieldZoneData)
@@ -113,10 +115,11 @@ namespace Game.Gameplay.Systems.Enemy
                     var spawnPosition = battlefieldZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y;
 
-                    Spawn(_enemiesToSpawn[battlefieldZoneData.CurrentSpawnIndex], spawnPosition);
+                    Spawn(_enemiesToSpawn[battlefieldZoneData.CurrentSpawnIndex], spawnPosition, battlefieldZoneData.ZoneId);
 
                     battlefieldZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
                     battlefieldZoneData.CurrentSpawnIndex++;
+
                     branchSpawnIndex++;
                 }
             }
@@ -124,11 +127,11 @@ namespace Game.Gameplay.Systems.Enemy
             battlefieldZoneData.SpawnProgressNormalized += Time.deltaTime / battlefieldZoneData.SpawnTime;
         }
 
-        private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position)
+        private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position, int zoneId)
         {
-            var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position);
+            var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position, zoneId);
 
-            _activeEnemiesContainer.AddEnemy(enemy);
+            _activeEnemiesContainer.AddEnemy(enemy, zoneId);
         }
 
         public bool IsSpawnEnded(BattlefieldZoneData battlefieldZoneData)

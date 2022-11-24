@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Factories
 {
-    public class EnemyFactory : IFactory<EnemyType, EssenceType, Vector3, EnemyBase>
+    public class EnemyFactory : IFactory<EnemyType, EssenceType, Vector3, int, EnemyBase>
     {
         private readonly DiContainer _container;
         private readonly EnemyDataBase _enemyDataBase;
@@ -23,7 +23,7 @@ namespace Game.Gameplay.Factories
             _essenceDataBase = essenceDataBase;
         }
 
-        public EnemyBase Create(EnemyType enemyType, EssenceType essenceType, Vector3 position)
+        public EnemyBase Create(EnemyType enemyType, EssenceType essenceType, Vector3 position, int zoneId)
         {
             var enemyRecord = _enemyDataBase.GetRecordByType(enemyType);
             var enemyView = Object.Instantiate(enemyRecord._enemyViewBasePrefab, position, Quaternion.identity);
@@ -33,14 +33,14 @@ namespace Game.Gameplay.Factories
 
             return enemyType switch
             {
-                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(essenceRecord._essenceType, enemyView),
+                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(essenceRecord._essenceType, enemyView, zoneId),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }
 
-        private T CreateEnemy<T>(EssenceType essenceType, EnemyViewBase enemyView) where T : EnemyBase
+        private T CreateEnemy<T>(EssenceType essenceType, EnemyViewBase enemyView, int zoneId) where T : EnemyBase
         {
-            return _container.Instantiate<T>(new object[] {essenceType, enemyView});
+            return _container.Instantiate<T>(new object[] {enemyView, essenceType, zoneId});
         }
     }
 }

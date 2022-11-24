@@ -18,6 +18,7 @@ namespace Game.Gameplay.Models.Zone
         public bool AbleToSpawn { get; set; }
 
         public float SpawnTime => _battleFieldZoneView.SpawnTime;
+        public float LastEnemyKilledTime { get; set; }
 
         public IReadOnlyList<BattlefieldSpawnSettingsRecord> BattlefieldSpawnSettings =>
             _battleFieldZoneView.BattlefieldSpawnSettings;
@@ -35,6 +36,12 @@ namespace Game.Gameplay.Models.Zone
         public bool InBounds(Vector3 position)
         {
             return _battleFieldZoneView.Bounds.Contains(position);
+        }
+
+        public void Recycle()
+        {
+            AbleToSpawn = true;
+            LastEnemyKilledTime = Time.time;
         }
     }
 }

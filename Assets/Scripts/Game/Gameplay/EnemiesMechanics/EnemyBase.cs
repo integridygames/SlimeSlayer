@@ -9,6 +9,8 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
+        public int ZoneId { get; }
+
         private readonly EnemyViewBase _enemyViewBase;
         private readonly EssenceType _essenceType;
         private readonly RxField<float> _health = 5;
@@ -22,10 +24,11 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public event Action<EssenceType, EnemyBase> OnEnemyDied;
 
-        protected EnemyBase(EnemyViewBase enemyViewBase, EssenceType essenceType)
+        protected EnemyBase(EnemyViewBase enemyViewBase, EssenceType essenceType, int zoneId)
         {
             _enemyViewBase = enemyViewBase;
             _essenceType = essenceType;
+            ZoneId = zoneId;
         }
 
         public void Initialize()

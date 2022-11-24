@@ -14,7 +14,7 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyDamageComponent EnemyDamageComponent { get; }
         protected override IEnemyAttackComponent EnemyAttackComponent { get; }
 
-        public CommonEnemy(CommonEnemyView commonEnemyView, EssenceType essenceType) : base(commonEnemyView, essenceType)
+        public CommonEnemy(CommonEnemyView commonEnemyView, EssenceType essenceType, int zoneId) : base(commonEnemyView, essenceType, zoneId)
         {
             _commonEnemyView = commonEnemyView;
 

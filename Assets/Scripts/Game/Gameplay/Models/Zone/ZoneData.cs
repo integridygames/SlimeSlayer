@@ -5,6 +5,10 @@ namespace Game.Gameplay.Models.Zone
 {
     public class ZoneData
     {
+        public readonly int ZoneId;
+
+        private static int _currentId;
+
         public ZoneTransitView[] ZoneTransitViews => _zoneView.ZoneTransitView;
 
         public Vector3 Position => _zoneView.transform.position;
@@ -15,6 +19,7 @@ namespace Game.Gameplay.Models.Zone
         public ZoneData(ZoneView zoneView)
         {
             _zoneView = zoneView;
+            ZoneId = _currentId++;
         }
     }
 }
