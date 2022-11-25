@@ -15,7 +15,6 @@ namespace Game.Gameplay.Systems.Enemy
     public class EnemiesSpawnSystem : IUpdateSystem, IInitializeSystem
     {
         private const int CountInBranch = 3;
-        private const int EnemyRespawnTime = 10;
 
         private readonly ZonesDataContainer _zonesDataContainer;
         private readonly EnemyFactory _enemyFactory;
@@ -72,7 +71,7 @@ namespace Game.Gameplay.Systems.Enemy
         public bool ReadyToSpawn(BattlefieldZoneData battlefieldZoneData)
         {
             return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBounds(_characterView.transform.position) &&
-                   Time.time - battlefieldZoneData.LastEnemyKilledTime >= EnemyRespawnTime;
+                   battlefieldZoneData.CurrentTimeout <= 0;
         }
 
         public void BeginSpawn(BattlefieldZoneData battlefieldZoneData)
@@ -115,7 +114,8 @@ namespace Game.Gameplay.Systems.Enemy
                     var spawnPosition = battlefieldZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y;
 
-                    Spawn(_enemiesToSpawn[battlefieldZoneData.CurrentSpawnIndex], spawnPosition, battlefieldZoneData.ZoneId);
+                    Spawn(_enemiesToSpawn[battlefieldZoneData.CurrentSpawnIndex], spawnPosition,
+                        battlefieldZoneData.ZoneId);
 
                     battlefieldZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
                     battlefieldZoneData.CurrentSpawnIndex++;

@@ -9,7 +9,18 @@ namespace Game.Gameplay.Views.Zone
 
         public float CurrentTimeout
         {
-            set => _timeout.text = value.ToString("n2");
+            set
+            {
+                if (value > 0)
+                {
+                    _timeout.gameObject.SetActive(true);
+                    _timeout.text = value.ToString("n1");
+                }
+                else
+                {
+                    _timeout.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }

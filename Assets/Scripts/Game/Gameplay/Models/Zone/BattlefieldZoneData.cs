@@ -7,7 +7,11 @@ namespace Game.Gameplay.Models.Zone
 {
     public class BattlefieldZoneData : ZoneData
     {
+        public const int EnemyRespawnTime = 10;
+
         private readonly BattlefieldZoneView _battleFieldZoneView;
+
+        private float _currentTimeout;
 
         public float SpawnProgressNormalized { get; set; }
         public float CurrentProgressPoint { get; set; }
@@ -18,7 +22,16 @@ namespace Game.Gameplay.Models.Zone
         public bool AbleToSpawn { get; set; }
 
         public float SpawnTime => _battleFieldZoneView.SpawnTime;
-        public float LastEnemyKilledTime { get; set; }
+
+        public float CurrentTimeout
+        {
+            get => _currentTimeout;
+            set
+            {
+                _battleFieldZoneView.BattlefieldSpawnTimeoutView.CurrentTimeout = value;
+                _currentTimeout = value;
+            }
+        }
 
         public IReadOnlyList<BattlefieldSpawnSettingsRecord> BattlefieldSpawnSettings =>
             _battleFieldZoneView.BattlefieldSpawnSettings;
@@ -41,7 +54,7 @@ namespace Game.Gameplay.Models.Zone
         public void Recycle()
         {
             AbleToSpawn = true;
-            LastEnemyKilledTime = Time.time;
+            CurrentTimeout = EnemyRespawnTime;
         }
     }
 }
