@@ -70,7 +70,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public bool ReadyToSpawn(BattlefieldZoneData battlefieldZoneData)
         {
-            return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBounds(_characterView.transform.position) &&
+            return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBoundsOfSpawn(_characterView.transform.position) &&
                    battlefieldZoneData.CurrentTimeout <= 0;
         }
 

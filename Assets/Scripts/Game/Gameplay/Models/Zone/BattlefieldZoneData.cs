@@ -46,7 +46,7 @@ namespace Game.Gameplay.Models.Zone
             return _battleFieldZoneView.Bounds.GetRandomPoint();
         }
 
-        public bool InBounds(Vector3 position)
+        public bool InBoundsOfSpawn(Vector3 position)
         {
             return _battleFieldZoneView.Bounds.Contains(position);
         }

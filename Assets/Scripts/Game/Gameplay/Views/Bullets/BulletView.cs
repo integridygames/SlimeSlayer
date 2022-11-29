@@ -13,6 +13,11 @@ namespace Game.Gameplay.Views.Bullets
         public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
 
 
+        public override void Shoot()
+        {
+            Rigidbody.velocity = Direction * Force;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             var enemyView = other.GetComponentInParent<EnemyViewBase>();

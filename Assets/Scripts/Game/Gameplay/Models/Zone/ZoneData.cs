@@ -16,10 +16,22 @@ namespace Game.Gameplay.Models.Zone
 
         private readonly ZoneView _zoneView;
 
+        private Bounds _boundsOfZone;
+
         public ZoneData(ZoneView zoneView)
         {
             _zoneView = zoneView;
             ZoneId = _currentId++;
+
+            var zoneSize = zoneView.ZoneSize;
+            zoneSize.y = 10;
+
+            _boundsOfZone = new Bounds(zoneView.transform.position, zoneSize);
+        }
+
+        public bool InBoundsOfZone(Vector3 position)
+        {
+            return _boundsOfZone.Contains(position);
         }
     }
 }

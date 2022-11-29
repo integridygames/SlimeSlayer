@@ -19,7 +19,7 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
             _commonEnemyView = commonEnemyView;
 
             EnemyMovementComponent = new ImpulseMovementComponent(commonEnemyView.Rigidbody);
-            EnemyDamageComponent = new ImpulseDamageComponent(commonEnemyView.Rigidbody);
+            EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody);
             EnemyAttackComponent = new ImpulseAttackComponent();
         }
     }

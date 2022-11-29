@@ -159,6 +159,9 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystemWithState(enemiesSpawnSystem, _gameState);
             Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);
 
+            var enemiesMovementSystem = Container.Instantiate<EnemiesMovementSystem>();
+            Container.BindUpdateSystemWithState(enemiesMovementSystem, _gameState);
+
             var spawnTimeoutSystem = Container.Instantiate<SpawnTimeoutSystem>();
             Container.BindUpdateSystemWithState(spawnTimeoutSystem, _gameState);
 

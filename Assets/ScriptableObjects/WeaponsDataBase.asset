@@ -47,7 +47,7 @@ MonoBehaviour:
     _weaponPrefab: {fileID: 5537250778219563501, guid: 313f1aef415f5f740afe691f1852473a, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
-      _startValue: 0.5
+      _startValue: 10
       _multiplier: 1.5
     - _weaponCharacteristicType: 1
       _startValue: 0.5

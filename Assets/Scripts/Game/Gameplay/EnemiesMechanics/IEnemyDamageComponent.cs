@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using Game.Gameplay.WeaponMechanics;
 
 namespace Game.Gameplay.EnemiesMechanics
 {
     public interface IEnemyDamageComponent
     {
-        public void Hit(Vector3 sourceDirection);
+        public void Hit(HitInfo hitInfo);
     }
 }

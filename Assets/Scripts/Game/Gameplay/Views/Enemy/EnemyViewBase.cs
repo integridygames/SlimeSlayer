@@ -1,17 +1,18 @@
 using System;
+using Game.Gameplay.WeaponMechanics;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.Enemy
 {
     public abstract class EnemyViewBase : MonoBehaviour
     {
-        public event Action<Vector3, float> OnEnemyHit;
+        public event Action<HitInfo> OnEnemyHit;
 
         private MeshRenderer _meshRenderer;
 
-        public void InvokeHit(Vector3 hitPosition, float damage)
+        public void InvokeHit(HitInfo hitInfo)
         {
-            OnEnemyHit?.Invoke(hitPosition, damage);
+            OnEnemyHit?.Invoke(hitInfo);
         }
 
         public void SetEssenceMaterial(Material material)

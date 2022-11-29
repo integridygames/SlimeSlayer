@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.DataBase.Essence;
 using Game.Gameplay.Views.Enemy;
+using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -20,7 +21,11 @@ namespace Game.Gameplay.EnemiesMechanics
         protected abstract IEnemyAttackComponent EnemyAttackComponent { get; }
 
         public Vector3 Position => EnemyMovementComponent.Position;
-        public IReadonlyRxField<float> Health => _health;
+        public Vector3 Target
+        {
+            get => EnemyMovementComponent.Target;
+            set => EnemyMovementComponent.Target = value;
+        }
 
         public event Action<EssenceType, EnemyBase> OnEnemyDied;
 
@@ -41,21 +46,26 @@ namespace Game.Gameplay.EnemiesMechanics
             _enemyViewBase.OnEnemyHit -= OnEnemyHitHandler;
         }
 
+        public void UpdateMovement()
+        {
+            EnemyMovementComponent.UpdateMovement();
+        }
+
         public void Remove()
         {
             Object.Destroy(_enemyViewBase.gameObject);
         }
 
-        private void OnEnemyHitHandler(Vector3 hitPosition, float damage)
+        private void OnEnemyHitHandler(HitInfo hitInfo)
         {
-            _health.Value -= damage;
+            _health.Value -= hitInfo.Damage;
 
             if (_health.Value <= 0)
             {
                 OnEnemyDied?.Invoke(_essenceType, this);
             }
 
-            EnemyDamageComponent.Hit(Position - hitPosition);
+            EnemyDamageComponent.Hit(hitInfo);
         }
     }
 }

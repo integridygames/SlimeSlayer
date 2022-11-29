@@ -6,6 +6,7 @@ using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Enemy;
 using Game.Gameplay.Views.FX;
+using Game.Gameplay.WeaponMechanics;
 using TegridyUtils;
 using UnityEngine;
 
@@ -58,10 +59,10 @@ namespace Game.Gameplay.Services
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
-                bulletView.Initialize(weaponType);
-
                 bulletView.transform.position = shootingPoint.position;
-                bulletView.Rigidbody.velocity = shootingPoint.forward * BulletSpeed;
+
+                bulletView.Initialize(weaponType, shootingPoint.forward, BulletSpeed);
+                bulletView.Shoot();
 
                 bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
 
@@ -77,17 +78,19 @@ namespace Game.Gameplay.Services
         {
             bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
 
-            enemyView.InvokeHit(bulletView.transform.position, GetDamage(bulletView.WeaponType));
+            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType), bulletView.Direction));
 
             RecycleProjectile(bulletView);
         }
 
-        public GrenadeView ShootGrenade(Transform shootingPoint, ProjectileType projectileType)
+        public GrenadeView ShootGrenade(Transform shootingPoint, ProjectileType projectileType, WeaponType weaponType)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
                 grenadeView.transform.position = shootingPoint.position;
-                grenadeView.Rigidbody.AddForce(shootingPoint.forward * 1400f);
+
+                grenadeView.Initialize(weaponType, shootingPoint.forward,1400f);
+                grenadeView.Shoot();
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
 
@@ -147,7 +150,11 @@ namespace Game.Gameplay.Services
 
         private void OnFXEnemyCollideHandler(CommonShootFxView commonShootFx, EnemyViewBase enemyView, Vector3 position)
         {
-            enemyView.InvokeHit(position, GetDamage(commonShootFx.WeaponType));
+            var impulseDirection = enemyView.transform.position - position;
+            impulseDirection.y = 0;
+
+            enemyView.InvokeHit(new HitInfo(GetDamage(commonShootFx.WeaponType),
+                impulseDirection.normalized));
         }
 
         private void OnFXEnemyCollideStoppedHandler(RecyclableParticleView recyclableParticleView)
@@ -168,7 +175,7 @@ namespace Game.Gameplay.Services
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }
 
-        private float GetDamage(WeaponType weaponType)
+        public float GetDamage(WeaponType weaponType)
         {
             return _weaponsCharacteristics.GetCharacteristic(weaponType, WeaponCharacteristicType.Attack);
         }

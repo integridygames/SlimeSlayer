@@ -6,7 +6,7 @@ namespace Game.Gameplay.EnemiesMechanics
     {
         public Vector3 Position { get; }
 
-        public void SetTarget(Vector3 position);
+        public Vector3 Target { get; set; }
 
         public void UpdateMovement();
     }
