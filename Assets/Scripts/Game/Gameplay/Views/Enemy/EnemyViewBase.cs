@@ -7,6 +7,7 @@ namespace Game.Gameplay.Views.Enemy
     public abstract class EnemyViewBase : MonoBehaviour
     {
         public event Action<HitInfo> OnEnemyHit;
+        public event Action<Collision> OnEnemyCollide;
 
         private MeshRenderer _meshRenderer;
 
@@ -20,6 +21,11 @@ namespace Game.Gameplay.Views.Enemy
             _meshRenderer ??= GetComponentInChildren<MeshRenderer>();
 
             _meshRenderer.material = material;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            OnEnemyCollide?.Invoke(collision);
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.Systems.Enemy
 {
-    public class EnemiesMovementSystem : IUpdateSystem
+    public class EnemiesMovementSystem : IFixedUpdateSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly ZonesDataContainer _zonesDataContainer;
@@ -21,10 +21,15 @@ namespace Game.Gameplay.Systems.Enemy
             _characterView = characterView;
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
             {
+                if (activeEnemy.IsOnAttack)
+                {
+                    continue;
+                }
+
                 var zoneData = _zonesDataContainer.ZonesData[activeEnemy.ZoneId];
 
                 if (CharacterInEnemyZone(zoneData))
@@ -50,7 +55,7 @@ namespace Game.Gameplay.Systems.Enemy
             activeEnemy.UpdateMovement();
         }
 
-        private void MoveToRandomPoint(EnemyBase activeEnemy, BattlefieldZoneData battlefieldZoneData)
+        private static void MoveToRandomPoint(EnemyBase activeEnemy, BattlefieldZoneData battlefieldZoneData)
         {
             if (battlefieldZoneData.InBoundsOfSpawn(activeEnemy.Target) &&
                 Vector3.Distance(activeEnemy.Target, activeEnemy.Position) >= 5)

@@ -10,8 +10,6 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
-        public int ZoneId { get; }
-
         private readonly EnemyViewBase _enemyViewBase;
         private readonly EssenceType _essenceType;
         private readonly RxField<float> _health = 25;
@@ -20,14 +18,20 @@ namespace Game.Gameplay.EnemiesMechanics
         protected abstract IEnemyDamageComponent EnemyDamageComponent { get; }
         protected abstract IEnemyAttackComponent EnemyAttackComponent { get; }
 
+        public event Action<EssenceType, EnemyBase> OnEnemyDied;
+        public int ZoneId { get; }
+
+        public bool IsOnAttack => EnemyAttackComponent.IsOnAttack;
+        public bool ReadyToAttack() => EnemyAttackComponent.ReadyToAttack();
+        public void BeginAttack() => EnemyAttackComponent.BeginAttack();
+        public void ProcessAttack() => EnemyAttackComponent.ProcessAttack();
+
         public Vector3 Position => EnemyMovementComponent.Position;
         public Vector3 Target
         {
             get => EnemyMovementComponent.Target;
             set => EnemyMovementComponent.Target = value;
         }
-
-        public event Action<EssenceType, EnemyBase> OnEnemyDied;
 
         protected EnemyBase(EnemyViewBase enemyViewBase, EssenceType essenceType, int zoneId)
         {
