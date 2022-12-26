@@ -13,11 +13,11 @@ namespace Game.Gameplay.Factories
         {
             var applicationData = new ApplicationData
             {
-                PlayerData = SaveLoadDataService.Load(new PlayerData()),
+                PlayerData = SaveLoadDataService.Load(new PlayerData(0, new())),
                 PlayerSettings = SaveLoadDataService.Load(new PlayerSettings())
             };
 
             return applicationData;
-        }
+        }     
     }
 }

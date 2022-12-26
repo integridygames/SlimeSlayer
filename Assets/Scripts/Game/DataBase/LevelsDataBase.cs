@@ -18,5 +18,10 @@ namespace Game.DataBase
 
             return _levelViews.GetRandomElement();
         }
+
+        public bool CheckIfLevelExistsByIndex(int index) 
+        {
+            return index < _levelViews.Length && index >= 0;
+        }
     }
 }

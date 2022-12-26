@@ -1,6 +1,7 @@
 ﻿using Game.Gameplay.Views.Level;
 using JetBrains.Annotations;
 using TegridyCore;
+using UnityEngine;
 
 namespace Game.Gameplay.Models.Level
 {
@@ -8,5 +9,8 @@ namespace Game.Gameplay.Models.Level
     public class LevelInfo
     {
         public RxField<LevelView> CurrentLevelView { get; set; } = new();
+        public RxField<LevelView> NextLevelView { get; set; } = new();
+        public bool DoesNextLevelExist { get; set; }
+        public Vector3 MaxDistanceBetweenLvls { get; private set; } = new Vector3(0, 0, 100);
     }
 }

@@ -13,9 +13,10 @@ namespace Game.DataBase
         [SerializeField] private int _currentLevel;
         [SerializeField] private List<WeaponSaveData> _weaponsSaveData;
 
-        public PlayerData()
+        public PlayerData(int index, List<WeaponSaveData> weaponsSaveData)
         {
-            _weaponsSaveData = new List<WeaponSaveData>();
+            _weaponsSaveData = weaponsSaveData;
+            _currentLevel = index;
         }
 
         public int CurrentLevel
