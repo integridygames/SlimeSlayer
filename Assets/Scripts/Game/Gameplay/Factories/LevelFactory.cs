@@ -48,7 +48,7 @@ namespace Game.Gameplay.Factories
         public LevelView CreateByIndex(int index) 
         {
             var levelViewPrefab = _levelsDataBase.GetLevelPrefabByIndex(index);
-            var levelView = Object.Instantiate(levelViewPrefab, _levelInfo.MaxDistanceBetweenLvls, Quaternion.identity);
+            var levelView = Object.Instantiate(levelViewPrefab, _levelInfo.DistanceBetweenLevels, Quaternion.identity);
 
             return levelView;
         }

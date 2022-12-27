@@ -9,6 +9,7 @@ using Zenject;
 using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Zone;
+using Game.Gameplay.Models.Teleport;
 
 namespace Game.Installers.SampleScene
 {
@@ -32,6 +33,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<ZoneTransitInfo>().AsSingle();
             Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
             Container.Bind<CameraStats>().AsSingle();
+            Container.Bind<TeleportInfo>().AsSingle();
         }
     }
 }

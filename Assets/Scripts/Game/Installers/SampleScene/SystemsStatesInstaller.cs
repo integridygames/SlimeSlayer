@@ -95,7 +95,7 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystemWithState(zonesInitializeSystem, _startScreenState);
 
             var zoneTransitInitializeSystem = Container.Instantiate<ZoneTransitInitializeSystem>();
-            Container.BindInitializeSystem(zoneTransitInitializeSystem);
+            Container.BindInitializeSystem(zoneTransitInitializeSystem);         
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindUpdateSystem(inverseKinematicsSystem);
