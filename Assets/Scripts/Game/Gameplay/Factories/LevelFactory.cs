@@ -28,29 +28,50 @@ namespace Game.Gameplay.Factories
             var levelView = Object.Instantiate(levelViewPrefab);
 
             return levelView;
-        }
+        }      
 
-        public LevelView NextLevel(out bool doesNextLevelExist)
+        public void NextLevel(bool needLevelInfoActualization)
         {
+            if (needLevelInfoActualization)
+                ActualizeLevelInfo();
+
             int nextLevelIndex = _applicationData.PlayerData.CurrentLevel + 1;
 
-            doesNextLevelExist = _levelsDataBase.CheckIfLevelExistsByIndex(nextLevelIndex);
+            bool doesNextLevelExist = _levelsDataBase.CheckIfLevelExistsByIndex(nextLevelIndex);
+            _levelInfo.DoesNextLevelExist = doesNextLevelExist;
 
             switch (doesNextLevelExist) 
             {
                 case true:
-                    return CreateByIndex(nextLevelIndex);
+                    _levelInfo.NextLevelView.Value =  CreateByIndex(nextLevelIndex);
+                    break;
                 case false:
-                    return null;
+                    _levelInfo.NextLevelView.Value = null;
+                    break;
             }            
         }
 
         public LevelView CreateByIndex(int index) 
         {
             var levelViewPrefab = _levelsDataBase.GetLevelPrefabByIndex(index);
-            var levelView = Object.Instantiate(levelViewPrefab, _levelInfo.DistanceBetweenLevels, Quaternion.identity);
+            var levelView = Object.Instantiate(levelViewPrefab, _levelInfo.ActualNextLevelPosition, Quaternion.identity);
 
             return levelView;
+        }
+
+        private void ActualizeLevelInfo()
+        {
+            _levelInfo.CurrentLevelView.Value = _levelInfo.NextLevelView.Value;
+            _applicationData.PlayerData.CurrentLevel++;
+            SetNextLevelPosition();
+        }
+
+        private void SetNextLevelPosition()
+        {
+            float x = _levelInfo.ActualNextLevelPosition.x + _levelInfo.DistanceBetweenNearestLevels.x;
+            float y = _levelInfo.ActualNextLevelPosition.y + _levelInfo.DistanceBetweenNearestLevels.y;
+            float z = _levelInfo.ActualNextLevelPosition.z + _levelInfo.DistanceBetweenNearestLevels.z;
+            _levelInfo.ActualNextLevelPosition = new Vector3(x, y, z);
         }
     }
 }

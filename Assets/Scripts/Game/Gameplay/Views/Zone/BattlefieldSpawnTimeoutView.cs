@@ -18,7 +18,8 @@ namespace Game.Gameplay.Views.Zone
                 }
                 else
                 {
-                    _timeout.gameObject.SetActive(false);
+                    if(_timeout != null)
+                        _timeout.gameObject.SetActive(false);
                 }
             }
         }

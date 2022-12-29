@@ -48,7 +48,7 @@ namespace Game.Gameplay.Systems.Zone.ZoneTransit
         {
             currentNearestDistance = nearestZoneTransitDistance;
 
-            if (!zoneTransit.IsOpened)
+            if (!zoneTransit.IsOpened && zoneTransit != null)
             {
                 var distance = Vector3.Distance(zoneTransit.transform.position, _characterView.transform.position);
 

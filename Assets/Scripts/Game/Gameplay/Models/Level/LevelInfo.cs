@@ -11,6 +11,7 @@ namespace Game.Gameplay.Models.Level
         public RxField<LevelView> CurrentLevelView { get; set; } = new();
         public RxField<LevelView> NextLevelView { get; set; } = new();
         public bool DoesNextLevelExist { get; set; }
-        public Vector3 DistanceBetweenLevels { get; private set; } = new Vector3(0, 0, 300);
+        public Vector3 DistanceBetweenNearestLevels { get; private set; } = new Vector3(0, 0, 300);
+        public Vector3 ActualNextLevelPosition { get; set; } = new Vector3(0, 0, 300);
     }
 }

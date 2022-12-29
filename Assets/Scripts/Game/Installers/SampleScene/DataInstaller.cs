@@ -28,10 +28,11 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterHealthData>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
-            Container.Bind<CharacterEssencesData>().AsSingle();
+           /* Container.Bind<CharacterEssencesData>().AsSingle();
             Container.Bind<ZonesDataContainer>().AsSingle();
             Container.Bind<ZoneTransitInfo>().AsSingle();
-            Container.Bind<ZoneTransitInteractionInfo>().AsSingle();
+            Container.Bind<ZoneTransitInteractionInfo>().AsSingle();*/
+            Container.Bind<CharacterEssencesData>().AsSingle();         
             Container.Bind<CameraStats>().AsSingle();
             Container.Bind<TeleportInfo>().AsSingle();
         }

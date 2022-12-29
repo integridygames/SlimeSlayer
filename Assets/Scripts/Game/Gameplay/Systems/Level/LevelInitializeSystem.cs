@@ -23,9 +23,7 @@ namespace Game.Gameplay.Systems.Level
             var levelView = _levelFactory.Create();
             _levelInfo.CurrentLevelView.Value = levelView;
 
-            var nexLevelView = _levelFactory.NextLevel(out bool doesNextLevelExist);
-            _levelInfo.DoesNextLevelExist = doesNextLevelExist;
-            _levelInfo.NextLevelView.Value = nexLevelView;
+            _levelFactory.NextLevel(false);
         }
     }
 }

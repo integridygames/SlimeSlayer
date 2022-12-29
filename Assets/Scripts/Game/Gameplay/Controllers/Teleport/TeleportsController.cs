@@ -1,5 +1,6 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models;
+using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Teleport;
 using Game.Gameplay.Views.CameraContainer;
@@ -15,18 +16,22 @@ namespace Game.Gameplay.Controllers.Teleport
 {
     public class TeleportsController : ControllerBase<LevelInfo>, IInitializable, IDisposable
     {
+        public event Action EndScreenShowingEvent;
+
         private readonly TeleportInfo _teleportInfo;
         private readonly ApplicationData _applicationData;
         private readonly LevelFactory _levelFactory;
         private readonly CameraContainerView _cameraContainerView;
+        private readonly ActiveEnemiesContainer _activeEnemiesContainer;
 
         public TeleportsController(LevelInfo levelInfo, TeleportInfo teleportInfo, ApplicationData applicationData,
-            LevelFactory levelFactory, CameraContainerView cameraContainerView) : base(levelInfo) 
+            LevelFactory levelFactory, CameraContainerView cameraContainerView, ActiveEnemiesContainer activeEnemiesContainer) : base(levelInfo) 
         {
             _teleportInfo = teleportInfo;
             _applicationData = applicationData;
             _levelFactory = levelFactory;
             _cameraContainerView = cameraContainerView;
+            _activeEnemiesContainer = activeEnemiesContainer;
         }
 
         public void Initialize()
@@ -44,34 +49,29 @@ namespace Game.Gameplay.Controllers.Teleport
             if(_teleportInfo.CurrentTeleportView.Value != null) 
                 _teleportInfo.CurrentTeleportView.Value.PlayerEnteredTeleport -= TryToMakeTeleportation;
 
-            _teleportInfo.CurrentTeleportView = rxValue.NewValue.TeleportView;
+            _teleportInfo.CurrentTeleportView.Value = rxValue.NewValue.TeleportView;
             _teleportInfo.CurrentTeleportView.Value.PlayerEnteredTeleport += TryToMakeTeleportation;
         }
 
         private void TryToMakeTeleportation(CharacterView characterView) 
         {
-            switch (ControlledEntity.DoesNextLevelExist)
-            {
-                case false:
-
-                    break;
-                case true:
-                    Teleport(characterView);
-                    break;
-            }
-           
+            if (!CheckEnemiesExistance() && ControlledEntity.DoesNextLevelExist) 
+            {             
+                Teleport(characterView);
+            }          
         }
 
         private void Teleport(CharacterView characterView) 
         {
-            ControlledEntity.CurrentLevelView = ControlledEntity.NextLevelView;
-            ControlledEntity.NextLevelView = _levelFactory.NextLevel(out bool doesNextLevelExist);
-            ControlledEntity.DoesNextLevelExist = doesNextLevelExist;
-            _applicationData.PlayerData.CurrentLevel++;
-
-            var positionForTP = ControlledEntity.NextLevelView.Value.SpawnPointView.transform.position;
+            _levelFactory.NextLevel(true);
+            var positionForTP = ControlledEntity.CurrentLevelView.Value.SpawnPointView.transform.position;
             _cameraContainerView.transform.position = new Vector3(positionForTP.x, _cameraContainerView.transform.position.y, positionForTP.z);
             characterView.transform.position = positionForTP;
         }
+
+        private bool CheckEnemiesExistance() 
+        {
+            return _activeEnemiesContainer.ActiveEnemies.Count > 0;
+        }      
     }
 }

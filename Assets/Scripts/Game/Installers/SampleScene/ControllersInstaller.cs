@@ -5,6 +5,8 @@ using Game.Gameplay.Controllers.Essence;
 using Game.Gameplay.Controllers.Enemy;
 using Game.Gameplay.Controllers.Zone.ZoneTransit;
 using Game.Gameplay.Controllers.Teleport;
+using Game.Gameplay.Controllers.Level;
+using Game.Gameplay.Controllers.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -16,10 +18,11 @@ namespace Game.Installers.SampleScene
             BindController<CharacterHealthController>();
             BindController<ActiveEssencesController>();
             BindController<EssenceImageViewsController>();
-            BindController<EnemiesController>();
-            BindController<ZoneTransitController>();
+          /*  BindController<EnemiesController>();
+            BindController<ZoneTransitController>();*/
             BindController<WeaponReloadController>();
             BindController<TeleportsController>();
+            BindController<LevelDestroyingController>();
         }
 
         private void BindController<TController>()

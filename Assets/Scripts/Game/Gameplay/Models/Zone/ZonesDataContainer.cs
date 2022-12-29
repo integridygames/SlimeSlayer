@@ -17,5 +17,10 @@ namespace Game.Gameplay.Models.Zone
         {
             ZonesData = zonesData.ToDictionary(x => x.ZoneId);
         }
+
+        public void Clear() 
+        {
+            ZonesData.Clear();
+        }
     }
 }
