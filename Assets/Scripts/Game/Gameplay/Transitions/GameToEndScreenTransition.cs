@@ -21,12 +21,13 @@ namespace Game.Gameplay.Transitions
 
         private void OnLevelUpdateHandler(RxValue<LevelView> levelRxValue)
         {
-            if (levelRxValue.OldValue != null)
+            if (levelRxValue.OldValue != null && levelRxValue.OldValue.FinishView != null)
             {
                 levelRxValue.OldValue.FinishView.OnPlayerEntered -= DoTransition;
             }
             
-            levelRxValue.NewValue.FinishView.OnPlayerEntered += DoTransition;
+            if(levelRxValue.NewValue != null && levelRxValue.NewValue.FinishView != null)
+                levelRxValue.NewValue.FinishView.OnPlayerEntered += DoTransition;
         }
 
         public override void OnTransitionRemoved()

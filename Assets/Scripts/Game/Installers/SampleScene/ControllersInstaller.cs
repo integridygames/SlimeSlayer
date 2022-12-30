@@ -23,6 +23,7 @@ namespace Game.Installers.SampleScene
             BindController<WeaponReloadController>();
             BindController<TeleportsController>();
             BindController<LevelDestroyingController>();
+            BindController<LevelReinitializeController>();
         }
 
         private void BindController<TController>()
