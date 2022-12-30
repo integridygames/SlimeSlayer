@@ -51,12 +51,7 @@ namespace Game.Gameplay.Controllers.Level
             _applicationData.PlayerData.CurrentLevel = 0;
             ControlledEntity.CurrentLevelView.Value = _levelFactory.Create();
             _levelFactory.NextLevel(false);
-            ResetPlayerPosition();
-
-            if (ControlledEntity.CurrentLevelView.Value != null) 
-            {
-                /*Object.Destroy(ControlledEntity.CurrentLevelView.Value.gameObject);*/
-            }
+            ResetPlayerPosition();       
         }
 
         private void ResetPlayerPosition() 
@@ -65,7 +60,5 @@ namespace Game.Gameplay.Controllers.Level
             _cameraContainerView.transform.position = new Vector3(position.x, _cameraContainerView.transform.position.y, position.z);
             _characterView.transform.position = position;
         }
-
-
     }
 }

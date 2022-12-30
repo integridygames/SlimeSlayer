@@ -20,6 +20,8 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public event Action<EssenceType, EnemyBase> OnEnemyDied;
         public int ZoneId { get; }
+        public float MaxDistanceToPlayer { get; } = 50f;
+        public EnemyViewBase EnemyViewBase => _enemyViewBase;
 
         public bool IsOnAttack => EnemyAttackComponent.IsOnAttack;
         public bool ReadyToAttack() => EnemyAttackComponent.ReadyToAttack();

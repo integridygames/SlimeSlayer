@@ -32,20 +32,29 @@ namespace Game.Gameplay.Models.Enemy
             _activeEnemies.Add(enemy);
         }
 
-        public void RemoveEnemy(EnemyBase enemy, int zoneId)
+        public void RemoveEnemy(EnemyBase enemy/*, int zoneId*/)
         {
             enemy.Dispose();
 
             enemy.OnEnemyDied -= OnEnemyDied;
 
-            EnemiesCountByZoneId[zoneId]--;
+          /*  EnemiesCountByZoneId[zoneId]--;*/
 
-            if (EnemiesCountByZoneId[zoneId] == 0)
+         /*   if (EnemiesCountByZoneId[zoneId] == 0)
             {
                 OnLastInZoneEnemyDied?.Invoke(zoneId);
-            }
+            }*/
 
             _activeEnemies.Remove(enemy);
+        }
+
+        public void RemoveAll() 
+        {
+            /*foreach(var enemy in _activeEnemies) 
+            {
+                RemoveEnemy(enemy);               
+            }*/
+            _activeEnemies.Clear();
         }
     }   
 }

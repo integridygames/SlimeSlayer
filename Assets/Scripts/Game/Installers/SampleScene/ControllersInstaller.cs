@@ -18,12 +18,13 @@ namespace Game.Installers.SampleScene
             BindController<CharacterHealthController>();
             BindController<ActiveEssencesController>();
             BindController<EssenceImageViewsController>();
-          /*  BindController<EnemiesController>();
-            BindController<ZoneTransitController>();*/
+            BindController<EnemiesController>();
+            /*BindController<ZoneTransitController>();*/
             BindController<WeaponReloadController>();
             BindController<TeleportsController>();
             BindController<LevelDestroyingController>();
             BindController<LevelReinitializeController>();
+            BindController<EnemiesCollectingController>();
         }
 
         private void BindController<TController>()

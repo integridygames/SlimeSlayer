@@ -16,33 +16,33 @@ namespace Game.Gameplay.Controllers.Enemy
         private readonly EssencePoolFactory _essencePoolFactory;
         private readonly ActiveEssencesContainer _activeEssencesContainer;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly ZonesDataContainer _zonesDataContainer;
+/*        private readonly ZonesDataContainer _zonesDataContainer;*/
 
         public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory,
-            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer,
-            ZonesDataContainer zonesDataContainer) : base(controlledEntity)
+            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer/*,
+            ZonesDataContainer zonesDataContainer*/) : base(controlledEntity)
         {
             _essencePoolFactory = essencePoolFactory;
             _activeEssencesContainer = activeEssencesContainer;
             _activeEnemiesContainer = activeEnemiesContainer;
-            _zonesDataContainer = zonesDataContainer;
+/*            _zonesDataContainer = zonesDataContainer;*/
         }
 
         public void Initialize()
         {
             ControlledEntity.OnEnemyDied += OnEnemyDiedHandler;
-            ControlledEntity.OnLastInZoneEnemyDied += OnLastInZoneEnemyDiedHandler;
+/*            ControlledEntity.OnLastInZoneEnemyDied += OnLastInZoneEnemyDiedHandler;*/
         }
 
         public void Dispose()
         {
             ControlledEntity.OnEnemyDied -= OnEnemyDiedHandler;
-            ControlledEntity.OnLastInZoneEnemyDied -= OnLastInZoneEnemyDiedHandler;
+         /*   ControlledEntity.OnLastInZoneEnemyDied -= OnLastInZoneEnemyDiedHandler;*/
         }
 
         private void OnEnemyDiedHandler(EssenceType essenceType, EnemyBase enemy)
         {
-            _activeEnemiesContainer.RemoveEnemy(enemy, enemy.ZoneId);
+            _activeEnemiesContainer.RemoveEnemy(enemy);
 
             var essenceView = _essencePoolFactory.GetElement(essenceType);
             essenceView.transform.position = enemy.Position;
@@ -51,7 +51,7 @@ namespace Game.Gameplay.Controllers.Enemy
             enemy.Remove();
         }
 
-        private void OnLastInZoneEnemyDiedHandler(int zoneId)
+     /*   private void OnLastInZoneEnemyDiedHandler(int zoneId)
         {
             if (_zonesDataContainer.ZonesData[zoneId] is BattlefieldZoneData battlefieldZoneData)
             {
@@ -61,6 +61,6 @@ namespace Game.Gameplay.Controllers.Enemy
 
             Debug.LogError(
                 $"{nameof(EnemiesController)}.{nameof(OnLastInZoneEnemyDiedHandler)} wrong zone type for enemy death");
-        }
+        }*/
     }
 }

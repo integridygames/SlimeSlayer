@@ -3,6 +3,8 @@ using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.EnemiesMechanics.Enemies;
+using Game.Gameplay.Models.Character;
+using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.Enemy;
 using UnityEngine;
 using Zenject;
@@ -41,6 +43,18 @@ namespace Game.Gameplay.Factories
         private T CreateEnemy<T>(EssenceType essenceType, EnemyViewBase enemyView, int zoneId) where T : EnemyBase
         {
             return _container.Instantiate<T>(new object[] {enemyView, essenceType, zoneId});
+        }
+
+        public EnemyBase CreateWithoutSpawning(EnemyViewBase enemyView, CharacterView characterView, CharacterHealthData characterHealthData) 
+        {
+            var essenceRecord = _essenceDataBase.GetRandomRecord();
+            enemyView.SetEssenceMaterial(essenceRecord._material);
+
+            switch (enemyView)
+            {              
+                default:
+                    return new CommonEnemy((CommonEnemyView)enemyView, essenceRecord._essenceType, 0, characterView, characterHealthData);
+            }
         }
     }
 }

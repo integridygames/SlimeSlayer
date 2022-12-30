@@ -148,10 +148,10 @@ namespace Game.Installers.SampleScene
 
             var characterHealthViewMovingSystem = Container.Instantiate<CharacterHealthViewMovingSystem>();
             Container.BindUpdateSystem(characterHealthViewMovingSystem);
-
-        /*    var enemiesSpawnSystem = Container.Instantiate<EnemiesSpawnSystem>();
+/*
+            var enemiesSpawnSystem = Container.Instantiate<EnemiesSpawnSystem>();
             Container.BindInitializeSystemWithState(enemiesSpawnSystem, _gameState);
-            Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);
+            Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);*/
 
             var enemiesMovementSystem = Container.Instantiate<EnemiesMovementSystem>();
             Container.BindFixedSystemWithState(enemiesMovementSystem, _gameState);
@@ -159,7 +159,7 @@ namespace Game.Installers.SampleScene
             var enemiesAttackSystem = Container.Instantiate<EnemiesAttackSystem>();
             Container.BindUpdateSystemWithState(enemiesAttackSystem, _gameState);
 
-            var spawnTimeoutSystem = Container.Instantiate<SpawnTimeoutSystem>();
+          /*  var spawnTimeoutSystem = Container.Instantiate<SpawnTimeoutSystem>();
             Container.BindUpdateSystemWithState(spawnTimeoutSystem, _gameState);*/
 
             var teleportActiveStateUpdateSystem = Container.Instantiate<TeleportActiveStateUpdateSystem>();

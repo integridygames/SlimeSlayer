@@ -10,14 +10,14 @@ namespace Game.Gameplay.Systems.Enemy
     public class EnemiesMovementSystem : IFixedUpdateSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly ZonesDataContainer _zonesDataContainer;
+/*        private readonly ZonesDataContainer _zonesDataContainer;*/
         private readonly CharacterView _characterView;
 
         public EnemiesMovementSystem(ActiveEnemiesContainer activeEnemiesContainer,
-            ZonesDataContainer zonesDataContainer, CharacterView characterView)
+            /*ZonesDataContainer zonesDataContainer,*/ CharacterView characterView)
         {
             _activeEnemiesContainer = activeEnemiesContainer;
-            _zonesDataContainer = zonesDataContainer;
+/*            _zonesDataContainer = zonesDataContainer;*/
             _characterView = characterView;
         }
 
@@ -30,7 +30,12 @@ namespace Game.Gameplay.Systems.Enemy
                     continue;
                 }
 
-                var zoneData = _zonesDataContainer.ZonesData[activeEnemy.ZoneId];
+                if (CharacterIsNearEnemy(activeEnemy) && activeEnemy != null) 
+                {
+                    MoveToPlayer(activeEnemy);
+                }
+
+               /* var zoneData = _zonesDataContainer.ZonesData[activeEnemy.ZoneId];
 
                 if (CharacterInEnemyZone(zoneData))
                 {
@@ -39,14 +44,21 @@ namespace Game.Gameplay.Systems.Enemy
                 else
                 {
                     MoveToRandomPoint(activeEnemy, (BattlefieldZoneData) zoneData);
-                }
+                }*/
             }
         }
 
-        private bool CharacterInEnemyZone(ZoneData zoneData)
+      /*  private bool CharacterInEnemyZone(ZoneData zoneData)
         {
             return _zonesDataContainer.CurrentZoneData.ZoneId == zoneData.ZoneId &&
                    zoneData.InBoundsOfZone(_characterView.transform.position);
+        }*/
+
+        private bool CharacterIsNearEnemy(EnemyBase enemy) 
+        {
+            return Vector3.Distance(
+                enemy.EnemyViewBase.transform.position,
+                _characterView.transform.position) < enemy.MaxDistanceToPlayer;
         }
 
         private void MoveToPlayer(EnemyBase activeEnemy)

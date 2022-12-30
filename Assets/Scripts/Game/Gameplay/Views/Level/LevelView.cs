@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Game.Gameplay.Views.Zone;
 using Game.Gameplay.Views.Teleport;
+using Game.Gameplay.Views.Enemy;
 
 namespace Game.Gameplay.Views.Level
 {
@@ -10,13 +11,14 @@ namespace Game.Gameplay.Views.Level
         private GunCabinetView _gunCabinetView;
         private FinishView _finishView;
         private ZoneView[] _zonesViews;
-        private BattlefieldZoneView[] _battlefieldZones;
         private TeleportView _teleportView;
+        private EnemyViewBase[] _enemyViews;
 
         public SpawnPointView SpawnPointView => _spawnPointView ??= GetComponentInChildren<SpawnPointView>();
         public GunCabinetView GunCabinetView => _gunCabinetView ??= GetComponentInChildren<GunCabinetView>();
         public FinishView FinishView => _finishView ??= GetComponentInChildren<FinishView>();
         public ZoneView[] ZonesViews => _zonesViews ??= GetComponentsInChildren<ZoneView>();
         public TeleportView TeleportView => _teleportView ??= GetComponentInChildren<TeleportView>();
+        public EnemyViewBase[] EnemyViews => _enemyViews ??= GetComponentsInChildren<EnemyViewBase>();
     }
 }
