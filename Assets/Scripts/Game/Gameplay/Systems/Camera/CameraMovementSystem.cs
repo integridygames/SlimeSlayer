@@ -31,7 +31,7 @@ namespace Game.Gameplay.Systems.Camera
             if (_heapInfo.FoundHeap)
             {
                 var characterPosition = _characterView.transform.position;
-                targetPosition = characterPosition + (_heapInfo.ClosestHeapPosition - characterPosition) / 4;
+                targetPosition = (characterPosition + (_heapInfo.ClosestHeapPosition - characterPosition) / 4) + _cameraContainerView.OffsetDirection * _cameraStats.InBattleCameraDistance;
                 speed = _cameraStats.CameraToTargetSpeed;
             }
             else

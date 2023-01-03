@@ -42,7 +42,7 @@ namespace Game.Gameplay.Systems.Weapon
             {
                 for (var i = 0; i < weaponSaveData.Level; i++)
                 {
-                    characteristicValue = (float) Math.Round(characteristicValue * weaponCharacteristic._multiplier, 2);
+                    characteristicValue += weaponCharacteristic._addition * weaponCharacteristic._additionMultiplier;
                 }
             }
 
