@@ -10,14 +10,14 @@ namespace Game.Gameplay.Systems.Enemy
     public class EnemiesMovementSystem : IFixedUpdateSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly ZonesDataContainer _zonesDataContainer;
+        private readonly SpawnZonesDataContainer _spawnZonesDataContainer;
         private readonly CharacterView _characterView;
 
         public EnemiesMovementSystem(ActiveEnemiesContainer activeEnemiesContainer,
-            ZonesDataContainer zonesDataContainer, CharacterView characterView)
+            SpawnZonesDataContainer spawnZonesDataContainer, CharacterView characterView)
         {
             _activeEnemiesContainer = activeEnemiesContainer;
-            _zonesDataContainer = zonesDataContainer;
+            _spawnZonesDataContainer = spawnZonesDataContainer;
             _characterView = characterView;
         }
 
@@ -30,23 +30,22 @@ namespace Game.Gameplay.Systems.Enemy
                     continue;
                 }
 
-                var zoneData = _zonesDataContainer.ZonesData[activeEnemy.ZoneId];
+                var spawnZoneData = _spawnZonesDataContainer.SpawnZonesData[activeEnemy.ZoneId];
 
-                if (CharacterInEnemyZone(zoneData))
+                if (IsPlayerNear(activeEnemy))
                 {
                     MoveToPlayer(activeEnemy);
                 }
                 else
                 {
-                    MoveToRandomPoint(activeEnemy, (BattlefieldZoneData) zoneData);
+                    MoveToRandomPoint(activeEnemy, spawnZoneData);
                 }
             }
         }
 
-        private bool CharacterInEnemyZone(ZoneData zoneData)
+        private bool IsPlayerNear(EnemyBase activeEnemy)
         {
-            return _zonesDataContainer.CurrentZoneData.ZoneId == zoneData.ZoneId &&
-                   zoneData.InBoundsOfZone(_characterView.transform.position);
+            return Vector3.Distance(activeEnemy.Position, _characterView.transform.position) < 10;
         }
 
         private void MoveToPlayer(EnemyBase activeEnemy)
@@ -55,16 +54,16 @@ namespace Game.Gameplay.Systems.Enemy
             activeEnemy.UpdateMovement();
         }
 
-        private static void MoveToRandomPoint(EnemyBase activeEnemy, BattlefieldZoneData battlefieldZoneData)
+        private static void MoveToRandomPoint(EnemyBase activeEnemy, SpawnZoneData spawnZoneData)
         {
-            if (battlefieldZoneData.InBoundsOfSpawn(activeEnemy.Target) &&
+            if (spawnZoneData.InBoundsOfSpawn(activeEnemy.Target) &&
                 Vector3.Distance(activeEnemy.Target, activeEnemy.Position) >= 5)
             {
                 activeEnemy.UpdateMovement();
                 return;
             }
 
-            var randomPoint = battlefieldZoneData.GetRandomPoint();
+            var randomPoint = spawnZoneData.GetRandomPoint();
             randomPoint.y = activeEnemy.Position.y;
 
             activeEnemy.Target = randomPoint;

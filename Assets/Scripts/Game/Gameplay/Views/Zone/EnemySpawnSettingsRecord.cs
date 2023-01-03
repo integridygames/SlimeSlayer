@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.Gameplay.Views.Zone
 {
     [Serializable]
-    public class BattlefieldSpawnSettingsRecord
+    public class EnemySpawnSettingsRecord
     {
         public EnemyType _enemyType;
         public EssenceType _essenceType;

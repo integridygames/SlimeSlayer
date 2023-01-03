@@ -12,84 +12,71 @@ using UnityEngine;
 
 namespace Game.Gameplay.Systems.Enemy
 {
-    public class EnemiesSpawnSystem : IUpdateSystem, IInitializeSystem
+    public class EnemiesSpawnSystem : IUpdateSystem
     {
         private const int CountInBranch = 3;
 
-        private readonly ZonesDataContainer _zonesDataContainer;
+        private readonly SpawnZonesDataContainer _spawnZonesDataContainer;
         private readonly EnemyFactory _enemyFactory;
         private readonly CharacterView _characterView;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
 
         private List<Tuple<EnemyType, EssenceType>> _enemiesToSpawn;
 
-        public EnemiesSpawnSystem(ZonesDataContainer zonesDataContainer, EnemyFactory enemyFactory,
+        public EnemiesSpawnSystem(SpawnZonesDataContainer spawnZonesDataContainer, EnemyFactory enemyFactory,
             CharacterView characterView, ActiveEnemiesContainer activeEnemiesContainer)
         {
-            _zonesDataContainer = zonesDataContainer;
+            _spawnZonesDataContainer = spawnZonesDataContainer;
             _enemyFactory = enemyFactory;
             _characterView = characterView;
             _activeEnemiesContainer = activeEnemiesContainer;
         }
 
-        public void Initialize()
-        {
-            foreach (var zoneData in _zonesDataContainer.ZonesData.Values)
-            {
-                if (zoneData is not BattlefieldZoneData battlefieldZoneData) continue;
-
-                battlefieldZoneData.AbleToSpawn = true;
-            }
-        }
-
         public void Update()
         {
-            foreach (var zoneData in _zonesDataContainer.ZonesData.Values)
+            foreach (var spawnZoneData in _spawnZonesDataContainer.SpawnZonesData.Values)
             {
-                if (zoneData is not BattlefieldZoneData battlefieldZoneData) continue;
-
-                if (ReadyToSpawn(battlefieldZoneData) || battlefieldZoneData.SpawnInProgress)
+                if (ReadyToSpawn(spawnZoneData) || spawnZoneData.SpawnInProgress)
                 {
-                    if (battlefieldZoneData.SpawnInProgress == false)
+                    if (spawnZoneData.SpawnInProgress == false)
                     {
-                        BeginSpawn(battlefieldZoneData);
+                        BeginSpawn(spawnZoneData);
                     }
 
-                    if (battlefieldZoneData.SpawnProgressNormalized < 1)
+                    if (spawnZoneData.SpawnProgressNormalized < 1)
                     {
-                        TryToSpawn(battlefieldZoneData);
+                        TryToSpawn(spawnZoneData);
                     }
 
-                    if (IsSpawnEnded(battlefieldZoneData))
+                    if (IsSpawnEnded(spawnZoneData))
                     {
-                        EndSpawn(battlefieldZoneData);
+                        EndSpawn(spawnZoneData);
                     }
                 }
             }
         }
 
-        public bool ReadyToSpawn(BattlefieldZoneData battlefieldZoneData)
+        public bool ReadyToSpawn(SpawnZoneData spawnZoneData)
         {
-            return battlefieldZoneData.AbleToSpawn && battlefieldZoneData.InBoundsOfSpawn(_characterView.transform.position) &&
-                   battlefieldZoneData.CurrentTimeout <= 0;
+            return spawnZoneData.AbleToSpawn;
         }
 
-        public void BeginSpawn(BattlefieldZoneData battlefieldZoneData)
+        public void BeginSpawn(SpawnZoneData spawnZoneData)
         {
-            battlefieldZoneData.SpawnInProgress = true;
-            battlefieldZoneData.SpawnProgressNormalized = 0;
-            battlefieldZoneData.CurrentProgressPoint = 0;
-            battlefieldZoneData.AbleToSpawn = false;
-            battlefieldZoneData.CurrentSpawnIndex = 0;
+            spawnZoneData.SpawnInProgress = true;
+            spawnZoneData.SpawnProgressNormalized = 0;
+            spawnZoneData.CurrentProgressPoint = 0;
+            spawnZoneData.AbleToSpawn = false;
+            spawnZoneData.CurrentSpawnIndex = 0;
 
-            PrepareRandomizedEnemiesToSpawnList(battlefieldZoneData);
+            PrepareRandomizedEnemiesToSpawnList(spawnZoneData);
         }
 
-        private void PrepareRandomizedEnemiesToSpawnList(BattlefieldZoneData battlefieldZoneData)
+        private void PrepareRandomizedEnemiesToSpawnList(SpawnZoneData spawnZoneData)
         {
             _enemiesToSpawn = new List<Tuple<EnemyType, EssenceType>>();
 
-            foreach (var battlefieldSpawnSettingsRecord in battlefieldZoneData.BattlefieldSpawnSettings)
+            foreach (var battlefieldSpawnSettingsRecord in spawnZoneData.BattlefieldSpawnSettings)
             {
                 for (var i = 0; i < battlefieldSpawnSettingsRecord._count; i++)
                 {
@@ -101,30 +88,30 @@ namespace Game.Gameplay.Systems.Enemy
             _enemiesToSpawn = _enemiesToSpawn.GetRandomRange();
         }
 
-        public void TryToSpawn(BattlefieldZoneData battlefieldZoneData)
+        public void TryToSpawn(SpawnZoneData spawnZoneData)
         {
             var spawnProgressValueForOneEnemy = 1f / _enemiesToSpawn.Count;
 
-            if (battlefieldZoneData.CurrentProgressPoint < battlefieldZoneData.SpawnProgressNormalized)
+            if (spawnZoneData.CurrentProgressPoint < spawnZoneData.SpawnProgressNormalized)
             {
                 var branchSpawnIndex = 0;
 
-                while (battlefieldZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch)
+                while (spawnZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch)
                 {
-                    var spawnPosition = battlefieldZoneData.GetRandomPoint();
+                    var spawnPosition = spawnZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y;
 
-                    Spawn(_enemiesToSpawn[battlefieldZoneData.CurrentSpawnIndex], spawnPosition,
-                        battlefieldZoneData.ZoneId);
+                    Spawn(_enemiesToSpawn[spawnZoneData.CurrentSpawnIndex], spawnPosition,
+                        spawnZoneData.SpawnZoneId);
 
-                    battlefieldZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
-                    battlefieldZoneData.CurrentSpawnIndex++;
+                    spawnZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
+                    spawnZoneData.CurrentSpawnIndex++;
 
                     branchSpawnIndex++;
                 }
             }
 
-            battlefieldZoneData.SpawnProgressNormalized += Time.deltaTime / battlefieldZoneData.SpawnTime;
+            spawnZoneData.SpawnProgressNormalized += Time.deltaTime / spawnZoneData.SpawnTime;
         }
 
         private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position, int zoneId)
@@ -134,14 +121,14 @@ namespace Game.Gameplay.Systems.Enemy
             _activeEnemiesContainer.AddEnemy(enemy, zoneId);
         }
 
-        public bool IsSpawnEnded(BattlefieldZoneData battlefieldZoneData)
+        public bool IsSpawnEnded(SpawnZoneData spawnZoneData)
         {
-            return battlefieldZoneData.SpawnInProgress && battlefieldZoneData.SpawnProgressNormalized >= 1;
+            return spawnZoneData.SpawnInProgress && spawnZoneData.SpawnProgressNormalized >= 1;
         }
 
-        public void EndSpawn(BattlefieldZoneData battlefieldZoneData)
+        public void EndSpawn(SpawnZoneData spawnZoneData)
         {
-            battlefieldZoneData.SpawnInProgress = false;
+            spawnZoneData.SpawnInProgress = false;
         }
     }
 }

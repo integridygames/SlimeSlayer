@@ -8,7 +8,6 @@ namespace Game.Gameplay.Models.Enemy
     public class ActiveEnemiesContainer
     {
         public event Action<EssenceType, EnemyBase> OnEnemyDied;
-        public event Action<int> OnLastInZoneEnemyDied;
 
         private readonly List<EnemyBase> _activeEnemies = new();
 
@@ -39,11 +38,6 @@ namespace Game.Gameplay.Models.Enemy
             enemy.OnEnemyDied -= OnEnemyDied;
 
             EnemiesCountByZoneId[zoneId]--;
-
-            if (EnemiesCountByZoneId[zoneId] == 0)
-            {
-                OnLastInZoneEnemyDied?.Invoke(zoneId);
-            }
 
             _activeEnemies.Remove(enemy);
         }

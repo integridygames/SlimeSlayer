@@ -11,35 +11,31 @@ namespace Game.Gameplay.Systems.Zone
     [UsedImplicitly]
     public class ZonesInitializeSystem : IInitializeSystem
     {
-        private const int MinimumZonesCount = 3;
-        private readonly ZonesDataContainer _zonesDataContainer;
+        private const int MinimumZonesCount = 2;
+        private readonly SpawnZonesDataContainer _spawnZonesDataContainer;
         private readonly LevelInfo _levelInfo;
 
-        public ZonesInitializeSystem(ZonesDataContainer zonesDataContainer, LevelInfo levelInfo)
+        public ZonesInitializeSystem(SpawnZonesDataContainer spawnZonesDataContainer, LevelInfo levelInfo)
         {
-            _zonesDataContainer = zonesDataContainer;
+            _spawnZonesDataContainer = spawnZonesDataContainer;
             _levelInfo = levelInfo;
         }
 
         public void Initialize()
         {           
-            var zoneViews = _levelInfo.CurrentLevelView.Value.ZonesViews.ToList();
-
+            var zoneViews = _levelInfo.CurrentLevelView.Value.SpawnBoundsViews.ToList();
             var zonesData = GetFilledZonesData(zoneViews);
 
-            _zonesDataContainer.InitializeZonesData(zonesData);
-            _zonesDataContainer.SetCurrentZone(zonesData[0]);
+            _spawnZonesDataContainer.InitializeZonesData(zonesData);
         }
 
-        private static List<ZoneData> GetFilledZonesData(List<ZoneView> zoneViews)
+        private static List<SpawnZoneData> GetFilledZonesData(IReadOnlyList<SpawnBoundsView> spawnBoundsViews)
         {
-            var zonesData = new List<ZoneData>(MinimumZonesCount);
+            var zonesData = new List<SpawnZoneData>(MinimumZonesCount);
 
-            foreach (var zone in zoneViews)
+            foreach (var spawnBoundsView in spawnBoundsViews)
             {
-                var zoneData = zone is BattlefieldZoneView ? new BattlefieldZoneData(zone) : new ZoneData(zone);
-
-                zonesData.Add(zoneData);
+                zonesData.Add(new SpawnZoneData(spawnBoundsView));
             }
 
             return zonesData;
