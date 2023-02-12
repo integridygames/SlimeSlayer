@@ -15,7 +15,6 @@ namespace Game.Gameplay.Models.Zone
         public float CurrentProgressPoint { get; set; }
 
         public int CurrentSpawnIndex { get; set; }
-        public int SpawnZoneId { get; set; }
 
         public bool SpawnInProgress { get; set; }
         public bool AbleToSpawn { get; set; } = true;

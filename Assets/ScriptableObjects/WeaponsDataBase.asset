@@ -17,44 +17,56 @@ MonoBehaviour:
     _weaponPrefab: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
-      _startValue: 4
-      _multiplier: 1.5
+      _startValue: 1
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 1
       _startValue: 2
-      _multiplier: 1.5
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 2
       _startValue: 6
-      _multiplier: 1.25
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 3
       _startValue: 2
-      _multiplier: 1
+      _addition: 0
+      _additionMultiplier: 0
   - _weaponType: 2
     _weaponPrefab: {fileID: 2514321369246870369, guid: 156c5c4700501bc4491631b1e609a9e2, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 0.5
-      _multiplier: 1.5
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 1
       _startValue: 2
-      _multiplier: 1.5
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 2
       _startValue: 6
-      _multiplier: 1.25
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 3
       _startValue: 2
-      _multiplier: 1
+      _addition: 0
+      _additionMultiplier: 0
   - _weaponType: 3
     _weaponPrefab: {fileID: 5537250778219563501, guid: 313f1aef415f5f740afe691f1852473a, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 10
-      _multiplier: 1.5
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 1
       _startValue: 0.5
-      _multiplier: 1.1
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 2
       _startValue: 3
-      _multiplier: 1.25
+      _addition: 0
+      _additionMultiplier: 0
     - _weaponCharacteristicType: 3
       _startValue: 4
-      _multiplier: 1
+      _addition: 0
+      _additionMultiplier: 0

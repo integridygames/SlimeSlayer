@@ -34,7 +34,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public void Update()
         {
-            foreach (var spawnZoneData in _spawnZonesDataContainer.SpawnZonesData.Values)
+            foreach (var spawnZoneData in _spawnZonesDataContainer.SpawnZonesData)
             {
                 if (ReadyToSpawn(spawnZoneData) || spawnZoneData.SpawnInProgress)
                 {
@@ -101,8 +101,7 @@ namespace Game.Gameplay.Systems.Enemy
                     var spawnPosition = spawnZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y;
 
-                    Spawn(_enemiesToSpawn[spawnZoneData.CurrentSpawnIndex], spawnPosition,
-                        spawnZoneData.SpawnZoneId);
+                    Spawn(_enemiesToSpawn[spawnZoneData.CurrentSpawnIndex], spawnPosition);
 
                     spawnZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
                     spawnZoneData.CurrentSpawnIndex++;
@@ -114,11 +113,11 @@ namespace Game.Gameplay.Systems.Enemy
             spawnZoneData.SpawnProgressNormalized += Time.deltaTime / spawnZoneData.SpawnTime;
         }
 
-        private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position, int zoneId)
+        private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position)
         {
-            var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position, zoneId);
+            var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position);
 
-            _activeEnemiesContainer.AddEnemy(enemy, zoneId);
+            _activeEnemiesContainer.AddEnemy(enemy);
         }
 
         public bool IsSpawnEnded(SpawnZoneData spawnZoneData)

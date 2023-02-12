@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.DataBase.Essence;
+using Game.DataBase.Enemies;
 using Game.Gameplay.Views.Enemy;
 using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
@@ -10,16 +10,17 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
+        private const float StartHealth = 9;
+
         private readonly EnemyViewBase _enemyViewBase;
-        private readonly EssenceType _essenceType;
-        private readonly RxField<float> _health = 25;
+        private readonly EnemyDestructionStates _enemyDestructionStates;
+        private readonly RxField<float> _health;
 
         protected abstract IEnemyMovementComponent EnemyMovementComponent { get; }
         protected abstract IEnemyDamageComponent EnemyDamageComponent { get; }
         protected abstract IEnemyAttackComponent EnemyAttackComponent { get; }
 
-        public event Action<EssenceType, EnemyBase> OnEnemyDied;
-        public int ZoneId { get; }
+        public event Action<EnemyBase> OnEnemyDied;
 
         public bool IsOnAttack => EnemyAttackComponent.IsOnAttack;
         public bool ReadyToAttack() => EnemyAttackComponent.ReadyToAttack();
@@ -33,11 +34,12 @@ namespace Game.Gameplay.EnemiesMechanics
             set => EnemyMovementComponent.Target = value;
         }
 
-        protected EnemyBase(EnemyViewBase enemyViewBase, EssenceType essenceType, int zoneId)
+        protected EnemyBase(EnemyViewBase enemyViewBase, EnemyDestructionStates enemyDestructionStates)
         {
             _enemyViewBase = enemyViewBase;
-            _essenceType = essenceType;
-            ZoneId = zoneId;
+            _enemyDestructionStates = enemyDestructionStates;
+
+            _health = StartHealth;
         }
 
         public void Initialize()
@@ -62,14 +64,34 @@ namespace Game.Gameplay.EnemiesMechanics
 
         private void OnEnemyHitHandler(HitInfo hitInfo)
         {
+            HandleDamage(hitInfo);
+        }
+
+        private void HandleDamage(HitInfo hitInfo)
+        {
             _health.Value -= hitInfo.Damage;
 
             if (_health.Value <= 0)
             {
-                OnEnemyDied?.Invoke(_essenceType, this);
+                OnEnemyDied?.Invoke(this);
+                return;
             }
 
+            var healthPercent = _health.Value / StartHealth;
+            var destructionStateIndex = GetCurrentModelIndex(healthPercent);
+
+            Debug.Log(healthPercent);
+            Debug.Log(destructionStateIndex);
+            _enemyViewBase.MeshFilter.mesh = _enemyDestructionStates.Meshes[destructionStateIndex];
+
             EnemyDamageComponent.Hit(hitInfo);
+        }
+
+        private int GetCurrentModelIndex(float healthPercent)
+        {
+            var statesCount = _enemyDestructionStates.Meshes.Length;
+
+            return statesCount - Mathf.Clamp((int)(healthPercent * statesCount), 1, statesCount);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Game.DataBase.Enemies
     {
         public EnemyType _enemyType;
         public EnemyViewBase _enemyViewBasePrefab;
+        public EnemyDestructionStates _enemyDestructionStates;
     }
 }

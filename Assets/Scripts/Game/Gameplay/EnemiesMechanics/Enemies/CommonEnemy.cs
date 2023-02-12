@@ -1,4 +1,4 @@
-﻿using Game.DataBase.Essence;
+﻿using Game.DataBase.Enemies;
 using Game.Gameplay.EnemiesMechanics.Components.AttackComponents;
 using Game.Gameplay.EnemiesMechanics.Components.DamageComponents;
 using Game.Gameplay.EnemiesMechanics.Components.MovementComponents;
@@ -14,9 +14,8 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyDamageComponent EnemyDamageComponent { get; }
         protected override IEnemyAttackComponent EnemyAttackComponent { get; }
 
-        public CommonEnemy(CommonEnemyView commonEnemyView, EssenceType essenceType, int zoneId,
-            CharacterView characterView, CharacterHealthData characterHealthData) : base(commonEnemyView, essenceType,
-            zoneId)
+        public CommonEnemy(CommonEnemyView commonEnemyView, CharacterView characterView,
+            CharacterHealthData characterHealthData, EnemyDestructionStates enemyDestructionStates) : base(commonEnemyView, enemyDestructionStates)
         {
             EnemyMovementComponent = new GradualMovementComponent(commonEnemyView.Rigidbody);
             EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody);

@@ -9,18 +9,12 @@ namespace Game.Gameplay.Views.Enemy
         public event Action<HitInfo> OnEnemyHit;
         public event Action<Collision> OnEnemyCollide;
 
-        private MeshRenderer _meshRenderer;
+        private MeshFilter _meshFilter;
+        public MeshFilter MeshFilter => _meshFilter ??= GetComponentInChildren<MeshFilter>();
 
         public void InvokeHit(HitInfo hitInfo)
         {
             OnEnemyHit?.Invoke(hitInfo);
-        }
-
-        public void SetEssenceMaterial(Material material)
-        {
-            _meshRenderer ??= GetComponentInChildren<MeshRenderer>();
-
-            _meshRenderer.material = material;
         }
 
         private void OnCollisionEnter(Collision collision)

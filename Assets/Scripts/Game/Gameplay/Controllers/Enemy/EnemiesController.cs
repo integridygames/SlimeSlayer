@@ -33,11 +33,11 @@ namespace Game.Gameplay.Controllers.Enemy
             ControlledEntity.OnEnemyDied -= OnEnemyDiedHandler;
         }
 
-        private void OnEnemyDiedHandler(EssenceType essenceType, EnemyBase enemy)
+        private void OnEnemyDiedHandler(EnemyBase enemy)
         {
-            _activeEnemiesContainer.RemoveEnemy(enemy, enemy.ZoneId);
+            _activeEnemiesContainer.RemoveEnemy(enemy);
 
-            var essenceView = _essencePoolFactory.GetElement(essenceType);
+            var essenceView = _essencePoolFactory.GetElement(EssenceType.Blue);
             essenceView.transform.position = enemy.Position;
             _activeEssencesContainer.AddEssence(essenceView);
 

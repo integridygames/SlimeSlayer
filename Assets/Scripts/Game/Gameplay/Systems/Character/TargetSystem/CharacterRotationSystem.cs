@@ -23,10 +23,14 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         {
             var direction = new Vector3(_characterMovementData.Direction.x, _characterView.transform.forward.y,
                 _characterMovementData.Direction.z);
-            var targetRotation = Quaternion.LookRotation(direction);
 
-            _characterView.Rigidbody.rotation = Quaternion.RotateTowards(_characterView.transform.rotation,
-                targetRotation, Time.fixedDeltaTime * _characterStats.RotationSpeed);
+            if (direction != Vector3.zero)
+            {
+                var targetRotation = Quaternion.LookRotation(direction);
+
+                _characterView.Rigidbody.rotation = Quaternion.RotateTowards(_characterView.transform.rotation,
+                    targetRotation, Time.fixedDeltaTime * _characterStats.RotationSpeed);
+            }
         }
     }
 }
