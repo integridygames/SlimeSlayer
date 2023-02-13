@@ -51,11 +51,11 @@ namespace Game.Installers.SampleScene
             Container.CreateAndBindTransition<GameToPauseScreenTransition>(_gameState, _pauseScreenState);
             Container.CreateAndBindTransition<PauseScreenToGameTransition>(_pauseScreenState, _gameState);
 
-            Container.CreateAndBindTransition<GameToGunCabinetTransition>(_gameState, _gunCabinetState);
-            Container.CreateAndBindTransition<GunCabinetToGameTransition>(_gunCabinetState, _gameState);
+            /*Container.CreateAndBindTransition<GameToGunCabinetTransition>(_gameState, _gunCabinetState);
+            Container.CreateAndBindTransition<GunCabinetToGameTransition>(_gunCabinetState, _gameState);*/
 
-            Container.CreateAndBindTransition<GameToEndScreenTransition>(_gameState, _endScreenState);
-            Container.CreateAndBindTransition<EndScreenToStartScreenTransition>(_endScreenState, _startScreenState);
+            /*Container.CreateAndBindTransition<GameToEndScreenTransition>(_gameState, _endScreenState);
+            Container.CreateAndBindTransition<EndScreenToStartScreenTransition>(_endScreenState, _startScreenState);*/
         }
 
         private void CreateStateMachine()
@@ -127,6 +127,9 @@ namespace Game.Installers.SampleScene
 
             var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
             Container.BindInitializeSystemWithState(zonesInitializeSystem, _gameState);
+
+            var spawnTimeoutSystem = Container.Instantiate<SpawnTimeoutSystem>();
+            Container.BindUpdateSystemWithState(spawnTimeoutSystem, _gameState);
 
             var enemiesSpawnSystem = Container.Instantiate<EnemiesSpawnSystem>();
             Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);

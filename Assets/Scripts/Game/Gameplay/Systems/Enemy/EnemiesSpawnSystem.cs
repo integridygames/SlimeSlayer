@@ -58,7 +58,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public bool ReadyToSpawn(SpawnZoneData spawnZoneData)
         {
-            return spawnZoneData.AbleToSpawn;
+            return spawnZoneData.AbleToSpawn && spawnZoneData.CurrentTimeout <= 0;;
         }
 
         public void BeginSpawn(SpawnZoneData spawnZoneData)

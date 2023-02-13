@@ -57,7 +57,7 @@ namespace Game.Gameplay.EnemiesMechanics
             EnemyMovementComponent.UpdateMovement();
         }
 
-        public void Remove()
+        public void Destroy()
         {
             Object.Destroy(_enemyViewBase.gameObject);
         }

@@ -26,17 +26,17 @@ namespace Game.Gameplay.Systems.Enemy
                     continue;
                 }
 
-                if (IsPlayerNear(activeEnemy))
-                {
-                    MoveToPlayer(activeEnemy);
-                }
+                /*if (IsPlayerNear(activeEnemy))
+                {*/
+                MoveToPlayer(activeEnemy);
+                /*}*/
             }
         }
 
-        private bool IsPlayerNear(EnemyBase activeEnemy)
+        /*private bool IsPlayerNear(EnemyBase activeEnemy)
         {
             return Vector3.Distance(activeEnemy.Position, _characterView.transform.position) < 10;
-        }
+        }*/
 
         private void MoveToPlayer(EnemyBase activeEnemy)
         {

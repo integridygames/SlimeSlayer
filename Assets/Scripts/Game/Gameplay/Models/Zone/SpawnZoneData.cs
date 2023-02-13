@@ -7,6 +7,8 @@ namespace Game.Gameplay.Models.Zone
 {
     public class SpawnZoneData
     {
+        public const int EnemyRespawnTime = 10;
+
         private readonly SpawnBoundsView _spawnBoundsView;
 
         private float _currentTimeout;
@@ -23,6 +25,16 @@ namespace Game.Gameplay.Models.Zone
 
         public IReadOnlyList<EnemySpawnSettingsRecord> BattlefieldSpawnSettings =>
             _spawnBoundsView.EnemySpawnSettings;
+
+        public float CurrentTimeout
+        {
+            get => _currentTimeout;
+            set
+            {
+                _spawnBoundsView.BattlefieldSpawnTimeoutView.CurrentTimeout = value;
+                _currentTimeout = value;
+            }
+        }
 
         public SpawnZoneData(SpawnBoundsView spawnBoundsView)
         {
@@ -42,6 +54,7 @@ namespace Game.Gameplay.Models.Zone
         public void Recycle()
         {
             AbleToSpawn = true;
+            CurrentTimeout = EnemyRespawnTime;
         }
     }
 }
