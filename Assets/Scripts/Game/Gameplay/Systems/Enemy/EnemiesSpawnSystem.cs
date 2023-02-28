@@ -99,7 +99,7 @@ namespace Game.Gameplay.Systems.Enemy
                 while (spawnZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch)
                 {
                     var spawnPosition = spawnZoneData.GetRandomPoint();
-                    spawnPosition.y = _characterView.transform.position.y;
+                    spawnPosition.y = _characterView.transform.position.y + 0.5f;
 
                     Spawn(_enemiesToSpawn[spawnZoneData.CurrentSpawnIndex], spawnPosition);
 

@@ -17,7 +17,7 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         public CommonEnemy(CommonEnemyView commonEnemyView, CharacterView characterView,
             CharacterHealthData characterHealthData, EnemyDestructionStates enemyDestructionStates) : base(commonEnemyView, enemyDestructionStates)
         {
-            EnemyMovementComponent = new GradualMovementComponent(commonEnemyView.Rigidbody);
+            EnemyMovementComponent = new SmoothForwardMovementComponent(commonEnemyView.Rigidbody);
             EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody);
             EnemyAttackComponent = new ImpulseAttackComponent(commonEnemyView, commonEnemyView.Rigidbody, characterView,
                 characterHealthData);

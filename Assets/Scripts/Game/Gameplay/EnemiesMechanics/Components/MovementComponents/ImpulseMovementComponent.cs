@@ -20,6 +20,11 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
             _enemyRigidBody = enemyRigidBody;
         }
 
+        public void UpdateMovementData()
+        {
+
+        }
+
         public void UpdateMovement()
         {
             if (Time.time - _latestImpulseTime < ImpulseDuration)

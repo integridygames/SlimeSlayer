@@ -2,11 +2,10 @@
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
-using UnityEngine;
 
 namespace Game.Gameplay.Systems.Enemy
 {
-    public class EnemiesMovementSystem : IFixedUpdateSystem
+    public class EnemiesMovementSystem : IFixedUpdateSystem, IUpdateSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly CharacterView _characterView;
@@ -15,6 +14,19 @@ namespace Game.Gameplay.Systems.Enemy
         {
             _activeEnemiesContainer = activeEnemiesContainer;
             _characterView = characterView;
+        }
+
+        public void Update()
+        {
+            foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
+            {
+                if (activeEnemy.IsOnAttack)
+                {
+                    continue;
+                }
+
+                activeEnemy.UpdateMovementData();
+            }
         }
 
         public void FixedUpdate()
@@ -26,17 +38,9 @@ namespace Game.Gameplay.Systems.Enemy
                     continue;
                 }
 
-                /*if (IsPlayerNear(activeEnemy))
-                {*/
                 MoveToPlayer(activeEnemy);
-                /*}*/
             }
         }
-
-        /*private bool IsPlayerNear(EnemyBase activeEnemy)
-        {
-            return Vector3.Distance(activeEnemy.Position, _characterView.transform.position) < 10;
-        }*/
 
         private void MoveToPlayer(EnemyBase activeEnemy)
         {

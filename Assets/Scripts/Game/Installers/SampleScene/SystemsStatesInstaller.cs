@@ -136,6 +136,7 @@ namespace Game.Installers.SampleScene
 
             var enemiesMovementSystem = Container.Instantiate<EnemiesMovementSystem>();
             Container.BindFixedSystemWithState(enemiesMovementSystem, _gameState);
+            Container.BindUpdateSystemWithState(enemiesMovementSystem, _gameState);
 
             var enemiesAttackSystem = Container.Instantiate<EnemiesAttackSystem>();
             Container.BindUpdateSystemWithState(enemiesAttackSystem, _gameState);

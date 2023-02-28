@@ -52,6 +52,11 @@ namespace Game.Gameplay.EnemiesMechanics
             _enemyViewBase.OnEnemyHit -= OnEnemyHitHandler;
         }
 
+        public void UpdateMovementData()
+        {
+            EnemyMovementComponent.UpdateMovementData();
+        }
+
         public void UpdateMovement()
         {
             EnemyMovementComponent.UpdateMovement();

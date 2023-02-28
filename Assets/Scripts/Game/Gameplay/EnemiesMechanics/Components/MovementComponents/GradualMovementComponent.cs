@@ -2,7 +2,7 @@
 
 namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
 {
-    public class GradualMovementComponent: IEnemyMovementComponent
+    public class GradualMovementComponent : IEnemyMovementComponent
     {
         private const float Speed = 500f;
 
@@ -15,6 +15,10 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
         public GradualMovementComponent(Rigidbody enemyRigidBody)
         {
             _enemyRigidBody = enemyRigidBody;
+        }
+
+        public void UpdateMovementData()
+        {
         }
 
         public void UpdateMovement()
