@@ -30,7 +30,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
             direction.y = 0;
 
             _targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            _targetVelocity = forward * Speed * Time.fixedDeltaTime;
+            _targetVelocity = forward * Speed * Time.deltaTime;
         }
 
         public void UpdateMovement()
