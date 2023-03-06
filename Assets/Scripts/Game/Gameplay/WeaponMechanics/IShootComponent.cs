@@ -1,7 +1,9 @@
-﻿namespace Game.Gameplay.WeaponMechanics
+﻿using UnityEngine;
+
+namespace Game.Gameplay.WeaponMechanics
 {
     public interface IShootComponent
     {
-        void Shoot();
+        void Shoot(Vector3 direction);
     }
 }

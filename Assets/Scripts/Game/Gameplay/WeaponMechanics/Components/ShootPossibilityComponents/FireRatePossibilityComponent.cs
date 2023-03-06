@@ -24,9 +24,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
             _shootingPoint = shootingPoint;
         }
 
-        public bool CanShoot()
+        public bool TryToGetTargetCollider(out Collider collider)
         {
-            if (_weaponMechanicsService.WeaponHasATarget(_shootingPoint) == false)
+            if (_weaponMechanicsService.TryGetWeaponTarget(_shootingPoint, out collider) == false)
             {
                 return false;
             }

@@ -22,9 +22,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
             _shootingPoint = shootingPoint;
         }
 
-        public void Shoot()
+        public void Shoot(Vector3 direction)
         {
-            _weaponMechanicsService.ShootBullet(_shootingPoint, _projectileType, _weaponType);
+            _weaponMechanicsService.ShootBullet(_shootingPoint, direction, _projectileType, _weaponType);
         }
     }
 }

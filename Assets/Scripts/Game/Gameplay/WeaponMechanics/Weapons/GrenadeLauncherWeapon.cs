@@ -5,6 +5,7 @@ using Game.Gameplay.Views.Weapons;
 using Game.Gameplay.WeaponMechanics.Components.ReloadComponents;
 using Game.Gameplay.WeaponMechanics.Components.ShootComponents;
 using Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents;
+using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanics.Weapons
 {
@@ -17,6 +18,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override IReloadComponent ReloadComponent { get; }
 
         protected override IShootPossibilityComponent ShootPossibilityComponent { get; }
+
+        protected override Transform ShootingPoint { get; }
 
         public GrenadeLauncherWeapon(GrenadeLauncherView grenadeLauncherView,
             WeaponMechanicsService weaponMechanicsService,
@@ -31,6 +34,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
                 grenadeLauncherView.ShootingPoint);
+
+            ShootingPoint = grenadeLauncherView.ShootingPoint;
         }
     }
 }

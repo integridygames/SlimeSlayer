@@ -129,4 +129,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isCached: 0
   _projectileType: 0
-  _lifeTime: 3
+  _lifeTime: 8

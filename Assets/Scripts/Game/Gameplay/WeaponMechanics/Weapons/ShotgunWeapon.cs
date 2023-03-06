@@ -6,6 +6,7 @@ using Game.Gameplay.Views.Weapons;
 using Game.Gameplay.WeaponMechanics.Components.ReloadComponents;
 using Game.Gameplay.WeaponMechanics.Components.ShootComponents;
 using Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents;
+using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanics.Weapons
 {
@@ -16,6 +17,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override IShootComponent ShootComponent { get; }
         protected override IReloadComponent ReloadComponent { get; }
         protected override IShootPossibilityComponent ShootPossibilityComponent { get; }
+
+        protected override Transform ShootingPoint { get; }
 
         public ShotgunWeapon(ShotgunView shotgunView, WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
@@ -29,6 +32,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
                 shotgunView.ShootingPoint);
+
+            ShootingPoint = shotgunView.ShootingPoint;
         }
     }
 }

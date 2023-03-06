@@ -21,9 +21,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
             _weaponMechanicsService = weaponMechanicsService;
         }
 
-        public void Shoot()
+        public void Shoot(Vector3 direction)
         {
-            _weaponMechanicsService.ShootFX(_shootingPoint, _particleType, _weaponType);
+            _weaponMechanicsService.ShootFX(_shootingPoint, direction, _particleType, _weaponType);
         }
     }
 }

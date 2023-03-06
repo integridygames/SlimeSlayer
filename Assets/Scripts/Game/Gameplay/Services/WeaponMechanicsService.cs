@@ -36,8 +36,10 @@ namespace Game.Gameplay.Services
             _weaponsCharacteristics = currentCharacterWeaponsData.WeaponsCharacteristics;
         }
 
-        public bool WeaponHasATarget(Transform shootingPoint)
+        public bool TryGetWeaponTarget(Transform shootingPoint, out Collider currentTarget)
         {
+            currentTarget = null;
+
             foreach (var target in _targetsInfo.Targets)
             {
                 if (target == null)
@@ -48,6 +50,8 @@ namespace Game.Gameplay.Services
                 if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, target.transform.position,
                         ShootingDistance, ShootingRangeAngle, true))
                 {
+                    currentTarget = target;
+
                     return true;
                 }
             }
@@ -55,13 +59,14 @@ namespace Game.Gameplay.Services
             return false;
         }
 
-        public void ShootBullet(Transform shootingPoint, ProjectileType projectileType, WeaponType weaponType)
+        public void ShootBullet(Transform shootingPoint, Vector3 direction, ProjectileType projectileType,
+            WeaponType weaponType)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
                 bulletView.transform.position = shootingPoint.position;
 
-                bulletView.Initialize(weaponType, shootingPoint.forward, BulletSpeed);
+                bulletView.Initialize(weaponType, direction, BulletSpeed);
                 bulletView.Shoot();
 
                 bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
@@ -83,13 +88,14 @@ namespace Game.Gameplay.Services
             RecycleProjectile(bulletView);
         }
 
-        public GrenadeView ShootGrenade(Transform shootingPoint, ProjectileType projectileType, WeaponType weaponType)
+        public GrenadeView ShootGrenade(Transform shootingPoint, Vector3 direction, ProjectileType projectileType,
+            WeaponType weaponType)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
                 grenadeView.transform.position = shootingPoint.position;
 
-                grenadeView.Initialize(weaponType, shootingPoint.forward,1400f);
+                grenadeView.Initialize(weaponType, direction, 1800f);
                 grenadeView.Shoot();
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
@@ -125,7 +131,7 @@ namespace Game.Gameplay.Services
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
         }
 
-        public void ShootFX(Transform shootingPoint, RecyclableParticleType recyclableParticleType,
+        public void ShootFX(Transform shootingPoint, Vector3 direction, RecyclableParticleType recyclableParticleType,
             WeaponType weaponType)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
@@ -135,7 +141,7 @@ namespace Game.Gameplay.Services
                 var particlesTransform = projectileView.transform;
 
                 particlesTransform.position = shootingPoint.position;
-                particlesTransform.rotation = shootingPoint.rotation;
+                particlesTransform.rotation = Quaternion.LookRotation(direction);
 
                 projectileView.Play();
                 projectileView.OnEnemyCollide += OnFXEnemyCollideHandler;

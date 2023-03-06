@@ -26,9 +26,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
             _shootingPoint = shootingPoint;
         }
 
-        public void Shoot()
+        public void Shoot(Vector3 direction)
         {
-            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, _projectileType, _weaponType);
+            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, direction, _projectileType, _weaponType);
             grenadeView.OnRecycle += OnGrenadeRecycleHandler;
         }
 

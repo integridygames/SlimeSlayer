@@ -1,8 +1,10 @@
-﻿namespace Game.Gameplay.WeaponMechanics
+﻿using UnityEngine;
+
+namespace Game.Gameplay.WeaponMechanics
 {
     public interface IShootPossibilityComponent
     {
-        bool CanShoot();
+        bool TryToGetTargetCollider(out Collider currentTarget);
         void HandleShoot();
     }
 }
