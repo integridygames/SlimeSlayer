@@ -1,21 +1,38 @@
 using TegridyCore.Base;
 using UnityEngine;
-using Game.Gameplay.Views.Character.Bones;
-using Game.Gameplay.Views.Character.Poles;
 using Game.Gameplay.Views.Character.Targets;
 
 namespace Game.Gameplay.Views.Character
 {
     public class HandIKView : ViewBase
     {
-        [SerializeField] private HandBoneView _handBoneView;
         [SerializeField] private HandTargetView _handTargetView;
-        [SerializeField] private HandPoleView _handPoleView;
         [SerializeField] private HandRotationCenterView _handRotationCenter;
+        [SerializeField] private AvatarIKGoal _avatarIKGoal;
 
-        public HandBoneView HandBoneView => _handBoneView;
+        private Animator _animator;
+        private float _weight;
+
         public HandTargetView HandTargetView => _handTargetView;
-        public HandPoleView HandPoleView => _handPoleView;
         public HandRotationCenterView HandRotationCenterView => _handRotationCenter;
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        public void SetWeight(float weight)
+        {
+            _weight = weight;
+        }
+
+        private void OnAnimatorIK(int layerIndex)
+        {
+            _animator.SetIKPositionWeight(_avatarIKGoal, _weight);
+            _animator.SetIKRotationWeight(_avatarIKGoal, _weight);
+
+            _animator.SetIKPosition(_avatarIKGoal, _handTargetView.transform.position);
+            _animator.SetIKRotation(_avatarIKGoal, _handRotationCenter.transform.rotation);
+        }
     }
 }

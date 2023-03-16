@@ -1,6 +1,6 @@
-﻿using Game.Gameplay.Models;
+﻿using Game.DataBase;
+using Game.Gameplay.Models;
 using Game.Gameplay.Views.Level;
-using Game.ScriptableObjects;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;

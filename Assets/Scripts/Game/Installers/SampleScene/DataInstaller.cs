@@ -1,4 +1,4 @@
-using Game.Gameplay.Models.Bullets;
+using Game.Gameplay.Models.Camera;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
 using Game.Gameplay.Models.Heap;
@@ -8,6 +8,7 @@ using Game.Gameplay.Models.Weapon;
 using Zenject;
 using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Models.Enemy;
+using Game.Gameplay.Models.Zone;
 
 namespace Game.Installers.SampleScene
 {
@@ -17,17 +18,18 @@ namespace Game.Installers.SampleScene
         {
             Container.Bind<LevelInfo>().AsSingle();
             Container.Bind<HeapInfo>().AsSingle();
-            Container.Bind<CharacterHandsMovingStats>().AsSingle();
             Container.Bind<TargetsInfo>().AsSingle();
             Container.Bind<MouseRaycastInfo>().AsSingle();
-            Container.Bind<CharacterMovingData>().AsSingle();
+            Container.Bind<CharacterMovementData>().AsSingle();
             Container.Bind<CharacterStats>().AsSingle();
-            Container.Bind<WeaponsInfo>().AsSingle();
-            Container.Bind<ActiveBulletsContainer>().AsSingle();
+            Container.Bind<CurrentCharacterWeaponsData>().AsSingle();
+            Container.Bind<ActiveProjectilesContainer>().AsSingle();
             Container.Bind<CharacterHealthData>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
             Container.Bind<CharacterEssencesData>().AsSingle();
+            Container.Bind<SpawnZonesDataContainer>().AsSingle();
+            Container.Bind<CameraStats>().AsSingle();
         }
     }
 }

@@ -12,9 +12,9 @@ TagManager:
   - Character
   - Water
   - UI
-  - Floor
+  - Bullets
   - Rope
-  - 
+  - Level
   - PlayerInteractable
   - Joystick
   - Coin

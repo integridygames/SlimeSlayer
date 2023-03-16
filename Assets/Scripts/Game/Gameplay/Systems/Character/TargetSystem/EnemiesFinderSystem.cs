@@ -8,9 +8,10 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
 {
     public class EnemiesFinderSystem : IUpdateSystem
     {
+        private readonly float _radius = 10f;
+
         private readonly CharacterView _characterView;
-        private readonly float _radius = 30f;
-        private TargetsInfo _targetsInfo;
+        private readonly TargetsInfo _targetsInfo;
 
         public Collider[] Targets { get; private set; }
 

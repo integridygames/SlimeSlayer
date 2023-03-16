@@ -1,32 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Game.Gameplay.Views.Enemy;
+using Game.Gameplay.Views.Zone;
 
 namespace Game.Gameplay.Views.Level
 {
     public class LevelView : MonoBehaviour
     {
-        [SerializeField] private ObstacleView[] _obstacleViews;
-        [SerializeField] private EnemyView[] _enemiesViews;
-        [SerializeField] private SpawnPointView _spawnPointView;
-        [SerializeField] private GunCabinetView _gunCabinetView;
-        [SerializeField] private FinishView _finishView;
+        private SpawnPointView _spawnPointView;
+        private GunCabinetView _gunCabinetView;
+        private FinishView _finishView;
+        private List<SpawnBoundsView> _spawnBoundsViews;
 
-        public IReadOnlyCollection<ObstacleView> ObstacleViews => _obstacleViews;
-        public IReadOnlyCollection<EnemyView> EnemiesViews => _enemiesViews;
-        public SpawnPointView SpawnPointView => _spawnPointView;
-        public GunCabinetView GunCabinetView => _gunCabinetView;
-        public FinishView FinishView => _finishView;
+        public SpawnPointView SpawnPointView => _spawnPointView ??= GetComponentInChildren<SpawnPointView>();
+        public GunCabinetView GunCabinetView => _gunCabinetView ??= GetComponentInChildren<GunCabinetView>();
+        public FinishView FinishView => _finishView ??= GetComponentInChildren<FinishView>();
 
-        private void Awake()
-        {
-            _obstacleViews = GetComponentsInChildren<ObstacleView>();
-            _enemiesViews = GetComponentsInChildren<EnemyView>();
-        }
-
-        public void Destroy()
-        {
-            Destroy(gameObject);
-        }
+        public IReadOnlyList<SpawnBoundsView> SpawnBoundsViews =>
+            _spawnBoundsViews ??= GetComponentsInChildren<SpawnBoundsView>().ToList();
     }
 }

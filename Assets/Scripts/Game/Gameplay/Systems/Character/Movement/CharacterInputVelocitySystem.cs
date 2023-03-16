@@ -8,14 +8,14 @@ namespace Game.Gameplay.Systems.Character.Movement
     public class CharacterInputVelocitySystem : IUpdateSystem
     {
         private readonly Joystick _joystick;
-        private readonly CharacterMovingData _characterMovingData;
+        private readonly CharacterMovementData _characterMovementData;
         private readonly CharacterStats _characterStats;
 
-        public CharacterInputVelocitySystem(Joystick joystick, CharacterMovingData characterMovingData,
+        public CharacterInputVelocitySystem(Joystick joystick, CharacterMovementData characterMovementData,
             CharacterStats characterStats)
         {
             _joystick = joystick;
-            _characterMovingData = characterMovingData;
+            _characterMovementData = characterMovementData;
             _characterStats = characterStats;
         }
 
@@ -23,7 +23,7 @@ namespace Game.Gameplay.Systems.Character.Movement
         {
             var movingVector = new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y);
 
-            _characterMovingData.Velocity = movingVector * _characterStats.MovingSpeed;
+            _characterMovementData.Velocity = movingVector * _characterStats.MovingSpeed;
         }
     }
 }

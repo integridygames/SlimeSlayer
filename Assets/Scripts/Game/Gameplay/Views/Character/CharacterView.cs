@@ -6,8 +6,8 @@ namespace Game.Gameplay.Views.Character
 {
     public class CharacterView : ViewBase
     {
-        [SerializeField] private WeaponPlacer _leftWeaponPosition;
-        [SerializeField] private WeaponPlacer _rightWeaponPosition;
+        [SerializeField] private WeaponPlacer _leftWeaponPlacer;
+        [SerializeField] private WeaponPlacer _rightWeaponPlacer;
 
         private Animator _animator;
         public Animator Animator => _animator ??= GetComponentInChildren<Animator>();
@@ -15,7 +15,7 @@ namespace Game.Gameplay.Views.Character
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
 
-        public WeaponPlacer LeftWeaponPosition => _leftWeaponPosition;
-        public WeaponPlacer RightWeaponPosition => _rightWeaponPosition;
+        public WeaponPlacer LeftWeaponPlacer => _leftWeaponPlacer;
+        public WeaponPlacer RightWeaponPlacer => _rightWeaponPlacer;
     }
 }

@@ -8,17 +8,17 @@ namespace Game.Gameplay.Systems.Character.Movement
     public class CharacterMovingSystem : IFixedUpdateSystem
     {
         private readonly CharacterView _characterView;
-        private readonly CharacterMovingData _characterMovingData;
+        private readonly CharacterMovementData _characterMovementData;
 
-        public CharacterMovingSystem(CharacterView characterView, CharacterMovingData characterMovingData)
+        public CharacterMovingSystem(CharacterView characterView, CharacterMovementData characterMovementData)
         {
             _characterView = characterView;
-            _characterMovingData = characterMovingData;
+            _characterMovementData = characterMovementData;
         }
         
         public void FixedUpdate()
         {
-            _characterView.Rigidbody.MovePosition(_characterView.Rigidbody.position + _characterMovingData.Velocity * Time.fixedDeltaTime);
+            _characterView.Rigidbody.MovePosition(_characterView.Rigidbody.position + _characterMovementData.Velocity * Time.fixedDeltaTime);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Game.Gameplay.Models.Character.TargetSystem;
 using TegridyCore.Base;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
 
         public void Initialize()
         {
-            _targetsInfo.Targets = new Collider[0];
+            _targetsInfo.Targets = Array.Empty<Collider>();
         }
     }
 }

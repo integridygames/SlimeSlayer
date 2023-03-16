@@ -1,31 +1,33 @@
-using Game.Gameplay.Utils.Essences;
-using Game.Gameplay.Views.Enemy;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Game.Gameplay.EnemiesMechanics;
 
 namespace Game.Gameplay.Models.Enemy 
 {
     public class ActiveEnemiesContainer
     {
-        public event Action<int, Vector3, EssenceType, EnemyView> OnEnemyDied;
+        public event Action<EnemyBase> OnEnemyDied;
 
-        private readonly List<EnemyView> _activeEnemies = new();
+        private readonly List<EnemyBase> _activeEnemies = new();
 
-        public IReadOnlyList<EnemyView> ActiveEnemies => _activeEnemies;
+        public IReadOnlyList<EnemyBase> ActiveEnemies => _activeEnemies;
 
-        public void AddEnemy(EnemyView enemyView)
+        public void AddEnemy(EnemyBase enemy)
         {
-            enemyView.OnEnemyDied += OnEnemyDied;
+            enemy.Initialize();
 
-            _activeEnemies.Add(enemyView);
+            enemy.OnEnemyDied += OnEnemyDied;
+
+            _activeEnemies.Add(enemy);
         }
 
-        public void RemoveEnemy(EnemyView enemyView)
+        public void RemoveEnemy(EnemyBase enemy)
         {
-            enemyView.OnEnemyDied -= OnEnemyDied;
+            enemy.Dispose();
 
-            _activeEnemies.Remove(enemyView);
+            enemy.OnEnemyDied -= OnEnemyDied;
+
+            _activeEnemies.Remove(enemy);
         }
     }   
 }

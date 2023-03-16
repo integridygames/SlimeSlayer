@@ -1,46 +1,37 @@
 using System;
-using Game.Gameplay.Utils.Weapons;
 using Game.Gameplay.Views.Enemy;
-using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.Bullets 
+namespace Game.Gameplay.Views.Bullets
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class BulletView : ViewBase
+    public class BulletView : ProjectileViewBase
     {
-        public event Action<EnemyView, BulletView> OnBulletCollide;
-        
-        [SerializeField] private WeaponType _weaponType;
-        [SerializeField] private Rigidbody _rigidbody;
-        
-        [SerializeField] private float _lifeTime;
-        [SerializeField] private float _damage;
+        public event Action<BulletView, EnemyViewBase> OnEnemyCollide;
 
-        private float _currentLifeTime = 0;
-        public float CurrentLifeTime => _currentLifeTime;
-        public float LifeTime => _lifeTime;
-        public Rigidbody Rigidbody => _rigidbody;
-        public WeaponType WeaponType => _weaponType;
-        public float Damage => _damage;
+        private Rigidbody _rigidbody;
+        public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
+
+
+        public override void Shoot()
+        {
+            Rigidbody.velocity = Direction * Force;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyView enemyView)) 
+            var enemyView = other.GetComponentInParent<EnemyViewBase>();
+
+            if (enemyView != null)
             {
-                OnBulletCollide?.Invoke(enemyView, this);
+                OnEnemyCollide?.Invoke(this, enemyView);
             }
         }
 
-        public override void Recycle() 
+        public override void Recycle()
         {
-            _currentLifeTime = 0;
-            gameObject.SetActive(false);
-        }
-
-        public void AddToCurrentLifeTime(float time) 
-        {
-            _currentLifeTime += time;
+            base.Recycle();
+            Rigidbody.velocity = Vector3.zero;
         }
     }
 }

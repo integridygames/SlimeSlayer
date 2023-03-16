@@ -1,77 +1,54 @@
-using Game.Gameplay.Views.Container;
 using System.Collections.Generic;
 using TegridyCore.Base;
-using Game.ScriptableObjects.Substructure;
-using System;
+using UnityEngine;
 
-namespace Game.Gameplay.Factories 
+namespace Game.Gameplay.Factories
 {
-    public abstract class PoolFactoryBase<TRecord, TEnum, TView> where TView : ViewBase where TRecord : Record<TEnum, TView> where TEnum : Enum 
+    public abstract class PoolFactoryBase<TView, TKey> where TView : ViewBase
     {
-        protected readonly PoolContainerView PoolContainerView;
-        protected readonly Dictionary<TEnum, Stack<TView>> Pool = new();
-        protected readonly PrefabsDataBase<TRecord, TEnum, TView> _dataBase;
-
-        protected PoolFactoryBase(PoolContainerView poolContainerView, PrefabsDataBase<TRecord, TEnum, TView> dataBase)
-        {
-            PoolContainerView = poolContainerView;
-            _dataBase = dataBase;
-        }
+        private readonly Dictionary<TKey, Stack<TView>> _pool = new ();
 
         public void ClearPool()
         {
-            foreach (var bulletList in Pool.Values)
+            foreach (var bulletStack in _pool.Values)
             {
-                foreach (var bulletView in bulletList)
+                foreach (var bulletView in bulletStack)
                 {
-                    UnityEngine.Object.Destroy(bulletView);
+                    Object.Destroy(bulletView);
                 }
             }
 
-            Pool.Clear();
+            _pool.Clear();
         }
 
-        public TView TakeNextElement(TEnum elementType)
+        public TView GetElement(TKey key)
         {
-            TView nextElement;
+            var stackForKey = GetStackForKey(key);
 
-            if (Pool.TryGetValue(elementType, out var elementList) == false)
-            {
-                elementList = new Stack<TView>();
+            var nextElement = stackForKey.Count == 0 ? CreateNewElement(key) : stackForKey.Pop();
 
-                Pool[elementType] = elementList;
-            }
-
-            if (elementList.Count == 0)
-            {
-                var elementViewPrefab = CreateNewElement(elementType);
-
-                nextElement = UnityEngine.Object.Instantiate(elementViewPrefab, PoolContainerView.transform);
-            }
-            else
-            {
-                nextElement = elementList.Pop();
-            }
+            nextElement.gameObject.SetActive(true);
 
             return nextElement;
         }
 
-        public void RecycleElement(TView elementView, TEnum elementType)
+        private Stack<TView> GetStackForKey(TKey key)
         {
-            elementView.Recycle();
+            if (_pool.ContainsKey(key) == false)
+            {
+                _pool[key] = new Stack<TView>();
+            }
 
-            Pool[elementType].Push(elementView);
+            return _pool[key];
         }
 
-        protected TView GetPrefabFromRecord(TRecord record) 
-        {
-            return record._prefab;
-        }
+        protected abstract TView CreateNewElement(TKey key);
 
-        private TView CreateNewElement(TEnum elementType)
+        public void RecycleElement(TKey key, TView elementView)
         {
-            var record = _dataBase.GetRecordByType(elementType);
-            return GetPrefabFromRecord(record);
-        }     
-    }   
+            elementView.gameObject.SetActive(false);
+
+            GetStackForKey(key).Push(elementView);
+        }
+    }
 }
