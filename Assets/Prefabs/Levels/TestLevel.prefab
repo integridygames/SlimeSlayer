@@ -192,7 +192,7 @@ MonoBehaviour:
   _enemySpawnSettings:
   - _enemyType: 0
     _essenceType: 0
-    _count: 10
+    _count: 60
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 6998976797046257322}
@@ -290,7 +290,7 @@ MonoBehaviour:
   _enemySpawnSettings:
   - _enemyType: 0
     _essenceType: 0
-    _count: 10
+    _count: 60
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 435542273237476981}
@@ -796,7 +796,7 @@ MonoBehaviour:
   _enemySpawnSettings:
   - _enemyType: 0
     _essenceType: 0
-    _count: 10
+    _count: 60
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 4250635654865135876}

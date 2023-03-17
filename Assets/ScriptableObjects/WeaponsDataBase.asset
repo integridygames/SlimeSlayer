@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _records:
   - _weaponType: 1
-    _weaponPrefab: {fileID: 3094002282751718008, guid: 8ee600ac575af164984b94a2a2be9a1f, type: 3}
+    _weaponPrefab: {fileID: 3094002282751718008, guid: 1c87d543788f26c439fde4ae4d9e7820, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 1
@@ -52,7 +52,7 @@ MonoBehaviour:
       _addition: 0
       _additionMultiplier: 0
   - _weaponType: 3
-    _weaponPrefab: {fileID: 5537250778219563501, guid: 313f1aef415f5f740afe691f1852473a, type: 3}
+    _weaponPrefab: {fileID: 5537250778219563501, guid: 5a66b3f6076252d49a7906541a386d69, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 5

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game.Gameplay.Views.Zone;
 using TegridyUtils.Extensions;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace Game.Gameplay.Models.Zone
 
         public float SpawnTime => _spawnBoundsView.SpawnTime;
 
+        public int MaxEnemiesCount { get; }
+
         public IReadOnlyList<EnemySpawnSettingsRecord> BattlefieldSpawnSettings =>
             _spawnBoundsView.EnemySpawnSettings;
 
@@ -39,6 +42,8 @@ namespace Game.Gameplay.Models.Zone
         public SpawnZoneData(SpawnBoundsView spawnBoundsView)
         {
             _spawnBoundsView = spawnBoundsView;
+
+            MaxEnemiesCount = _spawnBoundsView.EnemySpawnSettings.Sum(x => x._count);
         }
 
         public Vector3 GetRandomPoint()

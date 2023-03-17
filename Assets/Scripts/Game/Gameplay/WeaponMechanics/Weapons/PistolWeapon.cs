@@ -11,7 +11,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 {
     public class PistolWeapon : WeaponBase
     {
-        public sealed override WeaponType WeaponType => WeaponType.Pistol;
+        public sealed override WeaponType WeaponType => WeaponType.Glock;
 
         protected override IShootComponent ShootComponent { get; }
         protected override IReloadComponent ReloadComponent { get; }

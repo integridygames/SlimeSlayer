@@ -27,7 +27,7 @@ namespace Game.Gameplay.Factories
 
             switch (weaponType)
             {
-                case WeaponType.Pistol:
+                case WeaponType.Glock:
                     return CreateWeapon<PistolWeapon>(weaponView);
                 case WeaponType.Shotgun:
                     return CreateWeapon<ShotgunWeapon>(weaponView);

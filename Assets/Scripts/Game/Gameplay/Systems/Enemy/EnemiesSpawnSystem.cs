@@ -58,7 +58,7 @@ namespace Game.Gameplay.Systems.Enemy
 
         public bool ReadyToSpawn(SpawnZoneData spawnZoneData)
         {
-            return spawnZoneData.AbleToSpawn && spawnZoneData.CurrentTimeout <= 0;;
+            return spawnZoneData.AbleToSpawn && spawnZoneData.CurrentTimeout <= 0;
         }
 
         public void BeginSpawn(SpawnZoneData spawnZoneData)
@@ -96,7 +96,7 @@ namespace Game.Gameplay.Systems.Enemy
             {
                 var branchSpawnIndex = 0;
 
-                while (spawnZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch)
+                while (spawnZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch && spawnZoneData.CurrentSpawnIndex < spawnZoneData.MaxEnemiesCount)
                 {
                     var spawnPosition = spawnZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y + 0.5f;
