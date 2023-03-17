@@ -5,9 +5,9 @@ namespace Game.DataBase.Weapon
         Glock = 1,
         Shotgun = 2,
         GrenadeLauncher = 3,
-        MiniGun = 3,
-        Scar = 4,
-        SniperRiffle = 5,
-        Uzi = 6,
+        MiniGun = 4,
+        Scar = 5,
+        SniperRiffle = 6,
+        Uzi = 7,
     }  
 }
