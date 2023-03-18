@@ -33,7 +33,7 @@ MonoBehaviour:
       _addition: 0
       _additionMultiplier: 0
   - _weaponType: 2
-    _weaponPrefab: {fileID: 2514321369246870369, guid: 156c5c4700501bc4491631b1e609a9e2, type: 3}
+    _weaponPrefab: {fileID: 2514321369246870369, guid: 4ac599d44a9a41848993f6adf07bf107, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 0.25
