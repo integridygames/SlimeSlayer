@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanics.Weapons
 {
-    public class PistolWeapon : WeaponBase
+    public class GlockWeapon : WeaponBase
     {
         public sealed override WeaponType WeaponType => WeaponType.Glock;
 
@@ -19,7 +19,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public PistolWeapon(GlockView glockView, WeaponMechanicsService weaponMechanicsService,
+        public GlockWeapon(GlockView glockView, WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
             ShootComponent =

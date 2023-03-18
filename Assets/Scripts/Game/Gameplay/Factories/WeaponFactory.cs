@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Factories
 {
-    public class WeaponFactory : IFactory<WeaponType, WeaponPlacer, WeaponBase>
+    public class WeaponFactory : IFactory<WeaponType, WeaponPlacer, bool, WeaponBase>
     {
         private readonly DiContainer _container;
         private readonly WeaponsDataBase _weaponsDataBase;
@@ -20,19 +20,37 @@ namespace Game.Gameplay.Factories
             _weaponsDataBase = weaponsDataBase;
         }
 
-        public WeaponBase Create(WeaponType weaponType, WeaponPlacer weaponPlacer)
+        public WeaponBase Create(WeaponType weaponType, WeaponPlacer weaponPlacer, bool isLeftHand)
         {
             var weaponRecord = _weaponsDataBase.GetRecordByType(weaponType);
             var weaponView = Object.Instantiate(weaponRecord._weaponPrefab, weaponPlacer.transform);
 
+            if (isLeftHand)
+            {
+                var transform = weaponView.transform;
+
+                var transformLocalScale = transform.localScale;
+                transformLocalScale.x *= -1;
+                transform.localScale = transformLocalScale;
+            }
+
+
             switch (weaponType)
             {
                 case WeaponType.Glock:
-                    return CreateWeapon<PistolWeapon>(weaponView);
+                    return CreateWeapon<GlockWeapon>(weaponView);
                 case WeaponType.Shotgun:
                     return CreateWeapon<ShotgunWeapon>(weaponView);
                 case WeaponType.GrenadeLauncher:
                     return CreateWeapon<GrenadeLauncherWeapon>(weaponView);
+                case WeaponType.MiniGun:
+                    return CreateWeapon<MiniGunWeapon>(weaponView);
+                case WeaponType.Scar:
+                    return CreateWeapon<ScarWeapon>(weaponView);
+                case WeaponType.SniperRiffle:
+                    return CreateWeapon<SniperRiffleWeapon>(weaponView);
+                case WeaponType.Uzi:
+                    return CreateWeapon<UziWeapon>(weaponView);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
             }
