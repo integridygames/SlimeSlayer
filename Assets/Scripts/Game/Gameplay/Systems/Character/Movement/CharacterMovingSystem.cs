@@ -1,7 +1,6 @@
 ﻿using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
-using UnityEngine;
 
 namespace Game.Gameplay.Systems.Character.Movement
 {
@@ -18,7 +17,7 @@ namespace Game.Gameplay.Systems.Character.Movement
         
         public void FixedUpdate()
         {
-            _characterView.Rigidbody.MovePosition(_characterView.Rigidbody.position + _characterMovementData.Velocity * Time.fixedDeltaTime);
+            _characterView.Rigidbody.MovePosition(_characterMovementData.NextPosition);
         }
     }
 }

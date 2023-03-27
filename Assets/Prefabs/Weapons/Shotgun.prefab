@@ -156,6 +156,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3094002281144089856}
     m_Modifications:
     - target: {fileID: 707535755335937939, guid: 4d3fa1b0a65e0e54e8b6469bd33888c4, type: 3}
+      propertyPath: cullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707535755335937939, guid: 4d3fa1b0a65e0e54e8b6469bd33888c4, type: 3}
       propertyPath: EmissionModule.enabled
       value: 0
       objectReference: {fileID: 0}

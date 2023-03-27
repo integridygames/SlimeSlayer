@@ -29,9 +29,9 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
                 return;
             }
 
-            if (_characterMovementData.Velocity.magnitude > 0)
+            if (_characterMovementData.MovingVector.magnitude > 0)
             {
-                _characterMovementData.Direction = _characterMovementData.Velocity;
+                _characterMovementData.Direction = _characterMovementData.MovingVector.normalized;
             }
         }
     }
