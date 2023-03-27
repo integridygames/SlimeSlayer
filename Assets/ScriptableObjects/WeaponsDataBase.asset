@@ -93,7 +93,7 @@ MonoBehaviour:
     _weaponPrefab: {fileID: 3461149672279797657, guid: 84db9bca37634c640a643e46746a3d71, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
-      _startValue: 0.5
+      _startValue: 1
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 2
-      _startValue: 14
+      _startValue: 24
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 3
@@ -139,7 +139,7 @@ MonoBehaviour:
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 2
-      _startValue: 16
+      _startValue: 46
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 3

@@ -23,5 +23,10 @@ namespace Game.Gameplay.Factories
 
             return Object.Instantiate(recyclableParticleView, _poolContainerView.transform);
         }
+
+        protected override void OnRecycleInternal(RecyclableParticleView elementView)
+        {
+            elementView.transform.SetParent(_poolContainerView.transform);
+        }
     }
 }

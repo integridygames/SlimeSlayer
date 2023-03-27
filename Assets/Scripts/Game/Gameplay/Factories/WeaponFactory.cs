@@ -27,13 +27,8 @@ namespace Game.Gameplay.Factories
 
             if (isLeftHand)
             {
-                var transform = weaponView.transform;
-
-                var transformLocalScale = transform.localScale;
-                transformLocalScale.x *= -1;
-                transform.localScale = transformLocalScale;
+                FlipWeapon(weaponView);
             }
-
 
             switch (weaponType)
             {
@@ -54,6 +49,15 @@ namespace Game.Gameplay.Factories
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
             }
+        }
+
+        private static void FlipWeapon(WeaponViewBase weaponView)
+        {
+            var transform = weaponView.transform;
+
+            var transformLocalScale = transform.localScale;
+            transformLocalScale.x *= -1;
+            transform.localScale = transformLocalScale;
         }
 
         private T CreateWeapon<T>(WeaponViewBase weaponView) where T : WeaponBase

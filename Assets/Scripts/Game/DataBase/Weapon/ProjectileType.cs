@@ -4,5 +4,7 @@
     {
         CommonBullet,
         Grenade,
+        LargeBullet,
+        LongBullet,
     }
 }

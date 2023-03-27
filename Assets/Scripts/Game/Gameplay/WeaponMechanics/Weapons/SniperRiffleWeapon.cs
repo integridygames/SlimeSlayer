@@ -23,7 +23,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
             ShootComponent =
-                new BulletShootComponent(weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, sniperRiffleView.ShootingPoint);
+                new BulletShootComponent(sniperRiffleView, weaponMechanicsService,
+                    ProjectileType.LongBullet, WeaponType, sniperRiffleView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);

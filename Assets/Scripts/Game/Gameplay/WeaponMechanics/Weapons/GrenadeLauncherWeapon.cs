@@ -25,7 +25,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
-            ShootComponent = new GrenadeShootComponent(weaponMechanicsService,
+            ShootComponent = new GrenadeShootComponent(grenadeLauncherView, weaponMechanicsService,
                     ProjectileType.Grenade, WeaponType, grenadeLauncherView.ShootingPoint);
 
             ReloadComponent =

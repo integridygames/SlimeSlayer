@@ -17,3 +17,7 @@ MonoBehaviour:
     _bulletView: {fileID: 1007694132603375786, guid: a93978b5e827d294fa8f6a2696836054, type: 3}
   - _projectileType: 1
     _bulletView: {fileID: 482186472052759041, guid: 8da71c09d5cfa974eb7b910fbb99a17d, type: 3}
+  - _projectileType: 2
+    _bulletView: {fileID: 1007694132603375786, guid: 89bc22721be102a458691eadcf1dde01, type: 3}
+  - _projectileType: 3
+    _bulletView: {fileID: 1007694132603375786, guid: c391ed118cefb6647991599d2e93360c, type: 3}

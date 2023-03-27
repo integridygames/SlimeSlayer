@@ -23,7 +23,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         public ShotgunWeapon(ShotgunView shotgunView, WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
-            ShootComponent = new ParticlesShootComponent(RecyclableParticleType.ShotgunProjectiles,
+            ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
                 WeaponType, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =

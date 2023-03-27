@@ -12,6 +12,7 @@ namespace Game.Gameplay.Views.Bullets
         private Rigidbody _rigidbody;
         public Rigidbody Rigidbody => _rigidbody ??= GetComponent<Rigidbody>();
 
+        [SerializeField] private TrailRenderer _trailRenderer;
 
         public override void Shoot()
         {
@@ -30,6 +31,7 @@ namespace Game.Gameplay.Views.Bullets
 
         public override void Recycle()
         {
+            _trailRenderer.Clear();
             base.Recycle();
             Rigidbody.velocity = Vector3.zero;
         }

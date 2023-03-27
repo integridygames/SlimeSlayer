@@ -6,7 +6,7 @@ namespace Game.Gameplay.Factories
 {
     public abstract class PoolFactoryBase<TView, TKey> where TView : ViewBase
     {
-        private readonly Dictionary<TKey, Stack<TView>> _pool = new ();
+        private readonly Dictionary<TKey, Stack<TView>> _pool = new();
 
         public void ClearPool()
         {
@@ -48,7 +48,13 @@ namespace Game.Gameplay.Factories
         {
             elementView.gameObject.SetActive(false);
 
+            OnRecycleInternal(elementView);
+
             GetStackForKey(key).Push(elementView);
+        }
+
+        protected virtual void OnRecycleInternal(TView elementView)
+        {
         }
     }
 }
