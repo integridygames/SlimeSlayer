@@ -1,7 +1,8 @@
 ﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
+using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;
-using Game.Gameplay.Models.Character.TargetSystem;
+using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Enemy;
@@ -18,39 +19,35 @@ namespace Game.Gameplay.Services
         private const int ShootingDistance = 10;
         private const int ShootingRangeAngle = 20;
 
-        private readonly TargetsInfo _targetsInfo;
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
         private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
+        private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
 
-        public WeaponMechanicsService(TargetsInfo targetsInfo, BulletsPoolFactory bulletsPoolFactory,
+        public WeaponMechanicsService(BulletsPoolFactory bulletsPoolFactory,
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+            CurrentCharacterWeaponsData currentCharacterWeaponsData,
+            ActiveEnemiesContainer activeEnemiesContainer)
         {
-            _targetsInfo = targetsInfo;
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
+            _activeEnemiesContainer = activeEnemiesContainer;
             _weaponsCharacteristics = currentCharacterWeaponsData.WeaponsCharacteristics;
         }
 
-        public bool TryGetWeaponTarget(Transform shootingPoint, out Collider currentTarget)
+        public bool TryGetWeaponTarget(Transform shootingPoint, out EnemyBase currentTarget)
         {
             currentTarget = null;
 
-            foreach (var target in _targetsInfo.Targets)
+            foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
             {
-                if (target == null)
-                {
-                    continue;
-                }
-
-                if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, target.transform.position,
+                if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, activeEnemy.Position,
                         ShootingDistance, ShootingRangeAngle, true))
                 {
-                    currentTarget = target;
+                    currentTarget = activeEnemy;
 
                     return true;
                 }
@@ -83,7 +80,7 @@ namespace Game.Gameplay.Services
         {
             bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType), bulletView.Direction));
+            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType), bulletView.Direction, enemyView.transform.position));
 
             RecycleProjectile(bulletView);
         }
@@ -156,11 +153,13 @@ namespace Game.Gameplay.Services
 
         private void OnFXEnemyCollideHandler(CommonShootFxView commonShootFx, EnemyViewBase enemyView, Vector3 position)
         {
-            var impulseDirection = enemyView.transform.position - position;
+            var enemyPosition = enemyView.transform.position;
+
+            var impulseDirection = enemyPosition - position;
             impulseDirection.y = 0;
 
             enemyView.InvokeHit(new HitInfo(GetDamage(commonShootFx.WeaponType),
-                impulseDirection.normalized));
+                impulseDirection.normalized, enemyPosition));
         }
 
         private void OnFXEnemyCollideStoppedHandler(RecyclableParticleView recyclableParticleView)

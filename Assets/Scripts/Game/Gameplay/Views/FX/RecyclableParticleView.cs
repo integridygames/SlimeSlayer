@@ -14,6 +14,11 @@ namespace Game.Gameplay.Views.FX
 
         public RecyclableParticleType ParticleType => _particleType;
 
+        public void Emit(int count)
+        {
+            _particleSystem.Emit(count);
+        }
+
         public void Play()
         {
             _particleSystem.Play();

@@ -82,7 +82,7 @@ MonoBehaviour:
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 2
-      _startValue: 50
+      _startValue: 120
       _addition: 0
       _additionMultiplier: 0
     - _weaponCharacteristicType: 3

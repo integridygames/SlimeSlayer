@@ -57,10 +57,12 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
                 }
 
                 var damage = _weaponMechanicsService.GetDamage(_weaponType);
-                var impulseDirection = enemyView.transform.position - grenadePosition;
+                var enemyPosition = enemyView.transform.position;
+
+                var impulseDirection = enemyPosition - grenadePosition;
                 impulseDirection.y = 0;
 
-                enemyView.InvokeHit(new HitInfo(damage, impulseDirection.normalized));
+                enemyView.InvokeHit(new HitInfo(damage, impulseDirection.normalized, enemyPosition));
             }
         }
     }

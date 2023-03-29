@@ -15,6 +15,7 @@ namespace Game.Gameplay.EnemiesMechanics
         private readonly EnemyViewBase _enemyViewBase;
         private readonly EnemyDestructionStates _enemyDestructionStates;
         private readonly RxField<float> _health;
+        private int _previousDestructionStateIndex;
 
         protected abstract IEnemyMovementComponent EnemyMovementComponent { get; }
         protected abstract IEnemyDamageComponent EnemyDamageComponent { get; }
@@ -33,6 +34,8 @@ namespace Game.Gameplay.EnemiesMechanics
             get => EnemyMovementComponent.Target;
             set => EnemyMovementComponent.Target = value;
         }
+
+        public bool IsInCharacterRange { get; set; }
 
         protected EnemyBase(EnemyViewBase enemyViewBase, EnemyDestructionStates enemyDestructionStates)
         {
@@ -82,14 +85,18 @@ namespace Game.Gameplay.EnemiesMechanics
                 return;
             }
 
+            if (_previousDestructionStateIndex == 0)
+            {
+                _previousDestructionStateIndex = _enemyDestructionStates.Meshes.Length;
+            }
+
             var healthPercent = _health.Value / StartHealth;
             var destructionStateIndex = GetCurrentModelIndex(healthPercent);
+            var looseDestructionStatesCount = _previousDestructionStateIndex - destructionStateIndex;
 
-            Debug.Log(healthPercent);
-            Debug.Log(destructionStateIndex);
             _enemyViewBase.MeshFilter.mesh = _enemyDestructionStates.Meshes[destructionStateIndex];
 
-            EnemyDamageComponent.Hit(hitInfo);
+            EnemyDamageComponent.Hit(hitInfo, looseDestructionStatesCount);
         }
 
         private int GetCurrentModelIndex(float healthPercent)

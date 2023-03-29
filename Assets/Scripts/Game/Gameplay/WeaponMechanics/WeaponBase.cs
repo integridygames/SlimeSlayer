@@ -20,9 +20,9 @@ namespace Game.Gameplay.WeaponMechanics
 
         public void Shoot()
         {
-            if (ShootPossibilityComponent.TryToGetTargetCollider(out var collider))
+            if (ShootPossibilityComponent.TryToGetTargetCollider(out var currentTarget))
             {
-                var direction = (collider.transform.position - ShootingPoint.position).normalized;
+                var direction = (currentTarget.Position - ShootingPoint.position).normalized;
 
                 ShootComponent.Shoot(direction);
                 ShootPossibilityComponent.HandleShoot();

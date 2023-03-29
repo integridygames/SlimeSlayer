@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using UnityEngine;
@@ -24,9 +25,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
             _shootingPoint = shootingPoint;
         }
 
-        public bool TryToGetTargetCollider(out Collider collider)
+        public bool TryToGetTargetCollider(out EnemyBase target)
         {
-            if (_weaponMechanicsService.TryGetWeaponTarget(_shootingPoint, out collider) == false)
+            if (_weaponMechanicsService.TryGetWeaponTarget(_shootingPoint, out target) == false)
             {
                 return false;
             }

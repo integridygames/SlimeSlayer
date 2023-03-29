@@ -141,19 +141,16 @@ namespace Game.Installers.SampleScene
             var enemiesAttackSystem = Container.Instantiate<EnemiesAttackSystem>();
             Container.BindUpdateSystemWithState(enemiesAttackSystem, _gameState);
 
+            var closestEnemiesFinderSystem = Container.Instantiate<ClosestEnemiesFinderSystem>();
+            Container.BindUpdateSystemWithState(closestEnemiesFinderSystem, _gameState);
+
             CreateTargetSystems();
         }
 
         private void CreateTargetSystems()
         {
-            var targetsInitializeSystem = Container.Instantiate<TargetsInitializeSystem>();
-            Container.BindInitializeSystem(targetsInitializeSystem);
-
             var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
             Container.BindInitializeSystem(handTargetsSetterSystem);
-
-            var enemiesFinderSystem = Container.Instantiate<EnemiesFinderSystem>();
-            Container.BindUpdateSystemWithState(enemiesFinderSystem, _gameState);
 
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystemWithState(nearestHeapFinderSystem, _gameState);

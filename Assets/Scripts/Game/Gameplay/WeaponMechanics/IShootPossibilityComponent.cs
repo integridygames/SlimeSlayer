@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Game.Gameplay.EnemiesMechanics;
 
 namespace Game.Gameplay.WeaponMechanics
 {
     public interface IShootPossibilityComponent
     {
-        bool TryToGetTargetCollider(out Collider currentTarget);
+        bool TryToGetTargetCollider(out EnemyBase currentTarget);
         void HandleShoot();
     }
 }

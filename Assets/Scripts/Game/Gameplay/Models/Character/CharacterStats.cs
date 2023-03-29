@@ -7,5 +7,7 @@
         public int MaxHealth { get; set; } = 100;
 
         public float RotationSpeed { get; } = 300;
+
+        public float AttackRange { get; set; } = 8.5f;
     }
 }

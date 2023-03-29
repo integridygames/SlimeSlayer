@@ -17,7 +17,10 @@ namespace Game.Gameplay.Systems.Character.Movement
         
         public void FixedUpdate()
         {
-            _characterView.Rigidbody.MovePosition(_characterMovementData.NextPosition);
+            var nextPosition = _characterMovementData.NextPosition;
+            nextPosition.y = 0.5f; // TODO сделать лучше
+
+            _characterView.Rigidbody.MovePosition(nextPosition);
         }
     }
 }

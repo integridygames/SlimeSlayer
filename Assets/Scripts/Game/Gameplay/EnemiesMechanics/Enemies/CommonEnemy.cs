@@ -1,7 +1,9 @@
 ﻿using Game.DataBase.Enemies;
+using Game.DataBase.FX;
 using Game.Gameplay.EnemiesMechanics.Components.AttackComponents;
 using Game.Gameplay.EnemiesMechanics.Components.DamageComponents;
 using Game.Gameplay.EnemiesMechanics.Components.MovementComponents;
+using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.Enemy;
@@ -15,10 +17,13 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyAttackComponent EnemyAttackComponent { get; }
 
         public CommonEnemy(CommonEnemyView commonEnemyView, CharacterView characterView,
-            CharacterHealthData characterHealthData, EnemyDestructionStates enemyDestructionStates) : base(commonEnemyView, enemyDestructionStates)
+            RecyclableParticlesPoolFactory recyclableParticlesPoolFactory, CharacterHealthData characterHealthData,
+            EnemyDestructionStates enemyDestructionStates) : base(
+            commonEnemyView, enemyDestructionStates)
         {
             EnemyMovementComponent = new SmoothForwardMovementComponent(commonEnemyView.Rigidbody);
-            EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody);
+            EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody,
+                recyclableParticlesPoolFactory, RecyclableParticleType.CommonQubeDamage);
             EnemyAttackComponent = new ImpulseAttackComponent(commonEnemyView, commonEnemyView.Rigidbody, characterView,
                 characterHealthData);
         }
