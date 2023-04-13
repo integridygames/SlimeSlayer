@@ -1,4 +1,5 @@
-﻿using Game.DataBase.FX;
+﻿using System.Linq;
+using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;
@@ -123,6 +124,11 @@ namespace Game.Gameplay.Services
 
         public void RecycleProjectile(ProjectileViewBase projectileViewBase)
         {
+            if (projectileViewBase.gameObject.activeSelf == false)
+            {
+                return;
+            }
+
             projectileViewBase.Recycle();
             _activeProjectilesContainer.RemoveProjectile(projectileViewBase);
             _bulletsPoolFactory.RecycleElement(projectileViewBase.ProjectileType, projectileViewBase);
