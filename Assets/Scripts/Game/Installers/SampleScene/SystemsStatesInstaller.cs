@@ -26,6 +26,8 @@ namespace Game.Installers.SampleScene
         private PauseScreenState _pauseScreenState;
         private GunCabinetState _gunCabinetState;
         private EndScreenState _endScreenState;
+        private InventoryState _inventoryState;
+        private StatsScreenState _statsScreenState;
 
         public override void InstallBindings()
         {
@@ -42,6 +44,8 @@ namespace Game.Installers.SampleScene
             _pauseScreenState = Container.CreateAndBindState<PauseScreenState>();
             _gunCabinetState = Container.CreateAndBindState<GunCabinetState>();
             _endScreenState = Container.CreateAndBindState<EndScreenState>();
+            _inventoryState = Container.CreateAndBindState<InventoryState>();
+            _statsScreenState = Container.CreateAndBindState<StatsScreenState>();
         }
 
         private void CreateTransitions()
@@ -50,6 +54,12 @@ namespace Game.Installers.SampleScene
 
             Container.CreateAndBindTransition<GameToPauseScreenTransition>(_gameState, _pauseScreenState);
             Container.CreateAndBindTransition<PauseScreenToGameTransition>(_pauseScreenState, _gameState);
+
+            Container.CreateAndBindTransition<StartScreenToInventoryTransition>(_startScreenState, _inventoryState);
+            Container.CreateAndBindTransition<InventoryScreenToStartTransition>(_inventoryState, _startScreenState);
+
+            Container.CreateAndBindTransition<StartScreenToStatsTransition>(_startScreenState, _statsScreenState);
+            Container.CreateAndBindTransition<StatsScreenToStartTransition>(_statsScreenState, _startScreenState);
 
             /*Container.CreateAndBindTransition<GameToGunCabinetTransition>(_gameState, _gunCabinetState);
             Container.CreateAndBindTransition<GunCabinetToGameTransition>(_gunCabinetState, _gameState);*/

@@ -1,4 +1,4 @@
-﻿using Game.Gameplay.Views.SampleScene.Screens;
+﻿using Game.Gameplay.Views.Screens;
 using TegridyCore.FiniteStateMachine;
 
 namespace Game.Gameplay.Transitions

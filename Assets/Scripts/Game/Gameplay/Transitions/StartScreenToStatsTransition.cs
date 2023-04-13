@@ -1,26 +1,27 @@
+﻿using System;
 using Game.Gameplay.Views.Screens;
 using TegridyCore.FiniteStateMachine;
+using Zenject;
 
 namespace Game.Gameplay.Transitions
 {
-    public class StartScreenToGameTransition : TransitionBase
+    public class StartScreenToStatsTransition : TransitionBase
     {
         private readonly StartScreenView _startScreenView;
 
-        public StartScreenToGameTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView) :
-            base(stateFrom, stateTo)
+        public StartScreenToStatsTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView) : base(stateFrom, stateTo)
         {
             _startScreenView = startScreenView;
         }
 
         public override void OnTransitionAdded()
         {
-            _startScreenView.StartGameButton.OnReleased += DoTransition;
+            _startScreenView.StatsButton.OnReleased += DoTransition;
         }
 
         public override void OnTransitionRemoved()
         {
-            _startScreenView.StartGameButton.OnReleased -= DoTransition;
+            _startScreenView.StatsButton.OnReleased -= DoTransition;
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
+using Game.Gameplay.Views.Screens;
 using TegridyCore.Base;
 using Zenject;
-using Game.Gameplay.Views.SampleScene.Screens;
 
 namespace Game.Gameplay.Controllers.GameScreen
 {

@@ -2,7 +2,7 @@
 using TegridyUtils.UI.Elements;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.SampleScene.Screens
+namespace Game.Gameplay.Views.Screens
 {
     public class GunCabinetScreenView : ViewBase
     {
