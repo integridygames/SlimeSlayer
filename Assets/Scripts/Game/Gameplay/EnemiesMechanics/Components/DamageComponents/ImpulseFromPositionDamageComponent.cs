@@ -26,7 +26,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.DamageComponents
             var hitInfoImpulseDirection = hitInfo.ImpulseDirection;
             hitInfoImpulseDirection.y = 0;
 
-            DoDamageFx(hitInfo, hitInfoImpulseDirection, (int) (looseDestructionStatesCount * hitInfo.Damage * 10)); // TODO заменить 8 на значение индивидуальное для каждого оружия/снаряда
+            DoDamageFx(hitInfo, hitInfoImpulseDirection, (int) (looseDestructionStatesCount * hitInfo.Damage * 3)); // TODO заменить 8 на значение индивидуальное для каждого оружия/снаряда
 
             if (_enemyRigidBody.velocity.magnitude < MaxVelocity)
             {
