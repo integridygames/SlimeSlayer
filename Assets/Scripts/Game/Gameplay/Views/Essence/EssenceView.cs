@@ -15,11 +15,20 @@ namespace Game.Gameplay.Views.Essence
         public int Quantity => 1;
         public EssenceType EssenceType => _essenceType;
 
+        public bool IsMovingToCharacter { get; set; }
+
+        public float MovingProgress { get; set; }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out CharacterView _))
             {
                 OnEssenceCollide?.Invoke(this);
+            }
+
+            if (other.CompareTag("EssenceTrigger"))
+            {
+                IsMovingToCharacter = true;
             }
         }
     }
