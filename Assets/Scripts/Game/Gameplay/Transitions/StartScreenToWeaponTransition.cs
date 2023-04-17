@@ -5,11 +5,11 @@ using Zenject;
 
 namespace Game.Gameplay.Transitions
 {
-    public class StartScreenToInventoryTransition : TransitionBase
+    public class StartScreenToWeaponTransition : TransitionBase
     {
         private readonly StartScreenView _startScreenView;
 
-        public StartScreenToInventoryTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView)
+        public StartScreenToWeaponTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView)
             : base(stateFrom, stateTo)
         {
             _startScreenView = startScreenView;
@@ -17,12 +17,12 @@ namespace Game.Gameplay.Transitions
 
         public override void OnTransitionAdded()
         {
-            _startScreenView.InvButton.OnReleased += DoTransition;
+            _startScreenView.WeaponButton.OnReleased += DoTransition;
         }
 
         public override void OnTransitionRemoved()
         {
-            _startScreenView.InvButton.OnReleased -= DoTransition;
+            _startScreenView.WeaponButton.OnReleased -= DoTransition;
         }
     }
 }

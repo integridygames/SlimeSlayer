@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.Views.Screens
 {
-    public class InventoryScreenView : ViewBase
+    public class WeaponScreenView : ViewBase
     {
         [SerializeField] private UiButton _closeButton;
 

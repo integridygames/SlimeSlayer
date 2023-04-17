@@ -9,8 +9,8 @@ namespace Game.Gameplay.Views.Screens
         [SerializeField] private UiButton _startGameButton;
         [SerializeField] private UiButton _shopButton;
         [SerializeField] private UiButton _statsButton;
-        [SerializeField] private UiButton _invButton;
-        [SerializeField] private UiButton _achievesButton;
+        [SerializeField] private UiButton _weaponButton;
+        [SerializeField] private UiButton _craftButton;
 
         public UiButton StartGameButton => _startGameButton;
 
@@ -18,8 +18,8 @@ namespace Game.Gameplay.Views.Screens
 
         public UiButton StatsButton => _statsButton;
 
-        public UiButton InvButton => _invButton;
+        public UiButton WeaponButton => _weaponButton;
 
-        public UiButton AchievesButton => _achievesButton;
+        public UiButton CraftButton => _craftButton;
     }
 }

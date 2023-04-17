@@ -1,9 +1,7 @@
-﻿using System;
-using Game.DataBase.Weapon;
+﻿using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
 using TegridyCore.Base;
-using UnityEngine;
 
 namespace Game.Gameplay.Systems.Weapon
 {
@@ -38,15 +36,19 @@ namespace Game.Gameplay.Systems.Weapon
 
             var characteristicValue = weaponCharacteristic._startValue;
 
-            if (_applicationData.PlayerData.WeaponsSaveDataByType.TryGetValue(weaponType, out var weaponSaveData))
+            foreach (var weaponSaveData in _applicationData.PlayerData.WeaponsSaveData)
             {
-                for (var i = 0; i < weaponSaveData.Level; i++)
+                if (weaponSaveData._weaponType == weaponType)
                 {
-                    characteristicValue += weaponCharacteristic._addition * weaponCharacteristic._additionMultiplier;
+                    for (var i = 0; i < weaponSaveData._level; i++)
+                    {
+                        characteristicValue +=
+                            weaponCharacteristic._addition * weaponCharacteristic._additionMultiplier;
+                    }
+
+                    _weaponsCharacteristics.SetCharacteristic(weaponType, characteristicType, characteristicValue);
                 }
             }
-
-            _weaponsCharacteristics.SetCharacteristic(weaponType, characteristicType, characteristicValue);
         }
     }
 }

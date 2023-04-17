@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 8051262182250083422}
   - component: {fileID: 8727143113926506793}
   m_Layer: 5
-  m_Name: Text (TMP) - Achivs
+  m_Name: Text (TMP) - Craft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Achivs
+  m_text: Weapon
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 386464998633001883}
   - component: {fileID: 5300432509132342826}
   m_Layer: 5
-  m_Name: Button - Achivs
+  m_Name: Button - Craft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -819,8 +819,8 @@ MonoBehaviour:
   _startGameButton: {fileID: 916763419574446783}
   _shopButton: {fileID: 373875962095918873}
   _statsButton: {fileID: 2014979083147968305}
-  _invButton: {fileID: 3268625771850458764}
-  _achievesButton: {fileID: 5300432509132342826}
+  _weaponButton: {fileID: 3268625771850458764}
+  _craftButton: {fileID: 5300432509132342826}
 --- !u!1 &6842094815532518940
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 4216996478426750640}
   - component: {fileID: 3268625771850458764}
   m_Layer: 5
-  m_Name: Button - Inv
+  m_Name: Button - Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,7 +858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 188, y: 236}
+  m_AnchoredPosition: {x: 187.99998, y: 236}
   m_SizeDelta: {x: -1128, y: 472}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7264967441106735245
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 656785440619515031}
   - component: {fileID: 8082701404045278243}
   m_Layer: 5
-  m_Name: Text (TMP) - Inv
+  m_Name: Text (TMP) - Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,7 +976,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 222.87, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &656785440619515031
 CanvasRenderer:
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inv
+  m_text: Inventroy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
