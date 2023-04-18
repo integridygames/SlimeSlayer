@@ -30,7 +30,7 @@ namespace Game.DataBase
                 new()
                 {
                     _weaponType = WeaponType.Scar,
-                    _rarityType = RarityType.Common,
+                    _rarityType = RarityType.Epic,
                 },
                 new()
                 {
@@ -40,7 +40,7 @@ namespace Game.DataBase
                 new()
                 {
                     _weaponType = WeaponType.Shotgun,
-                    _rarityType = RarityType.Common,
+                    _rarityType = RarityType.Uncommon,
                 },
                 new()
                 {
@@ -59,8 +59,8 @@ namespace Game.DataBase
                 },
             };
 
-            _currentLeftWeaponIndex = 0;
-            _currentRightWeaponIndex = 1;
+            _currentLeftWeaponIndex = 2;
+            _currentRightWeaponIndex = 4;
         }
 
         public int CurrentLevel

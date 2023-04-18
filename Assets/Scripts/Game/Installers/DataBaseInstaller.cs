@@ -16,6 +16,7 @@ namespace Game.Installers
         [SerializeField] private RecyclableParticlesDataBase _recyclableParticlesDataBase;
         [SerializeField] private ProjectileDataBase _projectileDataBase;
         [SerializeField] private EnemyDataBase _enemyDataBase;
+        [SerializeField] private WeaponCardsDataBase _weaponCardsDataBase;
 
         public override void InstallBindings()
         {
@@ -25,6 +26,7 @@ namespace Game.Installers
             Container.BindInstance(_recyclableParticlesDataBase).AsSingle();
             Container.BindInstance(_projectileDataBase).AsSingle();
             Container.BindInstance(_enemyDataBase).AsSingle();
+            Container.BindInstance(_weaponCardsDataBase).AsSingle();
         }
     }
 }

@@ -309,6 +309,7 @@ MonoBehaviour:
   _recyclableParticlesDataBase: {fileID: 11400000, guid: bbd70447553e47d4bbbae2c3ba3c0549, type: 2}
   _projectileDataBase: {fileID: 11400000, guid: 1dc56fe4d841abd4182cc344aaba745b, type: 2}
   _enemyDataBase: {fileID: 11400000, guid: 2f7237595a76ecf4a99b2a55d287ec94, type: 2}
+  _weaponCardsDataBase: {fileID: 11400000, guid: 4ad66f4d0875b1e4ca75ff7ff88bc6f2, type: 2}
 --- !u!114 &88344988
 MonoBehaviour:
   m_ObjectHideFlags: 0

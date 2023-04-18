@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8c0b95b4c84ad7b0356413eacbc23f, type: 3}
+  m_Name: WeaponCardsDataBase
+  m_EditorClassIdentifier: 
+  _records:
+  - _rarityType: 0
+    _weaponCardView: {fileID: 8237541527806020080, guid: 406fa873b4beb5f4285cbac93410f449, type: 3}
+  - _rarityType: 1
+    _weaponCardView: {fileID: 8237541527806020080, guid: 817b06e359ecce24698243bd11c67bfc, type: 3}
+  - _rarityType: 2
+    _weaponCardView: {fileID: 8237541527806020080, guid: d2980e44e03d0c44babd42d09b959ae9, type: 3}
+  - _rarityType: 3
+    _weaponCardView: {fileID: 8237541527806020080, guid: 6a27b50bbda6d9040a1cb1b137a3e1d7, type: 3}
+  - _rarityType: 4
+    _weaponCardView: {fileID: 8237541527806020080, guid: 49869cd4f3ac8db40bef9ef85cd0d4c2, type: 3}

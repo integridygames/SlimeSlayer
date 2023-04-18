@@ -2,9 +2,9 @@
 using TegridyUtils.UI.Elements;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.Screens
+namespace Game.Gameplay.Views.UI.Screens
 {
-    public class GunCabinetScreenView : ViewBase
+    public class PauseScreenView : ViewBase
     {
         [SerializeField] private UiButton _closeButton;
 

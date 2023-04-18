@@ -15,6 +15,7 @@ namespace Game.Installers.SampleScene
             BindController<ActiveEssencesController>();
             BindController<EnemiesController>();
             BindController<WeaponReloadController>();
+            BindController<WeaponScreenController>();
         }
 
         private void BindController<TController>()

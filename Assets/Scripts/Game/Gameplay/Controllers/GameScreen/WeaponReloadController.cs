@@ -1,6 +1,6 @@
 ﻿using System;
 using Game.Gameplay.Models.Weapon;
-using Game.Gameplay.Views.Screens;
+using Game.Gameplay.Views.UI.Screens;
 using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
 using TegridyCore.Base;

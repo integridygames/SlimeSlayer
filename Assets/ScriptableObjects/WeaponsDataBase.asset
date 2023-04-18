@@ -15,6 +15,7 @@ MonoBehaviour:
   _records:
   - _weaponType: 1
     _weaponPrefab: {fileID: 3094002282751718008, guid: 1c87d543788f26c439fde4ae4d9e7820, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: 98a02cde06cc7984ba89ea77f26661cc, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 1
@@ -34,6 +35,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 2
     _weaponPrefab: {fileID: 2514321369246870369, guid: 4ac599d44a9a41848993f6adf07bf107, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: b70506973591bc44cbb836a022536376, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 0.25
@@ -53,6 +55,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 3
     _weaponPrefab: {fileID: 5537250778219563501, guid: 5a66b3f6076252d49a7906541a386d69, type: 3}
+    _weaponSprite: {fileID: 0}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 5
@@ -72,6 +75,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 4
     _weaponPrefab: {fileID: 3018173170601395714, guid: 9ef8762be37902047834f753aa8fd100, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: 8b4dfb8ba000d1c43ae033c040cefdcc, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 1.5
@@ -91,6 +95,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 5
     _weaponPrefab: {fileID: 3461149672279797657, guid: 84db9bca37634c640a643e46746a3d71, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: b836cb55b787200468b5092548f615a7, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 1
@@ -110,6 +115,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 6
     _weaponPrefab: {fileID: 302932933847747119, guid: f1ddd7f215c5c4742ba81dbf7a352f54, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: 8bd9b26d07194e447850ab470de30ca1, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 10
@@ -129,6 +135,7 @@ MonoBehaviour:
       _additionMultiplier: 0
   - _weaponType: 7
     _weaponPrefab: {fileID: 761853159553885486, guid: f2b6b8a485dd06f44846b2a5004bab53, type: 3}
+    _weaponSprite: {fileID: 21300000, guid: f5ea8b48d5f7f55479741f4b375b6eea, type: 3}
     _weaponCharacteristics:
     - _weaponCharacteristicType: 0
       _startValue: 1

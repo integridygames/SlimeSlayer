@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.Gameplay.Views.Screens;
+using Game.Gameplay.Views.UI.Screens;
 using TegridyCore.FiniteStateMachine;
 using Zenject;
 
