@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Game.DataBase;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
@@ -22,6 +23,10 @@ namespace Game.Gameplay.Controllers.GameScreen
         private WeaponCardView _leftWeaponCardView;
         private WeaponCardView _rightWeaponCardView;
 
+        private bool _isLeftWeaponPressed;
+
+        private List<WeaponCardView> _spawnedWeaponCardViews = new();
+
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
             CurrentCharacterWeaponsData currentCharacterWeaponsData, WeaponsDataBase weaponsDataBase,
             WeaponCardsDataBase weaponCardsDataBase) : base(controlledEntity)
@@ -34,6 +39,47 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         public void Initialize()
         {
+            SpawnEquippedWeaponCards();
+
+            ControlledEntity.LeftWeaponButton.OnPressedDown += OnLeftWeaponButtonPressedHandler;
+            ControlledEntity.RightWeaponButton.OnPressedDown += OnRightWeaponButtonPressedHandler;
+            ControlledEntity.OnShow += OnWeaponScreenShow;
+            ControlledEntity.OnHide += OnWeaponScreenHide;
+            ControlledEntity.CloseButton.OnReleased += OnCloseButtonPressedHandler;
+        }
+
+        public void Dispose()
+        {
+            ControlledEntity.LeftWeaponButton.OnPressedDown -= OnLeftWeaponButtonPressedHandler;
+            ControlledEntity.RightWeaponButton.OnPressedDown -= OnRightWeaponButtonPressedHandler;
+            ControlledEntity.OnShow -= OnWeaponScreenShow;
+            ControlledEntity.OnHide -= OnWeaponScreenHide;
+            ControlledEntity.CloseButton.OnReleased -= OnCloseButtonPressedHandler;
+        }
+
+        private void OnLeftWeaponButtonPressedHandler()
+        {
+            _isLeftWeaponPressed = true;
+
+            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(true);
+        }
+
+        private void OnRightWeaponButtonPressedHandler()
+        {
+            _isLeftWeaponPressed = false;
+
+            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(true);
+        }
+
+        private void OnWeaponScreenShow()
+        {
+            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
+
+            ShowWeaponCards();
+        }
+
+        private void SpawnEquippedWeaponCards()
+        {
             var weaponSaveDataLeft =
                 _applicationData.PlayerData.WeaponsSaveData[_applicationData.PlayerData.CurrentLeftWeaponIndex];
             var weaponSaveDataRight =
@@ -43,6 +89,15 @@ namespace Game.Gameplay.Controllers.GameScreen
                 weaponSaveDataLeft._rarityType);
             _rightWeaponCardView = SpawnWeaponCard(ControlledEntity.RightWeaponCardRoot,
                 weaponSaveDataRight._weaponType, weaponSaveDataRight._rarityType);
+        }
+
+        private void ShowWeaponCards()
+        {
+            foreach (var weaponSaveData in _applicationData.PlayerData.WeaponsSaveData)
+            {
+                _spawnedWeaponCardViews.Add(SpawnWeaponCard(ControlledEntity.WeaponsCardsRoot,
+                    weaponSaveData._weaponType, weaponSaveData._rarityType));
+            }
         }
 
         private WeaponCardView SpawnWeaponCard(Transform root, WeaponType weaponType, RarityType rarityType)
@@ -56,8 +111,22 @@ namespace Game.Gameplay.Controllers.GameScreen
             return weaponCardView;
         }
 
-        public void Dispose()
+        private void OnWeaponScreenHide()
         {
+            foreach (var weaponCardView in _spawnedWeaponCardViews)
+            {
+                Object.Destroy(weaponCardView.gameObject);
+            }
+
+            _spawnedWeaponCardViews.Clear();
+        }
+
+        private void OnCloseButtonPressedHandler()
+        {
+            if (ControlledEntity.WeaponsCardsContainer.activeSelf)
+            {
+                ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
+            }
         }
     }
 }

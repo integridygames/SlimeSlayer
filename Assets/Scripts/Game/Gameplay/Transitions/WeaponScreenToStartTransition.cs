@@ -16,12 +16,20 @@ namespace Game.Gameplay.Transitions
 
         public override void OnTransitionAdded()
         {
-            _weaponScreenView.CloseButton.OnReleased += DoTransition;
+            _weaponScreenView.CloseButton.OnReleased += OnCloseButtonPressedHandler;
         }
 
         public override void OnTransitionRemoved()
         {
-            _weaponScreenView.CloseButton.OnReleased -= DoTransition;
+            _weaponScreenView.CloseButton.OnReleased -= OnCloseButtonPressedHandler;
+        }
+
+        private void OnCloseButtonPressedHandler()
+        {
+            if (_weaponScreenView.WeaponsCardsContainer.activeSelf == false)
+            {
+                DoTransition();
+            }
         }
     }
 }
