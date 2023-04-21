@@ -3,10 +3,11 @@
 namespace Game.DataBase.Weapon
 {
     [Serializable]
-    public struct WeaponSaveData
+    public class WeaponData
     {
         public WeaponType _weaponType;
         public RarityType _rarityType;
         public int _level;
+        public int _upgradePrice;
     }
 }

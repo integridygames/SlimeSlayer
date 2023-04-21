@@ -19,8 +19,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(sniperRiffleView, weaponData)
         {
             ShootComponent =
                 new BulletShootComponent(sniperRiffleView, weaponMechanicsService,

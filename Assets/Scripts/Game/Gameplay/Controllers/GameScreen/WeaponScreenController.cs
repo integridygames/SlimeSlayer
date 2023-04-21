@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.DataBase;
 using Game.DataBase.Weapon;
+using Game.Gameplay.Factories;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
+using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.UI;
 using Game.Gameplay.Views.UI.Screens;
 using TegridyCore.Base;
@@ -19,42 +20,53 @@ namespace Game.Gameplay.Controllers.GameScreen
         private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
         private readonly WeaponsDataBase _weaponsDataBase;
         private readonly WeaponCardsDataBase _weaponCardsDataBase;
+        private readonly CharacterView _characterView;
+        private readonly WeaponFactory _weaponFactory;
 
         private WeaponCardView _leftWeaponCardView;
         private WeaponCardView _rightWeaponCardView;
 
         private bool _isLeftWeaponPressed;
 
-        private List<WeaponCardView> _spawnedWeaponCardViews = new();
+        private readonly List<WeaponCardView> _spawnedWeaponCardViews = new();
 
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
             CurrentCharacterWeaponsData currentCharacterWeaponsData, WeaponsDataBase weaponsDataBase,
-            WeaponCardsDataBase weaponCardsDataBase) : base(controlledEntity)
+            WeaponCardsDataBase weaponCardsDataBase, CharacterView characterView, WeaponFactory weaponFactory) : base(
+            controlledEntity)
         {
             _applicationData = applicationData;
             _currentCharacterWeaponsData = currentCharacterWeaponsData;
             _weaponsDataBase = weaponsDataBase;
             _weaponCardsDataBase = weaponCardsDataBase;
+            _characterView = characterView;
+            _weaponFactory = weaponFactory;
         }
 
         public void Initialize()
         {
             SpawnEquippedWeaponCards();
 
-            ControlledEntity.LeftWeaponButton.OnPressedDown += OnLeftWeaponButtonPressedHandler;
-            ControlledEntity.RightWeaponButton.OnPressedDown += OnRightWeaponButtonPressedHandler;
+            ControlledEntity.CloseButton.OnReleased += OnCloseButtonPressedHandler;
+            ControlledEntity.LeftWeaponButton.OnReleased += OnLeftWeaponButtonPressedHandler;
+            ControlledEntity.RightWeaponButton.OnReleased += OnRightWeaponButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnEquip += OnEquipButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnClose += OnWeaponInfoCloseButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnUpgrade += OnUpgradeButtonPressedHandler;
             ControlledEntity.OnShow += OnWeaponScreenShow;
             ControlledEntity.OnHide += OnWeaponScreenHide;
-            ControlledEntity.CloseButton.OnReleased += OnCloseButtonPressedHandler;
         }
 
         public void Dispose()
         {
-            ControlledEntity.LeftWeaponButton.OnPressedDown -= OnLeftWeaponButtonPressedHandler;
-            ControlledEntity.RightWeaponButton.OnPressedDown -= OnRightWeaponButtonPressedHandler;
+            ControlledEntity.CloseButton.OnReleased -= OnCloseButtonPressedHandler;
+            ControlledEntity.LeftWeaponButton.OnReleased -= OnLeftWeaponButtonPressedHandler;
+            ControlledEntity.RightWeaponButton.OnReleased -= OnRightWeaponButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnEquip -= OnEquipButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnClose -= OnWeaponInfoCloseButtonPressedHandler;
+            ControlledEntity.WeaponInfoView.OnUpgrade -= OnUpgradeButtonPressedHandler;
             ControlledEntity.OnShow -= OnWeaponScreenShow;
             ControlledEntity.OnHide -= OnWeaponScreenHide;
-            ControlledEntity.CloseButton.OnReleased -= OnCloseButtonPressedHandler;
         }
 
         private void OnLeftWeaponButtonPressedHandler()
@@ -74,6 +86,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         private void OnWeaponScreenShow()
         {
             ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
+            ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
 
             ShowWeaponCards();
         }
@@ -85,28 +98,32 @@ namespace Game.Gameplay.Controllers.GameScreen
             var weaponSaveDataRight =
                 _applicationData.PlayerData.WeaponsSaveData[_applicationData.PlayerData.CurrentRightWeaponIndex];
 
-            _leftWeaponCardView = SpawnWeaponCard(ControlledEntity.LeftWeaponCardRoot, weaponSaveDataLeft._weaponType,
-                weaponSaveDataLeft._rarityType);
+            _leftWeaponCardView = SpawnWeaponCard(ControlledEntity.LeftWeaponCardRoot,
+                weaponSaveDataLeft);
             _rightWeaponCardView = SpawnWeaponCard(ControlledEntity.RightWeaponCardRoot,
-                weaponSaveDataRight._weaponType, weaponSaveDataRight._rarityType);
+                weaponSaveDataRight);
         }
 
         private void ShowWeaponCards()
         {
             foreach (var weaponSaveData in _applicationData.PlayerData.WeaponsSaveData)
             {
-                _spawnedWeaponCardViews.Add(SpawnWeaponCard(ControlledEntity.WeaponsCardsRoot,
-                    weaponSaveData._weaponType, weaponSaveData._rarityType));
+                var weaponCardView = SpawnWeaponCard(ControlledEntity.WeaponsCardsRoot,
+                    weaponSaveData);
+
+                _spawnedWeaponCardViews.Add(weaponCardView);
+
+                weaponCardView.OnWeaponCardPressed += OnWeaponCardPressedHandler;
             }
         }
 
-        private WeaponCardView SpawnWeaponCard(Transform root, WeaponType weaponType, RarityType rarityType)
+        private WeaponCardView SpawnWeaponCard(Transform root, WeaponData weaponData)
         {
-            var weaponCardViewPrefab = _weaponCardsDataBase.GetRecordByType(rarityType)._weaponCardView;
-            var weaponSprite = _weaponsDataBase.GetRecordByType(weaponType)._weaponSprite;
+            var weaponCardViewPrefab = _weaponCardsDataBase.GetRecordByType(weaponData._rarityType)._weaponCardView;
+            var weaponSprite = _weaponsDataBase.GetRecordByType(weaponData._weaponType)._weaponSprite;
 
             var weaponCardView = Object.Instantiate(weaponCardViewPrefab, root);
-            weaponCardView.SetWeaponSprite(weaponSprite);
+            weaponCardView.SetWeapon(weaponData, weaponSprite);
 
             return weaponCardView;
         }
@@ -115,6 +132,8 @@ namespace Game.Gameplay.Controllers.GameScreen
         {
             foreach (var weaponCardView in _spawnedWeaponCardViews)
             {
+                weaponCardView.OnWeaponCardPressed -= OnWeaponCardPressedHandler;
+
                 Object.Destroy(weaponCardView.gameObject);
             }
 
@@ -127,6 +146,50 @@ namespace Game.Gameplay.Controllers.GameScreen
             {
                 ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
             }
+        }
+
+        private void OnWeaponCardPressedHandler(WeaponData weaponData)
+        {
+            var isEquipped = weaponData == _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value.Data ||
+                             weaponData == _currentCharacterWeaponsData.CurrentWeaponViewRight.Value.Data;
+
+            ControlledEntity.WeaponInfoView.SetWeapon(weaponData, isEquipped);
+            ControlledEntity.WeaponInfoView.gameObject.SetActive(true);
+        }
+
+        private void OnUpgradeButtonPressedHandler(WeaponData weaponData)
+        {
+        }
+
+        private void OnEquipButtonPressedHandler(WeaponData weaponData)
+        {
+            if (_isLeftWeaponPressed)
+            {
+                _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value.Destroy();
+                _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value =
+                    _weaponFactory.Create(weaponData, _characterView.LeftWeaponPlacer, true);
+
+                Object.Destroy(_leftWeaponCardView.gameObject);
+                _leftWeaponCardView = SpawnWeaponCard(ControlledEntity.LeftWeaponCardRoot,
+                    weaponData);
+            }
+            else
+            {
+                _currentCharacterWeaponsData.CurrentWeaponViewRight.Value.Destroy();
+                _currentCharacterWeaponsData.CurrentWeaponViewRight.Value =
+                    _weaponFactory.Create(weaponData, _characterView.RightWeaponPlacer, false);
+
+                Object.Destroy(_rightWeaponCardView.gameObject);
+                _rightWeaponCardView = SpawnWeaponCard(ControlledEntity.RightWeaponCardRoot,
+                    weaponData);
+            }
+
+            ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
+        }
+
+        private void OnWeaponInfoCloseButtonPressedHandler()
+        {
+            ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
         }
     }
 }

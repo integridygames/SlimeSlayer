@@ -20,8 +20,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public ShotgunWeapon(ShotgunView shotgunView, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+        public ShotgunWeapon(ShotgunView shotgunView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(shotgunView, weaponData)
         {
             ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
                 WeaponType, shotgunView.ShootingPoint, weaponMechanicsService);

@@ -1,5 +1,4 @@
 ﻿using Game.DataBase.Weapon;
-using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -20,8 +19,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public UziWeapon(UziView uziView, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+        public UziWeapon(UziView uziView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(uziView, weaponData)
         {
             ShootComponent =
                 new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, uziView.ShootingPoint);

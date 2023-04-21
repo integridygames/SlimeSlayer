@@ -19,8 +19,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public ScarWeapon(ScarView scarView, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+        public ScarWeapon(ScarView scarView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(scarView, weaponData)
         {
             ShootComponent =
                 new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, scarView.ShootingPoint);

@@ -13,6 +13,7 @@ namespace Game.Gameplay.Views.UI.Screens
         [SerializeField] private UiButton _rightWeaponButton;
         [SerializeField] private GameObject _weaponsCardsContainer;
         [SerializeField] private Transform _weaponsCardsRoot;
+        [SerializeField] private WeaponInfoView _weaponInfoView;
 
         public UiButton CloseButton => _closeButton;
 
@@ -27,5 +28,7 @@ namespace Game.Gameplay.Views.UI.Screens
         public GameObject WeaponsCardsContainer => _weaponsCardsContainer;
 
         public Transform WeaponsCardsRoot => _weaponsCardsRoot;
+
+        public WeaponInfoView WeaponInfoView => _weaponInfoView;
     }
 }

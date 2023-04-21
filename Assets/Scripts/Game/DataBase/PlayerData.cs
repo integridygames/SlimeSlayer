@@ -9,13 +9,13 @@ namespace Game.DataBase
     public class PlayerData
     {
         [SerializeField] private int _currentLevel;
-        [SerializeField] private List<WeaponSaveData> _weaponsSaveData;
+        [SerializeField] private List<WeaponData> _weaponsSaveData;
         [SerializeField] private int _currentLeftWeaponIndex;
         [SerializeField] private int _currentRightWeaponIndex;
 
         public PlayerData()
         {
-            _weaponsSaveData = new List<WeaponSaveData>
+            _weaponsSaveData = new List<WeaponData>
             {
                 new()
                 {
@@ -74,6 +74,6 @@ namespace Game.DataBase
 
         public int CurrentRightWeaponIndex => _currentRightWeaponIndex;
 
-        public List<WeaponSaveData> WeaponsSaveData => _weaponsSaveData;
+        public List<WeaponData> WeaponsSaveData => _weaponsSaveData;
     }
 }

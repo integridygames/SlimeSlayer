@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Factories
 {
-    public class WeaponFactory : IFactory<WeaponType, WeaponPlacer, bool, WeaponBase>
+    public class WeaponFactory : IFactory<WeaponData, WeaponPlacer, bool, WeaponBase>
     {
         private readonly DiContainer _container;
         private readonly WeaponsDataBase _weaponsDataBase;
@@ -20,9 +20,9 @@ namespace Game.Gameplay.Factories
             _weaponsDataBase = weaponsDataBase;
         }
 
-        public WeaponBase Create(WeaponType weaponType, WeaponPlacer weaponPlacer, bool isLeftHand)
+        public WeaponBase Create(WeaponData weaponData, WeaponPlacer weaponPlacer, bool isLeftHand)
         {
-            var weaponRecord = _weaponsDataBase.GetRecordByType(weaponType);
+            var weaponRecord = _weaponsDataBase.GetRecordByType(weaponData._weaponType);
             var weaponView = Object.Instantiate(weaponRecord._weaponPrefab, weaponPlacer.transform);
 
             if (isLeftHand)
@@ -30,24 +30,24 @@ namespace Game.Gameplay.Factories
                 FlipWeapon(weaponView);
             }
 
-            switch (weaponType)
+            switch (weaponData._weaponType)
             {
                 case WeaponType.Glock:
-                    return CreateWeapon<GlockWeapon>(weaponView);
+                    return CreateWeapon<GlockWeapon>(weaponView, weaponData);
                 case WeaponType.Shotgun:
-                    return CreateWeapon<ShotgunWeapon>(weaponView);
+                    return CreateWeapon<ShotgunWeapon>(weaponView, weaponData);
                 case WeaponType.GrenadeLauncher:
-                    return CreateWeapon<GrenadeLauncherWeapon>(weaponView);
+                    return CreateWeapon<GrenadeLauncherWeapon>(weaponView, weaponData);
                 case WeaponType.MiniGun:
-                    return CreateWeapon<MiniGunWeapon>(weaponView);
+                    return CreateWeapon<MiniGunWeapon>(weaponView, weaponData);
                 case WeaponType.Scar:
-                    return CreateWeapon<ScarWeapon>(weaponView);
+                    return CreateWeapon<ScarWeapon>(weaponView, weaponData);
                 case WeaponType.SniperRiffle:
-                    return CreateWeapon<SniperRiffleWeapon>(weaponView);
+                    return CreateWeapon<SniperRiffleWeapon>(weaponView, weaponData);
                 case WeaponType.Uzi:
-                    return CreateWeapon<UziWeapon>(weaponView);
+                    return CreateWeapon<UziWeapon>(weaponView, weaponData);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
+                    throw new ArgumentOutOfRangeException(nameof(weaponData._weaponType), weaponData._weaponType, null);
             }
         }
 
@@ -60,9 +60,10 @@ namespace Game.Gameplay.Factories
             transform.localScale = transformLocalScale;
         }
 
-        private T CreateWeapon<T>(WeaponViewBase weaponView) where T : WeaponBase
+        private T CreateWeapon<T>(WeaponViewBase weaponView, WeaponData weaponData) where T : WeaponBase
         {
-            return _container.Instantiate<T>(new object[] {weaponView});
+            var weaponBase = _container.Instantiate<T>(new object[] {weaponView, weaponData});
+            return weaponBase;
         }
     }
 }

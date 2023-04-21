@@ -1,4 +1,5 @@
 using Game.DataBase.Weapon;
+using Game.Gameplay.Views.Weapons;
 using TegridyCore;
 using UnityEngine;
 
@@ -17,6 +18,15 @@ namespace Game.Gameplay.WeaponMechanics
         public IReadonlyRxField<float> ReloadProgress => ReloadComponent.ReloadProgress;
 
         private float _previousShootTime;
+
+        public WeaponData Data { get; }
+        public WeaponViewBase WeaponViewBase { get; }
+
+        protected WeaponBase(WeaponViewBase weaponViewBase, WeaponData weaponData)
+        {
+            WeaponViewBase = weaponViewBase;
+            Data = weaponData;
+        }
 
         public void Shoot()
         {
@@ -38,6 +48,11 @@ namespace Game.Gameplay.WeaponMechanics
         public void Reload()
         {
             ReloadComponent.Reload();
+        }
+
+        public void Destroy()
+        {
+            Object.Destroy(WeaponViewBase.gameObject);
         }
     }
 }

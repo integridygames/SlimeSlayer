@@ -27,8 +27,8 @@ namespace Game.Gameplay.Systems.Weapon
             var weaponSaveDataLeft = _applicationData.PlayerData.WeaponsSaveData[_applicationData.PlayerData.CurrentLeftWeaponIndex];
             var weaponSaveDataRight = _applicationData.PlayerData.WeaponsSaveData[_applicationData.PlayerData.CurrentRightWeaponIndex];
 
-            _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value = _weaponFactory.Create(weaponSaveDataLeft._weaponType, _characterView.LeftWeaponPlacer, true);
-            _currentCharacterWeaponsData.CurrentWeaponViewRight.Value = _weaponFactory.Create(weaponSaveDataRight._weaponType, _characterView.RightWeaponPlacer, false);
+            _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value = _weaponFactory.Create(weaponSaveDataLeft, _characterView.LeftWeaponPlacer, true);
+            _currentCharacterWeaponsData.CurrentWeaponViewRight.Value = _weaponFactory.Create(weaponSaveDataRight, _characterView.RightWeaponPlacer, false);
         }
     }
 }
