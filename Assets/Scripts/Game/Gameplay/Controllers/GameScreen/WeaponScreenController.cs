@@ -185,6 +185,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             }
 
             ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
+            OnCloseButtonPressedHandler();
         }
 
         private void OnWeaponInfoCloseButtonPressedHandler()

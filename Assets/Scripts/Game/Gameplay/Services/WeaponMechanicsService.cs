@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Game.DataBase.FX;
+﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;

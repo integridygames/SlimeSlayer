@@ -70,9 +70,17 @@ namespace Game.DataBase
         }
 
 
-        public int CurrentLeftWeaponIndex => _currentLeftWeaponIndex;
+        public int CurrentLeftWeaponIndex
+        {
+            get => _currentLeftWeaponIndex;
+            set => _currentLeftWeaponIndex = value;
+        }
 
-        public int CurrentRightWeaponIndex => _currentRightWeaponIndex;
+        public int CurrentRightWeaponIndex
+        {
+            get => _currentRightWeaponIndex;
+            set => _currentRightWeaponIndex = value;
+        }
 
         public List<WeaponData> WeaponsSaveData => _weaponsSaveData;
     }
