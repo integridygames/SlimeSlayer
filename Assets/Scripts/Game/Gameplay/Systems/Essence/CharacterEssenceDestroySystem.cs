@@ -5,16 +5,16 @@ namespace Game.Gameplay.Systems.Essence
 {
     public class CharacterEssenceDestroySystem : IDestroySystem
     {
-        private readonly CharacterEssencesData _characterEssencesData;
+        private readonly GameResourceData _gameResourceData;
 
-        public CharacterEssenceDestroySystem(CharacterEssencesData characterEssencesData)
+        public CharacterEssenceDestroySystem(GameResourceData gameResourceData)
         {
-            _characterEssencesData = characterEssencesData;
+            _gameResourceData = gameResourceData;
         }
 
         public void Destroy()
         {
-            _characterEssencesData.ClearAll();
+            _gameResourceData.ClearAll();
         }
     }
 }

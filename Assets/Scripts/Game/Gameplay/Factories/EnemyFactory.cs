@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Factories
 {
-    public class EnemyFactory : IFactory<EnemyType, EssenceType, Vector3, EnemyBase>
+    public class EnemyFactory : IFactory<EnemyType, GameResourceType, Vector3, EnemyBase>
     {
         private readonly DiContainer _container;
         private readonly EnemyDataBase _enemyDataBase;
@@ -21,7 +21,7 @@ namespace Game.Gameplay.Factories
             _enemyDataBase = enemyDataBase;
         }
 
-        public EnemyBase Create(EnemyType enemyType, EssenceType essenceType, Vector3 position)
+        public EnemyBase Create(EnemyType enemyType, GameResourceType gameResourceType, Vector3 position)
         {
             var enemyRecord = _enemyDataBase.GetRecordByType(enemyType);
             var enemyView = Object.Instantiate(enemyRecord._enemyViewBasePrefab, position, Quaternion.identity);

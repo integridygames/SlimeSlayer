@@ -12,6 +12,7 @@ namespace Game.DataBase
         [SerializeField] private List<WeaponData> _weaponsSaveData;
         [SerializeField] private int _currentLeftWeaponIndex;
         [SerializeField] private int _currentRightWeaponIndex;
+        [SerializeField] private int _currentCoinsCount;
 
         public PlayerData()
         {
@@ -61,6 +62,8 @@ namespace Game.DataBase
 
             _currentLeftWeaponIndex = 2;
             _currentRightWeaponIndex = 4;
+
+            _currentCoinsCount = 1;
         }
 
         public int CurrentLevel
@@ -83,5 +86,11 @@ namespace Game.DataBase
         }
 
         public List<WeaponData> WeaponsSaveData => _weaponsSaveData;
+
+        public int CurrentCoinsCount
+        {
+            get => _currentCoinsCount;
+            set => _currentCoinsCount = value;
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Game.Gameplay.Controllers.Character;
 using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
-using Game.Gameplay.Controllers.Essence;
 using Game.Gameplay.Controllers.Enemy;
+using Game.Gameplay.Controllers.GameResources;
 
 namespace Game.Installers.SampleScene
 {
@@ -17,6 +17,8 @@ namespace Game.Installers.SampleScene
             BindController<WeaponReloadController>();
             BindController<WeaponScreenController>();
             BindController<WeaponDataController>();
+            BindController<CoinsCollectController>();
+            BindController<CoinsViewController>();
         }
 
         private void BindController<TController>()

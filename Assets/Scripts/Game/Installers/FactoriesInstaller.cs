@@ -11,7 +11,7 @@ namespace Game.Installers
             Container.Bind<LevelFactory>().AsSingle();
             Container.Bind<ApplicationData>().FromFactory<ApplicationDataFactory>().AsSingle();
             Container.Bind<BulletsPoolFactory>().AsSingle();
-            Container.Bind<EssencePoolFactory>().AsSingle();
+            Container.Bind<GameResourcePoolFactory>().AsSingle();
             Container.Bind<WeaponFactory>().AsSingle();
             Container.Bind<RecyclableParticlesPoolFactory>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();

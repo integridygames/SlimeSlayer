@@ -1,10 +1,11 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
-using Game.Gameplay.Models.Essence;
 using System;
 using Game.DataBase.Essence;
 using Game.Gameplay.EnemiesMechanics;
+using Game.Gameplay.Models.GameResources;
 using Game.Gameplay.Models.Zone;
+using Game.Gameplay.Views.GameResources;
 using TegridyCore.Base;
 using UnityEngine;
 using Zenject;
@@ -13,17 +14,21 @@ namespace Game.Gameplay.Controllers.Enemy
 {
     public class EnemiesController : ControllerBase<ActiveEnemiesContainer>, IInitializable, IDisposable
     {
-        private readonly EssencePoolFactory _essencePoolFactory;
+        private readonly GameResourcePoolFactory _gameResourcePoolFactory;
         private readonly ActiveEssencesContainer _activeEssencesContainer;
+        private readonly ActiveCoinsContainer _activeCoinsContainer;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly SpawnZonesDataContainer _spawnZonesDataContainer;
 
-        public EnemiesController(ActiveEnemiesContainer controlledEntity, EssencePoolFactory essencePoolFactory,
-            ActiveEssencesContainer activeEssencesContainer, ActiveEnemiesContainer activeEnemiesContainer,
+        public EnemiesController(ActiveEnemiesContainer controlledEntity,
+            GameResourcePoolFactory gameResourcePoolFactory,
+            ActiveEssencesContainer activeEssencesContainer, ActiveCoinsContainer activeCoinsContainer,
+            ActiveEnemiesContainer activeEnemiesContainer,
             SpawnZonesDataContainer spawnZonesDataContainer) : base(controlledEntity)
         {
-            _essencePoolFactory = essencePoolFactory;
+            _gameResourcePoolFactory = gameResourcePoolFactory;
             _activeEssencesContainer = activeEssencesContainer;
+            _activeCoinsContainer = activeCoinsContainer;
             _activeEnemiesContainer = activeEnemiesContainer;
             _spawnZonesDataContainer = spawnZonesDataContainer;
         }
@@ -40,7 +45,8 @@ namespace Game.Gameplay.Controllers.Enemy
 
         private void OnEnemyDiedHandler(EnemyBase enemy)
         {
-            SpawnEssence(enemy.Position);
+            _activeEssencesContainer.Add((EssenceView) SpawnGameResource(enemy.Position, GameResourceType.Essence));
+            _activeCoinsContainer.Add((CoinView) SpawnGameResource(enemy.Position, GameResourceType.Coin));
 
             _activeEnemiesContainer.RemoveEnemy(enemy);
             enemy.Destroy();
@@ -48,11 +54,12 @@ namespace Game.Gameplay.Controllers.Enemy
             RecycleSpawnZones();
         }
 
-        private void SpawnEssence(Vector3 position)
+        private GameResourceViewBase SpawnGameResource(Vector3 position, GameResourceType gameResourceType)
         {
-            var essenceView = _essencePoolFactory.GetElement(EssenceType.Blue);
-            essenceView.transform.position = position;
-            _activeEssencesContainer.AddEssence(essenceView);
+            var view = _gameResourcePoolFactory.GetElement(gameResourceType);
+            view.transform.position = position;
+
+            return view;
         }
 
         private void RecycleSpawnZones()

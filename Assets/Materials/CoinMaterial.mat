@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8340313853177524277
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,14 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: CoinMaterial
   m_Shader: {fileID: -6465566751694194690, guid: df5bb027d94a6c44bb32b3c31ec1303f, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_UV_NORMALS_FULL
-  - _RECEIVE_SHADOWS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -26,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3af0879184481cb46af82e38599fe77b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -47,10 +59,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _FoamTex:
-        m_Texture: {fileID: 2800000, guid: 532c9e2e0905df744860e5e5c36ada26, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -114,16 +122,12 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthDistance: 0.32
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DirectIntensityOutline: 1
     - _DstBlend: 0
     - _EmissionChannel: 4
     - _EnvironmentReflections: 1
-    - _FoamSmooth: 0.02
-    - _FoamSpread: 2
-    - _FoamStrength: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
     - _GlossMapScale: 0
@@ -152,16 +156,16 @@ Material:
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmoothing: 0.54
-    - _RampThreshold: 0.61
+    - _RampSmoothing: 0.1
+    - _RampThreshold: 0.75
     - _RampType: 0
     - _ReceiveShadows: 1
-    - _ReceiveShadowsOff: 0
+    - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
     - _ReflectionSmoothness: 0.5
     - _RenderingMode: 0
     - _RimMax: 1
-    - _RimMin: 0.4
+    - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
     - _SingleIndirectColor: 0
     - _Smoothness: 0.5
@@ -174,9 +178,6 @@ Material:
     - _SpecularType: 0
     - _SrcBlend: 1
     - _Surface: 0
-    - _UVWaveAmplitude: 0.036
-    - _UVWaveFrequency: 1
-    - _UVWaveSpeed: 1
     - _UseAlphaTest: 0
     - _UseEmission: 0
     - _UseFresnelReflections: 1
@@ -191,38 +192,18 @@ Material:
     - _UseRimLightMask: 1
     - _UseShadowTexture: 0
     - _UseSpecular: 0
-    - _WaveFrequency: 1.5
-    - _WaveHeight: 0.03
-    - _WaveSpeed: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 0.17742963, g: 0.6405017, b: 0.8396226, a: 1}
+    - _BaseColor: {r: 1, g: 0.8808011, b: 0.40943396, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DepthColor: {r: 0, g: 0.37459263, b: 0.778, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
-    - _FoamSpeed: {r: -1, g: -1, b: -2, a: -2}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 0.071450196, g: 0.15578483, b: 0.294, a: 0.078431375}
-    - _SColor: {r: 0, g: 0.4602217, b: 0.9811321, a: 1}
+    - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
+    - _SColor: {r: 0.8679245, g: 0.62575155, b: 0.38810962, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &3045780664105619030
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.IO;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Game.Services
@@ -12,19 +13,38 @@ namespace Game.Services
 
             var key = typeof(T).Name;
 
-            PlayerPrefs.SetString(key, serializedData);
+            var path = BuildPath(key);
+
+            using var fileStream = new StreamWriter(path);
+            fileStream.Write(serializedData);
         }
 
         public static T Load<T>(T defaultValue)
         {
             var key = typeof(T).Name;
 
-            var serializedData = PlayerPrefs.GetString(key);
+            var path = BuildPath(key);
+
+            using var fileStream = new StreamReader(path);
+
+            var serializedData = fileStream.ReadToEnd();
 
             if (string.IsNullOrEmpty(serializedData))
                 return defaultValue;
 
             return JsonUtility.FromJson<T>(serializedData);
+        }
+
+        private static string BuildPath(string key)
+        {
+            var fullPath = Path.Combine(Application.persistentDataPath, key + ".dat");
+
+            if (File.Exists(fullPath) == false)
+            {
+                File.Create(fullPath);
+            }
+
+            return fullPath;
         }
     }
 }

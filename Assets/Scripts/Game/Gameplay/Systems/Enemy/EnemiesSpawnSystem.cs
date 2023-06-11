@@ -21,7 +21,7 @@ namespace Game.Gameplay.Systems.Enemy
         private readonly CharacterView _characterView;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
 
-        private List<Tuple<EnemyType, EssenceType>> _enemiesToSpawn;
+        private List<Tuple<EnemyType, GameResourceType>> _enemiesToSpawn;
 
         public EnemiesSpawnSystem(SpawnZonesDataContainer spawnZonesDataContainer, EnemyFactory enemyFactory,
             CharacterView characterView, ActiveEnemiesContainer activeEnemiesContainer)
@@ -74,14 +74,14 @@ namespace Game.Gameplay.Systems.Enemy
 
         private void PrepareRandomizedEnemiesToSpawnList(SpawnZoneData spawnZoneData)
         {
-            _enemiesToSpawn = new List<Tuple<EnemyType, EssenceType>>();
+            _enemiesToSpawn = new List<Tuple<EnemyType, GameResourceType>>();
 
             foreach (var battlefieldSpawnSettingsRecord in spawnZoneData.BattlefieldSpawnSettings)
             {
                 for (var i = 0; i < battlefieldSpawnSettingsRecord._count; i++)
                 {
-                    _enemiesToSpawn.Add(new Tuple<EnemyType, EssenceType>(battlefieldSpawnSettingsRecord._enemyType,
-                        battlefieldSpawnSettingsRecord._essenceType));
+                    _enemiesToSpawn.Add(new Tuple<EnemyType, GameResourceType>(battlefieldSpawnSettingsRecord._enemyType,
+                        battlefieldSpawnSettingsRecord._gameResourceType));
                 }
             }
 
@@ -113,7 +113,7 @@ namespace Game.Gameplay.Systems.Enemy
             spawnZoneData.SpawnProgressNormalized += Time.deltaTime / spawnZoneData.SpawnTime;
         }
 
-        private void Spawn(Tuple<EnemyType, EssenceType> enemyInfo, Vector3 position)
+        private void Spawn(Tuple<EnemyType, GameResourceType> enemyInfo, Vector3 position)
         {
             var enemy = _enemyFactory.Create(enemyInfo.Item1, enemyInfo.Item2, position);
 

@@ -1,6 +1,6 @@
 using Game.DataBase.Weapon;
 using Game.Gameplay.Views.Bullets;
-using Game.Gameplay.Views.Container;
+using Game.Gameplay.Views.Pool;
 using UnityEngine;
 
 namespace Game.Gameplay.Factories 

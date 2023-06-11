@@ -5,8 +5,8 @@ using Game.Gameplay.Models.Heap;
 using Game.Gameplay.Models.Raycast;
 using Game.Gameplay.Models.Weapon;
 using Zenject;
-using Game.Gameplay.Models.Essence;
 using Game.Gameplay.Models.Enemy;
+using Game.Gameplay.Models.GameResources;
 using Game.Gameplay.Models.Zone;
 
 namespace Game.Installers.SampleScene
@@ -25,9 +25,10 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterHealthData>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
-            Container.Bind<CharacterEssencesData>().AsSingle();
+            Container.Bind<GameResourceData>().AsSingle();
             Container.Bind<SpawnZonesDataContainer>().AsSingle();
             Container.Bind<CameraStats>().AsSingle();
+            Container.Bind<ActiveCoinsContainer>().AsSingle();
         }
     }
 }

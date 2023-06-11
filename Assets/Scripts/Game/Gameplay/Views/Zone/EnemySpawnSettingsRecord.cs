@@ -9,7 +9,7 @@ namespace Game.Gameplay.Views.Zone
     public class EnemySpawnSettingsRecord
     {
         public EnemyType _enemyType;
-        public EssenceType _essenceType;
+        public GameResourceType _gameResourceType;
 
         public int _count;
     }

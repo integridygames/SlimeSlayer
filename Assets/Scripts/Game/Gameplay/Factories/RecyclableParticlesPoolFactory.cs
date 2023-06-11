@@ -1,6 +1,6 @@
 ﻿using Game.DataBase.FX;
-using Game.Gameplay.Views.Container;
 using Game.Gameplay.Views.FX;
+using Game.Gameplay.Views.Pool;
 using UnityEngine;
 
 namespace Game.Gameplay.Factories
