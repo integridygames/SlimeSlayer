@@ -23,14 +23,15 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(glockView, weaponData)
         {
             ShootComponent =
-                new BulletShootComponent(glockView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, glockView.ShootingPoint);
+                new BulletShootComponent(glockView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType,
+                    weaponData._rarityType, glockView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                glockView.ShootingPoint);
+                weaponData._rarityType, glockView.ShootingPoint);
 
             ShootingPoint = glockView.ShootingPoint;
         }

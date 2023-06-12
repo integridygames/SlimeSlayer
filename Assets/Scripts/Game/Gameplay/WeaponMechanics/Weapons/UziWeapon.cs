@@ -23,14 +23,15 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(uziView, weaponData)
         {
             ShootComponent =
-                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, uziView.ShootingPoint);
+                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType,
+                    weaponData._rarityType, uziView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                uziView.ShootingPoint);
+                weaponData._rarityType, uziView.ShootingPoint);
 
             ShootingPoint = uziView.ShootingPoint;
         }

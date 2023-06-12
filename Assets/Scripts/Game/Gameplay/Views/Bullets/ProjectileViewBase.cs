@@ -1,4 +1,5 @@
-﻿using Game.DataBase.Weapon;
+﻿using Game.DataBase;
+using Game.DataBase.Weapon;
 using TegridyCore.Base;
 using UnityEngine;
 
@@ -16,14 +17,17 @@ namespace Game.Gameplay.Views.Bullets
         public float CurrentLifeTime { get; private set; }
 
         public WeaponType WeaponType { get; private set; }
+        public RarityType RarityType { get; private set; }
+
         public Vector3 Direction { get; private set; }
         public float Force { get; private set; }
 
-        public void Initialize(WeaponType weaponType, Vector3 direction, float force)
+        public void Initialize(WeaponType weaponType, RarityType rarityType, Vector3 direction, float force)
         {
             Force = force;
             Direction = direction;
             WeaponType = weaponType;
+            RarityType = rarityType;
         }
 
         public abstract void Shoot();

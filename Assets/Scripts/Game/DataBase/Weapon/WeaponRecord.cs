@@ -11,6 +11,6 @@ namespace Game.DataBase.Weapon
         public WeaponType _weaponType;
         public WeaponViewBase _weaponPrefab;
         public Sprite _weaponSprite;
-        public List<WeaponCharacteristic> _weaponCharacteristics;
+        public List<WeaponCharacteristicData> _weaponCharacteristics;
     }
 }

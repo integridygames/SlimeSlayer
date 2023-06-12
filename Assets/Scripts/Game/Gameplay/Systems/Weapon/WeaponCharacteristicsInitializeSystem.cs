@@ -1,6 +1,10 @@
-﻿using Game.DataBase.Weapon;
+﻿using System;
+using System.Linq;
+using Game.DataBase;
+using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
+using JetBrains.Annotations;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Weapon
@@ -21,34 +25,41 @@ namespace Game.Gameplay.Systems.Weapon
 
         public void Initialize()
         {
-            foreach (var record in _weaponsDataBase.Records)
+            var rarities = Enum.GetValues(typeof(RarityType));
+
+            foreach (var weaponRecord in _weaponsDataBase.Records)
             {
-                foreach (var weaponCharacteristic in record._weaponCharacteristics)
+                foreach (RarityType rarity in rarities)
                 {
-                    CalculateCharacteristic(weaponCharacteristic, record._weaponType);
+                    var weaponSaveData = _applicationData.PlayerData.WeaponsSaveData.FirstOrDefault(x =>
+                        x._weaponType == weaponRecord._weaponType && x._rarityType == rarity);
+
+                    foreach (var weaponCharacteristic in weaponRecord._weaponCharacteristics)
+                    {
+                        CalculateCharacteristicValue(weaponCharacteristic, weaponRecord._weaponType, rarity,
+                            weaponSaveData);
+                    }
                 }
             }
         }
 
-        private void CalculateCharacteristic(WeaponCharacteristic weaponCharacteristic, WeaponType weaponType)
+        private void CalculateCharacteristicValue(WeaponCharacteristicData weaponCharacteristicData, WeaponType weaponType,
+            RarityType rarityType,
+            [CanBeNull] WeaponData weaponSaveData)
         {
-            var characteristicType = weaponCharacteristic._weaponCharacteristicType;
+            var weaponCharacteristicValue = weaponCharacteristicData._startValue;
 
-            var characteristicValue = weaponCharacteristic._startValue;
-
-            foreach (var weaponSaveData in _applicationData.PlayerData.WeaponsSaveData)
+            if (weaponSaveData != null)
             {
-                if (weaponSaveData._weaponType == weaponType)
+                for (var i = 0; i < weaponSaveData._level; i++)
                 {
-                    for (var i = 0; i < weaponSaveData._level; i++)
-                    {
-                        characteristicValue +=
-                            weaponCharacteristic._addition * weaponCharacteristic._additionMultiplier;
-                    }
-
-                    _weaponsCharacteristics.SetCharacteristic(weaponType, characteristicType, characteristicValue);
+                    weaponCharacteristicValue +=
+                        weaponCharacteristicData._addition * weaponCharacteristicData._additionMultiplier;
                 }
             }
+
+            _weaponsCharacteristics.SetCharacteristic(weaponType, rarityType,
+                weaponCharacteristicData._weaponCharacteristicType, weaponCharacteristicValue);
         }
     }
 }

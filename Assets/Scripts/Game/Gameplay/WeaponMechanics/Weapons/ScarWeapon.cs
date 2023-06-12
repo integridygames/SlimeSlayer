@@ -23,14 +23,14 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(scarView, weaponData)
         {
             ShootComponent =
-                new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, scarView.ShootingPoint);
+                new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, weaponData._rarityType, scarView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                scarView.ShootingPoint);
+                weaponData._rarityType, scarView.ShootingPoint);
 
             ShootingPoint = scarView.ShootingPoint;
         }

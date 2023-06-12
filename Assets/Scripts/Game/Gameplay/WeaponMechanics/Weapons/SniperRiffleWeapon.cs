@@ -19,19 +19,20 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, WeaponData weaponData,
+            WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(sniperRiffleView, weaponData)
         {
             ShootComponent =
                 new BulletShootComponent(sniperRiffleView, weaponMechanicsService,
-                    ProjectileType.LongBullet, WeaponType, sniperRiffleView.ShootingPoint);
+                    ProjectileType.LongBullet, WeaponType, weaponData._rarityType, sniperRiffleView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                sniperRiffleView.ShootingPoint);
+                weaponData._rarityType, sniperRiffleView.ShootingPoint);
 
             ShootingPoint = sniperRiffleView.ShootingPoint;
         }

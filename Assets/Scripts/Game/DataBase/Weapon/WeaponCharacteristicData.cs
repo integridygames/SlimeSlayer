@@ -4,7 +4,7 @@ using Game.Gameplay.Models.Weapon;
 namespace Game.DataBase.Weapon
 {
     [Serializable]
-    public class WeaponCharacteristic
+    public class WeaponCharacteristicData
     {
         public WeaponCharacteristicType _weaponCharacteristicType;
 

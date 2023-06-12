@@ -26,14 +26,14 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(grenadeLauncherView, weaponData)
         {
             ShootComponent = new GrenadeShootComponent(grenadeLauncherView, weaponMechanicsService,
-                    ProjectileType.Grenade, WeaponType, grenadeLauncherView.ShootingPoint);
+                ProjectileType.Grenade, WeaponType, weaponData._rarityType, grenadeLauncherView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                grenadeLauncherView.ShootingPoint);
+                weaponData._rarityType, grenadeLauncherView.ShootingPoint);
 
             ShootingPoint = grenadeLauncherView.ShootingPoint;
         }

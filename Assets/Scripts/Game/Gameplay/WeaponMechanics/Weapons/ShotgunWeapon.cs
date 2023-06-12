@@ -20,18 +20,19 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public ShotgunWeapon(ShotgunView shotgunView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
+        public ShotgunWeapon(ShotgunView shotgunView, WeaponData weaponData,
+            WeaponMechanicsService weaponMechanicsService,
             CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(shotgunView, weaponData)
         {
             ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
-                WeaponType, shotgunView.ShootingPoint, weaponMechanicsService);
+                WeaponType, weaponData._rarityType, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                shotgunView.ShootingPoint);
+                weaponData._rarityType, shotgunView.ShootingPoint);
 
             ShootingPoint = shotgunView.ShootingPoint;
         }

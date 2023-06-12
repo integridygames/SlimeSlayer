@@ -1,4 +1,5 @@
-﻿using Game.DataBase.FX;
+﻿using Game.DataBase;
+using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Utils.Layers;
@@ -15,17 +16,19 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
         private readonly WeaponMechanicsService _weaponMechanicsService;
 
         private readonly WeaponType _weaponType;
+        private readonly RarityType _rarityType;
         private readonly ProjectileType _projectileType;
         private readonly Transform _shootingPoint;
 
         public GrenadeShootComponent(GrenadeLauncherView grenadeLauncherView,
             WeaponMechanicsService weaponMechanicsService,
             ProjectileType projectileType, WeaponType weaponType,
-            Transform shootingPoint)
+            RarityType rarityType, Transform shootingPoint)
         {
             _grenadeLauncherView = grenadeLauncherView;
             _weaponMechanicsService = weaponMechanicsService;
             _weaponType = weaponType;
+            _rarityType = rarityType;
             _projectileType = projectileType;
             _shootingPoint = shootingPoint;
         }
@@ -34,7 +37,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
         {
             _grenadeLauncherView.EmitMuzzleFlash();
 
-            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, direction, _projectileType, _weaponType);
+            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, direction, _projectileType, _weaponType, _rarityType);
             grenadeView.OnRecycle += OnGrenadeRecycleHandler;
         }
 
@@ -56,7 +59,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
                     return;
                 }
 
-                var damage = _weaponMechanicsService.GetDamage(_weaponType);
+                var damage = _weaponMechanicsService.GetDamage(_weaponType, _rarityType);
                 var enemyPosition = enemyView.transform.position;
 
                 var impulseDirection = enemyPosition - grenadePosition;
