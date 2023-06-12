@@ -37,5 +37,27 @@ namespace Game.Gameplay.Models.Weapon
 
             return characteristicValues;
         }
+
+        public float CalculateCharacteristicValue(WeaponCharacteristicData weaponCharacteristicData,
+            RarityType rarityType, int level)
+        {
+            var weaponCharacteristicValue = weaponCharacteristicData._startValue;
+
+            weaponCharacteristicValue += GetNextCharacteristicAddition(weaponCharacteristicData, level);
+
+            return weaponCharacteristicValue;
+        }
+
+        public float GetNextCharacteristicAddition(WeaponCharacteristicData weaponCharacteristicData, int level)
+        {
+            float result = 0;
+
+            for (var i = 0; i < level; i++)
+            {
+                result += weaponCharacteristicData._addition * weaponCharacteristicData._additionMultiplier;
+            }
+
+            return result;
+        }
     }
 }

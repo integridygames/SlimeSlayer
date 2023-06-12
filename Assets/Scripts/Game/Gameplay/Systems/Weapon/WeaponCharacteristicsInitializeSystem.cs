@@ -4,7 +4,6 @@ using Game.DataBase;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
-using JetBrains.Annotations;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Weapon
@@ -34,32 +33,18 @@ namespace Game.Gameplay.Systems.Weapon
                     var weaponSaveData = _applicationData.PlayerData.WeaponsSaveData.FirstOrDefault(x =>
                         x._weaponType == weaponRecord._weaponType && x._rarityType == rarity);
 
-                    foreach (var weaponCharacteristic in weaponRecord._weaponCharacteristics)
+                    var level = weaponSaveData?._level ?? 0;
+
+                    foreach (var weaponCharacteristic in weaponRecord.GetWeaponCharacteristics(rarity))
                     {
-                        CalculateCharacteristicValue(weaponCharacteristic, weaponRecord._weaponType, rarity,
-                            weaponSaveData);
+                        var characteristicValue =
+                            _weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic, rarity, level);
+
+                        _weaponsCharacteristics.SetCharacteristic(weaponRecord._weaponType, rarity,
+                            weaponCharacteristic._weaponCharacteristicType, characteristicValue);
                     }
                 }
             }
-        }
-
-        private void CalculateCharacteristicValue(WeaponCharacteristicData weaponCharacteristicData, WeaponType weaponType,
-            RarityType rarityType,
-            [CanBeNull] WeaponData weaponSaveData)
-        {
-            var weaponCharacteristicValue = weaponCharacteristicData._startValue;
-
-            if (weaponSaveData != null)
-            {
-                for (var i = 0; i < weaponSaveData._level; i++)
-                {
-                    weaponCharacteristicValue +=
-                        weaponCharacteristicData._addition * weaponCharacteristicData._additionMultiplier;
-                }
-            }
-
-            _weaponsCharacteristics.SetCharacteristic(weaponType, rarityType,
-                weaponCharacteristicData._weaponCharacteristicType, weaponCharacteristicValue);
         }
     }
 }

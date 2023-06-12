@@ -81,7 +81,8 @@ namespace Game.Gameplay.Services
         {
             bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType, bulletView.RarityType), bulletView.Direction,
+            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType, bulletView.RarityType),
+                bulletView.Direction,
                 enemyView.transform.position));
 
             RecycleProjectile(bulletView);

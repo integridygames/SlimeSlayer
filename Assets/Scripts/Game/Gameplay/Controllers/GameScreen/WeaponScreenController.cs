@@ -153,7 +153,8 @@ namespace Game.Gameplay.Controllers.GameScreen
             var isEquipped = weaponData == _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value.Data ||
                              weaponData == _currentCharacterWeaponsData.CurrentWeaponViewRight.Value.Data;
 
-            ControlledEntity.WeaponInfoView.SetWeapon(weaponData, isEquipped);
+            ControlledEntity.WeaponInfoView.SetWeapon(weaponData, isEquipped,
+                _currentCharacterWeaponsData.WeaponsCharacteristics, _weaponsDataBase);
             ControlledEntity.WeaponInfoView.gameObject.SetActive(true);
         }
 

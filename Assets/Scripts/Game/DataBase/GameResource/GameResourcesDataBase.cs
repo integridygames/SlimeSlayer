@@ -1,4 +1,5 @@
 using System.Linq;
+using Game.DataBase.GameResource;
 using UnityEngine;
 
 namespace Game.DataBase.Essence

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Weapon;
 using TegridyUtils.UI.Elements;
 using TMPro;
 using UnityEngine;
@@ -19,6 +21,11 @@ namespace Game.Gameplay.Views.UI
         [SerializeField] private TMP_Text _equipText;
         [SerializeField] private TMP_Text _upgradeText;
 
+        [SerializeField] private WeaponStatsView _weaponStatsViewPrefab;
+        [SerializeField] private Transform _weaponStatsRoot;
+
+        private List<WeaponStatsView> _weaponStatsViews = new();
+
         private WeaponData _weaponData;
 
         private void OnEnable()
@@ -33,6 +40,13 @@ namespace Game.Gameplay.Views.UI
             _equipButton.OnReleased -= OnEquipButtonPressed;
             _closeButton.OnReleased -= OnCloseButtonPressed;
             _upgradeButton.OnReleased -= OnUpgradeButtonPressed;
+
+            foreach (var weaponStatsView in _weaponStatsViews)
+            {
+                Destroy(weaponStatsView.gameObject);
+            }
+
+            _weaponStatsViews.Clear();
         }
 
         private void OnEquipButtonPressed()
@@ -50,13 +64,29 @@ namespace Game.Gameplay.Views.UI
             OnClose?.Invoke();
         }
 
-        public void SetWeapon(WeaponData weaponData, bool isEquipped)
+        public void SetWeapon(WeaponData weaponData, bool isEquipped, WeaponsCharacteristics weaponsCharacteristics,
+            WeaponsDataBase weaponsDataBase)
         {
             _weaponData = weaponData;
             _equipText.text = isEquipped ? "Equipped" : "Equip";
             _upgradeText.text = $"Upgrade ({weaponData._upgradePrice})";
 
             _equipButton.interactable = isEquipped == false;
+
+            var weaponRecord = weaponsDataBase.GetRecordByType(weaponData._weaponType);
+
+            foreach (var weaponCharacteristic in weaponRecord.GetWeaponCharacteristics(weaponData._rarityType))
+            {
+                var currentValue = weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic,
+                    weaponData._rarityType, weaponData._level);
+
+                var nextAddition = weaponsCharacteristics.GetNextCharacteristicAddition(weaponCharacteristic, weaponData._level);
+
+                var weaponStatsView = Instantiate(_weaponStatsViewPrefab, _weaponStatsRoot);
+                weaponStatsView.SetData(weaponCharacteristic._weaponCharacteristicType, currentValue, nextAddition);
+
+                _weaponStatsViews.Add(weaponStatsView);
+            }
         }
     }
 }
