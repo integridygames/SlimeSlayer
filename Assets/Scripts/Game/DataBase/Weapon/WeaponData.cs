@@ -10,6 +10,5 @@ namespace Game.DataBase.Weapon
         public WeaponType _weaponType;
         public RarityType _rarityType;
         public int _level;
-        public int _upgradePrice;
     }
 }

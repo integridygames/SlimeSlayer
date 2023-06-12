@@ -43,12 +43,12 @@ namespace Game.Gameplay.Models.Weapon
         {
             var weaponCharacteristicValue = weaponCharacteristicData._startValue;
 
-            weaponCharacteristicValue += GetNextCharacteristicAddition(weaponCharacteristicData, level);
+            weaponCharacteristicValue += GetCharacteristicAddition(weaponCharacteristicData, level);
 
             return weaponCharacteristicValue;
         }
 
-        public float GetNextCharacteristicAddition(WeaponCharacteristicData weaponCharacteristicData, int level)
+        public float GetCharacteristicAddition(WeaponCharacteristicData weaponCharacteristicData, int level)
         {
             float result = 0;
 

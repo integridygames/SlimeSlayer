@@ -17,6 +17,7 @@ namespace Game.DataBase.Weapon
         public Sprite _weaponSprite;
 
         [SerializeField]
+        [ArrayWithKey]
         private List<WeaponCharacteristicWithRarity> _weaponCharacteristicsWithRarity;
 
         public List<WeaponCharacteristicData> GetWeaponCharacteristics(RarityType rarityType)
@@ -27,7 +28,9 @@ namespace Game.DataBase.Weapon
         [Serializable]
         private class WeaponCharacteristicWithRarity
         {
+            [ArrayKey]
             public RarityType _rarityType;
+            [ArrayWithKey]
             public List<WeaponCharacteristicData> _weaponCharacteristics;
         }
     }

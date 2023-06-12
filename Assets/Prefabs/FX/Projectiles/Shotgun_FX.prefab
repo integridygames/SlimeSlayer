@@ -4885,4 +4885,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isCached: 0
   _particleSystem: {fileID: 469780467935254986}
-  _particleType: 0
+  _particleType: 1

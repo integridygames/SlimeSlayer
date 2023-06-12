@@ -69,7 +69,10 @@ namespace Game.Gameplay.Views.UI
         {
             _weaponData = weaponData;
             _equipText.text = isEquipped ? "Equipped" : "Equip";
-            _upgradeText.text = $"Upgrade ({weaponData._upgradePrice})";
+
+            var upgradePrice = weaponsCharacteristics.GetCharacteristic(weaponData._weaponType, weaponData._rarityType, WeaponCharacteristicType.UpgradePrice);
+
+            _upgradeText.text = $"Upgrade ({upgradePrice})";
 
             _equipButton.interactable = isEquipped == false;
 
@@ -77,10 +80,15 @@ namespace Game.Gameplay.Views.UI
 
             foreach (var weaponCharacteristic in weaponRecord.GetWeaponCharacteristics(weaponData._rarityType))
             {
+                if (weaponCharacteristic._hidden)
+                {
+                    continue;
+                }
+
                 var currentValue = weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic,
                     weaponData._rarityType, weaponData._level);
 
-                var nextAddition = weaponsCharacteristics.GetNextCharacteristicAddition(weaponCharacteristic, weaponData._level);
+                var nextAddition = weaponsCharacteristics.GetCharacteristicAddition(weaponCharacteristic, weaponData._level + 1);
 
                 var weaponStatsView = Instantiate(_weaponStatsViewPrefab, _weaponStatsRoot);
                 weaponStatsView.SetData(weaponCharacteristic._weaponCharacteristicType, currentValue, nextAddition);

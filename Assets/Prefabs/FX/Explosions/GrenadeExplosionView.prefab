@@ -5029,7 +5029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isCached: 0
   _particleSystem: {fileID: 725748389856807712}
-  _particleType: 1
+  _particleType: 2
 --- !u!1 &725748390055121426
 GameObject:
   m_ObjectHideFlags: 0
