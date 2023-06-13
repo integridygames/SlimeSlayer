@@ -1,5 +1,4 @@
-﻿using Game.DataBase;
-using Game.DataBase.FX;
+﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;
@@ -29,8 +28,8 @@ namespace Game.Gameplay.Services
         public WeaponMechanicsService(BulletsPoolFactory bulletsPoolFactory,
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData,
-            ActiveEnemiesContainer activeEnemiesContainer)
+            ActiveEnemiesContainer activeEnemiesContainer,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
@@ -58,13 +57,13 @@ namespace Game.Gameplay.Services
         }
 
         public void ShootBullet(Transform shootingPoint, Vector3 direction, ProjectileType projectileType,
-            WeaponType weaponType, RarityType rarityType)
+            PlayerWeaponData playerWeaponData)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
                 bulletView.transform.position = shootingPoint.position;
 
-                bulletView.Initialize(weaponType, rarityType, direction, BulletSpeed);
+                bulletView.Initialize(playerWeaponData, direction, BulletSpeed);
                 bulletView.Shoot();
 
                 bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
@@ -81,21 +80,20 @@ namespace Game.Gameplay.Services
         {
             bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.WeaponType, bulletView.RarityType),
+            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.PlayerWeaponData),
                 bulletView.Direction,
                 enemyView.transform.position));
 
             RecycleProjectile(bulletView);
         }
 
-        public GrenadeView ShootGrenade(Transform shootingPoint, Vector3 direction, ProjectileType projectileType,
-            WeaponType weaponType, RarityType rarityType)
+        public GrenadeView ShootGrenade(Transform shootingPoint, Vector3 direction, ProjectileType projectileType, PlayerWeaponData playerWeaponData)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
                 grenadeView.transform.position = shootingPoint.position;
 
-                grenadeView.Initialize(weaponType, rarityType, direction, 1800f);
+                grenadeView.Initialize(playerWeaponData, direction, 1800f);
                 grenadeView.Shoot();
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
@@ -137,11 +135,11 @@ namespace Game.Gameplay.Services
         }
 
         public void ShootFX(Transform shootingPoint, Vector3 direction, RecyclableParticleType recyclableParticleType,
-            WeaponType weaponType, RarityType rarityType)
+            PlayerWeaponData playerWeaponData)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
             {
-                projectileView.Initialize(weaponType, rarityType);
+                projectileView.Initialize(playerWeaponData);
 
                 var particlesTransform = projectileView.transform;
 
@@ -166,7 +164,7 @@ namespace Game.Gameplay.Services
             var impulseDirection = enemyPosition - position;
             impulseDirection.y = 0;
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(commonShootFx.WeaponType, commonShootFx.RarityType),
+            enemyView.InvokeHit(new HitInfo(GetDamage(commonShootFx.WeaponData),
                 impulseDirection.normalized, enemyPosition));
         }
 
@@ -188,9 +186,9 @@ namespace Game.Gameplay.Services
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }
 
-        public float GetDamage(WeaponType weaponType, RarityType rarityType)
+        public float GetDamage(PlayerWeaponData playerWeaponData)
         {
-            return _weaponsCharacteristics.GetCharacteristic(weaponType, rarityType, WeaponCharacteristicType.Attack);
+            return _weaponsCharacteristics.GetCharacteristic(playerWeaponData, WeaponCharacteristicType.Attack);
         }
     }
 }

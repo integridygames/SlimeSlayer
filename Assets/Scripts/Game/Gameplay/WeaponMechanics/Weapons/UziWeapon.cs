@@ -19,19 +19,19 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public UziWeapon(UziView uziView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(uziView, weaponData)
+        public UziWeapon(UziView uziView, PlayerWeaponData playerWeaponData,
+            WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(uziView, playerWeaponData)
         {
             ShootComponent =
-                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType,
-                    weaponData._rarityType, uziView.ShootingPoint);
+                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, playerWeaponData, uziView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                weaponData._rarityType, uziView.ShootingPoint);
+                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                playerWeaponData, uziView.ShootingPoint);
 
             ShootingPoint = uziView.ShootingPoint;
         }

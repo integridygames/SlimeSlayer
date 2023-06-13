@@ -21,19 +21,19 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public GrenadeLauncherWeapon(GrenadeLauncherView grenadeLauncherView, WeaponData weaponData,
+        public GrenadeLauncherWeapon(GrenadeLauncherView grenadeLauncherView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(grenadeLauncherView, weaponData)
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(grenadeLauncherView, playerWeaponData)
         {
             ShootComponent = new GrenadeShootComponent(grenadeLauncherView, weaponMechanicsService,
-                ProjectileType.Grenade, WeaponType, weaponData._rarityType, grenadeLauncherView.ShootingPoint);
+                ProjectileType.Grenade, playerWeaponData, grenadeLauncherView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                weaponData._rarityType, grenadeLauncherView.ShootingPoint);
+                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                playerWeaponData, grenadeLauncherView.ShootingPoint);
 
             ShootingPoint = grenadeLauncherView.ShootingPoint;
         }

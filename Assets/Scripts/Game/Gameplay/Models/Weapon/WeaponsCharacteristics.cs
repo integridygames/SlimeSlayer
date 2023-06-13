@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.DataBase;
 using Game.DataBase.Weapon;
 
@@ -6,33 +7,37 @@ namespace Game.Gameplay.Models.Weapon
 {
     public class WeaponsCharacteristics
     {
-        private readonly Dictionary<(WeaponType, RarityType), Dictionary<WeaponCharacteristicType, float>>
+        public event Action OnUpdate;
+
+        private readonly Dictionary<string, Dictionary<WeaponCharacteristicType, float>>
             _weaponsCharacteristics = new();
 
-        public float GetCharacteristic(WeaponType weaponType, RarityType rarityType,
+        public float GetCharacteristic(PlayerWeaponData playerWeaponData,
             WeaponCharacteristicType weaponCharacteristicType)
         {
-            var characteristicValues = GetOrCreateCharacteristicValues(weaponType, rarityType);
+            var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
 
             return characteristicValues[weaponCharacteristicType];
         }
 
-        public void SetCharacteristic(WeaponType weaponType, RarityType rarityType,
+        public void SetCharacteristic(PlayerWeaponData playerWeaponData,
             WeaponCharacteristicType weaponCharacteristicType,
             float value)
         {
-            var characteristicValues = GetOrCreateCharacteristicValues(weaponType, rarityType);
+            var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
 
             characteristicValues[weaponCharacteristicType] = value;
+
+            OnUpdate?.Invoke();
         }
 
-        private Dictionary<WeaponCharacteristicType, float> GetOrCreateCharacteristicValues(WeaponType weaponType,
-            RarityType rarityType)
+        private Dictionary<WeaponCharacteristicType, float> GetOrCreateCharacteristicValues(
+            PlayerWeaponData playerWeaponData)
         {
-            if (_weaponsCharacteristics.TryGetValue((weaponType, rarityType), out var characteristicValues) == false)
+            if (_weaponsCharacteristics.TryGetValue(playerWeaponData._guid, out var characteristicValues) == false)
             {
                 characteristicValues = new Dictionary<WeaponCharacteristicType, float>();
-                _weaponsCharacteristics[(weaponType, rarityType)] = characteristicValues;
+                _weaponsCharacteristics[playerWeaponData._guid] = characteristicValues;
             }
 
             return characteristicValues;

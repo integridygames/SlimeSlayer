@@ -36,7 +36,7 @@ namespace Game.Gameplay.Controllers.Character
             _applicationData.PlayerData.CurrentLeftWeaponIndex =
                 _applicationData.PlayerData.WeaponsSaveData.IndexOf(rxValue.NewValue.Data);
 
-            SaveLoadDataService.Save(_applicationData.PlayerData);
+            SavePlayerData();
         }
 
         private void SaveRight(RxValue<WeaponBase> rxValue)
@@ -44,6 +44,11 @@ namespace Game.Gameplay.Controllers.Character
             _applicationData.PlayerData.CurrentRightWeaponIndex =
                 _applicationData.PlayerData.WeaponsSaveData.IndexOf(rxValue.NewValue.Data);
 
+            SavePlayerData();
+        }
+
+        private void SavePlayerData()
+        {
             SaveLoadDataService.Save(_applicationData.PlayerData);
         }
     }

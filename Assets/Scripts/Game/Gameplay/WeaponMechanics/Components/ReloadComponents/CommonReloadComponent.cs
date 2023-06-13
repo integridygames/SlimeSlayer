@@ -1,5 +1,4 @@
-﻿using Game.DataBase;
-using Game.DataBase.Weapon;
+﻿using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Weapon;
 using TegridyCore;
@@ -10,8 +9,8 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
     public class CommonReloadComponent : IReloadComponent
     {
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
-        private readonly WeaponType _weaponType;
-        private readonly RarityType _rarityType;
+        private readonly PlayerWeaponData _playerWeaponData;
+
 
         private readonly ReloadBarView _leftReloadBarView;
         private readonly ReloadBarView _rightReloadBarView;
@@ -22,12 +21,10 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
 
         private bool _isInitialized;
 
-        public CommonReloadComponent(WeaponsCharacteristics weaponsCharacteristics, WeaponType weaponType,
-            RarityType rarityType)
+        public CommonReloadComponent(WeaponsCharacteristics weaponsCharacteristics, PlayerWeaponData playerWeaponData)
         {
             _weaponsCharacteristics = weaponsCharacteristics;
-            _weaponType = weaponType;
-            _rarityType = rarityType;
+            _playerWeaponData = playerWeaponData;
         }
 
         public bool NeedReload()
@@ -38,8 +35,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
         public void Reload()
         {
             var reloadTime =
-                _weaponsCharacteristics.GetCharacteristic(_weaponType, _rarityType,
+                _weaponsCharacteristics.GetCharacteristic(_playerWeaponData,
                     WeaponCharacteristicType.ReloadTime);
+
             _reloadProgress.Value += Time.deltaTime / reloadTime;
 
             if (_reloadProgress.Value >= 1)
@@ -53,7 +51,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
             _reloadProgress.Value = 0;
 
             var charge =
-                (int) _weaponsCharacteristics.GetCharacteristic(_weaponType, _rarityType,
+                (int) _weaponsCharacteristics.GetCharacteristic(_playerWeaponData,
                     WeaponCharacteristicType.Charge);
             CurrentCharge.Value = charge;
         }

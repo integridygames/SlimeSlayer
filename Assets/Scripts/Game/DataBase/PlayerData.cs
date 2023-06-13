@@ -9,61 +9,29 @@ namespace Game.DataBase
     public class PlayerData
     {
         [SerializeField] private int _currentLevel;
-        [SerializeField] private List<WeaponData> _weaponsSaveData;
+        [SerializeField] private List<PlayerWeaponData> _weaponsSaveData;
         [SerializeField] private int _currentLeftWeaponIndex;
         [SerializeField] private int _currentRightWeaponIndex;
         [SerializeField] private int _currentCoinsCount;
 
         public PlayerData()
         {
-            _weaponsSaveData = new List<WeaponData>
+            _weaponsSaveData = new List<PlayerWeaponData>
             {
-                new()
-                {
-                    _weaponType = WeaponType.Glock,
-                    _rarityType = RarityType.Common,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.Glock,
-                    _rarityType = RarityType.Common,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.Scar,
-                    _rarityType = RarityType.Epic,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.Uzi,
-                    _rarityType = RarityType.Common,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.Shotgun,
-                    _rarityType = RarityType.Uncommon,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.GrenadeLauncher,
-                    _rarityType = RarityType.Common,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.MiniGun,
-                    _rarityType = RarityType.Common,
-                },
-                new()
-                {
-                    _weaponType = WeaponType.SniperRiffle,
-                    _rarityType = RarityType.Common,
-                },
+                new(WeaponType.Glock, RarityType.Common),
+                new(WeaponType.Glock, RarityType.Common),
+                new(WeaponType.Scar, RarityType.Epic),
+                new(WeaponType.Uzi, RarityType.Common),
+                new(WeaponType.Shotgun, RarityType.Uncommon),
+                new(WeaponType.GrenadeLauncher, RarityType.Common),
+                new(WeaponType.MiniGun, RarityType.Common),
+                new(WeaponType.SniperRiffle, RarityType.Common),
             };
 
             _currentLeftWeaponIndex = 2;
             _currentRightWeaponIndex = 4;
 
-            _currentCoinsCount = 1;
+            _currentCoinsCount = 100;
         }
 
         public int CurrentLevel
@@ -85,7 +53,7 @@ namespace Game.DataBase
             set => _currentRightWeaponIndex = value;
         }
 
-        public List<WeaponData> WeaponsSaveData => _weaponsSaveData;
+        public List<PlayerWeaponData> WeaponsSaveData => _weaponsSaveData;
 
         public int CurrentCoinsCount
         {

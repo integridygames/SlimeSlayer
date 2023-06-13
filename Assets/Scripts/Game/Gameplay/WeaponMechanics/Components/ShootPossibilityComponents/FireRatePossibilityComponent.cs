@@ -1,5 +1,4 @@
-﻿using Game.DataBase;
-using Game.DataBase.Weapon;
+﻿using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
@@ -11,22 +10,19 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
     {
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
         private readonly WeaponMechanicsService _weaponMechanicsService;
-
-        private readonly WeaponType _weaponType;
-        private readonly RarityType _rarityType;
+        private readonly PlayerWeaponData _playerWeaponData;
 
         private readonly Transform _shootingPoint;
 
         private float _lastShotTime;
 
         public FireRatePossibilityComponent(WeaponsCharacteristics weaponsCharacteristics,
-            WeaponMechanicsService weaponMechanicsService, WeaponType weaponType, RarityType rarityType,
+            WeaponMechanicsService weaponMechanicsService, PlayerWeaponData playerWeaponData,
             Transform shootingPoint)
         {
             _weaponsCharacteristics = weaponsCharacteristics;
             _weaponMechanicsService = weaponMechanicsService;
-            _weaponType = weaponType;
-            _rarityType = rarityType;
+            _playerWeaponData = playerWeaponData;
             _shootingPoint = shootingPoint;
         }
 
@@ -37,7 +33,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
                 return false;
             }
 
-            var fireRate = _weaponsCharacteristics.GetCharacteristic(_weaponType, _rarityType, WeaponCharacteristicType.FireRate);
+            var fireRate = _weaponsCharacteristics.GetCharacteristic(_playerWeaponData, WeaponCharacteristicType.FireRate);
 
             return Time.time - _lastShotTime >= BulletsPerSecond(fireRate);
         }

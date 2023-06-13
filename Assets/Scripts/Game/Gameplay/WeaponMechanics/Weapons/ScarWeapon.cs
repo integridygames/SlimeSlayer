@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.WeaponMechanics.Weapons
 {
-    public class ScarWeapon: WeaponBase
+    public class ScarWeapon : WeaponBase
     {
         public sealed override WeaponType WeaponType => WeaponType.Scar;
 
@@ -19,18 +19,20 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public ScarWeapon(ScarView scarView, WeaponData weaponData, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(scarView, weaponData)
+        public ScarWeapon(ScarView scarView, PlayerWeaponData playerWeaponData,
+            WeaponMechanicsService weaponMechanicsService,
+            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(scarView, playerWeaponData)
         {
             ShootComponent =
-                new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet, WeaponType, weaponData._rarityType, scarView.ShootingPoint);
+                new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet,
+                    playerWeaponData, scarView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, WeaponType, weaponData._rarityType);
+                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService, WeaponType,
-                weaponData._rarityType, scarView.ShootingPoint);
+                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                playerWeaponData, scarView.ShootingPoint);
 
             ShootingPoint = scarView.ShootingPoint;
         }

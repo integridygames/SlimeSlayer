@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Game.DataBase;
-using Game.DataBase.Weapon;
+﻿using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
 using TegridyCore.Base;
@@ -24,25 +21,18 @@ namespace Game.Gameplay.Systems.Weapon
 
         public void Initialize()
         {
-            var rarities = Enum.GetValues(typeof(RarityType));
-
-            foreach (var weaponRecord in _weaponsDataBase.Records)
+            foreach (var playerWeaponData in _applicationData.PlayerData.WeaponsSaveData)
             {
-                foreach (RarityType rarity in rarities)
+                var weaponRecord = _weaponsDataBase.GetRecordByType(playerWeaponData._weaponType);
+                var weaponCharacteristics = weaponRecord.GetWeaponCharacteristics(playerWeaponData._rarityType);
+
+                foreach (var weaponCharacteristicData in weaponCharacteristics)
                 {
-                    var weaponSaveData = _applicationData.PlayerData.WeaponsSaveData.FirstOrDefault(x =>
-                        x._weaponType == weaponRecord._weaponType && x._rarityType == rarity);
-
-                    var level = weaponSaveData?._level ?? 0;
-
-                    foreach (var weaponCharacteristic in weaponRecord.GetWeaponCharacteristics(rarity))
-                    {
-                        var characteristicValue =
-                            _weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic, rarity, level);
-
-                        _weaponsCharacteristics.SetCharacteristic(weaponRecord._weaponType, rarity,
-                            weaponCharacteristic._weaponCharacteristicType, characteristicValue);
-                    }
+                    var characteristicValue =
+                        _weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristicData,
+                            playerWeaponData._rarityType, playerWeaponData._level);
+                    _weaponsCharacteristics.SetCharacteristic(playerWeaponData,
+                        weaponCharacteristicData._weaponCharacteristicType, characteristicValue);
                 }
             }
         }

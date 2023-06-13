@@ -1,5 +1,4 @@
-﻿using Game.DataBase;
-using Game.DataBase.FX;
+﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Utils.Layers;
@@ -15,21 +14,18 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
         private readonly GrenadeLauncherView _grenadeLauncherView;
         private readonly WeaponMechanicsService _weaponMechanicsService;
 
-        private readonly WeaponType _weaponType;
-        private readonly RarityType _rarityType;
         private readonly ProjectileType _projectileType;
+        private readonly PlayerWeaponData _playerWeaponData;
         private readonly Transform _shootingPoint;
 
         public GrenadeShootComponent(GrenadeLauncherView grenadeLauncherView,
             WeaponMechanicsService weaponMechanicsService,
-            ProjectileType projectileType, WeaponType weaponType,
-            RarityType rarityType, Transform shootingPoint)
+            ProjectileType projectileType, PlayerWeaponData playerWeaponData, Transform shootingPoint)
         {
             _grenadeLauncherView = grenadeLauncherView;
             _weaponMechanicsService = weaponMechanicsService;
-            _weaponType = weaponType;
-            _rarityType = rarityType;
             _projectileType = projectileType;
+            _playerWeaponData = playerWeaponData;
             _shootingPoint = shootingPoint;
         }
 
@@ -37,7 +33,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
         {
             _grenadeLauncherView.EmitMuzzleFlash();
 
-            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, direction, _projectileType, _weaponType, _rarityType);
+            var grenadeView = _weaponMechanicsService.ShootGrenade(_shootingPoint, direction, _projectileType, _playerWeaponData);
             grenadeView.OnRecycle += OnGrenadeRecycleHandler;
         }
 
@@ -59,7 +55,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootComponents
                     return;
                 }
 
-                var damage = _weaponMechanicsService.GetDamage(_weaponType, _rarityType);
+                var damage = _weaponMechanicsService.GetDamage(_playerWeaponData);
                 var enemyPosition = enemyView.transform.position;
 
                 var impulseDirection = enemyPosition - grenadePosition;

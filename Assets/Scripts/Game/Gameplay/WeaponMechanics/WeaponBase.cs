@@ -19,13 +19,13 @@ namespace Game.Gameplay.WeaponMechanics
 
         private float _previousShootTime;
 
-        public WeaponData Data { get; }
+        public PlayerWeaponData Data { get; }
         public WeaponViewBase WeaponViewBase { get; }
 
-        protected WeaponBase(WeaponViewBase weaponViewBase, WeaponData weaponData)
+        protected WeaponBase(WeaponViewBase weaponViewBase, PlayerWeaponData playerWeaponData)
         {
             WeaponViewBase = weaponViewBase;
-            Data = weaponData;
+            Data = playerWeaponData;
         }
 
         public void Shoot()

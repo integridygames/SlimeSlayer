@@ -1,7 +1,6 @@
 ﻿using System;
 using Game.DataBase.Essence;
 using Game.Gameplay.Factories;
-using Game.Gameplay.Models;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.GameResources;
 using Game.Gameplay.Views.GameResources;
@@ -12,15 +11,12 @@ namespace Game.Gameplay.Controllers.GameResources
 {
     public class CoinsCollectController : ControllerBase<ActiveCoinsContainer>, IInitializable, IDisposable
     {
-        private readonly ApplicationData _applicationData;
         private readonly GameResourcePoolFactory _gameResourcePoolFactory;
         private readonly GameResourceData _gameResourceData;
 
-        public CoinsCollectController(ActiveCoinsContainer controlledEntity, ApplicationData applicationData,
-            GameResourcePoolFactory gameResourcePoolFactory, GameResourceData gameResourceData) : base(
-            controlledEntity)
+        public CoinsCollectController(ActiveCoinsContainer controlledEntity,
+            GameResourcePoolFactory gameResourcePoolFactory, GameResourceData gameResourceData) : base(controlledEntity)
         {
-            _applicationData = applicationData;
             _gameResourcePoolFactory = gameResourcePoolFactory;
             _gameResourceData = gameResourceData;
         }
