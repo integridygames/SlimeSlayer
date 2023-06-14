@@ -41,7 +41,7 @@ namespace Game.Services
 
             if (File.Exists(fullPath) == false)
             {
-                File.Create(fullPath);
+                File.Create(fullPath).Dispose();
             }
 
             return fullPath;

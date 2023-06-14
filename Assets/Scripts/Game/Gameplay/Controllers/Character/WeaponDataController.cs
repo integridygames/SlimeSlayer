@@ -23,12 +23,14 @@ namespace Game.Gameplay.Controllers.Character
         {
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate += SaveLeft;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate += SaveRight;
+            ControlledEntity.WeaponsCharacteristics.OnUpdate += SavePlayerData;
         }
 
         public void Dispose()
         {
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate -= SaveLeft;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate -= SaveRight;
+            ControlledEntity.WeaponsCharacteristics.OnUpdate -= SavePlayerData;
         }
 
         private void SaveLeft(RxValue<WeaponBase> rxValue)
