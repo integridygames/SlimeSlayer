@@ -23,29 +23,40 @@ namespace Game.Gameplay.Controllers.Character
 
         public void Initialize()
         {
-            ControlledEntity.CurrentWeaponViewLeft.OnUpdate += SaveLeft;
-            ControlledEntity.CurrentWeaponViewRight.OnUpdate += SaveRight;
+            ControlledEntity.CurrentWeaponViewLeft.OnUpdate += OnLeftWeaponUpdateHandler;
+            ControlledEntity.CurrentWeaponViewRight.OnUpdate += OnRightWeaponUpdateHandler;
             _weaponsCharacteristics.OnUpdate += SavePlayerData;
         }
 
         public void Dispose()
         {
-            ControlledEntity.CurrentWeaponViewLeft.OnUpdate -= SaveLeft;
-            ControlledEntity.CurrentWeaponViewRight.OnUpdate -= SaveRight;
+            ControlledEntity.CurrentWeaponViewLeft.OnUpdate -= OnLeftWeaponUpdateHandler;
+            ControlledEntity.CurrentWeaponViewRight.OnUpdate -= OnRightWeaponUpdateHandler;
             _weaponsCharacteristics.OnUpdate -= SavePlayerData;
         }
 
-        private void SaveLeft(RxValue<WeaponBase> rxValue)
+        private void OnLeftWeaponUpdateHandler(RxValue<WeaponBase> rxValue)
         {
             _applicationData.PlayerData.CurrentLeftWeaponGuid = rxValue.NewValue.Data._guid;
+
+            if (rxValue.OldValue != null)
+            {
+                rxValue.OldValue.Data._equipped = false;
+            }
+            rxValue.NewValue.Data._equipped = true;
 
             SavePlayerData();
         }
 
-        private void SaveRight(RxValue<WeaponBase> rxValue)
+        private void OnRightWeaponUpdateHandler(RxValue<WeaponBase> rxValue)
         {
-            _applicationData.PlayerData.CurrentRightWeaponGuid =
-                _applicationData.PlayerData.CurrentRightWeaponGuid = rxValue.NewValue.Data._guid;
+            _applicationData.PlayerData.CurrentRightWeaponGuid = rxValue.NewValue.Data._guid;
+
+            if (rxValue.OldValue != null)
+            {
+                rxValue.OldValue.Data._equipped = false;
+            }
+            rxValue.NewValue.Data._equipped = true;
 
             SavePlayerData();
         }

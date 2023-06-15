@@ -11,6 +11,7 @@ namespace Game.Gameplay.Views.UI
 
         [SerializeField] private Image _weaponImage;
         [SerializeField] private Image _frame;
+        [SerializeField] private Image _equippedImage;
         [SerializeField] private Button _button;
 
         private PlayerWeaponData _playerWeaponData;
@@ -18,6 +19,11 @@ namespace Game.Gameplay.Views.UI
         public bool IsFrameEnabled
         {
             set => _frame.gameObject.SetActive(value);
+        }
+
+        public bool IsEquipped
+        {
+            set => _equippedImage.gameObject.SetActive(value);
         }
 
         public PlayerWeaponData WeaponData => _playerWeaponData;

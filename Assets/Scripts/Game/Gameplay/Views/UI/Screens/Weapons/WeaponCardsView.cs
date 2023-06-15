@@ -14,12 +14,14 @@ namespace Game.Gameplay.Views.UI.Screens.Weapons
 
         private readonly List<WeaponCardView> _spawnedWeaponCardViews = new();
 
-        public void ShowWeaponCards(List<PlayerWeaponData> playerWeaponsData, WeaponsService weaponsService)
+        public void ShowWeaponCards(List<PlayerWeaponData> playerWeaponsData, WeaponsService weaponsService, bool disableEquipped = false)
         {
             foreach (var weaponData in playerWeaponsData)
             {
                 var weaponCardView = weaponsService.SpawnWeaponCard(_weaponsCardsRoot,
                     weaponData);
+
+                weaponCardView.IsEquipped = disableEquipped && weaponData._equipped;
 
                 _spawnedWeaponCardViews.Add(weaponCardView);
 

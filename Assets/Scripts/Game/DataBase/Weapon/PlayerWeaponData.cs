@@ -9,6 +9,7 @@ namespace Game.DataBase.Weapon
         public WeaponType _weaponType;
         public RarityType _rarityType;
         public int _level;
+        public bool _equipped;
 
         public PlayerWeaponData(WeaponType weaponType, RarityType rarityType)
         {

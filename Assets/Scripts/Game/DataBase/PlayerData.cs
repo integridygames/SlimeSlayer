@@ -37,6 +37,8 @@ namespace Game.DataBase
 
             _currentLeftWeaponGuid = _weaponsSaveData[0]._guid;
             _currentRightWeaponGuid = _weaponsSaveData[1]._guid;
+            _weaponsSaveData[0]._equipped = true;
+            _weaponsSaveData[1]._equipped = true;
 
             _currentCoinsCount = 250;
         }

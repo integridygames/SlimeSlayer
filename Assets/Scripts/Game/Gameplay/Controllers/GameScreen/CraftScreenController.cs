@@ -53,7 +53,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         private void FillScreen()
         {
             var weaponsToCraft = GetWeaponsEnabledToCraft();
-            ControlledEntity.WeaponCardsView.ShowWeaponCards(weaponsToCraft, _weaponsService);
+            ControlledEntity.WeaponCardsView.ShowWeaponCards(weaponsToCraft, _weaponsService, true);
 
             ControlledEntity.IsCraftEnabled = false;
             ControlledEntity.SetCraftPrice(CraftPrice);
@@ -64,9 +64,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             var weaponsToCraft = new List<PlayerWeaponData>();
             foreach (var playerWeaponData in _applicationData.PlayerData.WeaponsSaveData)
             {
-                if (playerWeaponData._guid == _applicationData.PlayerData.CurrentLeftWeaponGuid ||
-                    playerWeaponData._guid == _applicationData.PlayerData.CurrentRightWeaponGuid ||
-                    playerWeaponData._rarityType == RarityType.Legendary)
+                if (playerWeaponData._rarityType == RarityType.Legendary)
                 {
                     continue;
                 }

@@ -39,6 +39,9 @@ namespace Game.Gameplay.Services
             var weaponCardView = Object.Instantiate(weaponCardViewPrefab, root);
             weaponCardView.SetWeapon(playerWeaponData, weaponSprite);
 
+            weaponCardView.IsEquipped = false;
+            weaponCardView.IsFrameEnabled = false;
+
             if (expand)
             {
                 var rectTransform = (RectTransform) weaponCardView.transform;
