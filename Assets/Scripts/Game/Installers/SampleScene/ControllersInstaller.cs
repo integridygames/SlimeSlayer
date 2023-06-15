@@ -20,6 +20,7 @@ namespace Game.Installers.SampleScene
             BindController<CoinsCollectController>();
             BindController<CoinsViewController>();
             BindController<CoinsChangingController>();
+            BindController<CraftScreenController>();
         }
 
         private void BindController<TController>()

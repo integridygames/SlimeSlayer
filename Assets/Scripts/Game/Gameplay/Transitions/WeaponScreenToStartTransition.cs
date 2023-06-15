@@ -1,4 +1,5 @@
 ﻿using Game.Gameplay.Views.UI.Screens;
+using Game.Gameplay.Views.UI.Screens.Weapons;
 using TegridyCore.FiniteStateMachine;
 
 namespace Game.Gameplay.Transitions

@@ -7,12 +7,20 @@ namespace Game.Gameplay.Views.UI
 {
     public class WeaponCardView : MonoBehaviour
     {
-        public event Action<PlayerWeaponData> OnWeaponCardPressed;
+        public event Action<PlayerWeaponData, WeaponCardView> OnWeaponCardPressed;
 
         [SerializeField] private Image _weaponImage;
+        [SerializeField] private Image _frame;
         [SerializeField] private Button _button;
 
         private PlayerWeaponData _playerWeaponData;
+
+        public bool IsFrameEnabled
+        {
+            set => _frame.gameObject.SetActive(value);
+        }
+
+        public PlayerWeaponData WeaponData => _playerWeaponData;
 
         public void SetWeapon(PlayerWeaponData playerWeaponData, Sprite sprite)
         {
@@ -32,7 +40,7 @@ namespace Game.Gameplay.Views.UI
 
         private void OnButtonPressedHandler()
         {
-            OnWeaponCardPressed?.Invoke(_playerWeaponData);
+            OnWeaponCardPressed?.Invoke(WeaponData, this);
         }
     }
 }

@@ -20,16 +20,16 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override Transform ShootingPoint { get; }
 
         public MiniGunWeapon(MiniGunView miniGunView, PlayerWeaponData playerWeaponData, WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData): base(miniGunView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics): base(miniGunView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(miniGunView, weaponMechanicsService, ProjectileType.LargeBullet, playerWeaponData, miniGunView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
+                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                weaponsCharacteristics, weaponMechanicsService,
                 playerWeaponData, miniGunView.ShootingPoint);
 
             ShootingPoint = miniGunView.ShootingPoint;

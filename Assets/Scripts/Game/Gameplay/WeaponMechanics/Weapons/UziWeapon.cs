@@ -21,16 +21,16 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public UziWeapon(UziView uziView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(uziView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics) : base(uziView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, playerWeaponData, uziView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
+                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                weaponsCharacteristics, weaponMechanicsService,
                 playerWeaponData, uziView.ShootingPoint);
 
             ShootingPoint = uziView.ShootingPoint;

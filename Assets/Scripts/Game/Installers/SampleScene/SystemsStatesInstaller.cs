@@ -26,8 +26,9 @@ namespace Game.Installers.SampleScene
         private PauseScreenState _pauseScreenState;
         private GunCabinetState _gunCabinetState;
         private EndScreenState _endScreenState;
-        private WeaponState _weaponState;
+        private WeaponScreenState _weaponScreenState;
         private StatsScreenState _statsScreenState;
+        private CraftScreenState _craftScreenState;
 
         public override void InstallBindings()
         {
@@ -44,8 +45,9 @@ namespace Game.Installers.SampleScene
             _pauseScreenState = Container.CreateAndBindState<PauseScreenState>();
             _gunCabinetState = Container.CreateAndBindState<GunCabinetState>();
             _endScreenState = Container.CreateAndBindState<EndScreenState>();
-            _weaponState = Container.CreateAndBindState<WeaponState>();
+            _weaponScreenState = Container.CreateAndBindState<WeaponScreenState>();
             _statsScreenState = Container.CreateAndBindState<StatsScreenState>();
+            _craftScreenState = Container.CreateAndBindState<CraftScreenState>();
         }
 
         private void CreateTransitions()
@@ -55,17 +57,14 @@ namespace Game.Installers.SampleScene
             Container.CreateAndBindTransition<GameToPauseScreenTransition>(_gameState, _pauseScreenState);
             Container.CreateAndBindTransition<PauseScreenToGameTransition>(_pauseScreenState, _gameState);
 
-            Container.CreateAndBindTransition<StartScreenToWeaponTransition>(_startScreenState, _weaponState);
-            Container.CreateAndBindTransition<WeaponScreenToStartTransition>(_weaponState, _startScreenState);
+            Container.CreateAndBindTransition<StartScreenToWeaponTransition>(_startScreenState, _weaponScreenState);
+            Container.CreateAndBindTransition<WeaponScreenToStartTransition>(_weaponScreenState, _startScreenState);
 
             Container.CreateAndBindTransition<StartScreenToStatsTransition>(_startScreenState, _statsScreenState);
             Container.CreateAndBindTransition<StatsScreenToStartTransition>(_statsScreenState, _startScreenState);
 
-            /*Container.CreateAndBindTransition<GameToGunCabinetTransition>(_gameState, _gunCabinetState);
-            Container.CreateAndBindTransition<GunCabinetToGameTransition>(_gunCabinetState, _gameState);*/
-
-            /*Container.CreateAndBindTransition<GameToEndScreenTransition>(_gameState, _endScreenState);
-            Container.CreateAndBindTransition<EndScreenToStartScreenTransition>(_endScreenState, _startScreenState);*/
+            Container.CreateAndBindTransition<StartScreenToCraftTransition>(_startScreenState, _craftScreenState);
+            Container.CreateAndBindTransition<CraftScreenToStartTransition>(_craftScreenState, _startScreenState);
         }
 
         private void CreateStateMachine()
@@ -95,9 +94,6 @@ namespace Game.Installers.SampleScene
 
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystem(weaponInitializeSystem);
-
-            var weaponCharacteristicsInitializeSystem = Container.Instantiate<WeaponCharacteristicsInitializeSystem>();
-            Container.BindInitializeSystem(weaponCharacteristicsInitializeSystem);
 
             var inverseKinematicsSystem = Container.Instantiate<InverseKinematicsSystem>();
             Container.BindUpdateSystem(inverseKinematicsSystem);

@@ -29,13 +29,13 @@ namespace Game.Gameplay.Services
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
             ActiveEnemiesContainer activeEnemiesContainer,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData)
+            WeaponsCharacteristics weaponsCharacteristics)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
             _activeEnemiesContainer = activeEnemiesContainer;
-            _weaponsCharacteristics = currentCharacterWeaponsData.WeaponsCharacteristics;
+            _weaponsCharacteristics = weaponsCharacteristics;
         }
 
         public bool TryGetWeaponTarget(Transform shootingPoint, out EnemyBase currentTarget)

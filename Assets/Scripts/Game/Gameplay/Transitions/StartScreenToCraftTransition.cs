@@ -3,24 +3,23 @@ using TegridyCore.FiniteStateMachine;
 
 namespace Game.Gameplay.Transitions
 {
-    public class StartScreenToWeaponTransition : TransitionBase
+    public class StartScreenToCraftTransition : TransitionBase
     {
         private readonly StartScreenView _startScreenView;
 
-        public StartScreenToWeaponTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView)
-            : base(stateFrom, stateTo)
+        public StartScreenToCraftTransition(StateBase stateFrom, StateBase stateTo, StartScreenView startScreenView) : base(stateFrom, stateTo)
         {
             _startScreenView = startScreenView;
         }
 
         public override void OnTransitionAdded()
         {
-            _startScreenView.WeaponButton.OnReleased += DoTransition;
+            _startScreenView.CraftButton.OnReleased += DoTransition;
         }
 
         public override void OnTransitionRemoved()
         {
-            _startScreenView.WeaponButton.OnReleased -= DoTransition;
+            _startScreenView.CraftButton.OnReleased -= DoTransition;
         }
     }
 }

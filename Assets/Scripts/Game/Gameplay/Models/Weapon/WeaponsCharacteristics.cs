@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.DataBase;
 using Game.DataBase.Weapon;
 
@@ -7,17 +8,44 @@ namespace Game.Gameplay.Models.Weapon
 {
     public class WeaponsCharacteristics
     {
+        private readonly WeaponsDataBase _weaponsDataBase;
+
         public event Action OnUpdate;
 
         private readonly Dictionary<string, Dictionary<WeaponCharacteristicType, float>>
             _weaponsCharacteristics = new();
+
+        public WeaponsCharacteristics(WeaponsDataBase weaponsDataBase)
+        {
+            _weaponsDataBase = weaponsDataBase;
+        }
 
         public float GetCharacteristic(PlayerWeaponData playerWeaponData,
             WeaponCharacteristicType weaponCharacteristicType)
         {
             var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
 
+            if (characteristicValues.ContainsKey(weaponCharacteristicType) == false)
+            {
+                FindAndCalculateCharacteristic(playerWeaponData, weaponCharacteristicType);
+            }
+
             return characteristicValues[weaponCharacteristicType];
+        }
+
+        private void FindAndCalculateCharacteristic(PlayerWeaponData playerWeaponData,
+            WeaponCharacteristicType weaponCharacteristicType)
+        {
+            var weaponRecord = _weaponsDataBase.GetRecordByType(playerWeaponData._weaponType);
+            var weaponCharacteristics = weaponRecord.GetWeaponCharacteristics(playerWeaponData._rarityType);
+            var weaponCharacteristicData =
+                weaponCharacteristics.First(x => x._weaponCharacteristicType == weaponCharacteristicType);
+
+            var characteristicValue = CalculateCharacteristicValue(weaponCharacteristicData,
+                playerWeaponData._rarityType, playerWeaponData._level);
+
+            SetCharacteristic(playerWeaponData,
+                weaponCharacteristicData._weaponCharacteristicType, characteristicValue);
         }
 
         public void SetCharacteristic(PlayerWeaponData playerWeaponData,

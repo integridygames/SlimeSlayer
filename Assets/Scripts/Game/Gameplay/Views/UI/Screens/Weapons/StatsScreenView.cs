@@ -2,7 +2,7 @@
 using TegridyUtils.UI.Elements;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.UI.Screens
+namespace Game.Gameplay.Views.UI.Screens.Weapons
 {
     public class StatsScreenView : ViewBase
     {

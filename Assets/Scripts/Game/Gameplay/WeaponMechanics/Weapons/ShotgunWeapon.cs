@@ -22,16 +22,16 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public ShotgunWeapon(ShotgunView shotgunView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(shotgunView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics) : base(shotgunView, playerWeaponData)
         {
             ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
                 playerWeaponData, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
-                new CommonReloadComponent(currentCharacterWeaponsData.WeaponsCharacteristics, playerWeaponData);
+                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
-                currentCharacterWeaponsData.WeaponsCharacteristics, weaponMechanicsService,
+                weaponsCharacteristics, weaponMechanicsService,
                 playerWeaponData, shotgunView.ShootingPoint);
 
             ShootingPoint = shotgunView.ShootingPoint;

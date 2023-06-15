@@ -11,11 +11,13 @@ namespace Game.Gameplay.Controllers.Character
 {
     public class WeaponDataController : ControllerBase<CurrentCharacterWeaponsData>, IInitializable, IDisposable
     {
+        private readonly WeaponsCharacteristics _weaponsCharacteristics;
         private readonly ApplicationData _applicationData;
 
-        public WeaponDataController(CurrentCharacterWeaponsData controlledEntity, ApplicationData applicationData) :
+        public WeaponDataController(CurrentCharacterWeaponsData controlledEntity, WeaponsCharacteristics weaponsCharacteristics, ApplicationData applicationData) :
             base(controlledEntity)
         {
+            _weaponsCharacteristics = weaponsCharacteristics;
             _applicationData = applicationData;
         }
 
@@ -23,28 +25,27 @@ namespace Game.Gameplay.Controllers.Character
         {
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate += SaveLeft;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate += SaveRight;
-            ControlledEntity.WeaponsCharacteristics.OnUpdate += SavePlayerData;
+            _weaponsCharacteristics.OnUpdate += SavePlayerData;
         }
 
         public void Dispose()
         {
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate -= SaveLeft;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate -= SaveRight;
-            ControlledEntity.WeaponsCharacteristics.OnUpdate -= SavePlayerData;
+            _weaponsCharacteristics.OnUpdate -= SavePlayerData;
         }
 
         private void SaveLeft(RxValue<WeaponBase> rxValue)
         {
-            _applicationData.PlayerData.CurrentLeftWeaponIndex =
-                _applicationData.PlayerData.WeaponsSaveData.IndexOf(rxValue.NewValue.Data);
+            _applicationData.PlayerData.CurrentLeftWeaponGuid = rxValue.NewValue.Data._guid;
 
             SavePlayerData();
         }
 
         private void SaveRight(RxValue<WeaponBase> rxValue)
         {
-            _applicationData.PlayerData.CurrentRightWeaponIndex =
-                _applicationData.PlayerData.WeaponsSaveData.IndexOf(rxValue.NewValue.Data);
+            _applicationData.PlayerData.CurrentRightWeaponGuid =
+                _applicationData.PlayerData.CurrentRightWeaponGuid = rxValue.NewValue.Data._guid;
 
             SavePlayerData();
         }

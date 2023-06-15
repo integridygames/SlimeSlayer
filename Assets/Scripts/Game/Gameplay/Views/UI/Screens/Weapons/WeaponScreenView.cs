@@ -2,7 +2,7 @@
 using TegridyUtils.UI.Elements;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.UI.Screens
+namespace Game.Gameplay.Views.UI.Screens.Weapons
 {
     public class WeaponScreenView : ViewBase
     {
@@ -12,8 +12,8 @@ namespace Game.Gameplay.Views.UI.Screens
         [SerializeField] private UiButton _leftWeaponButton;
         [SerializeField] private UiButton _rightWeaponButton;
         [SerializeField] private GameObject _weaponsCardsContainer;
-        [SerializeField] private Transform _weaponsCardsRoot;
         [SerializeField] private WeaponInfoView _weaponInfoView;
+        [SerializeField] private WeaponCardsView _weaponWeaponCardsView;
 
         public UiButton CloseButton => _closeButton;
 
@@ -27,8 +27,8 @@ namespace Game.Gameplay.Views.UI.Screens
 
         public GameObject WeaponsCardsContainer => _weaponsCardsContainer;
 
-        public Transform WeaponsCardsRoot => _weaponsCardsRoot;
-
         public WeaponInfoView WeaponInfoView => _weaponInfoView;
+
+        public WeaponCardsView WeaponCardsView => _weaponWeaponCardsView;
     }
 }

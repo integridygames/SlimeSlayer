@@ -10,8 +10,8 @@ namespace Game.DataBase
     {
         [SerializeField] private int _currentLevel;
         [SerializeField] private List<PlayerWeaponData> _weaponsSaveData;
-        [SerializeField] private int _currentLeftWeaponIndex;
-        [SerializeField] private int _currentRightWeaponIndex;
+        [SerializeField] private string _currentLeftWeaponGuid;
+        [SerializeField] private string _currentRightWeaponGuid;
         [SerializeField] private int _currentCoinsCount;
 
         public PlayerData()
@@ -20,18 +20,25 @@ namespace Game.DataBase
             {
                 new(WeaponType.Glock, RarityType.Common),
                 new(WeaponType.Glock, RarityType.Common),
+                new(WeaponType.Glock, RarityType.Common),
+                new(WeaponType.Glock, RarityType.Common),
+                new(WeaponType.Shotgun, RarityType.Epic),
+                new(WeaponType.Shotgun, RarityType.Epic),
+                new(WeaponType.Shotgun, RarityType.Epic),
+                new(WeaponType.Shotgun, RarityType.Epic),
                 new(WeaponType.Scar, RarityType.Epic),
                 new(WeaponType.Uzi, RarityType.Common),
                 new(WeaponType.Shotgun, RarityType.Uncommon),
                 new(WeaponType.GrenadeLauncher, RarityType.Common),
                 new(WeaponType.MiniGun, RarityType.Common),
                 new(WeaponType.SniperRiffle, RarityType.Common),
+                new(WeaponType.Scar, RarityType.Legendary),
             };
 
-            _currentLeftWeaponIndex = 2;
-            _currentRightWeaponIndex = 4;
+            _currentLeftWeaponGuid = _weaponsSaveData[0]._guid;
+            _currentRightWeaponGuid = _weaponsSaveData[1]._guid;
 
-            _currentCoinsCount = 100;
+            _currentCoinsCount = 250;
         }
 
         public int CurrentLevel
@@ -41,16 +48,16 @@ namespace Game.DataBase
         }
 
 
-        public int CurrentLeftWeaponIndex
+        public string CurrentLeftWeaponGuid
         {
-            get => _currentLeftWeaponIndex;
-            set => _currentLeftWeaponIndex = value;
+            get => _currentLeftWeaponGuid;
+            set => _currentLeftWeaponGuid = value;
         }
 
-        public int CurrentRightWeaponIndex
+        public string CurrentRightWeaponGuid
         {
-            get => _currentRightWeaponIndex;
-            set => _currentRightWeaponIndex = value;
+            get => _currentRightWeaponGuid;
+            set => _currentRightWeaponGuid = value;
         }
 
         public List<PlayerWeaponData> WeaponsSaveData => _weaponsSaveData;

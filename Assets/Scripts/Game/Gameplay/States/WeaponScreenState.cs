@@ -1,13 +1,13 @@
-﻿using Game.Gameplay.Views.UI.Screens;
+﻿using Game.Gameplay.Views.UI.Screens.Weapons;
 using TegridyCore.FiniteStateMachine;
 
 namespace Game.Gameplay.States
 {
-    public class WeaponState : StateBase
+    public class WeaponScreenState : StateBase
     {
         private readonly WeaponScreenView _weaponScreenView;
 
-        public WeaponState(WeaponScreenView weaponScreenView)
+        public WeaponScreenState(WeaponScreenView weaponScreenView)
         {
             _weaponScreenView = weaponScreenView;
         }

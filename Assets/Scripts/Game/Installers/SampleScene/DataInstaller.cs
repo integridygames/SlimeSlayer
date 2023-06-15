@@ -29,6 +29,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<SpawnZonesDataContainer>().AsSingle();
             Container.Bind<CameraStats>().AsSingle();
             Container.Bind<ActiveCoinsContainer>().AsSingle();
+            Container.Bind<WeaponsCharacteristics>().AsSingle();
         }
     }
 }
