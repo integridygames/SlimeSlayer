@@ -1162,6 +1162,10 @@ PrefabInstance:
       propertyPath: _weaponStatsRoot
       value: 
       objectReference: {fileID: 9035756730712877877}
+    - target: {fileID: 7096751506105239800, guid: b461c4583eab12a4c992c42096fabb45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8854952821565043913, guid: b461c4583eab12a4c992c42096fabb45, type: 3}
       propertyPath: m_Name
       value: WeaponInfoView

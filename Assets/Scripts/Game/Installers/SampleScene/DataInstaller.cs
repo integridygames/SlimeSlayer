@@ -30,6 +30,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CameraStats>().AsSingle();
             Container.Bind<ActiveCoinsContainer>().AsSingle();
             Container.Bind<WeaponsCharacteristics>().AsSingle();
+            Container.Bind<CharacterCharacteristics>().AsSingle();
         }
     }
 }

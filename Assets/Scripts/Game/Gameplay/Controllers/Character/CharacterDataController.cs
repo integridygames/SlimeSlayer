@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Gameplay.Models;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.WeaponMechanics;
 using Game.Services;
@@ -9,15 +10,17 @@ using Zenject;
 
 namespace Game.Gameplay.Controllers.Character
 {
-    public class WeaponDataController : ControllerBase<CurrentCharacterWeaponsData>, IInitializable, IDisposable
+    public class CharacterDataController : ControllerBase<CurrentCharacterWeaponsData>, IInitializable, IDisposable
     {
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
+        private readonly CharacterCharacteristics _characterCharacteristics;
         private readonly ApplicationData _applicationData;
 
-        public WeaponDataController(CurrentCharacterWeaponsData controlledEntity, WeaponsCharacteristics weaponsCharacteristics, ApplicationData applicationData) :
+        public CharacterDataController(CurrentCharacterWeaponsData controlledEntity, WeaponsCharacteristics weaponsCharacteristics, CharacterCharacteristics characterCharacteristics, ApplicationData applicationData) :
             base(controlledEntity)
         {
             _weaponsCharacteristics = weaponsCharacteristics;
+            _characterCharacteristics = characterCharacteristics;
             _applicationData = applicationData;
         }
 
@@ -26,6 +29,7 @@ namespace Game.Gameplay.Controllers.Character
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate += OnLeftWeaponUpdateHandler;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate += OnRightWeaponUpdateHandler;
             _weaponsCharacteristics.OnUpdate += SavePlayerData;
+            _characterCharacteristics.OnUpdate += SavePlayerData;
         }
 
         public void Dispose()
@@ -33,6 +37,7 @@ namespace Game.Gameplay.Controllers.Character
             ControlledEntity.CurrentWeaponViewLeft.OnUpdate -= OnLeftWeaponUpdateHandler;
             ControlledEntity.CurrentWeaponViewRight.OnUpdate -= OnRightWeaponUpdateHandler;
             _weaponsCharacteristics.OnUpdate -= SavePlayerData;
+            _characterCharacteristics.OnUpdate -= SavePlayerData;
         }
 
         private void OnLeftWeaponUpdateHandler(RxValue<WeaponBase> rxValue)

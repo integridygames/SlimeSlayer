@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.DataBase.Character;
 using Game.DataBase.Weapon;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Game.DataBase
     public class PlayerData
     {
         [SerializeField] private int _currentLevel;
+        [SerializeField] private List<PlayerCharacteristicData> _playerCharacteristicsData;
         [SerializeField] private List<PlayerWeaponData> _weaponsSaveData;
         [SerializeField] private string _currentLeftWeaponGuid;
         [SerializeField] private string _currentRightWeaponGuid;
@@ -41,6 +43,17 @@ namespace Game.DataBase
             _weaponsSaveData[1]._equipped = true;
 
             _currentCoinsCount = 250;
+
+            _playerCharacteristicsData = new List<PlayerCharacteristicData>
+            {
+                new(CharacterCharacteristicType.Regeneration, false),
+                new(CharacterCharacteristicType.Shield, false),
+                new(CharacterCharacteristicType.Speed, false),
+                new(CharacterCharacteristicType.BaseDamage, false),
+                new(CharacterCharacteristicType.BaseReloading, false),
+                new(CharacterCharacteristicType.HealthSteal, false),
+                new(CharacterCharacteristicType.MaxHealth, false),
+            };
         }
 
         public int CurrentLevel
@@ -69,5 +82,7 @@ namespace Game.DataBase
             get => _currentCoinsCount;
             set => _currentCoinsCount = value;
         }
+
+        public IReadOnlyList<PlayerCharacteristicData> PlayerCharacteristicsData => _playerCharacteristicsData;
     }
 }

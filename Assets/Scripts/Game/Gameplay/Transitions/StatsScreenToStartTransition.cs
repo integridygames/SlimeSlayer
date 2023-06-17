@@ -1,5 +1,4 @@
-﻿using Game.Gameplay.Views.UI.Screens;
-using Game.Gameplay.Views.UI.Screens.Weapons;
+﻿using Game.Gameplay.Views.UI.Screens.Character;
 using TegridyCore.FiniteStateMachine;
 
 namespace Game.Gameplay.Transitions
@@ -17,12 +16,12 @@ namespace Game.Gameplay.Transitions
 
         public override void OnTransitionAdded()
         {
-            _statsScreenView.CloseButton.OnReleased += DoTransition;
+            _statsScreenView.OnCloseButtonPressed += DoTransition;
         }
 
         public override void OnTransitionRemoved()
         {
-            _statsScreenView.CloseButton.OnReleased -= DoTransition;
+            _statsScreenView.OnCloseButtonPressed -= DoTransition;
         }
     }
 }

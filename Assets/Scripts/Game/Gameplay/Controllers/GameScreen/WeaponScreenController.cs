@@ -141,17 +141,8 @@ namespace Game.Gameplay.Controllers.GameScreen
             _gameResourceData.AddResource(GameResourceType.Coin, -price);
 
             playerWeaponData._level++;
-            var weaponRecord = _weaponsDataBase.GetRecordByType(playerWeaponData._weaponType);
 
-            foreach (var weaponCharacteristic in weaponRecord.GetWeaponCharacteristics(playerWeaponData._rarityType))
-            {
-                var currentWeaponCharacteristic =
-                    _weaponsCharacteristics.CalculateCharacteristicValue(
-                        weaponCharacteristic, playerWeaponData._rarityType, playerWeaponData._level);
-
-                _weaponsCharacteristics.SetCharacteristic(playerWeaponData,
-                    weaponCharacteristic._weaponCharacteristicType, currentWeaponCharacteristic);
-            }
+            _weaponsCharacteristics.UpdateCharacteristics(playerWeaponData);
 
             SetDataToWeaponInfoView(playerWeaponData);
         }

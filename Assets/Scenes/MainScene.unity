@@ -311,6 +311,7 @@ MonoBehaviour:
   _enemyDataBase: {fileID: 11400000, guid: 2f7237595a76ecf4a99b2a55d287ec94, type: 2}
   _weaponCardsDataBase: {fileID: 11400000, guid: 4ad66f4d0875b1e4ca75ff7ff88bc6f2, type: 2}
   _resourceShortFormsDataBase: {fileID: 11400000, guid: fabdd4e21d9a61b4bab494a6fc320391, type: 2}
+  _characterCharacteristicsDataBase: {fileID: 11400000, guid: d7b076800a9808749ae56f5959525f34, type: 2}
 --- !u!114 &88344988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2157,6 +2158,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2082149264}
     m_Modifications:
+    - target: {fileID: 902081747223034792, guid: 7eb4f89facc6f2242b7e47510c7ea842, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1045720921674599610, guid: 7eb4f89facc6f2242b7e47510c7ea842, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

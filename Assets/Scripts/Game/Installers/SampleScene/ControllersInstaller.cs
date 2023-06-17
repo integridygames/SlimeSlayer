@@ -16,11 +16,12 @@ namespace Game.Installers.SampleScene
             BindController<EnemiesController>();
             BindController<WeaponReloadController>();
             BindController<WeaponScreenController>();
-            BindController<WeaponDataController>();
+            BindController<CharacterDataController>();
             BindController<CoinsCollectController>();
             BindController<CoinsViewController>();
             BindController<CoinsChangingController>();
             BindController<CraftScreenController>();
+            BindController<CharacterStatsScreenController>();
         }
 
         private void BindController<TController>()

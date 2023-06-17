@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.DataBase;
 using Game.DataBase.Weapon;
 
 namespace Game.Gameplay.Models.Weapon
 {
     public class WeaponsCharacteristics
     {
-        private readonly WeaponsDataBase _weaponsDataBase;
-
         public event Action OnUpdate;
 
+        private readonly WeaponsDataBase _weaponsDataBase;
         private readonly Dictionary<string, Dictionary<WeaponCharacteristicType, float>>
             _weaponsCharacteristics = new();
 
@@ -41,22 +39,10 @@ namespace Game.Gameplay.Models.Weapon
             var weaponCharacteristicData =
                 weaponCharacteristics.First(x => x._weaponCharacteristicType == weaponCharacteristicType);
 
-            var characteristicValue = CalculateCharacteristicValue(weaponCharacteristicData,
-                playerWeaponData._rarityType, playerWeaponData._level);
+            var characteristicValue = CalculateCharacteristicValue(weaponCharacteristicData, playerWeaponData._level);
 
             SetCharacteristic(playerWeaponData,
                 weaponCharacteristicData._weaponCharacteristicType, characteristicValue);
-        }
-
-        public void SetCharacteristic(PlayerWeaponData playerWeaponData,
-            WeaponCharacteristicType weaponCharacteristicType,
-            float value)
-        {
-            var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
-
-            characteristicValues[weaponCharacteristicType] = value;
-
-            OnUpdate?.Invoke();
         }
 
         private Dictionary<WeaponCharacteristicType, float> GetOrCreateCharacteristicValues(
@@ -71,14 +57,38 @@ namespace Game.Gameplay.Models.Weapon
             return characteristicValues;
         }
 
-        public float CalculateCharacteristicValue(WeaponCharacteristicData weaponCharacteristicData,
-            RarityType rarityType, int level)
+        public void UpdateCharacteristics(PlayerWeaponData playerWeaponData)
+        {
+            var weaponRecord = _weaponsDataBase.GetRecordByType(playerWeaponData._weaponType);
+
+            foreach (var weaponCharacteristicData in weaponRecord.GetWeaponCharacteristics(playerWeaponData._rarityType))
+            {
+                var currentWeaponCharacteristic =
+                    CalculateCharacteristicValue(weaponCharacteristicData, playerWeaponData._level);
+
+                SetCharacteristic(playerWeaponData,
+                    weaponCharacteristicData._weaponCharacteristicType, currentWeaponCharacteristic);
+            }
+        }
+
+        public float CalculateCharacteristicValue(WeaponCharacteristicData weaponCharacteristicData, int level)
         {
             var weaponCharacteristicValue = weaponCharacteristicData._startValue;
 
             weaponCharacteristicValue += GetCharacteristicAddition(weaponCharacteristicData, level);
 
             return weaponCharacteristicValue;
+        }
+
+        private void SetCharacteristic(PlayerWeaponData playerWeaponData,
+            WeaponCharacteristicType weaponCharacteristicType,
+            float value)
+        {
+            var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
+
+            characteristicValues[weaponCharacteristicType] = value;
+
+            OnUpdate?.Invoke();
         }
 
         public float GetCharacteristicAddition(WeaponCharacteristicData weaponCharacteristicData, int level)

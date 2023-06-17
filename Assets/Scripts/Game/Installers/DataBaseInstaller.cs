@@ -1,4 +1,5 @@
 using Game.DataBase;
+using Game.DataBase.Character;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
 using Game.DataBase.FX;
@@ -19,6 +20,7 @@ namespace Game.Installers
         [SerializeField] private EnemyDataBase _enemyDataBase;
         [SerializeField] private WeaponCardsDataBase _weaponCardsDataBase;
         [SerializeField] private ResourceShortFormsDataBase _resourceShortFormsDataBase;
+        [SerializeField] private CharacterCharacteristicsDataBase _characterCharacteristicsDataBase;
 
         public override void InstallBindings()
         {
@@ -30,6 +32,7 @@ namespace Game.Installers
             Container.BindInstance(_enemyDataBase).AsSingle();
             Container.BindInstance(_weaponCardsDataBase).AsSingle();
             Container.BindInstance(_resourceShortFormsDataBase).AsSingle();
+            Container.BindInstance(_characterCharacteristicsDataBase).AsSingle();
         }
     }
 }

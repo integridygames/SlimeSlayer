@@ -81,8 +81,7 @@ namespace Game.Gameplay.Views.UI
                     continue;
                 }
 
-                var currentValue = weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic,
-                    playerWeaponData._rarityType, playerWeaponData._level);
+                var currentValue = weaponsCharacteristics.CalculateCharacteristicValue(weaponCharacteristic, playerWeaponData._level);
 
                 var nextAddition = weaponsCharacteristics.GetCharacteristicAddition(weaponCharacteristic, playerWeaponData._level + 1);
 
