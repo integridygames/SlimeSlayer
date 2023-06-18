@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.DataBase.Character;
 
 namespace Game.Gameplay.Models.Character
@@ -9,13 +10,19 @@ namespace Game.Gameplay.Models.Character
         public event Action OnUpdate;
 
         private readonly CharacterCharacteristicsDataBase _characteristicsDataBase;
+        private readonly ApplicationData _applicationData;
 
         private readonly Dictionary<CharacterCharacteristicType, (float, float)>
             _characterCharacteristics = new();
 
-        public CharacterCharacteristics(CharacterCharacteristicsDataBase characteristicsDataBase)
+        private readonly Dictionary<CharacterCharacteristicType, PlayerCharacteristicData> _characteristicDataCache =
+            new();
+
+        public CharacterCharacteristics(CharacterCharacteristicsDataBase characteristicsDataBase,
+            ApplicationData applicationData)
         {
             _characteristicsDataBase = characteristicsDataBase;
+            _applicationData = applicationData;
         }
 
         public int GetPrice(PlayerCharacteristicData playerCharacteristicData)
@@ -26,6 +33,19 @@ namespace Game.Gameplay.Models.Character
             }
 
             return (int) _characterCharacteristics[playerCharacteristicData._characterCharacteristicType].Item2;
+        }
+
+        public float GetCharacteristic(CharacterCharacteristicType characteristicType)
+        {
+            if (_characteristicDataCache.TryGetValue(characteristicType, out var playerCharacteristicData) == false)
+            {
+                playerCharacteristicData = _applicationData.PlayerData.PlayerCharacteristicsData.First(x =>
+                    x._characterCharacteristicType == characteristicType);
+
+                _characteristicDataCache[characteristicType] = playerCharacteristicData;
+            }
+
+            return GetCharacteristic(playerCharacteristicData);
         }
 
         public float GetCharacteristic(PlayerCharacteristicData playerCharacteristicData)
@@ -46,10 +66,12 @@ namespace Game.Gameplay.Models.Character
             var characteristicValueAndPrice =
                 CalculateCharacteristicValueAndPrice(characteristicRecord, playerCharacteristicData._level);
 
-            SetCharacteristic(playerCharacteristicData._characterCharacteristicType, characteristicValueAndPrice.Item1, characteristicValueAndPrice.Item2);
+            SetCharacteristic(playerCharacteristicData._characterCharacteristicType, characteristicValueAndPrice.Item1,
+                characteristicValueAndPrice.Item2);
         }
 
-        private (float, float) CalculateCharacteristicValueAndPrice(CharacterCharacteristicRecord characteristicRecord, int level)
+        private (float, float) CalculateCharacteristicValueAndPrice(CharacterCharacteristicRecord characteristicRecord,
+            int level)
         {
             var characteristicValue = characteristicRecord._startValue;
 
@@ -63,7 +85,6 @@ namespace Game.Gameplay.Models.Character
 
             return (characteristicValue, characteristicPrice);
         }
-
 
 
         private void SetCharacteristic(CharacterCharacteristicType characteristicType, float value, float price)

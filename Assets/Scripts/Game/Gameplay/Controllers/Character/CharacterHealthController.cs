@@ -11,14 +11,11 @@ namespace Game.Gameplay.Controllers.Character
     public class CharacterHealthController : ControllerBase<CharacterHealthView>, IInitializable, IDisposable
     {
         private readonly CharacterHealthData _characterHealthData;
-        private readonly CharacterStats _characterStats;
         private readonly CharacterRespawnService _characterRespawnService;
 
-        public CharacterHealthController(CharacterHealthView controlledEntity, CharacterHealthData characterHealthData,
-            CharacterStats characterStats, CharacterRespawnService characterRespawnService) : base(controlledEntity)
+        public CharacterHealthController(CharacterHealthView controlledEntity, CharacterHealthData characterHealthData, CharacterRespawnService characterRespawnService) : base(controlledEntity)
         {
             _characterHealthData = characterHealthData;
-            _characterStats = characterStats;
             _characterRespawnService = characterRespawnService;
         }
 
@@ -34,7 +31,7 @@ namespace Game.Gameplay.Controllers.Character
 
         private void CurrentHealthOnUpdateHandler(RxValue<int> rxValue)
         {
-            ControlledEntity.SetHealthPercentage((float) rxValue.NewValue / _characterStats.MaxHealth);
+            ControlledEntity.SetHealthPercentage((float) rxValue.NewValue / _characterHealthData.MaxHealth);
 
             if (rxValue.NewValue <= 0)
             {
