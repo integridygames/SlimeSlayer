@@ -11,14 +11,14 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly CharacterView _characterView;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
         public ClosestEnemiesFinderSystem(ActiveEnemiesContainer activeEnemiesContainer,
-            CharacterView characterView, CharacterStats characterStats)
+            CharacterView characterView, CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _activeEnemiesContainer = activeEnemiesContainer;
             _characterView = characterView;
-            _characterStats = characterStats;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public void Update()
@@ -32,7 +32,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private bool EnemyIsInRangeOfCharacter(EnemyBase enemy)
         {
             var distance = Vector3.Distance(_characterView.transform.position, enemy.Position);
-            return distance <= _characterStats.AttackRange;
+            return distance <= _characterCharacteristicsRepository.AttackRange;
         }
     }
 }

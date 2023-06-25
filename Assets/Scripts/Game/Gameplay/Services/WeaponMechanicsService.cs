@@ -2,6 +2,7 @@
 using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Bullets;
@@ -23,19 +24,19 @@ namespace Game.Gameplay.Services
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
         private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly WeaponsCharacteristics _weaponsCharacteristics;
+        private readonly WeaponsCharacteristicsRepository _weaponsCharacteristicsRepository;
 
         public WeaponMechanicsService(BulletsPoolFactory bulletsPoolFactory,
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
             ActiveEnemiesContainer activeEnemiesContainer,
-            WeaponsCharacteristics weaponsCharacteristics)
+            WeaponsCharacteristicsRepository weaponsCharacteristicsRepository)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
             _activeEnemiesContainer = activeEnemiesContainer;
-            _weaponsCharacteristics = weaponsCharacteristics;
+            _weaponsCharacteristicsRepository = weaponsCharacteristicsRepository;
         }
 
         public bool TryGetWeaponTarget(Transform shootingPoint, out EnemyBase currentTarget)
@@ -188,7 +189,7 @@ namespace Game.Gameplay.Services
 
         public float GetDamage(PlayerWeaponData playerWeaponData)
         {
-            return _weaponsCharacteristics.GetCharacteristic(playerWeaponData, WeaponCharacteristicType.Attack);
+            return _weaponsCharacteristicsRepository.GetDamage(playerWeaponData);
         }
     }
 }

@@ -3,9 +3,9 @@
     public enum WeaponCharacteristicType
     {
         /// <summary>
-        /// Damage
+        /// Damage addition percentage
         /// </summary>
-        Attack = 0,
+        DamageModificator = 0,
         /// <summary>
         /// Bullets per second
         /// </summary>
@@ -21,6 +21,6 @@
         /// <summary>
         /// Upgrade price in coins
         /// </summary>
-        UpgradePrice = 4,
+        UpgradePrice = 4
     }
 }

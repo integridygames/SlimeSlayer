@@ -9,14 +9,14 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
     {
         private readonly CharacterMovementData _characterMovementData;
         private readonly CharacterView _characterView;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterConstantStats _characterConstantStats;
 
         public CharacterRotationSystem(CharacterMovementData characterMovementData, CharacterView characterView,
-            CharacterStats characterStats)
+            CharacterConstantStats characterConstantStats)
         {
             _characterMovementData = characterMovementData;
             _characterView = characterView;
-            _characterStats = characterStats;
+            _characterConstantStats = characterConstantStats;
         }
 
         public void FixedUpdate()
@@ -29,7 +29,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
                 var targetRotation = Quaternion.LookRotation(direction);
 
                 _characterView.Rigidbody.rotation = Quaternion.RotateTowards(_characterView.transform.rotation,
-                    targetRotation, Time.fixedDeltaTime * _characterStats.RotationSpeed);
+                    targetRotation, Time.fixedDeltaTime * _characterConstantStats.RotationSpeed);
             }
         }
     }

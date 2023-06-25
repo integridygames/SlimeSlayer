@@ -46,13 +46,14 @@ namespace Game.DataBase
 
             _playerCharacteristicsData = new List<PlayerCharacteristicData>
             {
-                new(CharacterCharacteristicType.Regeneration, false),
-                new(CharacterCharacteristicType.Shield, false),
-                new(CharacterCharacteristicType.Speed, false),
-                new(CharacterCharacteristicType.BaseDamage, false),
-                new(CharacterCharacteristicType.BaseReloading, false),
-                new(CharacterCharacteristicType.HealthSteal, false),
                 new(CharacterCharacteristicType.MaxHealth, false),
+                new(CharacterCharacteristicType.BaseDamage, false),
+                new(CharacterCharacteristicType.Regeneration, false),
+                new(CharacterCharacteristicType.Speed, false),
+                new(CharacterCharacteristicType.HealthSteal, false),
+                new(CharacterCharacteristicType.AttackRange, false),
+                new(CharacterCharacteristicType.Shield, true),
+                new(CharacterCharacteristicType.ShieldRepairing, true),
             };
         }
 

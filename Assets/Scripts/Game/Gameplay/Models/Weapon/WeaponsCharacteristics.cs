@@ -10,6 +10,7 @@ namespace Game.Gameplay.Models.Weapon
         public event Action OnUpdate;
 
         private readonly WeaponsDataBase _weaponsDataBase;
+
         private readonly Dictionary<string, Dictionary<WeaponCharacteristicType, float>>
             _weaponsCharacteristics = new();
 

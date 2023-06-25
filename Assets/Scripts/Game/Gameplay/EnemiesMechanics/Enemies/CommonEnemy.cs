@@ -17,15 +17,15 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyAttackComponent EnemyAttackComponent { get; }
 
         public CommonEnemy(CommonEnemyView commonEnemyView, CharacterView characterView,
-            RecyclableParticlesPoolFactory recyclableParticlesPoolFactory, CharacterHealthData characterHealthData,
+            RecyclableParticlesPoolFactory recyclableParticlesPoolFactory, CharacterCharacteristicsRepository characterCharacteristicsRepository,
             EnemyDestructionStates enemyDestructionStates) : base(
-            commonEnemyView, enemyDestructionStates)
+            commonEnemyView, enemyDestructionStates, characterCharacteristicsRepository)
         {
             EnemyMovementComponent = new SmoothForwardMovementComponent(commonEnemyView.Rigidbody);
             EnemyDamageComponent = new ImpulseFromPositionDamageComponent(commonEnemyView.Rigidbody,
                 recyclableParticlesPoolFactory, RecyclableParticleType.CommonQubeDamage);
             EnemyAttackComponent = new ImpulseAttackComponent(commonEnemyView, commonEnemyView.Rigidbody, characterView,
-                characterHealthData);
+                characterCharacteristicsRepository);
         }
     }
 }

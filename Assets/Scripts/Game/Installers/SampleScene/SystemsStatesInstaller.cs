@@ -153,6 +153,9 @@ namespace Game.Installers.SampleScene
             var closestEssenceMoveToCharacterSystem = Container.Instantiate<ClosestResourceMoveToCharacterSystem>();
             Container.BindUpdateSystemWithState(closestEssenceMoveToCharacterSystem, _gameState);
 
+            var characterRegenerationSystem = Container.Instantiate<CharacterRegenerationSystem>();
+            Container.BindUpdateSystemWithState(characterRegenerationSystem, _gameState);
+
             CreateTargetSystems();
         }
 

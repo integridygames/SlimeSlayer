@@ -10,28 +10,28 @@ namespace Game.Gameplay.Controllers.Character
 {
     public class CharacterHealthController : ControllerBase<CharacterHealthView>, IInitializable, IDisposable
     {
-        private readonly CharacterHealthData _characterHealthData;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
         private readonly CharacterRespawnService _characterRespawnService;
 
-        public CharacterHealthController(CharacterHealthView controlledEntity, CharacterHealthData characterHealthData, CharacterRespawnService characterRespawnService) : base(controlledEntity)
+        public CharacterHealthController(CharacterHealthView controlledEntity, CharacterCharacteristicsRepository characterCharacteristicsRepository, CharacterRespawnService characterRespawnService) : base(controlledEntity)
         {
-            _characterHealthData = characterHealthData;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
             _characterRespawnService = characterRespawnService;
         }
 
         public void Initialize()
         {
-            _characterHealthData.CurrentHealth.OnUpdate += CurrentHealthOnUpdateHandler;
+            _characterCharacteristicsRepository.CurrentHealth.OnUpdate += CurrentHealthOnUpdateHandler;
         }
 
         public void Dispose()
         {
-            _characterHealthData.CurrentHealth.OnUpdate -= CurrentHealthOnUpdateHandler;
+            _characterCharacteristicsRepository.CurrentHealth.OnUpdate -= CurrentHealthOnUpdateHandler;
         }
 
-        private void CurrentHealthOnUpdateHandler(RxValue<int> rxValue)
+        private void CurrentHealthOnUpdateHandler(RxValue<float> rxValue)
         {
-            ControlledEntity.SetHealthPercentage((float) rxValue.NewValue / _characterHealthData.MaxHealth);
+            ControlledEntity.SetHealthPercentage(rxValue.NewValue / _characterCharacteristicsRepository.MaxHealth);
 
             if (rxValue.NewValue <= 0)
             {

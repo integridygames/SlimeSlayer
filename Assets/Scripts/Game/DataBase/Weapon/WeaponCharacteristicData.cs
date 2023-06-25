@@ -17,5 +17,8 @@ namespace Game.DataBase.Weapon
 
         [Tooltip("Hidden from player. For technical usage.")]
         public bool _hidden;
+
+        [Tooltip("Used like percentage value.")]
+        public bool _isPercentage;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.DataBase.Enemies;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.Enemy;
 using Game.Gameplay.WeaponMechanics;
 using TegridyCore;
@@ -10,10 +11,11 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
-        private const float StartHealth = 9;
+        private const float StartHealth = 100;
 
         private readonly EnemyViewBase _enemyViewBase;
         private readonly EnemyDestructionStates _enemyDestructionStates;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
         private readonly RxField<float> _health;
         private int _previousDestructionStateIndex;
 
@@ -37,10 +39,11 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public bool IsInCharacterRange { get; set; }
 
-        protected EnemyBase(EnemyViewBase enemyViewBase, EnemyDestructionStates enemyDestructionStates)
+        protected EnemyBase(EnemyViewBase enemyViewBase, EnemyDestructionStates enemyDestructionStates, CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _enemyViewBase = enemyViewBase;
             _enemyDestructionStates = enemyDestructionStates;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
 
             _health = StartHealth;
         }
@@ -97,6 +100,8 @@ namespace Game.Gameplay.EnemiesMechanics
             _enemyViewBase.MeshFilter.mesh = _enemyDestructionStates.Meshes[destructionStateIndex];
 
             EnemyDamageComponent.Hit(hitInfo, looseDestructionStatesCount);
+
+            _characterCharacteristicsRepository.HandleHealthStealing();
         }
 
         private int GetCurrentModelIndex(float healthPercent)

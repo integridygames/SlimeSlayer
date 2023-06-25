@@ -22,7 +22,7 @@ MonoBehaviour:
     _priceAdditionMultiplier: 1.5
     _hidden: 0
   - _characterCharacteristicType: 2
-    _startValue: 30
+    _startValue: 10
     _addition: 1
     _additionMultiplier: 1
     _startPrice: 10
@@ -46,15 +46,15 @@ MonoBehaviour:
     _priceAdditionMultiplier: 1.5
     _hidden: 0
   - _characterCharacteristicType: 5
-    _startValue: 1
-    _addition: 0.5
+    _startValue: 0
+    _addition: 0.1
     _additionMultiplier: 1
-    _startPrice: 10
-    _priceAddition: 2
+    _startPrice: 100
+    _priceAddition: 100
     _priceAdditionMultiplier: 1.5
     _hidden: 0
   - _characterCharacteristicType: 6
-    _startValue: 1
+    _startValue: 5
     _addition: 0.5
     _additionMultiplier: 1
     _startPrice: 10
@@ -63,6 +63,14 @@ MonoBehaviour:
     _hidden: 0
   - _characterCharacteristicType: 7
     _startValue: 1
+    _addition: 0.5
+    _additionMultiplier: 1
+    _startPrice: 10
+    _priceAddition: 2
+    _priceAdditionMultiplier: 1.5
+    _hidden: 0
+  - _characterCharacteristicType: 8
+    _startValue: 6
     _addition: 0.5
     _additionMultiplier: 1
     _startPrice: 10

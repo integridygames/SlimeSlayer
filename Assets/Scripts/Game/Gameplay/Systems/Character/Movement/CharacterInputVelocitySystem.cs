@@ -11,16 +11,15 @@ namespace Game.Gameplay.Systems.Character.Movement
         private readonly Joystick _joystick;
         private readonly CharacterMovementData _characterMovementData;
         private readonly CharacterView _characterView;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
         public CharacterInputVelocitySystem(Joystick joystick, CharacterMovementData characterMovementData,
-            CharacterView characterView,
-            CharacterStats characterStats)
+            CharacterView characterView, CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _joystick = joystick;
             _characterMovementData = characterMovementData;
             _characterView = characterView;
-            _characterStats = characterStats;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public void Update()
@@ -33,7 +32,8 @@ namespace Game.Gameplay.Systems.Character.Movement
 
             _characterMovementData.MovingVector = movingVector;
             _characterMovementData.NextPosition = _characterView.Rigidbody.position +
-                                                  movingVector * _characterStats.MovingSpeed * Time.deltaTime;
+                                                  movingVector * _characterCharacteristicsRepository.MovingSpeed *
+                                                  Time.deltaTime;
         }
     }
 }

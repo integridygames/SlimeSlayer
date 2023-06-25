@@ -19,10 +19,10 @@ namespace Game.Installers.SampleScene
             Container.Bind<HeapInfo>().AsSingle();
             Container.Bind<MouseRaycastInfo>().AsSingle();
             Container.Bind<CharacterMovementData>().AsSingle();
-            Container.Bind<CharacterStats>().AsSingle();
+            Container.Bind<CharacterConstantStats>().AsSingle();
             Container.Bind<CurrentCharacterWeaponsData>().AsSingle();
             Container.Bind<ActiveProjectilesContainer>().AsSingle();
-            Container.Bind<CharacterHealthData>().AsSingle();
+            Container.Bind<CharacterCharacteristicsRepository>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
             Container.Bind<GameResourceData>().AsSingle();
@@ -31,6 +31,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<ActiveCoinsContainer>().AsSingle();
             Container.Bind<WeaponsCharacteristics>().AsSingle();
             Container.Bind<CharacterCharacteristics>().AsSingle();
+            Container.Bind<WeaponsCharacteristicsRepository>().AsSingle();
         }
     }
 }

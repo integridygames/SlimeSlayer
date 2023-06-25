@@ -16,7 +16,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.AttackComponents
         private readonly EnemyViewBase _enemyView;
         private readonly Rigidbody _enemyRigidbody;
         private readonly CharacterView _characterView;
-        private readonly CharacterHealthData _characterHealthData;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
         private float _timeFromAttackStart;
         private float _timeFromPreviousAttack;
@@ -24,12 +24,12 @@ namespace Game.Gameplay.EnemiesMechanics.Components.AttackComponents
         private bool _isOnAttack;
 
         public ImpulseAttackComponent(EnemyViewBase enemyView, Rigidbody enemyRigidbody, CharacterView characterView,
-            CharacterHealthData characterHealthData)
+            CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _enemyView = enemyView;
             _enemyRigidbody = enemyRigidbody;
             _characterView = characterView;
-            _characterHealthData = characterHealthData;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public bool ReadyToAttack()
@@ -58,7 +58,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.AttackComponents
         {
             if (collision.collider.TryGetComponent(out CharacterView _))
             {
-                _characterHealthData.CurrentHealth.Value -= Damage;
+                _characterCharacteristicsRepository.AddHealth(-Damage);
             }
         }
 
