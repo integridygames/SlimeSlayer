@@ -1,3 +1,4 @@
+using Game.Gameplay.Models.Abilities;
 using Game.Gameplay.Models.Camera;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Level;
@@ -32,6 +33,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<WeaponsCharacteristics>().AsSingle();
             Container.Bind<CharacterCharacteristics>().AsSingle();
             Container.Bind<WeaponsCharacteristicsRepository>().AsSingle();
+            Container.Bind<AbilitiesRepository>().AsSingle();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Game.Gameplay.Systems.Weapon
         {
             if (weaponBase.NeedReload())
             {
-                weaponBase.Reload();
+                weaponBase.ProcessReload();
                 return;
             }
 

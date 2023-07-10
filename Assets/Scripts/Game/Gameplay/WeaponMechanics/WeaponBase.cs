@@ -45,7 +45,7 @@ namespace Game.Gameplay.WeaponMechanics
             return ReloadComponent.NeedReload();
         }
 
-        public void Reload()
+        public void ProcessReload()
         {
             ReloadComponent.Reload();
         }

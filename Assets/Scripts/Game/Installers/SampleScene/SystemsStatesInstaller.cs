@@ -1,5 +1,6 @@
 using Game.Gameplay.States;
 using Game.Gameplay.Systems;
+using Game.Gameplay.Systems.Abilities;
 using Game.Gameplay.Systems.Camera;
 using Game.Gameplay.Transitions;
 using TegridyCore.FiniteStateMachine;
@@ -155,6 +156,9 @@ namespace Game.Installers.SampleScene
 
             var characterRegenerationSystem = Container.Instantiate<CharacterRegenerationSystem>();
             Container.BindUpdateSystemWithState(characterRegenerationSystem, _gameState);
+
+            var abilitiesExecutionSystem = Container.Instantiate<AbilitiesExecutionSystem>();
+            Container.BindUpdateSystemWithState(abilitiesExecutionSystem, _gameState);
 
             CreateTargetSystems();
         }
