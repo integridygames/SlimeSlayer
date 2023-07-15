@@ -21,7 +21,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<MouseRaycastInfo>().AsSingle();
             Container.Bind<CharacterMovementData>().AsSingle();
             Container.Bind<CharacterConstantStats>().AsSingle();
-            Container.Bind<CurrentCharacterWeaponsData>().AsSingle();
+            Container.Bind<CharacterWeaponsRepository>().AsSingle();
             Container.Bind<ActiveProjectilesContainer>().AsSingle();
             Container.Bind<CharacterCharacteristicsRepository>().AsSingle();
             Container.Bind<ActiveEssencesContainer>().AsSingle();

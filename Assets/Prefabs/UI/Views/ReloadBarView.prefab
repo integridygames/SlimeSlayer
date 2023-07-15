@@ -126,4 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a7d20b15a4eb8880c23eb9776504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _reloadImage: {fileID: 7590937313383219433}
+  _progressImage: {fileID: 7590937313383219433}

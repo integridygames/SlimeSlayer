@@ -1,4 +1,4 @@
-namespace Game.DataBase.Essence
+namespace Game.DataBase.GameResource
 {
     public enum GameResourceType
     {

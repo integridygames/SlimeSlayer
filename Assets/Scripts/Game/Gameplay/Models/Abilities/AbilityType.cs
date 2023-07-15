@@ -1,6 +1,6 @@
 ﻿namespace Game.Gameplay.Models.Abilities
 {
-    public enum AbilityTmpCharacteristicType
+    public enum AbilityType
     {
         /// <summary>
         /// Граната делится на несколько гранат

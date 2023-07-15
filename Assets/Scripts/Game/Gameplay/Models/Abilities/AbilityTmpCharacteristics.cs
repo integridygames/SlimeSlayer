@@ -4,16 +4,16 @@ namespace Game.Gameplay.Models.Abilities
 {
     public class AbilityTmpCharacteristics
     {
-        private Dictionary<AbilityTmpCharacteristicType, float> _characteristicValues = new();
+        private readonly Dictionary<AbilityType, float> _characteristicValues = new();
 
-        public float GetCharacteristic(AbilityTmpCharacteristicType characteristicType)
+        public float GetCharacteristic(AbilityType characteristicType)
         {
             if (_characteristicValues.TryGetValue(characteristicType, out var value)) ;
 
             return value;
         }
 
-        public void SetCharacteristic(AbilityTmpCharacteristicType characteristicType, float value)
+        public void SetCharacteristic(AbilityType characteristicType, float value)
         {
             _characteristicValues[characteristicType] = value;
         }

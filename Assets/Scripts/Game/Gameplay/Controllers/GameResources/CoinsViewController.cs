@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.UI;

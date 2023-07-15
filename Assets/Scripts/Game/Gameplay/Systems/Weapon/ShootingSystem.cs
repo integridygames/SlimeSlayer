@@ -6,17 +6,17 @@ namespace Game.Gameplay.Systems.Weapon
 {
     public class ShootingSystem : IUpdateSystem
     {
-        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
+        private readonly CharacterWeaponsRepository _characterWeaponsRepository;
 
-        public ShootingSystem(CurrentCharacterWeaponsData currentCharacterWeaponsData)
+        public ShootingSystem(CharacterWeaponsRepository characterWeaponsRepository)
         {
-            _currentCharacterWeaponsData = currentCharacterWeaponsData;
+            _characterWeaponsRepository = characterWeaponsRepository;
         }
 
         public void Update()
         {
-            TryToShoot(_currentCharacterWeaponsData.CurrentWeaponViewLeft.Value);
-            TryToShoot(_currentCharacterWeaponsData.CurrentWeaponViewRight.Value);
+            TryToShoot(_characterWeaponsRepository.CurrentWeaponViewLeft.Value);
+            TryToShoot(_characterWeaponsRepository.CurrentWeaponViewRight.Value);
         }
 
         private static void TryToShoot(WeaponBase weaponBase)

@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.Zone

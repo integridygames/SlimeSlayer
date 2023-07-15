@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models;
@@ -19,7 +20,7 @@ namespace Game.Gameplay.Controllers.GameScreen
     public class WeaponScreenController : ControllerBase<WeaponScreenView>, IInitializable, IDisposable
     {
         private readonly ApplicationData _applicationData;
-        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
+        private readonly CharacterWeaponsRepository _characterWeaponsRepository;
         private readonly WeaponsDataBase _weaponsDataBase;
         private readonly CharacterView _characterView;
         private readonly WeaponFactory _weaponFactory;
@@ -33,12 +34,12 @@ namespace Game.Gameplay.Controllers.GameScreen
         private bool _isLeftWeaponPressed;
 
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
-            CurrentCharacterWeaponsData currentCharacterWeaponsData, WeaponsDataBase weaponsDataBase,
+            CharacterWeaponsRepository characterWeaponsRepository, WeaponsDataBase weaponsDataBase,
             CharacterView characterView, WeaponFactory weaponFactory, GameResourceData gameResourceData,
             WeaponsService weaponsService, WeaponsCharacteristics weaponsCharacteristics) : base(controlledEntity)
         {
             _applicationData = applicationData;
-            _currentCharacterWeaponsData = currentCharacterWeaponsData;
+            _characterWeaponsRepository = characterWeaponsRepository;
             _weaponsDataBase = weaponsDataBase;
             _characterView = characterView;
             _weaponFactory = weaponFactory;
@@ -149,8 +150,8 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         private void SetDataToWeaponInfoView(PlayerWeaponData playerWeaponData)
         {
-            var isEquipped = playerWeaponData == _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value.Data ||
-                             playerWeaponData == _currentCharacterWeaponsData.CurrentWeaponViewRight.Value.Data;
+            var isEquipped = playerWeaponData == _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Data ||
+                             playerWeaponData == _characterWeaponsRepository.CurrentWeaponViewRight.Value.Data;
 
             ControlledEntity.WeaponInfoView.SetWeapon(playerWeaponData, isEquipped,
                 _weaponsCharacteristics, _weaponsDataBase,
@@ -161,8 +162,8 @@ namespace Game.Gameplay.Controllers.GameScreen
         {
             if (_isLeftWeaponPressed)
             {
-                _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value.Destroy();
-                _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value =
+                _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Destroy();
+                _characterWeaponsRepository.CurrentWeaponViewLeft.Value =
                     _weaponFactory.Create(playerWeaponData, _characterView.LeftWeaponPlacer, true);
 
                 Object.Destroy(_leftWeaponCardView.gameObject);
@@ -171,8 +172,8 @@ namespace Game.Gameplay.Controllers.GameScreen
             }
             else
             {
-                _currentCharacterWeaponsData.CurrentWeaponViewRight.Value.Destroy();
-                _currentCharacterWeaponsData.CurrentWeaponViewRight.Value =
+                _characterWeaponsRepository.CurrentWeaponViewRight.Value.Destroy();
+                _characterWeaponsRepository.CurrentWeaponViewRight.Value =
                     _weaponFactory.Create(playerWeaponData, _characterView.RightWeaponPlacer, false);
 
                 Object.Destroy(_rightWeaponCardView.gameObject);

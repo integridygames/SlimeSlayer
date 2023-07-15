@@ -2,6 +2,7 @@ using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
 using System;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Models.GameResources;
 using Game.Gameplay.Models.Zone;

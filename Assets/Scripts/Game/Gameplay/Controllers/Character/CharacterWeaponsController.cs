@@ -10,13 +10,13 @@ using Zenject;
 
 namespace Game.Gameplay.Controllers.Character
 {
-    public class CharacterDataController : ControllerBase<CurrentCharacterWeaponsData>, IInitializable, IDisposable
+    public class CharacterWeaponsController : ControllerBase<CharacterWeaponsRepository>, IInitializable, IDisposable
     {
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
         private readonly CharacterCharacteristics _characterCharacteristics;
         private readonly ApplicationData _applicationData;
 
-        public CharacterDataController(CurrentCharacterWeaponsData controlledEntity, WeaponsCharacteristics weaponsCharacteristics, CharacterCharacteristics characterCharacteristics, ApplicationData applicationData) :
+        public CharacterWeaponsController(CharacterWeaponsRepository controlledEntity, WeaponsCharacteristics weaponsCharacteristics, CharacterCharacteristics characterCharacteristics, ApplicationData applicationData) :
             base(controlledEntity)
         {
             _weaponsCharacteristics = weaponsCharacteristics;

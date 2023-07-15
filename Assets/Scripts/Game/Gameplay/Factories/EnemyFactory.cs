@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.EnemiesMechanics.Enemies;
 using Game.Gameplay.Views.Enemy;

@@ -12,8 +12,8 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
         private readonly PlayerWeaponData _playerWeaponData;
 
 
-        private readonly ReloadBarView _leftReloadBarView;
-        private readonly ReloadBarView _rightReloadBarView;
+        private readonly ProgressBarView _leftReloadBarView;
+        private readonly ProgressBarView _rightReloadBarView;
 
         private readonly RxField<float> _reloadProgress = 1;
         public IReadonlyRxField<float> ReloadProgress => _reloadProgress;

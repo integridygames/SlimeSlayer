@@ -1,4 +1,5 @@
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.Gameplay.Views.GameResources;
 using Game.Gameplay.Views.Pool;
 using UnityEngine;

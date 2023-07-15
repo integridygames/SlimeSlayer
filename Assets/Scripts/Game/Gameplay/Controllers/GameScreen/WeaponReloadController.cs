@@ -10,23 +10,23 @@ namespace Game.Gameplay.Controllers.GameScreen
 {
     public class WeaponReloadController : ControllerBase<GameScreenView>, IInitializable, IDisposable
     {
-        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
+        private readonly CharacterWeaponsRepository _characterWeaponsRepository;
 
-        public WeaponReloadController(GameScreenView controlledEntity, CurrentCharacterWeaponsData currentCharacterWeaponsData) : base(controlledEntity)
+        public WeaponReloadController(GameScreenView controlledEntity, CharacterWeaponsRepository characterWeaponsRepository) : base(controlledEntity)
         {
-            _currentCharacterWeaponsData = currentCharacterWeaponsData;
+            _characterWeaponsRepository = characterWeaponsRepository;
         }
 
         public void Initialize()
         {
-            _currentCharacterWeaponsData.CurrentWeaponViewLeft.OnUpdate += OnCurrentLeftWeaponViewUpdateHandler;
-            _currentCharacterWeaponsData.CurrentWeaponViewRight.OnUpdate += OnCurrentRightWeaponViewUpdateHandler;
+            _characterWeaponsRepository.CurrentWeaponViewLeft.OnUpdate += OnCurrentLeftWeaponViewUpdateHandler;
+            _characterWeaponsRepository.CurrentWeaponViewRight.OnUpdate += OnCurrentRightWeaponViewUpdateHandler;
         }
 
         public void Dispose()
         {
-            _currentCharacterWeaponsData.CurrentWeaponViewLeft.OnUpdate -= OnCurrentLeftWeaponViewUpdateHandler;
-            _currentCharacterWeaponsData.CurrentWeaponViewRight.OnUpdate -= OnCurrentRightWeaponViewUpdateHandler;
+            _characterWeaponsRepository.CurrentWeaponViewLeft.OnUpdate -= OnCurrentLeftWeaponViewUpdateHandler;
+            _characterWeaponsRepository.CurrentWeaponViewRight.OnUpdate -= OnCurrentRightWeaponViewUpdateHandler;
         }
 
         private void OnCurrentLeftWeaponViewUpdateHandler(RxValue<WeaponBase> weaponRxValue)
@@ -51,12 +51,12 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         private void OnCurrentLeftChargeUpdate(RxValue<float> chargeRxValue)
         {
-            ControlledEntity.LeftReloadBar.SetReloadProgress(chargeRxValue.NewValue);
+            ControlledEntity.LeftReloadBar.SetProgress(chargeRxValue.NewValue);
         }
 
         private void OnCurrentRightChargeUpdate(RxValue<float> chargeRxValue)
         {
-            ControlledEntity.RightReloadBar.SetReloadProgress(chargeRxValue.NewValue);
+            ControlledEntity.RightReloadBar.SetProgress(chargeRxValue.NewValue);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Services;
+﻿using Game.Gameplay.Models.Abilities;
+using Game.Gameplay.Services;
 using Game.Services;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterRespawnService>().AsSingle();
             Container.Bind<WeaponMechanicsService>().AsSingle();
             Container.Bind<WeaponsService>().AsSingle();
+            Container.Bind<AbilitiesDistributorService>().AsSingle();
         }
     }
 }

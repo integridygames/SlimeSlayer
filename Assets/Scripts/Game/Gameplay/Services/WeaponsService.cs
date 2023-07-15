@@ -14,18 +14,18 @@ namespace Game.Gameplay.Services
         private readonly WeaponsDataBase _weaponsDataBase;
         private readonly WeaponCardsDataBase _weaponCardsDataBase;
         private readonly ApplicationData _applicationData;
-        private readonly CurrentCharacterWeaponsData _currentCharacterWeaponsData;
+        private readonly CharacterWeaponsRepository _characterWeaponsRepository;
         private readonly WeaponFactory _weaponFactory;
         private readonly CharacterView _characterView;
 
         public WeaponsService(WeaponsDataBase weaponsDataBase, WeaponCardsDataBase weaponCardsDataBase,
-            ApplicationData applicationData, CurrentCharacterWeaponsData currentCharacterWeaponsData,
+            ApplicationData applicationData, CharacterWeaponsRepository characterWeaponsRepository,
             WeaponFactory weaponFactory, CharacterView characterView)
         {
             _weaponsDataBase = weaponsDataBase;
             _weaponCardsDataBase = weaponCardsDataBase;
             _applicationData = applicationData;
-            _currentCharacterWeaponsData = currentCharacterWeaponsData;
+            _characterWeaponsRepository = characterWeaponsRepository;
             _weaponFactory = weaponFactory;
             _characterView = characterView;
         }
@@ -62,9 +62,9 @@ namespace Game.Gameplay.Services
                 _applicationData.PlayerData.WeaponsSaveData.First(x =>
                     x._guid == _applicationData.PlayerData.CurrentRightWeaponGuid);
 
-            _currentCharacterWeaponsData.CurrentWeaponViewLeft.Value =
+            _characterWeaponsRepository.CurrentWeaponViewLeft.Value =
                 _weaponFactory.Create(weaponSaveDataLeft, _characterView.LeftWeaponPlacer, true);
-            _currentCharacterWeaponsData.CurrentWeaponViewRight.Value =
+            _characterWeaponsRepository.CurrentWeaponViewRight.Value =
                 _weaponFactory.Create(weaponSaveDataRight, _characterView.RightWeaponPlacer, false);
         }
     }

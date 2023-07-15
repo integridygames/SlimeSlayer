@@ -8,13 +8,16 @@ namespace Game.Gameplay.Views.UI.Screens
     public class GameScreenView : ViewBase
     {
         [SerializeField] private UiButton _toPauseScreenButton;
-        [SerializeField] private ReloadBarView _leftReloadBar;
-        [SerializeField] private ReloadBarView _rightReloadBar;
+        [SerializeField] private ProgressBarView _leftReloadBar;
+        [SerializeField] private ProgressBarView _rightReloadBar;
+        [SerializeField] private ProgressBarView _levelProgressBar;
 
         public UiButton ToPauseScreenButton => _toPauseScreenButton;
 
-        public ReloadBarView LeftReloadBar => _leftReloadBar;
+        public ProgressBarView LeftReloadBar => _leftReloadBar;
 
-        public ReloadBarView RightReloadBar => _rightReloadBar;
+        public ProgressBarView RightReloadBar => _rightReloadBar;
+
+        public ProgressBarView LevelProgressBar => _levelProgressBar;
     }
 }

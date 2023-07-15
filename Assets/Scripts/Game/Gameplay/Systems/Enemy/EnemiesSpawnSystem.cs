@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Zone;

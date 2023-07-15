@@ -11,12 +11,13 @@ namespace Game.Gameplay.Controllers.GameResources
     public class ActiveEssencesController : ControllerBase<ActiveEssencesContainer>, IInitializable, IDisposable
     {
         private readonly GameResourcePoolFactory _gameResourcePoolFactory;
-        private readonly GameResourceData _gameResourceData;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
-        public ActiveEssencesController(ActiveEssencesContainer controlledEntity, GameResourcePoolFactory gameResourcePoolFactory, GameResourceData gameResourceData) : base(controlledEntity)
+        public ActiveEssencesController(ActiveEssencesContainer controlledEntity, GameResourcePoolFactory gameResourcePoolFactory,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository) : base(controlledEntity)
         {
             _gameResourcePoolFactory = gameResourcePoolFactory;
-            _gameResourceData = gameResourceData;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public void Initialize()
@@ -34,9 +35,10 @@ namespace Game.Gameplay.Controllers.GameResources
             essenceView.MovingProgress = 0;
             essenceView.IsMovingToCharacter = false;
 
-            _gameResourceData.AddResource(essenceView.GameResourceType, 1);
             ControlledEntity.Remove(essenceView);
             _gameResourcePoolFactory.RecycleElement(essenceView.GameResourceType, essenceView);
+
+            _characterCharacteristicsRepository.AddExperience();
         }
     }
 }

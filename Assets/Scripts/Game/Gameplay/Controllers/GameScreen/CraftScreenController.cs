@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.DataBase;
 using Game.DataBase.Essence;
+using Game.DataBase.GameResource;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Character;
