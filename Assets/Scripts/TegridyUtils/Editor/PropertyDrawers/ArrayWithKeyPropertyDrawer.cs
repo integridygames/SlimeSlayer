@@ -1,4 +1,5 @@
-﻿using TegridyUtils.Attributes;
+﻿using System.Reflection;
+using TegridyUtils.Attributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,7 +40,11 @@ namespace TegridyUtils.Editor.PropertyDrawers
 
                 if (currentField == null)
                 {
-                    break;
+                    currentField = originObjectType.GetField(property.name, BindingFlags.NonPublic | BindingFlags.Instance);
+                    if (currentField == null)
+                    {
+                        break;
+                    }
                 }
 
                 var customAttributes = currentField.GetCustomAttributes(typeof(ArrayKeyAttribute), true);

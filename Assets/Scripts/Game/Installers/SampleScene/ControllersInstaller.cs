@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Controllers.Character;
+﻿using Game.Gameplay.Controllers.Abilities;
+using Game.Gameplay.Controllers.Character;
 using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
 using Game.Gameplay.Controllers.Enemy;
@@ -23,6 +24,7 @@ namespace Game.Installers.SampleScene
             BindController<CraftScreenController>();
             BindController<CharacterStatsScreenController>();
             BindController<CharacterLevelController>();
+            BindController<ChooseAbilityController>();
         }
 
         private void BindController<TController>()

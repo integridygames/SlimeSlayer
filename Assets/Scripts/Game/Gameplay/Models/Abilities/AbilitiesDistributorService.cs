@@ -7,7 +7,7 @@ namespace Game.Gameplay.Models.Abilities
 {
     public class AbilitiesDistributorService
     {
-        private const int MaxAbilitiesForLevel = 3;
+        public const int MaxAbilitiesForLevel = 3;
 
         private readonly AbilitiesDataBase _abilitiesDataBase;
         private readonly AbilitiesRepository _abilitiesRepository;
@@ -28,20 +28,22 @@ namespace Game.Gameplay.Models.Abilities
 
             foreach (var abilityRecord in randomRecords)
             {
+                var hasNeededAbility = true;
+                var hasNeededWeapon = true;
+
                 if (abilityRecord.AbilityNeedsSet.Count > 0)
                 {
-                    if (HasNeededAbility(abilityRecord) == false)
-                    {
-                        continue;
-                    }
+                    hasNeededAbility = HasNeededAbility(abilityRecord);
                 }
 
                 if (abilityRecord.WeaponNeedsSet.Count > 0)
                 {
-                    if (HasNeededWeapon(abilityRecord) == false)
-                    {
-                        continue;
-                    }
+                    hasNeededWeapon = HasNeededWeapon(abilityRecord);
+                }
+
+                if ((hasNeededAbility && hasNeededWeapon) == false)
+                {
+                    continue;
                 }
 
                 if (AlreadyReachedMaxLevel(abilityRecord))

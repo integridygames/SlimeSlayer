@@ -1,6 +1,7 @@
 using Game.Gameplay.Views.Weapon;
 using TegridyCore.Base;
 using TegridyUtils.UI.Elements;
+using TMPro;
 using UnityEngine;
 
 namespace Game.Gameplay.Views.UI.Screens
@@ -11,6 +12,7 @@ namespace Game.Gameplay.Views.UI.Screens
         [SerializeField] private ProgressBarView _leftReloadBar;
         [SerializeField] private ProgressBarView _rightReloadBar;
         [SerializeField] private ProgressBarView _levelProgressBar;
+        [SerializeField] private TMP_Text _level;
 
         public UiButton ToPauseScreenButton => _toPauseScreenButton;
 
@@ -19,5 +21,7 @@ namespace Game.Gameplay.Views.UI.Screens
         public ProgressBarView RightReloadBar => _rightReloadBar;
 
         public ProgressBarView LevelProgressBar => _levelProgressBar;
+
+        public TMP_Text Level => _level;
     }
 }

@@ -21,16 +21,23 @@ namespace Game.Gameplay.Controllers.Character
         public void Initialize()
         {
             _characterCharacteristicsRepository.CurrentLevelProgress.OnUpdate += OnCurrentLevelProgressUpdateHandler;
+            _characterCharacteristicsRepository.CurrentLevel.OnUpdate += OnCurrentLevelUpdateHandler;
         }
 
         public void Dispose()
         {
-            _characterCharacteristicsRepository.CurrentLevelProgress.OnUpdate += OnCurrentLevelProgressUpdateHandler;
+            _characterCharacteristicsRepository.CurrentLevelProgress.OnUpdate -= OnCurrentLevelProgressUpdateHandler;
+            _characterCharacteristicsRepository.CurrentLevel.OnUpdate -= OnCurrentLevelUpdateHandler;
         }
 
         private void OnCurrentLevelProgressUpdateHandler(RxValue<float> rxValue)
         {
            ControlledEntity.LevelProgressBar.SetProgress(rxValue.NewValue);
+        }
+
+        private void OnCurrentLevelUpdateHandler(RxValue<int> rxValue)
+        {
+            ControlledEntity.Level.text = $"Lvl {rxValue.NewValue}";
         }
     }
 }

@@ -5,19 +5,20 @@ using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Abilities;
 using TegridyUtils.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.DataBase.Abilities
 {
     [Serializable]
     public class AbilityRecord
     {
-        [ArrayKey] [SerializeField] private AbilityType _abilityType;
-        [SerializeField] private Image _abilitySprite;
+        [SerializeField, ArrayKey] private AbilityType _abilityType;
+        [SerializeField] private Sprite _abilitySprite;
 
         [ArrayWithKey] [SerializeField] private List<AbilityLevelRecord> _levelInfos = new();
         [SerializeField] private List<WeaponType> _weaponNeeds;
         [SerializeField] private List<AbilityType> _abilityNeeds;
+        [SerializeField] private string _name;
+        [SerializeField] private string _description;
 
         private HashSet<WeaponType> _weaponNeedsSet;
         private HashSet<AbilityType> _abilityNeedsSet;
@@ -26,7 +27,7 @@ namespace Game.DataBase.Abilities
 
         public AbilityType AbilityType => _abilityType;
 
-        public Image AbilitySprite => _abilitySprite;
+        public Sprite AbilitySprite => _abilitySprite;
 
 
         public HashSet<WeaponType> WeaponNeedsSet
@@ -39,42 +40,43 @@ namespace Game.DataBase.Abilities
             get { return _abilityNeedsSet ??= _abilityNeeds.ToHashSet(); }
         }
 
-        private Dictionary<(AbilityCharacteristicType, int), float> _abilityValues;
+        public string Description => _description;
 
-        public float GetValueForLevel(int level, AbilityCharacteristicType abilityCharacteristicType)
+        public string Name => _name;
+
+        private Dictionary<int, AbilityLevelRecord> _abilityValues;
+
+        public AbilityLevelRecord GetInfoForLevel(int level)
         {
             if (_abilityValues == null)
             {
                 FillAbilitiesCache();
             }
 
-            return _abilityValues[(abilityCharacteristicType, level)];
+            return _abilityValues[level];
         }
 
         private void FillAbilitiesCache()
         {
-            _abilityValues = new Dictionary<(AbilityCharacteristicType, int), float>();
+            _abilityValues = new Dictionary<int, AbilityLevelRecord>();
 
             foreach (var levelInfo in _levelInfos)
             {
-                foreach (var abilityCharacteristic in levelInfo._abilityCharacteristics)
-                {
-                    _abilityValues[(abilityCharacteristic._abilityCharacteristicType, levelInfo._level)] =
-                        abilityCharacteristic._value;
-                }
+                _abilityValues[levelInfo._level] = levelInfo;
             }
         }
 
         [Serializable]
-        private class AbilityLevelRecord
+        public class AbilityLevelRecord
         {
             [ArrayKey] public int _level;
+            public string _wholeEffect;
 
             public List<AbilityCharacteristicLevelInfo> _abilityCharacteristics;
         }
 
         [Serializable]
-        private class AbilityCharacteristicLevelInfo
+        public class AbilityCharacteristicLevelInfo
         {
             [ArrayKey] public AbilityCharacteristicType _abilityCharacteristicType;
             public float _value;
