@@ -32,6 +32,8 @@ namespace Game.Gameplay.Models.Character
 
         private float _healthSteal;
 
+        public bool ReadyForLevelUp => _currentExperience >= _nextLevelReachPoint;
+
         public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics)
         {
             _characterCharacteristics = characterCharacteristics;
@@ -75,23 +77,20 @@ namespace Game.Gameplay.Models.Character
             _currentExperience++;
 
             _currentLevelProgress.Value = (float) _currentExperience / _nextLevelReachPoint;
-
-            if (_currentExperience >= _nextLevelReachPoint)
-            {
-                LevelUp();
-            }
         }
 
-        public void ResetLevelBar()
-        {
-            _currentLevelProgress.Value = 0;
-            _currentExperience = 0;
-        }
-
-        private void LevelUp()
+        public void LevelUp()
         {
             _currentLevel.Value++;
             _nextLevelReachPoint = GetNextLevelReachPoint();
+
+            ResetLevelBar();
+        }
+
+        private void ResetLevelBar()
+        {
+            _currentLevelProgress.Value = 0;
+            _currentExperience = 0;
         }
 
         private int GetNextLevelReachPoint()

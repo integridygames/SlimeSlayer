@@ -9,7 +9,7 @@
         /// <summary>
         /// Текущий уровень способности
         /// </summary>
-        public int Level { get; private set; }
+        public int Level { get; set; }
 
         /// <summary>
         /// Готова ли для использования способность. Проверяется каждый кадр.
