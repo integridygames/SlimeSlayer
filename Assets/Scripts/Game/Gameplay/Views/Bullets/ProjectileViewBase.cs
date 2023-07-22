@@ -12,6 +12,7 @@ namespace Game.Gameplay.Views.Bullets
 
         [SerializeField] private float _lifeTime;
 
+
         public float StartLifeTime => _lifeTime;
         public float CurrentLifeTime { get; private set; }
 
@@ -19,9 +20,11 @@ namespace Game.Gameplay.Views.Bullets
 
         public Vector3 Direction { get; private set; }
         public float Force { get; private set; }
+        public bool CanBeMultiple { get; set; }
 
-        public void Initialize(PlayerWeaponData playerWeaponData, Vector3 direction, float force)
+        public void Initialize(PlayerWeaponData playerWeaponData, Vector3 direction, float force, bool canBeMultiple)
         {
+            CanBeMultiple = canBeMultiple;
             Force = force;
             Direction = direction;
             PlayerWeaponData = playerWeaponData;

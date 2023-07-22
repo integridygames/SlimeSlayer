@@ -17,8 +17,10 @@ MonoBehaviour:
     _abilitySprite: {fileID: 21300028, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
     _levelInfos:
     - _level: 1
-      _wholeEffect: test whole effect
-      _abilityCharacteristics: []
+      _wholeEffect: "\u0414\u0432\u0435 \u0433\u0440\u0430\u043D\u0430\u0442\u044B"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 0
+        _value: 2
     - _level: 2
       _wholeEffect: test whole effect 2
       _abilityCharacteristics: []

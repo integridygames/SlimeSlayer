@@ -41,7 +41,7 @@ namespace Game.Gameplay.Models.Abilities
                     hasNeededWeapon = HasNeededWeapon(abilityRecord);
                 }
 
-                if ((hasNeededAbility && hasNeededWeapon) == false)
+                if ((hasNeededAbility || hasNeededWeapon) == false)
                 {
                     continue;
                 }

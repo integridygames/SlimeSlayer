@@ -34,6 +34,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<CharacterCharacteristics>().AsSingle();
             Container.Bind<WeaponsCharacteristicsRepository>().AsSingle();
             Container.Bind<AbilitiesRepository>().AsSingle();
+            Container.Bind<AbilityTmpCharacteristics>().AsSingle();
         }
     }
 }

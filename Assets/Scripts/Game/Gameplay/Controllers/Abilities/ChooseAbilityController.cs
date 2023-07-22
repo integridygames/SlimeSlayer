@@ -1,4 +1,6 @@
 ﻿using System;
+using Game.DataBase.Abilities;
+using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Abilities;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.UI.Abilities;
@@ -14,15 +16,17 @@ namespace Game.Gameplay.Controllers.Abilities
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
         private readonly AbilitiesDistributorService _abilitiesDistributorService;
         private readonly AbilitiesRepository _abilitiesRepository;
+        private readonly AbilityFactory _abilityFactory;
 
         public ChooseAbilityController(ChooseAbilityView controlledEntity,
             CharacterCharacteristicsRepository characterCharacteristicsRepository,
             AbilitiesDistributorService abilitiesDistributorService,
-            AbilitiesRepository abilitiesRepository) : base(controlledEntity)
+            AbilitiesRepository abilitiesRepository, AbilityFactory abilityFactory) : base(controlledEntity)
         {
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
             _abilitiesDistributorService = abilitiesDistributorService;
             _abilitiesRepository = abilitiesRepository;
+            _abilityFactory = abilityFactory;
         }
 
         public void Initialize()
@@ -58,35 +62,37 @@ namespace Game.Gameplay.Controllers.Abilities
                     abilityView.gameObject.SetActive(false);
                     continue;
                 }
-
                 abilityView.gameObject.SetActive(true);
-                var abilityRecord = abilitiesForNextLevel[i];
 
-                abilityView.SetAbilityType(abilityRecord.AbilityType);
-                abilityView.SetName(abilityRecord.Name);
-                abilityView.SetDescription(abilityRecord.Description);
-                abilityView.SetIcon(abilityRecord.AbilitySprite);
+                var abilityRecord = abilitiesForNextLevel[i];
 
                 var level = 1;
 
                 if (_abilitiesRepository.ActiveAbilitiesDict.TryGetValue(abilityRecord.AbilityType, out var ability))
                 {
-                    ability.Level++;
-                    level = ability.Level;
+                    level = ability.Level + 1;
                 }
 
-                var abilityLevelRecord = abilityRecord.GetInfoForLevel(level);
-
-                abilityView.SetLevel(level);
-                abilityView.SetWholeEffect(abilityLevelRecord._wholeEffect);
+                abilityView.SetAbilityData(abilityRecord, level);
             }
         }
 
-        private void OnAbilitySelectedHandler(AbilityType abilityType)
+
+
+        private void OnAbilitySelectedHandler(AbilityRecord abilityRecord)
         {
             Time.timeScale = 1;
             ControlledEntity.gameObject.SetActive(false);
 
+            if (_abilitiesRepository.ActiveAbilitiesDict.TryGetValue(abilityRecord.AbilityType, out var ability) == false)
+            {
+                ability = _abilityFactory.CreateAbility(abilityRecord.AbilityType);
+                _abilitiesRepository.AddAbility(abilityRecord.AbilityType, ability);
+            }
+
+            ability.Level++;
+
+            _characterCharacteristicsRepository.LevelUpAbility(abilityRecord, ability.Level);
             _characterCharacteristicsRepository.LevelUp();
         }
     }

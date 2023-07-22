@@ -1,4 +1,6 @@
-﻿using Game.DataBase.Character;
+﻿using Game.DataBase.Abilities;
+using Game.DataBase.Character;
+using Game.Gameplay.Models.Abilities;
 using TegridyCore;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ namespace Game.Gameplay.Models.Character
         private const int StartReachPoint = 4;
 
         private readonly CharacterCharacteristics _characterCharacteristics;
+        private readonly AbilityTmpCharacteristics _abilityTmpCharacteristics;
 
         private int _nextLevelReachPoint;
         private int _currentExperience;
@@ -34,9 +37,10 @@ namespace Game.Gameplay.Models.Character
 
         public bool ReadyForLevelUp => _currentExperience >= _nextLevelReachPoint;
 
-        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics)
+        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics, AbilityTmpCharacteristics abilityTmpCharacteristics)
         {
             _characterCharacteristics = characterCharacteristics;
+            _abilityTmpCharacteristics = abilityTmpCharacteristics;
         }
 
         public void UpdateCharacteristics()
@@ -51,6 +55,8 @@ namespace Game.Gameplay.Models.Character
             _healthSteal = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.HealthSteal);
 
             _currentLevel.Value = 0;
+
+            _abilityTmpCharacteristics.Clear();
 
             LevelUp();
             ResetLevelBar();
@@ -85,6 +91,21 @@ namespace Game.Gameplay.Models.Character
             _nextLevelReachPoint = GetNextLevelReachPoint();
 
             ResetLevelBar();
+        }
+
+        public void LevelUpAbility(AbilityRecord abilityRecord, int level)
+        {
+            var abilityLevelRecord = abilityRecord.GetInfoForLevel(level);
+            foreach (var abilityCharacteristic in abilityLevelRecord._abilityCharacteristics)
+            {
+                var characteristicType = abilityCharacteristic._abilityCharacteristicType;
+                _abilityTmpCharacteristics.SetCharacteristic(characteristicType, abilityCharacteristic._value);
+            }
+        }
+
+        public bool TryGetAbilityCharacteristic(AbilityCharacteristicType characteristicType, out float value)
+        {
+            return _abilityTmpCharacteristics.TryGetCharacteristic(characteristicType, out value);
         }
 
         private void ResetLevelBar()

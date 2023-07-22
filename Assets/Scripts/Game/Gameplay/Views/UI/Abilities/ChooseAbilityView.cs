@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.DataBase.Abilities;
 using Game.Gameplay.Models.Abilities;
 using TegridyCore.Base;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Game.Gameplay.Views.UI.Abilities
 {
     public class ChooseAbilityView : ViewBase
     {
-        public event Action<AbilityType> OnAbilitySelected;
+        public event Action<AbilityRecord> OnAbilitySelected;
 
         [SerializeField] private List<AbilityView> _abilityViews;
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using Game.DataBase.Abilities;
+using Game.Gameplay.AbilitiesMechanics;
 using Game.Gameplay.Models.Abilities;
 using TegridyUtils.UI.Elements;
 using TMPro;
@@ -9,7 +11,7 @@ namespace Game.Gameplay.Views.UI.Abilities
 {
     public class AbilityView : MonoBehaviour
     {
-        public event Action<AbilityType> OnAbilitySelected;
+        public event Action<AbilityRecord> OnAbilitySelected;
 
         [SerializeField] private TMP_Text _name;
         [SerializeField] private TMP_Text _description;
@@ -18,34 +20,42 @@ namespace Game.Gameplay.Views.UI.Abilities
         [SerializeField] private Image _icon;
         [SerializeField] private UiButton _abilityButton;
 
-        private AbilityType _abilityType;
+        private AbilityRecord _abilityRecord;
 
-        public void SetAbilityType(AbilityType abilityType)
+        public void SetAbilityData(AbilityRecord abilityRecord, int level)
         {
-            _abilityType = abilityType;
+            _abilityRecord = abilityRecord;
+            SetName(abilityRecord.Name);
+            SetDescription(abilityRecord.Description);
+            SetIcon(abilityRecord.AbilitySprite);
+
+            var abilityLevelRecord = abilityRecord.GetInfoForLevel(level);
+
+            SetLevel(level);
+            SetWholeEffect(abilityLevelRecord._wholeEffect);
         }
 
-        public void SetName(string abilityName)
+        private void SetName(string abilityName)
         {
             _name.text = abilityName;
         }
 
-        public void SetDescription(string description)
+        private void SetDescription(string description)
         {
             _description.text = description;
         }
 
-        public void SetWholeEffect(string wholeEffect)
+        private void SetWholeEffect(string wholeEffect)
         {
             _wholeEffect.text = wholeEffect;
         }
 
-        public void SetLevel(int level)
+        private void SetLevel(int level)
         {
             _level.text = $"Lvl {level}";
         }
 
-        public void SetIcon(Sprite sprite)
+        private void SetIcon(Sprite sprite)
         {
             _icon.sprite = sprite;
         }
@@ -62,7 +72,7 @@ namespace Game.Gameplay.Views.UI.Abilities
 
         private void OnAbilityButtonPressedHandler()
         {
-            OnAbilitySelected?.Invoke(_abilityType);
+            OnAbilitySelected?.Invoke(_abilityRecord);
         }
     }
 }

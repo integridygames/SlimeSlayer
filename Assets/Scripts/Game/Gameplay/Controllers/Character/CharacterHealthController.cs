@@ -42,6 +42,7 @@ namespace Game.Gameplay.Controllers.Character
         private void RespawnCharacter()
         {
             _characterRespawnService.GoToSpawnPoint();
+            _characterCharacteristicsRepository.AddHealth(_characterCharacteristicsRepository.MaxHealth);
         }
     }
 }
