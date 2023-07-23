@@ -16,6 +16,20 @@ namespace Game.Gameplay.Models.Abilities
             _activeAbilities.Add(abilityBase);
             ActiveAbilitiesDict[abilityType] = abilityBase;
             ActiveAbilitiesSet.Add(abilityType);
+
+            abilityBase.OnStart();
+        }
+
+        public void Clear()
+        {
+            foreach (var activeAbility in _activeAbilities)
+            {
+                activeAbility.OnEnd();
+            }
+
+            ActiveAbilitiesDict.Clear();
+            ActiveAbilitiesSet.Clear();
+            _activeAbilities.Clear();
         }
     }
 }

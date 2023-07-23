@@ -22,11 +22,15 @@ MonoBehaviour:
       - _abilityCharacteristicType: 0
         _value: 2
     - _level: 2
-      _wholeEffect: test whole effect 2
-      _abilityCharacteristics: []
+      _wholeEffect: "\u0422\u0440\u0438 \u0433\u0440\u0430\u043D\u0430\u0442\u044B"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 0
+        _value: 3
     - _level: 3
-      _wholeEffect: test whole effect 3
-      _abilityCharacteristics: []
+      _wholeEffect: "\u0427\u0435\u0442\u044B\u0440\u0435 \u0433\u0440\u0430\u043D\u0430\u0442\u044B"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 0
+        _value: 4
     _weaponNeeds: 03000000
     _abilityNeeds: 02000000
     _name: Multiple Grenade
@@ -37,14 +41,23 @@ MonoBehaviour:
     _abilitySprite: {fileID: 21300030, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
     _levelInfos:
     - _level: 1
-      _wholeEffect: test whole effect
-      _abilityCharacteristics: []
+      _wholeEffect: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D
+        \u043F\u0440\u0438 \u0432\u0437\u0440\u044B\u0432\u0435"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 1
+        _value: 4
     - _level: 2
-      _wholeEffect: test whole effect 2
-      _abilityCharacteristics: []
+      _wholeEffect: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D
+        \u043F\u0440\u0438 \u0432\u0437\u0440\u044B\u0432\u0435"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 1
+        _value: 6
     - _level: 3
-      _wholeEffect: test whole effect 3
-      _abilityCharacteristics: []
+      _wholeEffect: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D
+        \u043F\u0440\u0438 \u0432\u0437\u0440\u044B\u0432\u0435"
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 1
+        _value: 10
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Enemy Death Explosion

@@ -12,6 +12,7 @@ namespace Game.Gameplay.Models.Character
 
         private readonly CharacterCharacteristics _characterCharacteristics;
         private readonly AbilityTmpCharacteristics _abilityTmpCharacteristics;
+        private readonly AbilitiesRepository _abilitiesRepository;
 
         private int _nextLevelReachPoint;
         private int _currentExperience;
@@ -37,10 +38,12 @@ namespace Game.Gameplay.Models.Character
 
         public bool ReadyForLevelUp => _currentExperience >= _nextLevelReachPoint;
 
-        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics, AbilityTmpCharacteristics abilityTmpCharacteristics)
+        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics,
+            AbilityTmpCharacteristics abilityTmpCharacteristics, AbilitiesRepository abilitiesRepository)
         {
             _characterCharacteristics = characterCharacteristics;
             _abilityTmpCharacteristics = abilityTmpCharacteristics;
+            _abilitiesRepository = abilitiesRepository;
         }
 
         public void UpdateCharacteristics()
@@ -57,6 +60,7 @@ namespace Game.Gameplay.Models.Character
             _currentLevel.Value = 0;
 
             _abilityTmpCharacteristics.Clear();
+            _abilitiesRepository.Clear();
 
             LevelUp();
             ResetLevelBar();

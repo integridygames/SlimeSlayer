@@ -39,7 +39,6 @@ namespace Game.Gameplay.Factories
                 _ => throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null)
             };
 
-            result.OnStart();
             return result;
         }
     }

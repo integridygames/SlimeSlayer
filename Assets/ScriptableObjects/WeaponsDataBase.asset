@@ -1010,13 +1010,13 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 1
       - _weaponCharacteristicType: 1
-        _startValue: 1
+        _startValue: 4
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 1
+        _startValue: 12
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
@@ -1042,13 +1042,13 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 1
       - _weaponCharacteristicType: 1
-        _startValue: 2
+        _startValue: 4
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 2
+        _startValue: 13
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
@@ -1074,13 +1074,13 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 1
       - _weaponCharacteristicType: 1
-        _startValue: 3
+        _startValue: 6
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 3
+        _startValue: 14
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
@@ -1106,13 +1106,13 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 1
       - _weaponCharacteristicType: 1
-        _startValue: 4
+        _startValue: 6
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 4
+        _startValue: 16
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
@@ -1138,13 +1138,13 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 1
       - _weaponCharacteristicType: 1
-        _startValue: 5
+        _startValue: 8
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 5
+        _startValue: 18
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0

@@ -1,7 +1,6 @@
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
 using System;
-using Game.DataBase.Essence;
 using Game.DataBase.GameResource;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Models.GameResources;
@@ -49,7 +48,6 @@ namespace Game.Gameplay.Controllers.Enemy
             _activeEssencesContainer.Add((EssenceView) SpawnGameResource(enemy.Position, GameResourceType.Essence));
             _activeCoinsContainer.Add((CoinView) SpawnGameResource(enemy.Position, GameResourceType.Coin));
 
-            _activeEnemiesContainer.RemoveEnemy(enemy);
             enemy.Destroy();
 
             RecycleSpawnZones();

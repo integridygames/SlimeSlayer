@@ -23,11 +23,19 @@
         /// <summary>
         /// Выполняется при первом выборе данной способности первого уровня (если уровни есть).
         /// </summary>
-        public abstract void OnStart();
+        public virtual void OnStart() {}
 
         /// <summary>
         /// Выполняется каждый кадр, пока способность существует и доступна для использования.
         /// </summary>
-        public abstract void Execute();
+        public virtual void Execute() {}
+
+
+        /// <summary>
+        /// Нужен для отписки. Выполняется при удалении абилки (выходе с уровня).
+        /// </summary>
+        public virtual void OnEnd()
+        {
+        }
     }
 }

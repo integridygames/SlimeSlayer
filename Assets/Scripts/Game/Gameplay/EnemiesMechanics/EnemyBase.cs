@@ -17,6 +17,8 @@ namespace Game.Gameplay.EnemiesMechanics
         private readonly EnemyDestructionStates _enemyDestructionStates;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
         private readonly RxField<float> _health;
+        private bool _isDead;
+
         private int _previousDestructionStateIndex;
 
         protected abstract IEnemyMovementComponent EnemyMovementComponent { get; }
@@ -80,10 +82,16 @@ namespace Game.Gameplay.EnemiesMechanics
 
         private void HandleDamage(HitInfo hitInfo)
         {
+            if (_isDead)
+            {
+                return;
+            }
+
             _health.Value -= hitInfo.Damage;
 
             if (_health.Value <= 0)
             {
+                _isDead = true;
                 OnEnemyDied?.Invoke(this);
                 return;
             }

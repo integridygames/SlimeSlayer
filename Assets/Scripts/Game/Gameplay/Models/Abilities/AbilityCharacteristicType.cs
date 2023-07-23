@@ -3,5 +3,6 @@
     public enum AbilityCharacteristicType
     {
         MultipleGrenadesCount,
+        EnemyExplosionDamage,
     }
 }

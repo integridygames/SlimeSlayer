@@ -121,18 +121,7 @@ namespace Game.Gameplay.Services
 
             var grenadePosition = grenadeView.transform.position;
 
-            DoExplosion(RecyclableParticleType.GrenadeExplosion, grenadePosition);
-            var grenadeTargets = Physics.OverlapSphere(grenadePosition, 3, (int) Layers.Enemy);
-
-            foreach (var grenadeTarget in grenadeTargets)
-            {
-                var enemyView = grenadeTarget.GetComponentInParent<EnemyViewBase>();
-                var enemyPosition = enemyView.transform.position;
-                var impulseDirection = GetImpulseDirection(enemyPosition, grenadePosition);
-
-                enemyView.InvokeHit(new HitInfo(GetDamage(grenadeView.PlayerWeaponData), impulseDirection.normalized,
-                    enemyPosition));
-            }
+            DoExplosion(RecyclableParticleType.GrenadeExplosion, grenadePosition, GetDamage(grenadeView.PlayerWeaponData));
 
             if (grenadeView.CanBeMultiple &&
                 _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
@@ -150,7 +139,7 @@ namespace Game.Gameplay.Services
             }
         }
 
-        public void DoExplosion(RecyclableParticleType particleType, Vector3 position)
+        public void DoExplosion(RecyclableParticleType particleType, Vector3 position, float damage)
         {
             if (_recyclableParticlesPoolFactory.GetElement(particleType) is ExplosionView explosionView)
             {
@@ -159,6 +148,19 @@ namespace Game.Gameplay.Services
                 explosionView.Play();
 
                 explosionView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
+
+                var explosionTargets = Physics.OverlapSphere(position, 3, (int) Layers.Enemy);
+
+                foreach (var grenadeTarget in explosionTargets)
+                {
+                    var enemyView = grenadeTarget.GetComponentInParent<EnemyViewBase>();
+                    var enemyPosition = enemyView.transform.position;
+                    var impulseDirection = GetImpulseDirection(enemyPosition, position);
+
+                    enemyView.InvokeHit(new HitInfo(damage, impulseDirection.normalized,
+                        enemyPosition));
+                }
+
                 return;
             }
 

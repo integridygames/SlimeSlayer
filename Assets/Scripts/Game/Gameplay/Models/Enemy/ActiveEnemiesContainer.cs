@@ -16,12 +16,19 @@ namespace Game.Gameplay.Models.Enemy
         {
             enemy.Initialize();
 
-            enemy.OnEnemyDied += OnEnemyDied;
+            enemy.OnEnemyDied += OnEnemyDiedHandler;
 
             _activeEnemies.Add(enemy);
         }
 
-        public void RemoveEnemy(EnemyBase enemy)
+        private void OnEnemyDiedHandler(EnemyBase enemy)
+        {
+            OnEnemyDied?.Invoke(enemy);
+
+            RemoveEnemy(enemy);
+        }
+
+        private void RemoveEnemy(EnemyBase enemy)
         {
             enemy.Dispose();
 
