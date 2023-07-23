@@ -148,7 +148,7 @@ namespace Game.Installers.SampleScene
             var enemiesAttackSystem = Container.Instantiate<EnemiesAttackSystem>();
             Container.BindUpdateSystemWithState(enemiesAttackSystem, _gameState);
 
-            var closestEnemiesFinderSystem = Container.Instantiate<ClosestEnemiesFinderSystem>();
+            var closestEnemiesFinderSystem = Container.Instantiate<EnemiesInRangeFinderSystem>();
             Container.BindUpdateSystemWithState(closestEnemiesFinderSystem, _gameState);
 
             var closestEssenceMoveToCharacterSystem = Container.Instantiate<ClosestResourceMoveToCharacterSystem>();

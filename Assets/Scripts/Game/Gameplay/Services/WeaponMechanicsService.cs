@@ -26,21 +26,18 @@ namespace Game.Gameplay.Services
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
         private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly WeaponsCharacteristicsRepository _weaponsCharacteristicsRepository;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
         public WeaponMechanicsService(BulletsPoolFactory bulletsPoolFactory,
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
             ActiveEnemiesContainer activeEnemiesContainer,
-            WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
             _activeEnemiesContainer = activeEnemiesContainer;
-            _weaponsCharacteristicsRepository = weaponsCharacteristicsRepository;
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
@@ -63,13 +60,13 @@ namespace Game.Gameplay.Services
         }
 
         public void ShootBullet(Transform shootingPoint, Vector3 direction, ProjectileType projectileType,
-            PlayerWeaponData playerWeaponData, bool canBeMultiple = false)
+            float damage, bool canBeMultiple = false)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is BulletView bulletView)
             {
                 bulletView.transform.position = shootingPoint.position;
 
-                bulletView.Initialize(playerWeaponData, direction, BulletSpeed, canBeMultiple);
+                bulletView.Initialize(direction, damage, BulletSpeed, canBeMultiple);
                 bulletView.Shoot();
 
                 bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
@@ -86,7 +83,7 @@ namespace Game.Gameplay.Services
         {
             bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(bulletView.PlayerWeaponData),
+            enemyView.InvokeHit(new HitInfo(bulletView.Damage,
                 bulletView.Direction,
                 enemyView.transform.position));
 
@@ -94,13 +91,13 @@ namespace Game.Gameplay.Services
         }
 
         public GrenadeView ShootGrenade(Vector3 shootingPosition, Vector3 direction, ProjectileType projectileType,
-            PlayerWeaponData playerWeaponData, bool canBeMultiple = false)
+            float damage, bool canBeMultiple = false)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
                 grenadeView.transform.position = shootingPosition;
 
-                grenadeView.Initialize(playerWeaponData, direction, 1800f, canBeMultiple);
+                grenadeView.Initialize(direction, damage, 1800f, canBeMultiple);
                 grenadeView.Shoot();
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
@@ -121,7 +118,7 @@ namespace Game.Gameplay.Services
 
             var grenadePosition = grenadeView.transform.position;
 
-            DoExplosion(RecyclableParticleType.GrenadeExplosion, grenadePosition, GetDamage(grenadeView.PlayerWeaponData));
+            DoExplosion(RecyclableParticleType.GrenadeExplosion, grenadePosition, grenadeView.Damage);
 
             if (grenadeView.CanBeMultiple &&
                 _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
@@ -134,7 +131,7 @@ namespace Game.Gameplay.Services
                     var direction = Quaternion.Euler(0f, angle, 0f) * new Vector3(0, 0.1f, 1);
 
                     ShootGrenade(grenadeView.transform.position, direction,
-                        ProjectileType.Grenade, grenadeView.PlayerWeaponData);
+                        ProjectileType.Grenade, grenadeView.Damage);
                 }
             }
         }
@@ -181,11 +178,11 @@ namespace Game.Gameplay.Services
         }
 
         public void ShootFX(Transform shootingPoint, Vector3 direction, RecyclableParticleType recyclableParticleType,
-            PlayerWeaponData playerWeaponData)
+            float damage)
         {
             if (_recyclableParticlesPoolFactory.GetElement(recyclableParticleType) is CommonShootFxView projectileView)
             {
-                projectileView.Initialize(playerWeaponData);
+                projectileView.Initialize(damage);
 
                 var particlesTransform = projectileView.transform;
 
@@ -209,7 +206,7 @@ namespace Game.Gameplay.Services
 
             var impulseDirection = GetImpulseDirection(enemyPosition, position);
 
-            enemyView.InvokeHit(new HitInfo(GetDamage(commonShootFx.WeaponData),
+            enemyView.InvokeHit(new HitInfo(commonShootFx.Damage,
                 impulseDirection.normalized, enemyPosition));
         }
 
@@ -229,11 +226,6 @@ namespace Game.Gameplay.Services
             recyclableParticleView.OnParticleSystemStopped -= OnParticleSystemStoppedHandler;
 
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
-        }
-
-        public float GetDamage(PlayerWeaponData playerWeaponData)
-        {
-            return _weaponsCharacteristicsRepository.GetDamage(playerWeaponData);
         }
 
         private static Vector3 GetImpulseDirection(Vector3 targetPosition, Vector3 sourcePosition)

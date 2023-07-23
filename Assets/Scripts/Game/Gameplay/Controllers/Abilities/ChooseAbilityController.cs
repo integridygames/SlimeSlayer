@@ -87,12 +87,16 @@ namespace Game.Gameplay.Controllers.Abilities
             if (_abilitiesRepository.ActiveAbilitiesDict.TryGetValue(abilityRecord.AbilityType, out var ability) == false)
             {
                 ability = _abilityFactory.CreateAbility(abilityRecord.AbilityType);
-                _abilitiesRepository.AddAbility(abilityRecord.AbilityType, ability);
             }
 
             ability.Level++;
-
             _characterCharacteristicsRepository.LevelUpAbility(abilityRecord, ability.Level);
+
+            if (ability.Level == 1)
+            {
+                _abilitiesRepository.AddAbility(abilityRecord.AbilityType, ability);
+            }
+
             _characterCharacteristicsRepository.LevelUp();
         }
     }

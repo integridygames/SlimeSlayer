@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace Game.Gameplay.Systems.Character.TargetSystem
 {
-    public class ClosestEnemiesFinderSystem : IUpdateSystem
+    public class EnemiesInRangeFinderSystem : IUpdateSystem
     {
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly CharacterView _characterView;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
-        public ClosestEnemiesFinderSystem(ActiveEnemiesContainer activeEnemiesContainer,
+        public EnemiesInRangeFinderSystem(ActiveEnemiesContainer activeEnemiesContainer,
             CharacterView characterView, CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _activeEnemiesContainer = activeEnemiesContainer;

@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -21,10 +22,12 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public UziWeapon(UziView uziView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService,
+            WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             WeaponsCharacteristics weaponsCharacteristics) : base(uziView, playerWeaponData)
         {
             ShootComponent =
-                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet, playerWeaponData, uziView.ShootingPoint);
+                new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet,
+                    weaponsCharacteristicsRepository, playerWeaponData, uziView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);

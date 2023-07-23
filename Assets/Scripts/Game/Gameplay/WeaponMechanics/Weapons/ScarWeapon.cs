@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -20,12 +21,12 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override Transform ShootingPoint { get; }
 
         public ScarWeapon(ScarView scarView, PlayerWeaponData playerWeaponData,
-            WeaponMechanicsService weaponMechanicsService,
+            WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             WeaponsCharacteristics weaponsCharacteristics) : base(scarView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet,
-                    playerWeaponData, scarView.ShootingPoint);
+                    weaponsCharacteristicsRepository, playerWeaponData, scarView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);

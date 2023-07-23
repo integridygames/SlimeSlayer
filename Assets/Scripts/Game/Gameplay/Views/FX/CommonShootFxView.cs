@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.DataBase.Weapon;
 using Game.Gameplay.Views.Enemy;
 using UnityEngine;
 
@@ -12,11 +11,11 @@ namespace Game.Gameplay.Views.FX
 
         private readonly List<ParticleCollisionEvent> _collisionEvents = new();
 
-        public PlayerWeaponData WeaponData { get; private set; }
+        public float Damage { get; set; }
 
-        public void Initialize(PlayerWeaponData playerWeaponData)
+        public void Initialize(float damage)
         {
-            WeaponData = playerWeaponData;
+            Damage = damage;
         }
 
         private void OnParticleCollision(GameObject other)

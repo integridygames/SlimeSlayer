@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -20,10 +21,10 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override Transform ShootingPoint { get; }
 
         public MiniGunWeapon(MiniGunView miniGunView, PlayerWeaponData playerWeaponData, WeaponMechanicsService weaponMechanicsService,
-            WeaponsCharacteristics weaponsCharacteristics): base(miniGunView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository): base(miniGunView, playerWeaponData)
         {
             ShootComponent =
-                new BulletShootComponent(miniGunView, weaponMechanicsService, ProjectileType.LargeBullet, playerWeaponData, miniGunView.ShootingPoint);
+                new BulletShootComponent(miniGunView, weaponMechanicsService, ProjectileType.LargeBullet, weaponsCharacteristicsRepository, playerWeaponData, miniGunView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);

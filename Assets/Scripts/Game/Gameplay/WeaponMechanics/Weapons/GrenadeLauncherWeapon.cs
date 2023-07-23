@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -22,11 +23,11 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override Transform ShootingPoint { get; }
 
         public GrenadeLauncherWeapon(GrenadeLauncherView grenadeLauncherView, PlayerWeaponData playerWeaponData,
-            WeaponMechanicsService weaponMechanicsService,
+            WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             WeaponsCharacteristics weaponsCharacteristics) : base(grenadeLauncherView, playerWeaponData)
         {
             ShootComponent = new GrenadeShootComponent(grenadeLauncherView, weaponMechanicsService,
-                ProjectileType.Grenade, playerWeaponData, grenadeLauncherView.ShootingPoint);
+                weaponsCharacteristicsRepository, ProjectileType.Grenade, playerWeaponData, grenadeLauncherView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);

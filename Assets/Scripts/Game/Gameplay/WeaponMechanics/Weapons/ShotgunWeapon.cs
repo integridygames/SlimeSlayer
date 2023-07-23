@@ -1,5 +1,6 @@
 ﻿using Game.DataBase.FX;
 using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -21,11 +22,11 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         protected override Transform ShootingPoint { get; }
 
         public ShotgunWeapon(ShotgunView shotgunView, PlayerWeaponData playerWeaponData,
-            WeaponMechanicsService weaponMechanicsService,
+            WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             WeaponsCharacteristics weaponsCharacteristics) : base(shotgunView, playerWeaponData)
         {
             ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
-                playerWeaponData, shotgunView.ShootingPoint, weaponMechanicsService);
+                playerWeaponData, weaponsCharacteristicsRepository, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);

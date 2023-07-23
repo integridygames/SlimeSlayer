@@ -4,5 +4,7 @@
     {
         MultipleGrenadesCount,
         EnemyExplosionDamage,
+        PeriodicGrenadeToEnemyDuration,
+        PeriodicGrenadeToEnemyDamage,
     }
 }

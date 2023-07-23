@@ -1,4 +1,5 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using Game.Gameplay.Views.Weapons;
@@ -19,12 +20,12 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         protected override Transform ShootingPoint { get; }
 
-        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, PlayerWeaponData playerWeaponData,
+        public SniperRiffleWeapon(SniperRiffleView sniperRiffleView, PlayerWeaponData playerWeaponData, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
             WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristics weaponsCharacteristics) : base(sniperRiffleView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(sniperRiffleView, weaponMechanicsService,
-                    ProjectileType.LongBullet, playerWeaponData, sniperRiffleView.ShootingPoint);
+                    ProjectileType.LongBullet, weaponsCharacteristicsRepository, playerWeaponData, sniperRiffleView.ShootingPoint);
 
             ReloadComponent =
                 new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
