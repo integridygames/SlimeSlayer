@@ -6,5 +6,6 @@
         EnemyExplosionDamage,
         PeriodicGrenadeToEnemyDuration,
         PeriodicGrenadeToEnemyDamage,
+        FireTrailDamage,
     }
 }

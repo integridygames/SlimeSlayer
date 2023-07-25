@@ -76,8 +76,8 @@ namespace Game.Gameplay.AbilitiesMechanics
             if (closestEnemy != null)
             {
                 var characterPosition = _characterView.transform.position;
-                _weaponMechanicsService.ShootGrenade(characterPosition,  closestEnemy.Position - characterPosition,
-                    ProjectileType.Grenade, _damage, true);
+                _weaponMechanicsService.ShootGrenade(characterPosition,  (closestEnemy.Position - characterPosition).normalized + Vector3.up * 0.3f,
+                    ProjectileType.Grenade, _damage, true, 900);
             }
         }
     }

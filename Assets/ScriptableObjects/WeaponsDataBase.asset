@@ -184,8 +184,8 @@ MonoBehaviour:
     - _rarityType: 1
       _weaponCharacteristics:
       - _weaponCharacteristicType: 0
-        _startValue: 1
-        _addition: 1
+        _startValue: 0.1
+        _addition: 0.1
         _additionMultiplier: 1.25
         _hidden: 0
         _isPercentage: 1
@@ -216,8 +216,8 @@ MonoBehaviour:
     - _rarityType: 2
       _weaponCharacteristics:
       - _weaponCharacteristicType: 0
-        _startValue: 1.5
-        _addition: 1
+        _startValue: 0.2
+        _addition: 0.1
         _additionMultiplier: 1.25
         _hidden: 0
         _isPercentage: 1
@@ -248,8 +248,8 @@ MonoBehaviour:
     - _rarityType: 3
       _weaponCharacteristics:
       - _weaponCharacteristicType: 0
-        _startValue: 1.5
-        _addition: 1
+        _startValue: 0.2
+        _addition: 0.3
         _additionMultiplier: 1.25
         _hidden: 0
         _isPercentage: 1
@@ -260,7 +260,7 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 3
+        _startValue: 2
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0
@@ -280,8 +280,8 @@ MonoBehaviour:
     - _rarityType: 4
       _weaponCharacteristics:
       - _weaponCharacteristicType: 0
-        _startValue: 2
-        _addition: 1
+        _startValue: 0.2
+        _addition: 0.4
         _additionMultiplier: 1.25
         _hidden: 0
         _isPercentage: 1
@@ -312,8 +312,8 @@ MonoBehaviour:
     - _rarityType: 5
       _weaponCharacteristics:
       - _weaponCharacteristicType: 0
-        _startValue: 3
-        _addition: 1
+        _startValue: 0.3
+        _addition: 0.5
         _additionMultiplier: 1.25
         _hidden: 0
         _isPercentage: 1
@@ -324,7 +324,7 @@ MonoBehaviour:
         _hidden: 0
         _isPercentage: 0
       - _weaponCharacteristicType: 2
-        _startValue: 5
+        _startValue: 4
         _addition: 1
         _additionMultiplier: 1
         _hidden: 0

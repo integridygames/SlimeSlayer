@@ -191,8 +191,8 @@ MonoBehaviour:
   _isCached: 0
   _enemySpawnSettings:
   - _enemyType: 0
-    _essenceType: 0
-    _count: 60
+    _gameResourceType: 0
+    _count: 30
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 6998976797046257322}
@@ -221,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929288089734131639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -289,8 +289,8 @@ MonoBehaviour:
   _isCached: 0
   _enemySpawnSettings:
   - _enemyType: 0
-    _essenceType: 0
-    _count: 60
+    _gameResourceType: 0
+    _count: 30
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 435542273237476981}
@@ -522,7 +522,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4117149447596830646}
   - component: {fileID: 4117149447596830645}
-  - component: {fileID: 2883516806785051096}
   m_Layer: 8
   m_Name: TestLevel
   m_TagString: Untagged
@@ -577,19 +576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86169ccd1e6463fa1f11be858db6bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2883516806785051096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117149447596830644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b397a1e3d728343af283ad93a4ac94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isCached: 0
 --- !u!1 &5072364045612740228
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,8 +796,8 @@ MonoBehaviour:
   _isCached: 0
   _enemySpawnSettings:
   - _enemyType: 0
-    _essenceType: 0
-    _count: 60
+    _gameResourceType: 0
+    _count: 30
   _boundsSize: {x: 13.65, y: 21.17, z: 11.2}
   _spawnTime: 1
   _battlefieldSpawnTimeoutView: {fileID: 4250635654865135876}

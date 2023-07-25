@@ -22,7 +22,7 @@ MonoBehaviour:
     _priceAdditionMultiplier: 1.5
     _hidden: 0
   - _characterCharacteristicType: 2
-    _startValue: 10
+    _startValue: 5
     _addition: 1
     _additionMultiplier: 1
     _startPrice: 10

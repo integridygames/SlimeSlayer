@@ -91,13 +91,13 @@ namespace Game.Gameplay.Services
         }
 
         public GrenadeView ShootGrenade(Vector3 shootingPosition, Vector3 direction, ProjectileType projectileType,
-            float damage, bool canBeMultiple = false)
+            float damage, bool canBeMultiple = false, float force = 1800f)
         {
             if (_bulletsPoolFactory.GetElement(projectileType) is GrenadeView grenadeView)
             {
                 grenadeView.transform.position = shootingPosition;
 
-                grenadeView.Initialize(direction, damage, 1800f, canBeMultiple);
+                grenadeView.Initialize(direction, damage, force, canBeMultiple);
                 grenadeView.Shoot();
 
                 _activeProjectilesContainer.AddProjectile(grenadeView);
