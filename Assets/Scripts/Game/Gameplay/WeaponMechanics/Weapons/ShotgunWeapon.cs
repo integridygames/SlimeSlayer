@@ -23,7 +23,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public ShotgunWeapon(ShotgunView shotgunView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
-            WeaponsCharacteristics weaponsCharacteristics) : base(shotgunView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository) : base(shotgunView, playerWeaponData)
         {
             ShootComponent = new ParticlesShootComponent(shotgunView, RecyclableParticleType.ShotgunProjectiles,
                 playerWeaponData, weaponsCharacteristicsRepository, shotgunView.ShootingPoint, weaponMechanicsService);
@@ -33,7 +34,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,
-                playerWeaponData, shotgunView.ShootingPoint);
+                playerWeaponData, shotgunView.ShootingPoint, characterCharacteristicsRepository);
 
             ShootingPoint = shotgunView.ShootingPoint;
         }

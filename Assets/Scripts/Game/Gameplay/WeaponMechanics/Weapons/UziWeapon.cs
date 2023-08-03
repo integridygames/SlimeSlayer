@@ -23,7 +23,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
         public UziWeapon(UziView uziView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService,
             WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
-            WeaponsCharacteristics weaponsCharacteristics) : base(uziView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository) : base(uziView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(uziView, weaponMechanicsService, ProjectileType.CommonBullet,
@@ -34,7 +35,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,
-                playerWeaponData, uziView.ShootingPoint);
+                playerWeaponData, uziView.ShootingPoint, characterCharacteristicsRepository);
 
             ShootingPoint = uziView.ShootingPoint;
         }

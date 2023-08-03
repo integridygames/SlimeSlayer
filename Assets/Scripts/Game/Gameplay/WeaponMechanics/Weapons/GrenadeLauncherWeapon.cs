@@ -24,7 +24,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public GrenadeLauncherWeapon(GrenadeLauncherView grenadeLauncherView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
-            WeaponsCharacteristics weaponsCharacteristics) : base(grenadeLauncherView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository) : base(grenadeLauncherView, playerWeaponData)
         {
             ShootComponent = new GrenadeShootComponent(grenadeLauncherView, weaponMechanicsService,
                 weaponsCharacteristicsRepository, ProjectileType.Grenade, playerWeaponData, grenadeLauncherView.ShootingPoint);
@@ -34,7 +35,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,
-                playerWeaponData, grenadeLauncherView.ShootingPoint);
+                playerWeaponData, grenadeLauncherView.ShootingPoint, characterCharacteristicsRepository);
 
             ShootingPoint = grenadeLauncherView.ShootingPoint;
         }

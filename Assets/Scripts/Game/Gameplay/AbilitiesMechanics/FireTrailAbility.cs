@@ -35,10 +35,6 @@ namespace Game.Gameplay.AbilitiesMechanics
             _fireTrail.OnEnemyCollide += OnEnemyCollideHandler;
         }
 
-        public override void Execute()
-        {
-        }
-
         public override void OnEnd()
         {
             _fireTrail.OnEnemyCollide -= OnEnemyCollideHandler;

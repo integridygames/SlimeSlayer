@@ -6,5 +6,6 @@
         GrenadeExplosion = 2,
         CommonQubeDamage = 3,
         FireTrail = 4,
+        PushingImpulse = 5,
     }
 }

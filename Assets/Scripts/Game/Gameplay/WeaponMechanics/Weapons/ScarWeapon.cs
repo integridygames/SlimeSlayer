@@ -22,7 +22,8 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
         public ScarWeapon(ScarView scarView, PlayerWeaponData playerWeaponData,
             WeaponMechanicsService weaponMechanicsService, WeaponsCharacteristicsRepository weaponsCharacteristicsRepository,
-            WeaponsCharacteristics weaponsCharacteristics) : base(scarView, playerWeaponData)
+            WeaponsCharacteristics weaponsCharacteristics,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository) : base(scarView, playerWeaponData)
         {
             ShootComponent =
                 new BulletShootComponent(scarView, weaponMechanicsService, ProjectileType.CommonBullet,
@@ -33,7 +34,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,
-                playerWeaponData, scarView.ShootingPoint);
+                playerWeaponData, scarView.ShootingPoint, characterCharacteristicsRepository);
 
             ShootingPoint = scarView.ShootingPoint;
         }

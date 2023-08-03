@@ -122,13 +122,25 @@ MonoBehaviour:
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 5
+        _value: 40
+      - _abilityCharacteristicType: 6
+        _value: 2
     - _level: 2
       _wholeEffect: test whole effect 2
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 5
+        _value: 50
+      - _abilityCharacteristicType: 0
+        _value: 8
     - _level: 3
       _wholeEffect: test whole effect 3
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 5
+        _value: 70
+      - _abilityCharacteristicType: 6
+        _value: 6
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Pushing Impulse
@@ -139,13 +151,19 @@ MonoBehaviour:
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 7
+        _value: 2
     - _level: 2
       _wholeEffect: test whole effect 2
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 7
+        _value: 4
     - _level: 3
       _wholeEffect: test whole effect 3
-      _abilityCharacteristics: []
+      _abilityCharacteristics:
+      - _abilityCharacteristicType: 7
+        _value: 6
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Speed Fire

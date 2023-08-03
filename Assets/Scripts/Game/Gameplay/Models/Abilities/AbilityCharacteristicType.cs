@@ -7,5 +7,8 @@
         PeriodicGrenadeToEnemyDuration,
         PeriodicGrenadeToEnemyDamage,
         FireTrailDamage,
+        PushingImpulseForce,
+        PushingImpulseDelay,
+        SpeedFireRate,
     }
 }

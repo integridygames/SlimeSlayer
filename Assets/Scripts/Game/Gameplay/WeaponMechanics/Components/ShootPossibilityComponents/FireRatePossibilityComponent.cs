@@ -1,5 +1,7 @@
 ﻿using Game.DataBase.Weapon;
 using Game.Gameplay.EnemiesMechanics;
+using Game.Gameplay.Models.Abilities;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
 using UnityEngine;
@@ -13,17 +15,19 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
         private readonly PlayerWeaponData _playerWeaponData;
 
         private readonly Transform _shootingPoint;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
         private float _lastShotTime;
 
         public FireRatePossibilityComponent(WeaponsCharacteristics weaponsCharacteristics,
             WeaponMechanicsService weaponMechanicsService, PlayerWeaponData playerWeaponData,
-            Transform shootingPoint)
+            Transform shootingPoint, CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _weaponsCharacteristics = weaponsCharacteristics;
             _weaponMechanicsService = weaponMechanicsService;
             _playerWeaponData = playerWeaponData;
             _shootingPoint = shootingPoint;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public bool TryToGetTargetCollider(out EnemyBase target)
@@ -34,6 +38,10 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
             }
 
             var fireRate = _weaponsCharacteristics.GetCharacteristic(_playerWeaponData, WeaponCharacteristicType.FireRate);
+            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.FireTrailDamage,
+                out var abilityFireRate);
+
+            fireRate += abilityFireRate;
 
             return Time.time - _lastShotTime >= BulletsPerSecond(fireRate);
         }
