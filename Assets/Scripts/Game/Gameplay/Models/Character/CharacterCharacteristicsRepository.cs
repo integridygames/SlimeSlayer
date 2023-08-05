@@ -20,21 +20,55 @@ namespace Game.Gameplay.Models.Character
         private readonly RxField<float> _currentHealth = 0;
         public IReadonlyRxField<float> CurrentHealth => _currentHealth;
 
-        public float MaxHealth { get; private set; }
-
-        public float MovingSpeed { get; private set; }
-
         public float AttackRange { get; private set; }
 
-        public float Regeneration { get; private set; }
-
         private readonly RxField<int> _currentLevel = 0;
+
         public IReadonlyRxField<int> CurrentLevel => _currentLevel;
 
         private readonly RxField<float> _currentLevelProgress = 0;
+
         public IReadonlyRxField<float> CurrentLevelProgress => _currentLevelProgress;
 
         private float _healthSteal;
+
+        private float _regeneration;
+
+        public float Regeneration
+        {
+            get
+            {
+                TryGetAbilityCharacteristic(AbilityCharacteristicType.AdditionalHealthRegeneration,
+                    out float additionalRegeneration);
+
+                return _regeneration + additionalRegeneration;
+            }
+        }
+
+        private float _maxHealth;
+
+        public float MaxHealth
+        {
+            get
+            {
+                TryGetAbilityCharacteristic(AbilityCharacteristicType.AdditionalHealth, out float additionalHealth);
+                return _maxHealth + additionalHealth;
+            }
+        }
+
+        private float _movingSpeed;
+
+        public float MovingSpeed
+        {
+            get
+            {
+                TryGetAbilityCharacteristic(AbilityCharacteristicType.AdditionalMovementSpeed,
+                    out float additionalMovementSpeed);
+
+                return _movingSpeed + additionalMovementSpeed;
+            }
+            private set => _movingSpeed = value;
+        }
 
         public bool ReadyForLevelUp => _currentExperience >= _nextLevelReachPoint;
 
@@ -49,11 +83,11 @@ namespace Game.Gameplay.Models.Character
         public void UpdateCharacteristics()
         {
             _currentHealth.Value = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.MaxHealth);
-            MaxHealth = CurrentHealth.Value;
+            _maxHealth = CurrentHealth.Value;
 
             MovingSpeed = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.Speed);
             AttackRange = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.AttackRange);
-            Regeneration = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.Regeneration);
+            _regeneration = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.Regeneration);
 
             _healthSteal = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.HealthSteal);
 

@@ -14,5 +14,8 @@
         RandomMissilesCount,
         RandomMissilesDamage,
         RandomMissilesDelay,
+        AdditionalHealthRegeneration,
+        AdditionalHealth,
+        AdditionalMovementSpeed,
     }
 }

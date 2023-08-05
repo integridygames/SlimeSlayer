@@ -1,15 +1,19 @@
-﻿namespace Game.Gameplay.AbilitiesMechanics
+﻿using Game.Gameplay.Models.Character;
+
+namespace Game.Gameplay.AbilitiesMechanics
 {
     public class HealthOneTimeRecoveryAbility : AbilityBase
     {
-        public override void OnStart()
-        {
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
+        public HealthOneTimeRecoveryAbility(CharacterCharacteristicsRepository characterCharacteristicsRepository)
+        {
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
-        public override void Execute()
+        public override void OnStart()
         {
-
+            _characterCharacteristicsRepository.AddHealth(_characterCharacteristicsRepository.MaxHealth);
         }
     }
 }

@@ -2,14 +2,5 @@
 {
     public class HealthRegenerationAbility : AbilityBase
     {
-        public override void OnStart()
-        {
-
-        }
-
-        public override void Execute()
-        {
-
-        }
     }
 }
