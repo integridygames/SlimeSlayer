@@ -122,9 +122,8 @@ namespace Game.Gameplay.Services
 
             if (grenadeView.CanBeMultiple &&
                 _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
-                    AbilityCharacteristicType.MultipleGrenadesCount, out var value))
+                    AbilityCharacteristicType.MultipleGrenadesCount, out int grenadesCount))
             {
-                var grenadesCount = (int) value;
                 for (var i = 1; i <= grenadesCount; i++)
                 {
                     var angle = 360 / i;
@@ -144,7 +143,7 @@ namespace Game.Gameplay.Services
 
                 explosionView.Play();
 
-                explosionView.OnParticleSystemStopped += OnParticleSystemStoppedHandler;
+                explosionView.OnParticleCompletelyStopped += OnParticleCompletelyStoppedHandler;
 
                 var explosionTargets = Physics.OverlapSphere(position, 3, (int) Layers.Enemy);
 
@@ -192,7 +191,7 @@ namespace Game.Gameplay.Services
                 projectileView.Play();
 
                 projectileView.OnEnemyCollide += OnFXEnemyCollideHandler;
-                projectileView.OnParticleSystemStopped += OnFXEnemyCollideStoppedHandler;
+                projectileView.OnParticleCompletelyStopped += OnFXEnemyCollideCompletelyStoppedHandler;
                 return;
             }
 
@@ -210,20 +209,20 @@ namespace Game.Gameplay.Services
                 impulseDirection.normalized, enemyPosition));
         }
 
-        private void OnFXEnemyCollideStoppedHandler(RecyclableParticleView recyclableParticleView)
+        private void OnFXEnemyCollideCompletelyStoppedHandler(RecyclableParticleView recyclableParticleView)
         {
             if (recyclableParticleView is CommonShootFxView commonShootFxView)
             {
                 commonShootFxView.OnEnemyCollide -= OnFXEnemyCollideHandler;
             }
 
-            recyclableParticleView.OnParticleSystemStopped -= OnFXEnemyCollideStoppedHandler;
+            recyclableParticleView.OnParticleCompletelyStopped -= OnFXEnemyCollideCompletelyStoppedHandler;
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }
 
-        private void OnParticleSystemStoppedHandler(RecyclableParticleView recyclableParticleView)
+        private void OnParticleCompletelyStoppedHandler(RecyclableParticleView recyclableParticleView)
         {
-            recyclableParticleView.OnParticleSystemStopped -= OnParticleSystemStoppedHandler;
+            recyclableParticleView.OnParticleCompletelyStopped -= OnParticleCompletelyStoppedHandler;
 
             _recyclableParticlesPoolFactory.RecycleElement(recyclableParticleView.ParticleType, recyclableParticleView);
         }

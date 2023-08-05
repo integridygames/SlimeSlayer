@@ -7,5 +7,6 @@
         CommonQubeDamage = 3,
         FireTrail = 4,
         PushingImpulse = 5,
+        DroppedMissile = 6,
     }
 }

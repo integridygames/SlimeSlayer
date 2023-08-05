@@ -112,6 +112,14 @@ namespace Game.Gameplay.Models.Character
             return _abilityTmpCharacteristics.TryGetCharacteristic(characteristicType, out value);
         }
 
+        public bool TryGetAbilityCharacteristic(AbilityCharacteristicType characteristicType, out int value)
+        {
+            var result = _abilityTmpCharacteristics.TryGetCharacteristic(characteristicType, out var floatValue);
+            value = (int) floatValue;
+
+            return result;
+        }
+
         private void ResetLevelBar()
         {
             _currentLevelProgress.Value = 0;

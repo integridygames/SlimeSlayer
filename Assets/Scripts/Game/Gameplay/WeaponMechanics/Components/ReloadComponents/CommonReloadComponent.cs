@@ -1,4 +1,6 @@
 ﻿using Game.DataBase.Weapon;
+using Game.Gameplay.Models.Abilities;
+using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Weapon;
 using TegridyCore;
@@ -10,6 +12,7 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
     {
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
         private readonly PlayerWeaponData _playerWeaponData;
+        private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
 
 
         private readonly ProgressBarView _leftReloadBarView;
@@ -21,10 +24,12 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
 
         private bool _isInitialized;
 
-        public CommonReloadComponent(WeaponsCharacteristics weaponsCharacteristics, PlayerWeaponData playerWeaponData)
+        public CommonReloadComponent(WeaponsCharacteristics weaponsCharacteristics, PlayerWeaponData playerWeaponData,
+            CharacterCharacteristicsRepository characterCharacteristicsRepository)
         {
             _weaponsCharacteristics = weaponsCharacteristics;
             _playerWeaponData = playerWeaponData;
+            _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
         public bool NeedReload()
@@ -37,6 +42,11 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
             var reloadTime =
                 _weaponsCharacteristics.GetCharacteristic(_playerWeaponData,
                     WeaponCharacteristicType.ReloadTime);
+
+            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
+                AbilityCharacteristicType.ReloadBoostPercent, out float boostPercent);
+
+            reloadTime -= reloadTime * boostPercent;
 
             _reloadProgress.Value += Time.deltaTime / reloadTime;
 

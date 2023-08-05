@@ -43,15 +43,15 @@ namespace Game.Gameplay.EnemiesMechanics.Components.DamageComponents
                 damageFxView.transform.position = hitInfo.HitPosition;
                 damageFxView.transform.rotation = Quaternion.LookRotation(hitInfoImpulseDirection);
 
-                damageFxView.OnParticleSystemStopped += OnDamageFxStoppedHandler;
+                damageFxView.OnParticleCompletelyStopped += OnDamageFxCompletelyStoppedHandler;
 
                 damageFxView.Emit(count);
             }
         }
 
-        private void OnDamageFxStoppedHandler(RecyclableParticleView damageFx)
+        private void OnDamageFxCompletelyStoppedHandler(RecyclableParticleView damageFx)
         {
-            damageFx.OnParticleSystemStopped -= OnDamageFxStoppedHandler;
+            damageFx.OnParticleCompletelyStopped -= OnDamageFxCompletelyStoppedHandler;
 
             _recyclableParticlesPoolFactory.RecycleElement(_damageFxType, damageFx);
         }

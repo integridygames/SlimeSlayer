@@ -63,10 +63,8 @@ namespace Game.Gameplay.AbilitiesMechanics
 
         private void OnEnemyCollideHandler(CommonEnemyView commonEnemyView)
         {
-            Debug.Log("Push");
-
             _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
-                AbilityCharacteristicType.PushingImpulseForce, out var force);
+                AbilityCharacteristicType.PushingImpulseForce, out float force);
 
             var direction = commonEnemyView.transform.position - _characterView.transform.position;
             direction.y = 0;

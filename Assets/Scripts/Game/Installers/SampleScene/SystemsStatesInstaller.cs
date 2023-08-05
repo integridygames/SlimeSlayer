@@ -101,6 +101,8 @@ namespace Game.Installers.SampleScene
 
             var cameraContainerUpdateSystem = Container.Instantiate<CameraMovementSystem>();
             Container.BindFixedSystem(cameraContainerUpdateSystem);
+            var cameraTargetFinderSystem = Container.Instantiate<CameraTargetFinderSystem>();
+            Container.BindUpdateSystem(cameraTargetFinderSystem);
 
             var shootingSystem = Container.Instantiate<ShootingSystem>();
             Container.BindUpdateSystemWithState(shootingSystem, _gameState);

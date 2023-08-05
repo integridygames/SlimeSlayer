@@ -30,7 +30,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
                 playerWeaponData, weaponsCharacteristicsRepository, shotgunView.ShootingPoint, weaponMechanicsService);
 
             ReloadComponent =
-                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
+                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData, characterCharacteristicsRepository);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,

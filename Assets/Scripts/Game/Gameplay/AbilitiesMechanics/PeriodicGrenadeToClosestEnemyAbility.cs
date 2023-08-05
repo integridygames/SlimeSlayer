@@ -33,7 +33,7 @@ namespace Game.Gameplay.AbilitiesMechanics
         public override void OnStart()
         {
             if (_characterCharacteristicsRepository.TryGetAbilityCharacteristic(
-                    AbilityCharacteristicType.PeriodicGrenadeToEnemyDuration, out var duration) == false)
+                    AbilityCharacteristicType.PeriodicGrenadeToEnemyDuration, out float duration) == false)
             {
                 return;
             }

@@ -32,7 +32,7 @@ namespace Game.Gameplay.WeaponMechanics.Weapons
                     sniperRiffleView.ShootingPoint);
 
             ReloadComponent =
-                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData);
+                new CommonReloadComponent(weaponsCharacteristics, playerWeaponData, characterCharacteristicsRepository);
 
             ShootPossibilityComponent = new FireRatePossibilityComponent(
                 weaponsCharacteristics, weaponMechanicsService,

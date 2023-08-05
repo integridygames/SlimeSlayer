@@ -10,5 +10,9 @@
         PushingImpulseForce,
         PushingImpulseDelay,
         SpeedFireRate,
+        ReloadBoostPercent,
+        RandomMissilesCount,
+        RandomMissilesDamage,
+        RandomMissilesDelay,
     }
 }

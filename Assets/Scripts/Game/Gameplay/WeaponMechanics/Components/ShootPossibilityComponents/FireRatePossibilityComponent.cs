@@ -38,8 +38,8 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
             }
 
             var fireRate = _weaponsCharacteristics.GetCharacteristic(_playerWeaponData, WeaponCharacteristicType.FireRate);
-            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.FireTrailDamage,
-                out var abilityFireRate);
+            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.SpeedFireRate,
+                out float abilityFireRate);
 
             fireRate += abilityFireRate;
 

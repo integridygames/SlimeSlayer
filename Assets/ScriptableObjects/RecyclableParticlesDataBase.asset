@@ -23,3 +23,5 @@ MonoBehaviour:
     _recyclableParticleView: {fileID: 1149064854845786424, guid: ed662a3fb30ee2b4c86034d81519b72f, type: 3}
   - _recyclableParticleType: 5
     _recyclableParticleView: {fileID: 8618938959797324242, guid: 9ae6f0fe0780bfe4d8401776feb7de65, type: 3}
+  - _recyclableParticleType: 6
+    _recyclableParticleView: {fileID: 47708620030441344, guid: 6ac85fd99ddc8ae489c37e91e3c0d8d7, type: 3}

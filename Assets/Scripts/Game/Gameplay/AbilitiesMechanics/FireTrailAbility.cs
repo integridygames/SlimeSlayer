@@ -45,7 +45,7 @@ namespace Game.Gameplay.AbilitiesMechanics
         private void OnEnemyCollideHandler(CommonEnemyView commonEnemyView)
         {
             _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.FireTrailDamage,
-                out var damage);
+                out float damage);
 
             commonEnemyView.InvokeHit(new HitInfo(damage, Vector3.zero, commonEnemyView.transform.position));
         }

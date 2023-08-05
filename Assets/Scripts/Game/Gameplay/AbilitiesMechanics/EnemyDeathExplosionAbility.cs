@@ -34,7 +34,7 @@ namespace Game.Gameplay.AbilitiesMechanics
 
         private void OnEnemyDiedHandler(EnemyBase enemy)
         {
-            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.EnemyExplosionDamage, out var damage);
+            _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.EnemyExplosionDamage, out float damage);
             _weaponMechanicsService.DoExplosion(RecyclableParticleType.GrenadeExplosion, enemy.Position, damage);
         }
     }
