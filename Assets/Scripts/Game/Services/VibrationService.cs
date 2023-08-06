@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Game.DataBase;
+using Game.Gameplay.Models;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Game.Services
@@ -6,7 +8,12 @@ namespace Game.Services
     [UsedImplicitly]
     public class VibrationService : IInitializable
     {
-        public bool IsEnabled { get; set; }
+        private readonly PlayerSettings _playerSettings;
+
+        public VibrationService(ApplicationData applicationData)
+        {
+            _playerSettings = applicationData.PlayerSettings;
+        }
 
         public void Initialize()
         {
@@ -15,21 +22,21 @@ namespace Game.Services
 
         public void Vibrate(int milliseconds)
         {
-            if (IsEnabled == false) return;
+            if (_playerSettings.VibrationEnabled.Value == false) return;
 
             Vibration.Vibrate(milliseconds);
         }
 
         public void VibratePop()
         {
-            if (IsEnabled == false) return;
+            if (_playerSettings.VibrationEnabled.Value == false) return;
 
             Vibration.VibratePop();
         }
 
         public void VibrateNope()
         {
-            if (IsEnabled == false) return;
+            if (_playerSettings.VibrationEnabled.Value == false) return;
 
             Vibration.VibrateNope();
         }

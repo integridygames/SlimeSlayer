@@ -7,14 +7,18 @@ namespace Game.Services
     [RequireComponent(typeof(AudioSource))]
     public class SoundService : MonoBehaviour
     {
-        public bool IsMusicEnabled { get; set; }
-        public bool IsSoundsEnabled { get; set; }
-
         [SerializeField] private SoundsDataBase _soundsDataBase;
         [SerializeField] private AudioSource _audioSource;
 
         private readonly Dictionary<string, AudioSource> _musicSources = new();
         private readonly Dictionary<string, AudioSource> _loopedSources = new();
+
+        private PlayerSettings _playerSettings;
+
+        public void Init(PlayerSettings playerSettings)
+        {
+            _playerSettings = playerSettings;
+        }
 
         private void OnValidate()
         {
@@ -23,7 +27,7 @@ namespace Game.Services
 
         public void PlaySound(string clipName, float volume = 1.0f)
         {
-            if (IsSoundsEnabled == false) return;
+            if (_playerSettings.SoundsEnabled.Value == false) return;
 
             var sound = _soundsDataBase.GetSound(clipName);
             _audioSource.PlayOneShot(sound, volume);
@@ -31,12 +35,12 @@ namespace Game.Services
 
         public void PlayMusic(string clipName, float volume = 1.0f, float delay = 0f)
         {
-            PlayMusicInternal(clipName, volume, delay, _musicSources, IsMusicEnabled);
+            PlayMusicInternal(clipName, volume, delay, _musicSources, _playerSettings.MusicEnabled.Value);
         }
         
         public void PlayLoopedSound(string clipName, float volume = 1.0f, float delay = 0f)
         {
-            PlayMusicInternal(clipName, volume, delay, _loopedSources, IsSoundsEnabled);
+            PlayMusicInternal(clipName, volume, delay, _loopedSources, _playerSettings.SoundsEnabled.Value);
         }
 
         private void PlayMusicInternal(string clipName, float volume, float delay, Dictionary<string, AudioSource> sources, bool enableValue)
