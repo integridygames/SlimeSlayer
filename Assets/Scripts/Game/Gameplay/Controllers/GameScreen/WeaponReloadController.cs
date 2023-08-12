@@ -12,7 +12,8 @@ namespace Game.Gameplay.Controllers.GameScreen
     {
         private readonly CharacterWeaponsRepository _characterWeaponsRepository;
 
-        public WeaponReloadController(GameScreenView controlledEntity, CharacterWeaponsRepository characterWeaponsRepository) : base(controlledEntity)
+        public WeaponReloadController(GameScreenView controlledEntity,
+            CharacterWeaponsRepository characterWeaponsRepository) : base(controlledEntity)
         {
             _characterWeaponsRepository = characterWeaponsRepository;
         }
@@ -51,11 +52,13 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         private void OnCurrentLeftChargeUpdate(RxValue<float> chargeRxValue)
         {
+            ControlledEntity.LeftReloadBar.gameObject.SetActive(chargeRxValue.NewValue != 0);
             ControlledEntity.LeftReloadBar.SetProgress(chargeRxValue.NewValue);
         }
 
         private void OnCurrentRightChargeUpdate(RxValue<float> chargeRxValue)
         {
+            ControlledEntity.RightReloadBar.gameObject.SetActive(chargeRxValue.NewValue != 0);
             ControlledEntity.RightReloadBar.SetProgress(chargeRxValue.NewValue);
         }
     }

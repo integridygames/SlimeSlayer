@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _records:
   - _abilityType: 0
-    _abilitySprite: {fileID: 21300028, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 5d9c4968c5196904eb558721516d0674, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: "\u0414\u0432\u0435 \u0433\u0440\u0430\u043D\u0430\u0442\u044B"
@@ -34,12 +34,9 @@ MonoBehaviour:
     _weaponNeeds: 03000000
     _abilityNeeds: 02000000
     _name: Multiple Grenade
-    _description: "\u041B\u044E\u0431\u0430\u044F \u0433\u0440\u0430\u043D\u0430\u0442\u0430
-      \u0434\u0435\u043B\u0438\u0442\u0441\u044F \u043D\u0430 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
-      \u043F\u043E\u0441\u043B\u0435 \u0432\u0437\u0440\u044B\u0432\u0430."
     _withoutLeveling: 0
   - _abilityType: 1
-    _abilitySprite: {fileID: 21300030, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 3318aa90b02f6b04aaa57eb094efd54d, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D
@@ -62,11 +59,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Enemy Death Explosion
-    _description: "\u0412\u0440\u0430\u0433\u0438 \u0432\u0437\u0440\u044B\u0432\u0430\u044E\u0442\u0441\u044F
-      \u043F\u043E\u0441\u043B\u0435 \u0441\u043C\u0435\u0440\u0442\u0438."
     _withoutLeveling: 0
   - _abilityType: 2
-    _abilitySprite: {fileID: 21300030, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 1e9d75a821006e44e89b157edf2b54e6, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: 
@@ -93,11 +88,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Periodic Grenade To Closest Enemy
-    _description: "\u0413\u0440\u0430\u043D\u0430\u0442\u0430 \u0432 \u0431\u043B\u0438\u0436\u0430\u0439\u0448\u0435\u0433\u043E
-      \u0432\u0440\u0430\u0433\u0430."
     _withoutLeveling: 0
   - _abilityType: 3
-    _abilitySprite: {fileID: 21300032, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 93e5860a8af59d34ab26609695624636, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -117,12 +110,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Fire Trail
-    _description: "\u0417\u0430 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u043C
-      \u043E\u0441\u0442\u0430\u0435\u0442\u0441\u044F \u0441\u043B\u0435\u0434 \u0438\u0437
-      \u043E\u0433\u043D\u044F."
     _withoutLeveling: 0
   - _abilityType: 4
-    _abilitySprite: {fileID: 21300034, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 437942b8286f78540981fb29e4cac2fe, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -148,11 +138,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Pushing Impulse
-    _description: "\u0418\u043C\u043F\u0443\u043B\u044C\u0441, \u0440\u0430\u0441\u0442\u0430\u043B\u043A\u0438\u0432\u0430\u044E\u0449\u0438\u0439
-      \u0432\u0440\u0430\u0433\u043E\u0432 \u0432\u043E\u043A\u0440\u0443\u0433."
     _withoutLeveling: 0
   - _abilityType: 5
-    _abilitySprite: {fileID: 21300038, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 5f3e6b5ae5f2906459a4391b020fbdbd, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -172,11 +160,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Speed Fire
-    _description: "\u0417\u043D\u0430\u0447\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435
-      \u0443\u0441\u043A\u043E\u0440\u0435\u043D\u0438\u0435 \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u044B."
     _withoutLeveling: 0
   - _abilityType: 6
-    _abilitySprite: {fileID: 21300040, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 4726a19e4352bfb4bb3309182a2d1983, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -196,11 +182,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Speed Reload
-    _description: "\u0417\u043D\u0430\u0447\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435
-      \u0443\u0441\u043A\u043E\u0440\u0435\u043D\u0438\u0435 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0438."
     _withoutLeveling: 0
   - _abilityType: 7
-    _abilitySprite: {fileID: 21300042, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 386b9d789cedc0541a5cae9efbe98f94, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -224,11 +208,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Many Random Missled
-    _description: "\u0418\u043D\u043E\u0433\u0434\u0430 \u0441 \u043D\u0435\u0431\u0430
-      \u0438\u0434\u0451\u0442 \u0433\u0440\u0430\u0434 \u0438\u0437 \u0440\u0430\u043A\u0435\u0442."
     _withoutLeveling: 0
   - _abilityType: 8
-    _abilitySprite: {fileID: 21300044, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 16903deddb2b8224a942e3d5de2c5c0f, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -248,10 +230,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Health Regeneration
-    _description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435 \u0440\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438."
     _withoutLeveling: 0
   - _abilityType: 9
-    _abilitySprite: {fileID: 21300056, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: 90eb0b3a9b0c1d340a911f50ee61901c, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -265,10 +246,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: More Health
-    _description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435 \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F."
     _withoutLeveling: 0
   - _abilityType: 10
-    _abilitySprite: {fileID: 21300046, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: b0c51fbfa7d4ede47902d812007a97b5, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -288,11 +268,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Movement Speed
-    _description: "\u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435 \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438
-      \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F."
     _withoutLeveling: 0
   - _abilityType: 12
-    _abilitySprite: {fileID: 21300048, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: e2e0020e00f0f2146a295c0a458e72be, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: test whole effect
@@ -306,12 +284,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Charge Improvment
-    _description: " \u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435
-      \u043E\u0431\u043E\u0439\u043C\u044B \u0432\u0441\u0435\u0445 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u044B\u0445
-      \u043E\u0440\u0443\u0434\u0438\u0439."
     _withoutLeveling: 0
   - _abilityType: 13
-    _abilitySprite: {fileID: 21300050, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: a9a8ab1fbc695d342ba1724f9c64b90f, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: "\u041F\u043E\u043B\u043D\u043E\u0435 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
@@ -320,10 +295,9 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Health Recovery
-    _description: 
     _withoutLeveling: 1
   - _abilityType: 14
-    _abilitySprite: {fileID: 21300052, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+    _abilitySprite: {fileID: 21300000, guid: ed7b38409bb46d24a8c0345efd55cdb4, type: 3}
     _levelInfos:
     - _level: 1
       _wholeEffect: "\u041D\u0435\u043C\u043D\u043E\u0436\u043A\u043E \u0437\u043E\u043B\u043E\u0442\u0430."
@@ -331,5 +305,4 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Soft Currency
-    _description: 
     _withoutLeveling: 1

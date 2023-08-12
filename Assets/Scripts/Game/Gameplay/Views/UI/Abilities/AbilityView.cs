@@ -1,7 +1,5 @@
 ﻿using System;
 using Game.DataBase.Abilities;
-using Game.Gameplay.AbilitiesMechanics;
-using Game.Gameplay.Models.Abilities;
 using TegridyUtils.UI.Elements;
 using TMPro;
 using UnityEngine;
@@ -14,7 +12,6 @@ namespace Game.Gameplay.Views.UI.Abilities
         public event Action<AbilityRecord> OnAbilitySelected;
 
         [SerializeField] private TMP_Text _name;
-        [SerializeField] private TMP_Text _description;
         [SerializeField] private TMP_Text _wholeEffect;
         [SerializeField] private TMP_Text _level;
         [SerializeField] private Image _icon;
@@ -26,7 +23,6 @@ namespace Game.Gameplay.Views.UI.Abilities
         {
             _abilityRecord = abilityRecord;
             SetName(abilityRecord.Name);
-            SetDescription(abilityRecord.Description);
             SetIcon(abilityRecord.AbilitySprite);
 
             var abilityLevelRecord = abilityRecord.GetInfoForLevel(level);
@@ -40,11 +36,6 @@ namespace Game.Gameplay.Views.UI.Abilities
             _name.text = abilityName;
         }
 
-        private void SetDescription(string description)
-        {
-            _description.text = description;
-        }
-
         private void SetWholeEffect(string wholeEffect)
         {
             _wholeEffect.text = wholeEffect;
@@ -52,7 +43,7 @@ namespace Game.Gameplay.Views.UI.Abilities
 
         private void SetLevel(int level)
         {
-            _level.text = $"Lvl {level}";
+            _level.text = $"Lv.{level}";
         }
 
         private void SetIcon(Sprite sprite)
