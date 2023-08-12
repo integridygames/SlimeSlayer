@@ -37,7 +37,7 @@ namespace Game.Gameplay.Controllers.Character
 
         private void OnCurrentLevelUpdateHandler(RxValue<int> rxValue)
         {
-            ControlledEntity.Level.text = $"Lvl {rxValue.NewValue}";
+            ControlledEntity.Level.text = $"Lv. {rxValue.NewValue}";
         }
     }
 }
