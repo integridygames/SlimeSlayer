@@ -1693,6 +1693,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5462272065325177643, guid: f355b6e18411d4444a499fc426cd1e36, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462272065325177643, guid: f355b6e18411d4444a499fc426cd1e36, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462272065325177643, guid: f355b6e18411d4444a499fc426cd1e36, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462272065325177643, guid: f355b6e18411d4444a499fc426cd1e36, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7166742802491300088, guid: f355b6e18411d4444a499fc426cd1e36, type: 3}
       propertyPath: _uiRaycaster
       value: 
