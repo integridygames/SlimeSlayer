@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace TegridyUtils.UI.Joystick.Joysticks
 {
@@ -7,6 +8,9 @@ namespace TegridyUtils.UI.Joystick.Joysticks
         public float MoveThreshold { get { return moveThreshold; } set { moveThreshold = Mathf.Abs(value); } }
 
         [SerializeField] private float moveThreshold = 1;
+
+        [SerializeField] private RectTransform _pressedFader;
+        [SerializeField] private Image _pressedFaderImage;
 
         protected override void Start()
         {
@@ -35,6 +39,11 @@ namespace TegridyUtils.UI.Joystick.Joysticks
 
         protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius)
         {
+            _pressedFader.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, normalised), Vector3.forward);
+            var color = _pressedFaderImage.color;
+            color.a = magnitude;
+            _pressedFaderImage.color = color;
+
             if (magnitude > moveThreshold)
             {
                 Vector2 difference = normalised * (magnitude - moveThreshold) * radius;
