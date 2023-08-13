@@ -27,6 +27,7 @@ namespace Game.Installers.SampleScene
             BindController<ChooseAbilityController>();
             BindController<StartScreenController>();
             BindController<SettingsPopupController>();
+            BindController<PauseController>();
         }
 
         private void BindController<TController>()

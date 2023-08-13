@@ -4,7 +4,7 @@ using TegridyUtils.UI.Elements;
 using TMPro;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.UI.Screens
+namespace Game.Gameplay.Views.UI.Screens.Gameplay
 {
     public class GameScreenView : ViewBase
     {

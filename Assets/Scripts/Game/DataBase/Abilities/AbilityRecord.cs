@@ -18,6 +18,7 @@ namespace Game.DataBase.Abilities
         [SerializeField] private List<WeaponType> _weaponNeeds;
         [SerializeField] private List<AbilityType> _abilityNeeds;
         [SerializeField] private string _name;
+        [SerializeField] private string _description;
         [SerializeField] private bool _withoutLeveling;
 
         private HashSet<WeaponType> _weaponNeedsSet;
@@ -43,6 +44,8 @@ namespace Game.DataBase.Abilities
         public string Name => _name;
 
         public bool WithoutLeveling => _withoutLeveling;
+
+        public string Description => _description;
 
         private Dictionary<int, AbilityLevelRecord> _abilityValues;
 

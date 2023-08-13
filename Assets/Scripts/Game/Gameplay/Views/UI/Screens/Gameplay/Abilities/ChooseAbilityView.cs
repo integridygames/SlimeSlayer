@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.DataBase.Abilities;
-using Game.Gameplay.Models.Abilities;
 using TegridyCore.Base;
 using UnityEngine;
 
-namespace Game.Gameplay.Views.UI.Abilities
+namespace Game.Gameplay.Views.UI.Screens.Gameplay.Abilities
 {
     public class ChooseAbilityView : ViewBase
     {

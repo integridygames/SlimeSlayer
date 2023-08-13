@@ -3,7 +3,7 @@ using Game.DataBase.Abilities;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Abilities;
 using Game.Gameplay.Models.Character;
-using Game.Gameplay.Views.UI.Abilities;
+using Game.Gameplay.Views.UI.Screens.Gameplay.Abilities;
 using TegridyCore;
 using TegridyCore.Base;
 using UnityEngine;

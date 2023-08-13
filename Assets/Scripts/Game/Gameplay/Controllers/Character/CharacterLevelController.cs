@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Views.UI.Screens;
+using Game.Gameplay.Views.UI.Screens.Gameplay;
 using TegridyCore;
 using TegridyCore.Base;
 using Zenject;

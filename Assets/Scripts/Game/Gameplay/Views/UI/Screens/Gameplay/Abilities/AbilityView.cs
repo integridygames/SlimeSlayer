@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Gameplay.Views.UI.Abilities
+namespace Game.Gameplay.Views.UI.Screens.Gameplay.Abilities
 {
     public class AbilityView : MonoBehaviour
     {
