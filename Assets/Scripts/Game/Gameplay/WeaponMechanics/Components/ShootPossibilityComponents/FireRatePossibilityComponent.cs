@@ -32,7 +32,9 @@ namespace Game.Gameplay.WeaponMechanics.Components.ShootPossibilityComponents
 
         public bool TryToGetTargetCollider(out EnemyBase target)
         {
-            if (_weaponMechanicsService.TryGetWeaponTarget(_shootingPoint, out target) == false)
+            var attackRange = _characterCharacteristicsRepository.AttackRange;
+
+            if (_weaponMechanicsService.TryGetWeaponTarget(_shootingPoint, attackRange, out target) == false)
             {
                 return false;
             }

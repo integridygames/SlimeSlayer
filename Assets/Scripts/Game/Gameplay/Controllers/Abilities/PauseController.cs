@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.DataBase.Abilities;
 using Game.Gameplay.Models.Abilities;
+using Game.Gameplay.Views.UI.Screens;
 using Game.Gameplay.Views.UI.Screens.Gameplay;
 using TegridyCore.Base;
 using UnityEngine;
@@ -13,22 +14,27 @@ namespace Game.Gameplay.Controllers.Abilities
     {
         private readonly AbilitiesRepository _abilitiesRepository;
         private readonly AbilitiesDataBase _abilitiesDataBase;
+        private readonly SettingsPopupView _settingsPopupView;
 
-        public PauseController(PauseView controlledEntity, AbilitiesRepository abilitiesRepository, AbilitiesDataBase abilitiesDataBase) : base(controlledEntity)
+        public PauseController(PauseView controlledEntity, AbilitiesRepository abilitiesRepository,
+            AbilitiesDataBase abilitiesDataBase, SettingsPopupView settingsPopupView) : base(controlledEntity)
         {
             _abilitiesRepository = abilitiesRepository;
             _abilitiesDataBase = abilitiesDataBase;
+            _settingsPopupView = settingsPopupView;
         }
 
         public void Initialize()
         {
             ControlledEntity.OnCloseButtonPressed += OnCloseButtonPressedHandler;
+            ControlledEntity.OnSettingsButtonPressed += OnSettingsButtonPressedHandler;
             ControlledEntity.OnShow += OnShowHandler;
         }
 
         public void Dispose()
         {
             ControlledEntity.OnCloseButtonPressed -= OnCloseButtonPressedHandler;
+            ControlledEntity.OnSettingsButtonPressed -= OnSettingsButtonPressedHandler;
             ControlledEntity.OnShow -= OnShowHandler;
         }
 
@@ -36,6 +42,11 @@ namespace Game.Gameplay.Controllers.Abilities
         {
             ControlledEntity.gameObject.SetActive(false);
             Time.timeScale = 1;
+        }
+
+        private void OnSettingsButtonPressedHandler()
+        {
+            _settingsPopupView.gameObject.SetActive(true);
         }
 
         private void OnShowHandler()

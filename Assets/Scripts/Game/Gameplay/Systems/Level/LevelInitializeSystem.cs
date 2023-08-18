@@ -9,13 +9,12 @@ namespace Game.Gameplay.Systems.Level
     public class LevelInitializeSystem : IPreInitializeSystem
     {
         private readonly LevelFactory _levelFactory;
-        private readonly LevelInfo _levelInfo;      
+        private readonly LevelInfo _levelInfo;
 
-        public LevelInitializeSystem(LevelFactory levelFactory,
-            LevelInfo levelInfo)
+        public LevelInitializeSystem(LevelFactory levelFactory, LevelInfo levelInfo)
         {
             _levelFactory = levelFactory;
-            _levelInfo = levelInfo;         
+            _levelInfo = levelInfo;
         }
 
         public void PreInitialize()

@@ -28,6 +28,11 @@ namespace Game.Gameplay.WeaponMechanics
             Data = playerWeaponData;
         }
 
+        public void Reset()
+        {
+            ReloadComponent.Reset();
+        }
+
         public void Shoot()
         {
             if (ShootPossibilityComponent.TryToGetTargetCollider(out var currentTarget))

@@ -56,6 +56,11 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
             }
         }
 
+        public void Reset()
+        {
+            UpdateCharge();
+        }
+
         private void UpdateCharge()
         {
             _reloadProgress.Value = 0;

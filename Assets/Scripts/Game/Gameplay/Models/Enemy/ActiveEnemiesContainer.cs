@@ -36,5 +36,10 @@ namespace Game.Gameplay.Models.Enemy
 
             _activeEnemies.Remove(enemy);
         }
+
+        public void Clear()
+        {
+            _activeEnemies.Clear();
+        }
     }   
 }

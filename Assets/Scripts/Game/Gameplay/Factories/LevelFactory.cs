@@ -13,6 +13,8 @@ namespace Game.Gameplay.Factories
         private readonly LevelsDataBase _levelsDataBase;
         private readonly ApplicationData _applicationData;
 
+        private LevelView _currentLevel;
+
         public LevelFactory(LevelsDataBase levelsDataBase, ApplicationData applicationData)
         {
             _levelsDataBase = levelsDataBase;

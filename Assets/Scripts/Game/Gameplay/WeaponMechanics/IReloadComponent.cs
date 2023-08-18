@@ -8,5 +8,6 @@ namespace Game.Gameplay.WeaponMechanics
         RxField<int> CurrentCharge { get; }
         bool NeedReload();
         void Reload();
+        void Reset();
     }
 }

@@ -19,8 +19,7 @@ namespace Game.Gameplay.Services
     public class WeaponMechanicsService
     {
         private const int BulletSpeed = 15;
-        private const int ShootingDistance = 10;
-        private const int ShootingRangeAngle = 20;
+        private const int ShootingAngle = 15;
 
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
@@ -41,14 +40,19 @@ namespace Game.Gameplay.Services
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
-        public bool TryGetWeaponTarget(Transform shootingPoint, out EnemyBase currentTarget)
+        public bool TryGetWeaponTarget(Transform shootingPoint, float range, out EnemyBase currentTarget)
         {
             currentTarget = null;
 
             foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
             {
+                if (activeEnemy.IsInCharacterRange == false)
+                {
+                    continue;
+                }
+
                 if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, activeEnemy.Position,
-                        ShootingDistance, ShootingRangeAngle, true))
+                        range, ShootingAngle, true))
                 {
                     currentTarget = activeEnemy;
 

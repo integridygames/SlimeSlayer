@@ -1,9 +1,9 @@
 ﻿using System;
 using Game.DataBase.Enemies;
-using Game.DataBase.Essence;
 using Game.DataBase.GameResource;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.EnemiesMechanics.Enemies;
+using Game.Gameplay.Models.Level;
 using Game.Gameplay.Views.Enemy;
 using UnityEngine;
 using Zenject;
@@ -15,17 +15,19 @@ namespace Game.Gameplay.Factories
     {
         private readonly DiContainer _container;
         private readonly EnemyDataBase _enemyDataBase;
+        private readonly LevelInfo _levelInfo;
 
-        public EnemyFactory(DiContainer container, EnemyDataBase enemyDataBase)
+        public EnemyFactory(DiContainer container, EnemyDataBase enemyDataBase, LevelInfo levelInfo)
         {
             _container = container;
             _enemyDataBase = enemyDataBase;
+            _levelInfo = levelInfo;
         }
 
         public EnemyBase Create(EnemyType enemyType, GameResourceType gameResourceType, Vector3 position)
         {
             var enemyRecord = _enemyDataBase.GetRecordByType(enemyType);
-            var enemyView = Object.Instantiate(enemyRecord._enemyViewBasePrefab, position, Quaternion.identity);
+            var enemyView = Object.Instantiate(enemyRecord._enemyViewBasePrefab, position, Quaternion.identity, _levelInfo.CurrentLevelView.Value.SpawnRoot);
 
             return enemyType switch
             {
