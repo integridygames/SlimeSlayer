@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.DataBase;
-using Game.DataBase.Essence;
 using Game.DataBase.GameResource;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models;
@@ -99,7 +98,7 @@ namespace Game.Gameplay.Controllers.GameScreen
                     ControlledEntity.ClearResultWeapon();
                 }
 
-                weaponCardView.IsFrameEnabled = false;
+                weaponCardView.IsEquipped = false;
                 ControlledEntity.RemoveWeaponFromSlot(playerWeaponData);
                 return;
             }
@@ -115,7 +114,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             }
 
             ControlledEntity.AddWeaponToSlot(playerWeaponData, _weaponsService);
-            weaponCardView.IsFrameEnabled = true;
+            weaponCardView.IsEquipped = true;
 
             if (ControlledEntity.IsSlotsFilled)
             {

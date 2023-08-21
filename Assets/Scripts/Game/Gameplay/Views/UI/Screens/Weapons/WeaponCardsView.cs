@@ -21,7 +21,7 @@ namespace Game.Gameplay.Views.UI.Screens.Weapons
                 var weaponCardView = weaponsService.SpawnWeaponCard(_weaponsCardsRoot,
                     weaponData);
 
-                weaponCardView.IsEquipped = disableEquipped && weaponData._equipped;
+                weaponCardView.IsEquipped = !disableEquipped && weaponData._equipped;
 
                 _spawnedWeaponCardViews.Add(weaponCardView);
 

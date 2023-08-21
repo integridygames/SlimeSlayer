@@ -40,8 +40,8 @@ namespace Game.Gameplay.Controllers.Abilities
 
         private void OnCloseButtonPressedHandler()
         {
-            ControlledEntity.gameObject.SetActive(false);
             Time.timeScale = 1;
+            ControlledEntity.gameObject.SetActive(false);
         }
 
         private void OnSettingsButtonPressedHandler()

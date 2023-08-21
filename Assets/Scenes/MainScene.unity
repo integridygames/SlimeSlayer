@@ -332,10 +332,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2082149264}
     m_Modifications:
-    - target: {fileID: 1817811110868215464, guid: 700c3fb74bc380d45ba7c1e9a4648ae5, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5162786000189090934, guid: 700c3fb74bc380d45ba7c1e9a4648ae5, type: 3}
       propertyPath: m_Name
       value: WeaponScreenView

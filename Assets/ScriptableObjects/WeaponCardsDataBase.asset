@@ -16,10 +16,10 @@ MonoBehaviour:
   - _rarityType: 1
     _weaponCardView: {fileID: 8237541527806020080, guid: 406fa873b4beb5f4285cbac93410f449, type: 3}
   - _rarityType: 2
-    _weaponCardView: {fileID: 8237541527806020080, guid: 817b06e359ecce24698243bd11c67bfc, type: 3}
+    _weaponCardView: {fileID: 3404021449901719318, guid: 212693e866b89cd479a85a4b880e7d5e, type: 3}
   - _rarityType: 3
-    _weaponCardView: {fileID: 8237541527806020080, guid: d2980e44e03d0c44babd42d09b959ae9, type: 3}
+    _weaponCardView: {fileID: 3404021449901719318, guid: 5f371b72c5127ba49a818d7e5d3fa82f, type: 3}
   - _rarityType: 4
-    _weaponCardView: {fileID: 8237541527806020080, guid: 6a27b50bbda6d9040a1cb1b137a3e1d7, type: 3}
+    _weaponCardView: {fileID: 3404021449901719318, guid: a49263edc332fb048be2b27349ad15c9, type: 3}
   - _rarityType: 5
-    _weaponCardView: {fileID: 8237541527806020080, guid: 49869cd4f3ac8db40bef9ef85cd0d4c2, type: 3}
+    _weaponCardView: {fileID: 3404021449901719318, guid: aea7f5cb746f50e4a9a349d6bd63968a, type: 3}

@@ -7,28 +7,28 @@ namespace Game.Gameplay.Views.UI.Screens.Weapons
     public class WeaponScreenView : ViewBase
     {
         [SerializeField] private UiButton _closeButton;
-        [SerializeField] private Transform _leftWeaponCardRoot;
-        [SerializeField] private Transform _rightWeaponCardRoot;
-        [SerializeField] private UiButton _leftWeaponButton;
-        [SerializeField] private UiButton _rightWeaponButton;
+        [SerializeField] private UiButton _toLeftWeaponButton;
+        [SerializeField] private UiButton _toRightWeaponButton;
         [SerializeField] private GameObject _weaponsCardsContainer;
         [SerializeField] private WeaponInfoView _weaponInfoView;
         [SerializeField] private WeaponCardsView _weaponWeaponCardsView;
+        [SerializeField] private GameObject _leftWeaponState;
+        [SerializeField] private GameObject _rightWeaponState;
 
         public UiButton CloseButton => _closeButton;
-
-        public Transform LeftWeaponCardRoot => _leftWeaponCardRoot;
-
-        public Transform RightWeaponCardRoot => _rightWeaponCardRoot;
-
-        public UiButton LeftWeaponButton => _leftWeaponButton;
-
-        public UiButton RightWeaponButton => _rightWeaponButton;
 
         public GameObject WeaponsCardsContainer => _weaponsCardsContainer;
 
         public WeaponInfoView WeaponInfoView => _weaponInfoView;
 
         public WeaponCardsView WeaponCardsView => _weaponWeaponCardsView;
+
+        public UiButton ToLeftWeaponButton => _toLeftWeaponButton;
+
+        public UiButton ToRightWeaponButton => _toRightWeaponButton;
+
+        public GameObject LeftWeaponState => _leftWeaponState;
+
+        public GameObject RightWeaponState => _rightWeaponState;
     }
 }

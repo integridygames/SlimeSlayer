@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Game.DataBase.Essence;
+using System.Collections.Generic;
 using Game.DataBase.GameResource;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Factories;
@@ -13,7 +12,6 @@ using Game.Gameplay.Views.UI;
 using Game.Gameplay.Views.UI.Screens.Weapons;
 using TegridyCore.Base;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Controllers.GameScreen
 {
@@ -31,7 +29,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         private WeaponCardView _leftWeaponCardView;
         private WeaponCardView _rightWeaponCardView;
 
-        private bool _isLeftWeaponPressed;
+        private bool _isLeftWeaponState;
 
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
             CharacterWeaponsRepository characterWeaponsRepository, WeaponsDataBase weaponsDataBase,
@@ -50,81 +48,67 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         public void Initialize()
         {
-            SpawnEquippedWeaponCards();
-
-            ControlledEntity.CloseButton.OnReleased += OnCloseButtonPressedHandler;
-            ControlledEntity.LeftWeaponButton.OnReleased += OnLeftWeaponButtonPressedHandler;
-            ControlledEntity.RightWeaponButton.OnReleased += OnRightWeaponButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnEquip += OnEquipButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnClose += OnWeaponInfoCloseButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnUpgrade += OnUpgradeButtonPressedHandler;
             ControlledEntity.OnShow += OnWeaponScreenShow;
             ControlledEntity.OnHide += OnWeaponScreenHide;
             ControlledEntity.WeaponCardsView.OnWeaponCardPressed += OnWeaponCardPressedHandler;
+            ControlledEntity.ToLeftWeaponButton.OnReleased += OnToLeftWeaponButtonPressedHandler;
+            ControlledEntity.ToRightWeaponButton.OnReleased += OnToRightWeaponButtonPressedHandler;
         }
 
         public void Dispose()
         {
-            ControlledEntity.CloseButton.OnReleased -= OnCloseButtonPressedHandler;
-            ControlledEntity.LeftWeaponButton.OnReleased -= OnLeftWeaponButtonPressedHandler;
-            ControlledEntity.RightWeaponButton.OnReleased -= OnRightWeaponButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnEquip -= OnEquipButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnClose -= OnWeaponInfoCloseButtonPressedHandler;
             ControlledEntity.WeaponInfoView.OnUpgrade -= OnUpgradeButtonPressedHandler;
             ControlledEntity.OnShow -= OnWeaponScreenShow;
             ControlledEntity.OnHide -= OnWeaponScreenHide;
             ControlledEntity.WeaponCardsView.OnWeaponCardPressed -= OnWeaponCardPressedHandler;
+            ControlledEntity.ToLeftWeaponButton.OnReleased -= OnToLeftWeaponButtonPressedHandler;
+            ControlledEntity.ToRightWeaponButton.OnReleased -= OnToRightWeaponButtonPressedHandler;
         }
 
-        private void OnLeftWeaponButtonPressedHandler()
+        private void OnToLeftWeaponButtonPressedHandler()
         {
-            _isLeftWeaponPressed = true;
-
-            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(true);
+            SetLeftState();
         }
 
-        private void OnRightWeaponButtonPressedHandler()
+        private void SetLeftState()
         {
-            _isLeftWeaponPressed = false;
+            ControlledEntity.LeftWeaponState.SetActive(true);
+            ControlledEntity.RightWeaponState.SetActive(false);
 
-            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(true);
+            _isLeftWeaponState = true;
+            ResetWeapons();
+        }
+
+        private void OnToRightWeaponButtonPressedHandler()
+        {
+            SetRightState();
+            ResetWeapons();
+        }
+
+        private void SetRightState()
+        {
+            ControlledEntity.RightWeaponState.SetActive(true);
+            ControlledEntity.LeftWeaponState.SetActive(false);
+
+            _isLeftWeaponState = false;
         }
 
         private void OnWeaponScreenShow()
         {
-            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
             ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
+            ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(true);
 
-            ControlledEntity.WeaponCardsView.ShowWeaponCards(_applicationData.PlayerData.WeaponsSaveData,
-                _weaponsService);
-        }
-
-        private void SpawnEquippedWeaponCards()
-        {
-            var weaponSaveDataLeft =
-                _applicationData.PlayerData.WeaponsSaveData.First(x =>
-                    x._guid == _applicationData.PlayerData.CurrentLeftWeaponGuid);
-            var weaponSaveDataRight =
-                _applicationData.PlayerData.WeaponsSaveData.First(x =>
-                    x._guid == _applicationData.PlayerData.CurrentRightWeaponGuid);
-
-            _leftWeaponCardView = _weaponsService.SpawnWeaponCard(ControlledEntity.LeftWeaponCardRoot,
-                weaponSaveDataLeft);
-            _rightWeaponCardView = _weaponsService.SpawnWeaponCard(ControlledEntity.RightWeaponCardRoot,
-                weaponSaveDataRight);
+            SetLeftState();
         }
 
         private void OnWeaponScreenHide()
         {
             ControlledEntity.WeaponCardsView.Clear();
-        }
-
-        private void OnCloseButtonPressedHandler()
-        {
-            if (ControlledEntity.WeaponsCardsContainer.activeSelf)
-            {
-                ControlledEntity.WeaponsCardsContainer.gameObject.SetActive(false);
-            }
         }
 
         private void OnWeaponCardPressedHandler(PlayerWeaponData playerWeaponData, WeaponCardView _)
@@ -146,6 +130,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             _weaponsCharacteristics.UpdateCharacteristics(playerWeaponData);
 
             SetDataToWeaponInfoView(playerWeaponData);
+            ResetWeapons();
         }
 
         private void SetDataToWeaponInfoView(PlayerWeaponData playerWeaponData)
@@ -160,29 +145,50 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         private void OnEquipButtonPressedHandler(PlayerWeaponData playerWeaponData)
         {
-            if (_isLeftWeaponPressed)
+            if (_isLeftWeaponState)
             {
                 _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Destroy();
                 _characterWeaponsRepository.CurrentWeaponViewLeft.Value =
                     _weaponFactory.Create(playerWeaponData, _characterView.LeftWeaponPlacer, true);
-
-                Object.Destroy(_leftWeaponCardView.gameObject);
-                _leftWeaponCardView = _weaponsService.SpawnWeaponCard(ControlledEntity.LeftWeaponCardRoot,
-                    playerWeaponData);
             }
             else
             {
                 _characterWeaponsRepository.CurrentWeaponViewRight.Value.Destroy();
                 _characterWeaponsRepository.CurrentWeaponViewRight.Value =
                     _weaponFactory.Create(playerWeaponData, _characterView.RightWeaponPlacer, false);
-
-                Object.Destroy(_rightWeaponCardView.gameObject);
-                _rightWeaponCardView = _weaponsService.SpawnWeaponCard(ControlledEntity.RightWeaponCardRoot,
-                    playerWeaponData);
             }
 
             ControlledEntity.WeaponInfoView.gameObject.SetActive(false);
-            OnCloseButtonPressedHandler();
+
+            ResetWeapons();
+        }
+
+        private void ResetWeapons()
+        {
+            ControlledEntity.WeaponCardsView.Clear();
+            ControlledEntity.WeaponCardsView.ShowWeaponCards(GetWeaponsForHand(),
+                _weaponsService);
+        }
+
+        private List<PlayerWeaponData> GetWeaponsForHand()
+        {
+            var weaponsToCraft = new List<PlayerWeaponData>();
+            foreach (var playerWeaponData in _applicationData.PlayerData.WeaponsSaveData)
+            {
+                if (!_isLeftWeaponState && _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Data == playerWeaponData)
+                {
+                    continue;
+                }
+
+                if (_isLeftWeaponState && _characterWeaponsRepository.CurrentWeaponViewRight.Value.Data == playerWeaponData)
+                {
+                    continue;
+                }
+
+                weaponsToCraft.Add(playerWeaponData);
+            }
+
+            return weaponsToCraft;
         }
 
         private void OnWeaponInfoCloseButtonPressedHandler()

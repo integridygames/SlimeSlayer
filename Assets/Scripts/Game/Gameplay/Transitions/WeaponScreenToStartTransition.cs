@@ -27,10 +27,7 @@ namespace Game.Gameplay.Transitions
 
         private void OnCloseButtonPressedHandler()
         {
-            if (_weaponScreenView.WeaponsCardsContainer.activeSelf == false)
-            {
-                DoTransition();
-            }
+            DoTransition();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Game.Gameplay.Views.UI.Screens.Gameplay;
 using TegridyCore.FiniteStateMachine;
+using Time = UnityEngine.Time;
 
 namespace Game.Gameplay.Transitions
 {
@@ -14,12 +15,18 @@ namespace Game.Gameplay.Transitions
 
         public override void OnTransitionAdded()
         {
-            _pauseView.OnExitButtonPressed += DoTransition;
+            _pauseView.OnExitButtonPressed += OnExitButtonPressedHandler;
         }
 
         public override void OnTransitionRemoved()
         {
-            _pauseView.OnExitButtonPressed -= DoTransition;
+            _pauseView.OnExitButtonPressed -= OnExitButtonPressedHandler;
+        }
+
+        private void OnExitButtonPressedHandler()
+        {
+            Time.timeScale = 1;
+            DoTransition();
         }
     }
 }

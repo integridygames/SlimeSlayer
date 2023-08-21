@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.DataBase.Weapon;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,16 +11,11 @@ namespace Game.Gameplay.Views.UI
         public event Action<PlayerWeaponData, WeaponCardView> OnWeaponCardPressed;
 
         [SerializeField] private Image _weaponImage;
-        [SerializeField] private Image _frame;
         [SerializeField] private Image _equippedImage;
         [SerializeField] private Button _button;
+        [SerializeField] private TMP_Text _level;
 
         private PlayerWeaponData _playerWeaponData;
-
-        public bool IsFrameEnabled
-        {
-            set => _frame.gameObject.SetActive(value);
-        }
 
         public bool IsEquipped
         {
@@ -32,6 +28,7 @@ namespace Game.Gameplay.Views.UI
         {
             _playerWeaponData = playerWeaponData;
             _weaponImage.sprite = sprite;
+            _level.text = $"Lv. {_playerWeaponData._level + 1}";
         }
 
         private void OnEnable()

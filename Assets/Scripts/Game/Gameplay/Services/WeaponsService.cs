@@ -40,7 +40,6 @@ namespace Game.Gameplay.Services
             weaponCardView.SetWeapon(playerWeaponData, weaponSprite);
 
             weaponCardView.IsEquipped = false;
-            weaponCardView.IsFrameEnabled = false;
 
             if (expand)
             {
