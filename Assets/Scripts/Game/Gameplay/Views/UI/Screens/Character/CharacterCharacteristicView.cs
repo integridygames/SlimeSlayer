@@ -5,6 +5,7 @@ using Game.Gameplay.Models.Character;
 using TegridyUtils.UI.Elements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Gameplay.Views.UI.Screens.Character
 {
@@ -16,6 +17,7 @@ namespace Game.Gameplay.Views.UI.Screens.Character
         [SerializeField] private TMP_Text _value;
         [SerializeField] private UiButton _buyButton;
         [SerializeField] private TMP_Text _priceText;
+        [SerializeField] private Image _icon;
 
         private PlayerCharacteristicData _playerCharacteristicData;
 
@@ -31,9 +33,11 @@ namespace Game.Gameplay.Views.UI.Screens.Character
             var characteristicValue = characterCharacteristics.GetCharacteristic(_playerCharacteristicData);
             var characteristicPrice = characterCharacteristics.GetPrice(_playerCharacteristicData);
 
+            _icon.sprite = characterCharacteristics.GetIcon(_playerCharacteristicData);
+
             _buyButton.interactable = playerCoins >= characteristicPrice;
 
-            _priceText.text = characteristicPrice.ToString();
+            _priceText.text = $"{characteristicPrice}<sprite name=IconMoney>";
             _name.text = _playerCharacteristicData._characterCharacteristicType.ToString();
 
             _value.text = characteristicValue.ToString(CultureInfo.InvariantCulture);

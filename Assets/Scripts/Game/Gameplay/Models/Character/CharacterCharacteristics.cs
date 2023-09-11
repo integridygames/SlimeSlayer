@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.DataBase.Character;
+using UnityEngine;
 
 namespace Game.Gameplay.Models.Character
 {
@@ -23,6 +24,14 @@ namespace Game.Gameplay.Models.Character
         {
             _characteristicsDataBase = characteristicsDataBase;
             _applicationData = applicationData;
+        }
+
+        public Sprite GetIcon(PlayerCharacteristicData playerCharacteristicData)
+        {
+            var characteristicRecord =
+                _characteristicsDataBase.GetRecordByType(playerCharacteristicData._characterCharacteristicType);
+
+            return characteristicRecord._icon;
         }
 
         public int GetPrice(PlayerCharacteristicData playerCharacteristicData)

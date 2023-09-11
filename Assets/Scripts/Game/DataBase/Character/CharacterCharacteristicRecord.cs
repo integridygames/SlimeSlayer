@@ -21,5 +21,7 @@ namespace Game.DataBase.Character
 
         [Tooltip("Hidden from player. For technical usage.")]
         public bool _hidden;
+
+        public Sprite _icon;
     }
 }
