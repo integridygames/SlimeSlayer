@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.DataBase.Weapon;
 using Game.Gameplay.Models.Weapon;
+using Game.Services;
 using TegridyUtils.UI.Elements;
 using TMPro;
 using UnityEngine;
@@ -23,8 +24,9 @@ namespace Game.Gameplay.Views.UI
 
         [SerializeField] private WeaponStatsView _weaponStatsViewPrefab;
         [SerializeField] private Transform _weaponStatsRoot;
+        [SerializeField] private WeaponCardView _weaponCardView;
 
-        private List<WeaponStatsView> _weaponStatsViews = new();
+        private readonly List<WeaponStatsView> _weaponStatsViews = new();
 
         private PlayerWeaponData _playerWeaponData;
 
@@ -58,16 +60,18 @@ namespace Game.Gameplay.Views.UI
         }
 
         public void SetWeapon(PlayerWeaponData playerWeaponData, bool isEquipped,
-            WeaponsCharacteristics weaponsCharacteristics, WeaponsDataBase weaponsDataBase, int playerCoins)
+            WeaponsCharacteristics weaponsCharacteristics, WeaponsDataBase weaponsDataBase, int playerCoins,
+            ResourceShortFormsDataBase resourceShortFormsDataBase)
         {
             ClearStats();
 
             _playerWeaponData = playerWeaponData;
             _equipText.text = isEquipped ? "Equipped" : "Equip";
 
-            var upgradePrice = weaponsCharacteristics.GetCharacteristic(playerWeaponData, WeaponCharacteristicType.UpgradePrice);
+            var upgradePrice = (int)weaponsCharacteristics.GetCharacteristic(playerWeaponData, WeaponCharacteristicType.UpgradePrice);
+            var upgradePriceShortForm = resourceShortFormsDataBase.GetCurrentForm(upgradePrice);
 
-            _upgradeText.text = $"Upgrade ({upgradePrice})";
+            _upgradeText.text = $"Upgrade (<sprite name=IconMoney>{upgradePriceShortForm})";
             _upgradeButton.interactable = upgradePrice <= playerCoins;
 
             _equipButton.interactable = isEquipped == false;
@@ -90,6 +94,9 @@ namespace Game.Gameplay.Views.UI
 
                 _weaponStatsViews.Add(weaponStatsView);
             }
+
+            _weaponCardView.SetWeapon(_playerWeaponData, weaponRecord._weaponSprite);
+            _weaponCardView.IsEquipped = false;
         }
 
         private void ClearStats()

@@ -10,6 +10,7 @@ using Game.Gameplay.Services;
 using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.UI;
 using Game.Gameplay.Views.UI.Screens.Weapons;
+using Game.Services;
 using TegridyCore.Base;
 using Zenject;
 
@@ -25,6 +26,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         private readonly GameResourceData _gameResourceData;
         private readonly WeaponsService _weaponsService;
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
+        private readonly ResourceShortFormsDataBase _resourceShortFormsDataBase;
 
         private WeaponCardView _leftWeaponCardView;
         private WeaponCardView _rightWeaponCardView;
@@ -34,7 +36,8 @@ namespace Game.Gameplay.Controllers.GameScreen
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
             CharacterWeaponsRepository characterWeaponsRepository, WeaponsDataBase weaponsDataBase,
             CharacterView characterView, WeaponFactory weaponFactory, GameResourceData gameResourceData,
-            WeaponsService weaponsService, WeaponsCharacteristics weaponsCharacteristics) : base(controlledEntity)
+            WeaponsService weaponsService, WeaponsCharacteristics weaponsCharacteristics,
+            ResourceShortFormsDataBase resourceShortFormsDataBase) : base(controlledEntity)
         {
             _applicationData = applicationData;
             _characterWeaponsRepository = characterWeaponsRepository;
@@ -44,6 +47,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             _gameResourceData = gameResourceData;
             _weaponsService = weaponsService;
             _weaponsCharacteristics = weaponsCharacteristics;
+            _resourceShortFormsDataBase = resourceShortFormsDataBase;
         }
 
         public void Initialize()
@@ -140,7 +144,7 @@ namespace Game.Gameplay.Controllers.GameScreen
 
             ControlledEntity.WeaponInfoView.SetWeapon(playerWeaponData, isEquipped,
                 _weaponsCharacteristics, _weaponsDataBase,
-                _applicationData.PlayerData.CurrentCoinsCount);
+                _applicationData.PlayerData.CurrentCoinsCount, _resourceShortFormsDataBase);
         }
 
         private void OnEquipButtonPressedHandler(PlayerWeaponData playerWeaponData)
@@ -175,12 +179,14 @@ namespace Game.Gameplay.Controllers.GameScreen
             var weaponsToCraft = new List<PlayerWeaponData>();
             foreach (var playerWeaponData in _applicationData.PlayerData.WeaponsSaveData)
             {
-                if (!_isLeftWeaponState && _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Data == playerWeaponData)
+                if (!_isLeftWeaponState &&
+                    _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Data == playerWeaponData)
                 {
                     continue;
                 }
 
-                if (_isLeftWeaponState && _characterWeaponsRepository.CurrentWeaponViewRight.Value.Data == playerWeaponData)
+                if (_isLeftWeaponState &&
+                    _characterWeaponsRepository.CurrentWeaponViewRight.Value.Data == playerWeaponData)
                 {
                     continue;
                 }
