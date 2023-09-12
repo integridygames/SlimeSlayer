@@ -76,7 +76,7 @@ namespace Game.Gameplay.Views.UI.Screens.Weapons
             }
 
             var freeIndex = TakeFirstFreeIndex(playerWeaponData);
-            var weaponCard = weaponsService.SpawnWeaponCard(_slotsRoots[freeIndex], playerWeaponData, true);
+            var weaponCard = weaponsService.SpawnWeaponCardMini(_slotsRoots[freeIndex], playerWeaponData, true);
 
             _weaponCardViewsInSlots[freeIndex] = weaponCard;
             _slotsData.Add(playerWeaponData._guid, playerWeaponData);
@@ -131,7 +131,7 @@ namespace Game.Gameplay.Views.UI.Screens.Weapons
 
         public void SetCraftPrice(int price)
         {
-            _craftPrice.text = price.ToString();
+            _craftPrice.text = $"Craft (<sprite name=IconMoney>{price})";
         }
 
         protected override void OnEnable()

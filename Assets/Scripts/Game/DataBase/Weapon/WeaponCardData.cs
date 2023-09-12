@@ -10,5 +10,6 @@ namespace Game.DataBase.Weapon
         [ArrayKey]
         public RarityType _rarityType;
         public WeaponCardView _weaponCardView;
+        public WeaponCardView _weaponCardViewMini;
     }
 }

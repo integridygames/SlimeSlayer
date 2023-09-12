@@ -34,6 +34,21 @@ namespace Game.Gameplay.Services
         {
             var weaponCardViewPrefab =
                 _weaponCardsDataBase.GetRecordByType(playerWeaponData._rarityType)._weaponCardView;
+
+            return FillCard(root, playerWeaponData, expand, weaponCardViewPrefab);
+        }
+
+        public WeaponCardView SpawnWeaponCardMini(Transform root, PlayerWeaponData playerWeaponData, bool expand = false)
+        {
+            var weaponCardViewPrefab =
+                _weaponCardsDataBase.GetRecordByType(playerWeaponData._rarityType)._weaponCardViewMini;
+
+            return FillCard(root, playerWeaponData, expand, weaponCardViewPrefab);
+        }
+
+        private WeaponCardView FillCard(Transform root, PlayerWeaponData playerWeaponData, bool expand,
+            WeaponCardView weaponCardViewPrefab)
+        {
             var weaponSprite = _weaponsDataBase.GetRecordByType(playerWeaponData._weaponType)._weaponSprite;
 
             var weaponCardView = Object.Instantiate(weaponCardViewPrefab, root);
