@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using Game.DataBase.GameResource;
 using Game.DataBase.Weapon;
-using Game.Gameplay.Factories;
 using Game.Gameplay.Models;
 using Game.Gameplay.Models.Character;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Services;
-using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.UI;
 using Game.Gameplay.Views.UI.Screens.Weapons;
 using Game.Services;
@@ -21,8 +19,6 @@ namespace Game.Gameplay.Controllers.GameScreen
         private readonly ApplicationData _applicationData;
         private readonly CharacterWeaponsRepository _characterWeaponsRepository;
         private readonly WeaponsDataBase _weaponsDataBase;
-        private readonly CharacterView _characterView;
-        private readonly WeaponFactory _weaponFactory;
         private readonly GameResourceData _gameResourceData;
         private readonly WeaponsService _weaponsService;
         private readonly WeaponsCharacteristics _weaponsCharacteristics;
@@ -35,15 +31,13 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         public WeaponScreenController(WeaponScreenView controlledEntity, ApplicationData applicationData,
             CharacterWeaponsRepository characterWeaponsRepository, WeaponsDataBase weaponsDataBase,
-            CharacterView characterView, WeaponFactory weaponFactory, GameResourceData gameResourceData,
+            GameResourceData gameResourceData,
             WeaponsService weaponsService, WeaponsCharacteristics weaponsCharacteristics,
             ResourceShortFormsDataBase resourceShortFormsDataBase) : base(controlledEntity)
         {
             _applicationData = applicationData;
             _characterWeaponsRepository = characterWeaponsRepository;
             _weaponsDataBase = weaponsDataBase;
-            _characterView = characterView;
-            _weaponFactory = weaponFactory;
             _gameResourceData = gameResourceData;
             _weaponsService = weaponsService;
             _weaponsCharacteristics = weaponsCharacteristics;
@@ -151,15 +145,11 @@ namespace Game.Gameplay.Controllers.GameScreen
         {
             if (_isLeftWeaponState)
             {
-                _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Destroy();
-                _characterWeaponsRepository.CurrentWeaponViewLeft.Value =
-                    _weaponFactory.Create(playerWeaponData, _characterView.LeftWeaponPlacer, true);
+                _weaponsService.SetLeftWeapon(playerWeaponData);
             }
             else
             {
-                _characterWeaponsRepository.CurrentWeaponViewRight.Value.Destroy();
-                _characterWeaponsRepository.CurrentWeaponViewRight.Value =
-                    _weaponFactory.Create(playerWeaponData, _characterView.RightWeaponPlacer, false);
+                _weaponsService.SetRightWeapon(playerWeaponData);
             }
 
             ControlledEntity.WeaponInfoView.gameObject.SetActive(false);

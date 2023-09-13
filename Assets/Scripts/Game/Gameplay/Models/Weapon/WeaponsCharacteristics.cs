@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.DataBase.Weapon;
+using Game.Services;
 
 namespace Game.Gameplay.Models.Weapon
 {
@@ -10,13 +11,15 @@ namespace Game.Gameplay.Models.Weapon
         public event Action OnUpdate;
 
         private readonly WeaponsDataBase _weaponsDataBase;
+        private readonly ApplicationData _applicationData;
 
         private readonly Dictionary<string, Dictionary<WeaponCharacteristicType, float>>
             _weaponsCharacteristics = new();
 
-        public WeaponsCharacteristics(WeaponsDataBase weaponsDataBase)
+        public WeaponsCharacteristics(WeaponsDataBase weaponsDataBase, ApplicationData applicationData)
         {
             _weaponsDataBase = weaponsDataBase;
+            _applicationData = applicationData;
         }
 
         public float GetCharacteristic(PlayerWeaponData playerWeaponData,
@@ -88,6 +91,8 @@ namespace Game.Gameplay.Models.Weapon
             var characteristicValues = GetOrCreateCharacteristicValues(playerWeaponData);
 
             characteristicValues[weaponCharacteristicType] = value;
+
+            SaveLoadDataService.Save(_applicationData.PlayerData);
 
             OnUpdate?.Invoke();
         }

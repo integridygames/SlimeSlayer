@@ -33,7 +33,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         {
             ControlledEntity.OnShow += OnCraftScreenShowHandler;
             ControlledEntity.OnHide += OnCraftScreenHideHandler;
-            ControlledEntity.WeaponCardsView.OnWeaponCardPressed += OnWeaponCarsPressedHandler;
+            ControlledEntity.WeaponCardsView.OnWeaponCardPressed += OnWeaponCardPressedHandler;
             ControlledEntity.OnCraftButtonPressed += OnCraftButtonPressedHandler;
         }
 
@@ -41,7 +41,7 @@ namespace Game.Gameplay.Controllers.GameScreen
         {
             ControlledEntity.OnShow -= OnCraftScreenShowHandler;
             ControlledEntity.OnHide -= OnCraftScreenHideHandler;
-            ControlledEntity.WeaponCardsView.OnWeaponCardPressed -= OnWeaponCarsPressedHandler;
+            ControlledEntity.WeaponCardsView.OnWeaponCardPressed -= OnWeaponCardPressedHandler;
             ControlledEntity.OnCraftButtonPressed -= OnCraftButtonPressedHandler;
         }
 
@@ -88,7 +88,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             ControlledEntity.ClearResultWeapon();
         }
 
-        private void OnWeaponCarsPressedHandler(PlayerWeaponData playerWeaponData, WeaponCardView weaponCardView)
+        private void OnWeaponCardPressedHandler(PlayerWeaponData playerWeaponData, WeaponCardView weaponCardView)
         {
             if (ControlledEntity.ContainsWeapon(playerWeaponData))
             {
@@ -133,18 +133,60 @@ namespace Game.Gameplay.Controllers.GameScreen
 
         private void OnCraftButtonPressedHandler()
         {
+            var wasEquippedLeftWeapon = false;
+            var wasEquippedRightWeapon = false;
+
             foreach (var guid in ControlledEntity.SlotsGuids)
             {
                 var indexToRemove = _applicationData.PlayerData.WeaponsSaveData.FindIndex(x => x._guid == guid);
+
+                if (_applicationData.PlayerData.CurrentLeftWeaponGuid.Value == guid)
+                {
+                    wasEquippedLeftWeapon = true;
+                }
+
+                if (_applicationData.PlayerData.CurrentRightWeaponGuid.Value == guid)
+                {
+                    wasEquippedRightWeapon = true;
+                }
+
                 _applicationData.PlayerData.WeaponsSaveData.RemoveAt(indexToRemove);
             }
 
             _applicationData.PlayerData.WeaponsSaveData.Add(ControlledEntity.ResultWeaponData);
 
+            if (wasEquippedLeftWeapon && wasEquippedRightWeapon)
+            {
+                _weaponsService.SetLeftWeapon(ControlledEntity.ResultWeaponData);
+                _weaponsService.SetRightWeapon(_weaponsService.GetFirstNotEquippedWeapon());
+            }
+            else if (wasEquippedLeftWeapon)
+            {
+                _weaponsService.SetLeftWeapon(ControlledEntity.ResultWeaponData);
+            }
+            else if (wasEquippedRightWeapon)
+            {
+                _weaponsService.SetRightWeapon(ControlledEntity.ResultWeaponData);
+            }
+
+            _weaponsService.RefreshWeaponsInHands();
+
             _gameResourceData.RemoveResource(GameResourceType.Coin, CraftPrice);
 
             ClearScreen();
             FillScreen();
+        }
+
+        private void SetFirstFreeWeaponAsEquipped()
+        {
+            foreach (var playerWeaponData in _applicationData.PlayerData.WeaponsSaveData)
+            {
+                if (playerWeaponData._equipped == false)
+                {
+                    playerWeaponData._equipped = true;
+                    break;
+                }
+            }
         }
     }
 }

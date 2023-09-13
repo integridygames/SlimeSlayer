@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.DataBase.Character;
+using Game.Services;
 using UnityEngine;
 
 namespace Game.Gameplay.Models.Character
@@ -99,6 +100,8 @@ namespace Game.Gameplay.Models.Character
         private void SetCharacteristic(CharacterCharacteristicType characteristicType, float value, float price)
         {
             _characterCharacteristics[characteristicType] = (value, price);
+
+            SaveLoadDataService.Save(_applicationData.PlayerData);
 
             OnUpdate?.Invoke();
         }

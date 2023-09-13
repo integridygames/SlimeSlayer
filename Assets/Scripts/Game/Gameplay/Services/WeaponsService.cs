@@ -5,6 +5,7 @@ using Game.Gameplay.Models;
 using Game.Gameplay.Models.Weapon;
 using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.UI;
+using Game.Services;
 using UnityEngine;
 
 namespace Game.Gameplay.Services
@@ -38,7 +39,8 @@ namespace Game.Gameplay.Services
             return FillCard(root, playerWeaponData, expand, weaponCardViewPrefab);
         }
 
-        public WeaponCardView SpawnWeaponCardMini(Transform root, PlayerWeaponData playerWeaponData, bool expand = false)
+        public WeaponCardView SpawnWeaponCardMini(Transform root, PlayerWeaponData playerWeaponData,
+            bool expand = false)
         {
             var weaponCardViewPrefab =
                 _weaponCardsDataBase.GetRecordByType(playerWeaponData._rarityType)._weaponCardViewMini;
@@ -67,19 +69,58 @@ namespace Game.Gameplay.Services
             return weaponCardView;
         }
 
+        public void SetLeftWeapon(PlayerWeaponData playerWeaponData)
+        {
+            _characterWeaponsRepository.CurrentWeaponViewLeft.Value.Data._equipped = false;
+            _applicationData.PlayerData.CurrentLeftWeaponGuid.Value = playerWeaponData._guid;
+
+            RefreshLeftWeapon();
+
+            SaveLoadDataService.Save(_applicationData.PlayerData);
+        }
+
+        public void SetRightWeapon(PlayerWeaponData playerWeaponData)
+        {
+            _characterWeaponsRepository.CurrentWeaponViewRight.Value.Data._equipped = false;
+            _applicationData.PlayerData.CurrentRightWeaponGuid.Value = playerWeaponData._guid;
+
+            RefreshRightWeapon();
+
+            SaveLoadDataService.Save(_applicationData.PlayerData);
+        }
+
+
         public void RefreshWeaponsInHands()
         {
+            RefreshLeftWeapon();
+            RefreshRightWeapon();
+        }
+
+        private void RefreshLeftWeapon()
+        {
+            _characterWeaponsRepository.CurrentWeaponViewLeft.Value?.Destroy();
             var weaponSaveDataLeft =
                 _applicationData.PlayerData.WeaponsSaveData.First(x =>
-                    x._guid == _applicationData.PlayerData.CurrentLeftWeaponGuid);
-            var weaponSaveDataRight =
-                _applicationData.PlayerData.WeaponsSaveData.First(x =>
-                    x._guid == _applicationData.PlayerData.CurrentRightWeaponGuid);
-
+                    x._guid == _applicationData.PlayerData.CurrentLeftWeaponGuid.Value);
+            weaponSaveDataLeft._equipped = true;
             _characterWeaponsRepository.CurrentWeaponViewLeft.Value =
                 _weaponFactory.Create(weaponSaveDataLeft, _characterView.LeftWeaponPlacer, true);
+        }
+
+        private void RefreshRightWeapon()
+        {
+            _characterWeaponsRepository.CurrentWeaponViewRight.Value?.Destroy();
+            var weaponSaveDataRight =
+                _applicationData.PlayerData.WeaponsSaveData.First(x =>
+                    x._guid == _applicationData.PlayerData.CurrentRightWeaponGuid.Value);
+            weaponSaveDataRight._equipped = true;
             _characterWeaponsRepository.CurrentWeaponViewRight.Value =
                 _weaponFactory.Create(weaponSaveDataRight, _characterView.RightWeaponPlacer, false);
+        }
+
+        public PlayerWeaponData GetFirstNotEquippedWeapon()
+        {
+            return _applicationData.PlayerData.WeaponsSaveData.First(x => x._equipped == false);
         }
     }
 }

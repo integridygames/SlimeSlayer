@@ -17,7 +17,6 @@ namespace Game.Installers.SampleScene
             BindController<EnemiesController>();
             BindController<WeaponReloadController>();
             BindController<WeaponScreenController>();
-            BindController<CharacterWeaponsController>();
             BindController<CoinsCollectController>();
             BindController<CoinsViewController>();
             BindController<CoinsChangingController>();

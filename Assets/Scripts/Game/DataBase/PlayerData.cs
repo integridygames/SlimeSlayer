@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Game.DataBase.Character;
 using Game.DataBase.Weapon;
+using TegridyCore;
 using UnityEngine;
 
 namespace Game.DataBase
@@ -12,8 +13,8 @@ namespace Game.DataBase
         [SerializeField] private int _currentLevel;
         [SerializeField] private List<PlayerCharacteristicData> _playerCharacteristicsData;
         [SerializeField] private List<PlayerWeaponData> _weaponsSaveData;
-        [SerializeField] private string _currentLeftWeaponGuid;
-        [SerializeField] private string _currentRightWeaponGuid;
+        [SerializeField] private RxField<string> _currentLeftWeaponGuid;
+        [SerializeField] private RxField<string> _currentRightWeaponGuid;
         [SerializeField] private int _currentCoinsCount;
 
         public PlayerData()
@@ -63,18 +64,9 @@ namespace Game.DataBase
             set => _currentLevel = value;
         }
 
+        public RxField<string> CurrentLeftWeaponGuid => _currentLeftWeaponGuid;
 
-        public string CurrentLeftWeaponGuid
-        {
-            get => _currentLeftWeaponGuid;
-            set => _currentLeftWeaponGuid = value;
-        }
-
-        public string CurrentRightWeaponGuid
-        {
-            get => _currentRightWeaponGuid;
-            set => _currentRightWeaponGuid = value;
-        }
+        public RxField<string> CurrentRightWeaponGuid => _currentRightWeaponGuid;
 
         public List<PlayerWeaponData> WeaponsSaveData => _weaponsSaveData;
 
