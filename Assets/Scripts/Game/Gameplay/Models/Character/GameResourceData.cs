@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.DataBase.GameResource;
 
 namespace Game.Gameplay.Models.Character 
@@ -47,21 +46,7 @@ namespace Game.Gameplay.Models.Character
 
         private void CreateEssenceIfNeed(GameResourceType gameResourceType)
         {
-            if (_characterResources.ContainsKey(gameResourceType) == false)
-            {
-                _characterResources[gameResourceType] = 0;
-            }
-        }
-
-        public void ClearAll()
-        {
-            var essenceTypes = _characterResources.Keys.ToList();
-
-            foreach (var essencesType in essenceTypes)
-            {
-                _characterResources[essencesType] = 0;
-                OnResourceQuantityChanged?.Invoke(essencesType, 0);
-            }
+            _characterResources.TryAdd(gameResourceType, 0);
         }
     }   
 }

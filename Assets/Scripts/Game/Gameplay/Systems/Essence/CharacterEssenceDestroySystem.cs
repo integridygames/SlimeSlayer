@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Models.Character;
+﻿using Game.DataBase.GameResource;
+using Game.Gameplay.Models.Character;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.Systems.Essence
@@ -14,7 +15,7 @@ namespace Game.Gameplay.Systems.Essence
 
         public void Destroy()
         {
-            _gameResourceData.ClearAll();
+            _gameResourceData.SetResource(GameResourceType.Essence, 0);
         }
     }
 }

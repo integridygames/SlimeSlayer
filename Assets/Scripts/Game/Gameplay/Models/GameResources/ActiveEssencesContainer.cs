@@ -1,5 +1,6 @@
 using System;
 using Game.Gameplay.Views.GameResources;
+using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Models.GameResources
 {
@@ -20,6 +21,16 @@ namespace Game.Gameplay.Models.GameResources
         private void OnResourceCollideHandler(GameResourceViewBase gameResourceViewBase)
         {
             OnEssenceCollide?.Invoke((EssenceView) gameResourceViewBase);
+        }
+
+        public void Clear()
+        {
+            foreach (var view in ValuesInternal)
+            {
+                Object.Destroy(view.gameObject);
+            }
+
+            ValuesInternal.Clear();
         }
     }
 }

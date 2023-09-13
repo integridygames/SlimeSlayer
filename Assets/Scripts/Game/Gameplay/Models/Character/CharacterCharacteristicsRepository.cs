@@ -22,7 +22,7 @@ namespace Game.Gameplay.Models.Character
 
         public float AttackRange { get; private set; }
 
-        private readonly RxField<int> _currentLevel = 0;
+        private readonly RxField<int> _currentLevel = 1;
 
         public IReadonlyRxField<int> CurrentLevel => _currentLevel;
 
@@ -91,13 +91,12 @@ namespace Game.Gameplay.Models.Character
 
             _healthSteal = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.HealthSteal);
 
-            _currentLevel.Value = 0;
+            _nextLevelReachPoint = GetNextLevelReachPoint(1);
+            _currentLevel.Value = 1;
+            ResetLevelBar();
 
             _abilityTmpCharacteristics.Clear();
             _abilitiesRepository.Clear();
-
-            LevelUp();
-            ResetLevelBar();
         }
 
         public void HandleHealthStealing()
@@ -126,7 +125,7 @@ namespace Game.Gameplay.Models.Character
         public void LevelUp()
         {
             _currentLevel.Value++;
-            _nextLevelReachPoint = GetNextLevelReachPoint();
+            _nextLevelReachPoint = GetNextLevelReachPoint(_currentLevel.Value);
 
             ResetLevelBar();
         }
@@ -156,18 +155,18 @@ namespace Game.Gameplay.Models.Character
 
         private void ResetLevelBar()
         {
-            _currentLevelProgress.Value = 0;
             _currentExperience = 0;
+            _currentLevelProgress.Value = 0;
         }
 
-        private int GetNextLevelReachPoint()
+        private static int GetNextLevelReachPoint(int level)
         {
-            if (_currentLevel.Value == 1)
+            if (level == 1)
             {
                 return StartReachPoint;
             }
 
-            return (int) (StartReachPoint * Mathf.Pow(2, Mathf.Sqrt(_currentLevel.Value)));
+            return (int) (StartReachPoint * Mathf.Pow(2, Mathf.Sqrt(level)));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Gameplay.Views.GameResources;
+using Object = UnityEngine.Object;
 
 namespace Game.Gameplay.Models.GameResources
 {
@@ -20,6 +21,16 @@ namespace Game.Gameplay.Models.GameResources
         private void OnResourceCollideHandler(GameResourceViewBase gameResourceViewBase)
         {
             OnCoinCollide?.Invoke((CoinView) gameResourceViewBase);
+        }
+
+        public void Clear()
+        {
+            foreach (var coinView in ValuesInternal)
+            {
+                Object.Destroy(coinView.gameObject);
+            }
+
+            ValuesInternal.Clear();
         }
     }
 }
