@@ -82,8 +82,8 @@ namespace Game.Gameplay.Models.Character
 
         public void UpdateCharacteristics()
         {
-            _currentHealth.Value = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.MaxHealth);
-            _maxHealth = CurrentHealth.Value;
+            _maxHealth = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.MaxHealth);
+            _currentHealth.Value = _maxHealth;
 
             MovingSpeed = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.Speed);
             AttackRange = _characterCharacteristics.GetCharacteristic(CharacterCharacteristicType.AttackRange);
