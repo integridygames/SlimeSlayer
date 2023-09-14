@@ -19,7 +19,6 @@ namespace Game.Gameplay.Services
     public class WeaponMechanicsService
     {
         private const int BulletSpeed = 15;
-        private const int ShootingAngle = 15;
 
         private readonly BulletsPoolFactory _bulletsPoolFactory;
         private readonly ActiveProjectilesContainer _activeProjectilesContainer;
@@ -51,8 +50,7 @@ namespace Game.Gameplay.Services
                     continue;
                 }
 
-                if (MathUtils.IsInCone(shootingPoint.position, shootingPoint.forward, activeEnemy.Position,
-                        range, ShootingAngle, true))
+                if (MathUtils.IsPointInCapsule(activeEnemy.Position, shootingPoint.position, shootingPoint.position + shootingPoint.forward.normalized * range, 0.5f))
                 {
                     currentTarget = activeEnemy;
 

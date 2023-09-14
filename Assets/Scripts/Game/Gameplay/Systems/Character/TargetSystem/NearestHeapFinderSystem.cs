@@ -77,15 +77,13 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
                     continue;
                 }
 
-                float directionX = 0, directionZ = 0;
+                float signX = 0, signZ = 0;
                 Vector3 direction = target.Position - _characterView.transform.position;
-                if (direction.x != 0)
-                    directionX = direction.x / Mathf.Abs(direction.x);
 
-                if (direction.z != 0)
-                    directionZ = direction.z / Mathf.Abs(direction.z);
+                signX = Mathf.Sign(direction.x);
+                signZ = Mathf.Sign(direction.z);
 
-                switch (directionX, directionZ)
+                switch (signX, signZ)
                 {
                     case (1, 1):
                         _fieldOfViewParts[0].Add(target);
@@ -121,20 +119,18 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
 
         private List<Vector3> CalculateAverageHeapsVectors()
         {
-            Vector3 averageVector = Vector3.zero;
-            Vector3 vectorsSummary;
-
             List<Vector3> averageVectors = new List<Vector3>();
 
             for (int i = 0; i < _fieldOfViewParts.Length; i++)
             {
-                vectorsSummary = Vector3.zero;
-
                 if (_fieldOfViewParts[i].Count > 0)
                 {
+                    var vectorsSummary = Vector3.zero;
+
                     foreach (var enemyBase in _fieldOfViewParts[i])
                         vectorsSummary += enemyBase.Position;
 
+                    Vector3 averageVector;
                     if (_fieldOfViewParts[i].Count > 1)
                         averageVector = vectorsSummary / _fieldOfViewParts[i].Count;
                     else
