@@ -14,6 +14,7 @@ namespace Game.Installers.SampleScene
             Container.Bind<WeaponMechanicsService>().AsSingle();
             Container.Bind<WeaponsService>().AsSingle();
             Container.Bind<AbilitiesDistributorService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CameraShakeService>().AsSingle();
         }
     }
 }

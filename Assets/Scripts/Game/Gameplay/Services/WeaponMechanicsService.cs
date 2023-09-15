@@ -11,6 +11,7 @@ using Game.Gameplay.Views.Bullets;
 using Game.Gameplay.Views.Enemy;
 using Game.Gameplay.Views.FX;
 using Game.Gameplay.WeaponMechanics;
+using Game.Services;
 using TegridyUtils;
 using UnityEngine;
 
@@ -25,18 +26,21 @@ namespace Game.Gameplay.Services
         private readonly RecyclableParticlesPoolFactory _recyclableParticlesPoolFactory;
         private readonly ActiveEnemiesContainer _activeEnemiesContainer;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
+        private readonly CameraShakeService _cameraShakeService;
 
         public WeaponMechanicsService(BulletsPoolFactory bulletsPoolFactory,
             ActiveProjectilesContainer activeProjectilesContainer,
             RecyclableParticlesPoolFactory recyclableParticlesPoolFactory,
             ActiveEnemiesContainer activeEnemiesContainer,
-            CharacterCharacteristicsRepository characterCharacteristicsRepository)
+            CharacterCharacteristicsRepository characterCharacteristicsRepository,
+            CameraShakeService cameraShakeService)
         {
             _bulletsPoolFactory = bulletsPoolFactory;
             _activeProjectilesContainer = activeProjectilesContainer;
             _recyclableParticlesPoolFactory = recyclableParticlesPoolFactory;
             _activeEnemiesContainer = activeEnemiesContainer;
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
+            _cameraShakeService = cameraShakeService;
         }
 
         public bool TryGetWeaponTarget(Transform shootingPoint, float range, out EnemyBase currentTarget)
@@ -74,6 +78,9 @@ namespace Game.Gameplay.Services
                 bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
 
                 _activeProjectilesContainer.AddProjectile(bulletView);
+
+                _cameraShakeService.Shake(0.05f, 0.05f);
+
                 return;
             }
 
@@ -159,6 +166,8 @@ namespace Game.Gameplay.Services
                         enemyPosition));
                 }
 
+                _cameraShakeService.Shake(0.3f, 0.25f);
+
                 return;
             }
 
@@ -194,6 +203,9 @@ namespace Game.Gameplay.Services
 
                 projectileView.OnEnemyCollide += OnFXEnemyCollideHandler;
                 projectileView.OnParticleCompletelyStopped += OnFXEnemyCollideCompletelyStoppedHandler;
+
+                _cameraShakeService.Shake(0.07f, 0.07f);
+
                 return;
             }
 
