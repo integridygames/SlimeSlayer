@@ -17,28 +17,35 @@ namespace Game.Services
 
         public void Initialize()
         {
+#if !UNITY_EDITOR && !UNITY_STANDALONE
             Vibration.Init();
+#endif
         }
 
         public void Vibrate(int milliseconds)
         {
             if (_playerSettings.VibrationEnabled.Value == false) return;
 
+#if !UNITY_EDITOR && !UNITY_STANDALONE
             Vibration.Vibrate(milliseconds);
+#endif
         }
 
         public void VibratePop()
         {
             if (_playerSettings.VibrationEnabled.Value == false) return;
-
+#if !UNITY_EDITOR && !UNITY_STANDALONE
             Vibration.VibratePop();
+#endif
         }
 
         public void VibrateNope()
         {
             if (_playerSettings.VibrationEnabled.Value == false) return;
 
+#if !UNITY_EDITOR && !UNITY_STANDALONE
             Vibration.VibrateNope();
+#endif
         }
     }
 }
