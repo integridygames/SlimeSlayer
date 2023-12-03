@@ -1,4 +1,5 @@
 using Game.DataBase.Weapon;
+using Game.Gameplay.Views.Character;
 using Game.Gameplay.Views.Weapons;
 using TegridyCore;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace Game.Gameplay.WeaponMechanics
             ReloadComponent.Reset();
         }
 
-        public void Shoot()
+        public void Shoot(HandIKView handIKView)
         {
             if (ShootPossibilityComponent.TryToGetTargetCollider(out var currentTarget))
             {
@@ -42,6 +43,8 @@ namespace Game.Gameplay.WeaponMechanics
                 ShootComponent.Shoot(direction);
                 ShootPossibilityComponent.HandleShoot();
                 ReloadComponent.CurrentCharge.Value--;
+
+                handIKView.IsOnRecoil = true;
             }
         }
 

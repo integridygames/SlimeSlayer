@@ -12,9 +12,23 @@ namespace Game.Gameplay.Views.Character
 
         private Animator _animator;
         private float _weight;
+        [SerializeField] private bool _isOnRecoil;
 
         public HandTargetView HandTargetView => _handTargetView;
         public HandRotationCenterView HandRotationCenterView => _handRotationCenter;
+
+        public bool IsOnRecoil
+        {
+            get => _isOnRecoil;
+            set
+            {
+                if (value)
+                    RecoilProgress = 1f;
+                _isOnRecoil = value;
+            }
+        }
+
+        public float RecoilProgress { get; set; }
 
         private void Awake()
         {

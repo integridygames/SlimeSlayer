@@ -31,6 +31,7 @@ namespace Game.DataBase
                 new(WeaponType.Shotgun, RarityType.Epic),
                 new(WeaponType.Scar, RarityType.Epic),
                 new(WeaponType.Uzi, RarityType.Common),
+                new(WeaponType.Uzi, RarityType.Common),
                 new(WeaponType.Shotgun, RarityType.Uncommon),
                 new(WeaponType.GrenadeLauncher, RarityType.Common),
                 new(WeaponType.MiniGun, RarityType.Common),

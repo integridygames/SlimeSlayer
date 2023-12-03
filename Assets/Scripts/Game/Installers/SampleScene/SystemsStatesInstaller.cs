@@ -15,6 +15,7 @@ using Game.Gameplay.Systems.Character.Movement;
 using Game.Gameplay.Systems.Weapon;
 using Game.Gameplay.Systems.Enemy;
 using Game.Gameplay.Systems.Character.IK;
+using Game.Gameplay.Systems.Character.Shooting;
 using Game.Gameplay.Systems.Essence;
 using Game.Gameplay.Systems.Zone;
 
@@ -117,6 +118,9 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gunCabinetState);
 
+            var handsRecoilSystem = Container.Instantiate<HandsRecoilSystem>();
+            Container.BindUpdateSystemWithState(handsRecoilSystem, _gameState);
+
             var characterMovingSystem = Container.Instantiate<CharacterMovingSystem>();
             Container.BindFixedSystemWithState(characterMovingSystem, _gameState);
 
@@ -165,9 +169,6 @@ namespace Game.Installers.SampleScene
 
         private void CreateTargetSystems()
         {
-            var handTargetsSetterSystem = Container.Instantiate<HandTargetsSetterSystem>();
-            Container.BindInitializeSystem(handTargetsSetterSystem);
-
             var nearestHeapFinderSystem = Container.Instantiate<NearestHeapFinderSystem>();
             Container.BindUpdateSystem(nearestHeapFinderSystem);
 
