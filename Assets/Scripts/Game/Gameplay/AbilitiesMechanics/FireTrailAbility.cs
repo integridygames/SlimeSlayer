@@ -42,12 +42,12 @@ namespace Game.Gameplay.AbilitiesMechanics
             _recyclableParticlesPoolFactory.RecycleElement(RecyclableParticleType.FireTrail, _fireTrail);
         }
 
-        private void OnEnemyCollideHandler(CommonEnemyView commonEnemyView)
+        private void OnEnemyCollideHandler(EnemyViewBase enemyViewBase)
         {
             _characterCharacteristicsRepository.TryGetAbilityCharacteristic(AbilityCharacteristicType.FireTrailDamage,
                 out float damage);
 
-            commonEnemyView.InvokeHit(new HitInfo(damage, Vector3.zero, commonEnemyView.transform.position));
+            enemyViewBase.InvokeHit(new HitInfo(damage, Vector3.zero, enemyViewBase.transform.position));
         }
     }
 }

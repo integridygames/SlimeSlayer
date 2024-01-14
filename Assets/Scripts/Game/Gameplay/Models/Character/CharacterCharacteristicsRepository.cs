@@ -115,6 +115,11 @@ namespace Game.Gameplay.Models.Character
             _currentHealth.Value += value;
         }
 
+        public void RemoveHealth(float value)
+        {
+            _currentHealth.Value -= value;
+        }
+
         public void AddExperience()
         {
             _currentExperience++;

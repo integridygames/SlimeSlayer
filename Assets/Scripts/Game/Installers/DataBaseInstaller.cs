@@ -23,6 +23,7 @@ namespace Game.Installers
         [SerializeField] private ResourceShortFormsDataBase _resourceShortFormsDataBase;
         [SerializeField] private CharacterCharacteristicsDataBase _characterCharacteristicsDataBase;
         [SerializeField] private AbilitiesDataBase _abilitiesDataBase;
+        [SerializeField] private HealthBarsDataBase _healthBarsDataBase;
 
         public override void InstallBindings()
         {
@@ -36,6 +37,7 @@ namespace Game.Installers
             Container.BindInstance(_resourceShortFormsDataBase).AsSingle();
             Container.BindInstance(_characterCharacteristicsDataBase).AsSingle();
             Container.BindInstance(_abilitiesDataBase).AsSingle();
+            Container.BindInstance(_healthBarsDataBase).AsSingle();
         }
     }
 }

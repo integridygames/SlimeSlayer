@@ -4,6 +4,6 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public interface IEnemyDamageComponent
     {
-        public void Hit(HitInfo hitInfo, int looseDestructionStatesCount);
+        public void Hit(HitInfo hitInfo);
     }
 }

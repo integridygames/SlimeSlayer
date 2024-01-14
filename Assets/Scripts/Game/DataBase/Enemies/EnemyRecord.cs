@@ -10,6 +10,5 @@ namespace Game.DataBase.Enemies
         [ArrayKey]
         public EnemyType _enemyType;
         public EnemyViewBase _enemyViewBasePrefab;
-        public EnemyDestructionStates _enemyDestructionStates;
     }
 }

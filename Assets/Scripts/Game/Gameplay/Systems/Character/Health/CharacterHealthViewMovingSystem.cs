@@ -2,6 +2,8 @@
 using Game.Gameplay.Views.CameraContainer;
 using Game.Gameplay.Views.Character;
 using TegridyCore.Base;
+using TegridyUtils;
+using UnityEngine;
 
 namespace Game.Gameplay.Systems.Character.Health
 {
@@ -23,12 +25,11 @@ namespace Game.Gameplay.Systems.Character.Health
 
         public void Update()
         {
-            var characterWorldPosition = _characterView.transform.position;
-
-            var screenPosition = _cameraContainerView.Camera.WorldToScreenPoint(characterWorldPosition);
-            screenPosition.y += _characterHealthView.VerticalOffset * _canvasView.Canvas.scaleFactor;
+            var screenPosition = MathUtils.ToScreenPositionWithOffset(_characterView.transform.position, _cameraContainerView.Camera, _characterHealthView.VerticalOffset, _canvasView.Canvas.scaleFactor);
 
             _characterHealthView.transform.position = screenPosition;
         }
+
+
     }
 }

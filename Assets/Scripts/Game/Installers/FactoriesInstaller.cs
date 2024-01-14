@@ -16,6 +16,8 @@ namespace Game.Installers
             Container.Bind<RecyclableParticlesPoolFactory>().AsSingle();
             Container.Bind<EnemyFactory>().AsSingle();
             Container.Bind<AbilityFactory>().AsSingle();
+            Container.Bind<HealthBarsPoolFactory>().AsSingle();
+            Container.Bind<UiFxPoolFactory>().AsSingle();
         }
     }
 }

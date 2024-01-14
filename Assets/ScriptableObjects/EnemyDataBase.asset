@@ -14,14 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _records:
   - _enemyType: 0
-    _enemyViewBasePrefab: {fileID: 3073140802622876864, guid: 9f8af5387c82af741b14f6b46bafd7b1, type: 3}
-    _enemyDestructionStates:
-      _meshes:
-      - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-      - {fileID: 1184495592106661164, guid: 09126ee985f5b6d479057ea939ca2bcf, type: 3}
-      - {fileID: 8669263468653607847, guid: fb7bf38f08766b7459fe97eb200d1448, type: 3}
-      - {fileID: 4581739981181872421, guid: d74185a82dc335342828ea6d7eff9e8f, type: 3}
-      - {fileID: -9163561103086961629, guid: 8c8fe43b252c4654cb38f6a6c50710e0, type: 3}
-      - {fileID: 6160225961834033417, guid: 0399d03f55b910c4c9d3a8beccb06871, type: 3}
-      - {fileID: -1879693041149225943, guid: c6d8d453b6d889b4f99d9ebde390d70d, type: 3}
-      - {fileID: -8579030485714894826, guid: 8bfa02526d17eb54fbe254ab74d76e73, type: 3}
+    _enemyViewBasePrefab: {fileID: 7900593474258132914, guid: 77a4ca28fbb769e4e887045e9d84d1ca, type: 3}

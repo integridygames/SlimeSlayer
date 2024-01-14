@@ -4,6 +4,13 @@ namespace TegridyUtils
 {
     public static class MathUtils
     {
+        public static Vector3 ToScreenPositionWithOffset(Vector3 characterPosition, Camera camera, float offset, float scaleFactor)
+        {
+            var screenPosition = camera.WorldToScreenPoint(characterPosition);
+            screenPosition.y += offset * scaleFactor;
+            return screenPosition;
+        }
+
         public static bool IsInCone(Vector3 origin, Vector3 direction, Vector3 target, float distance, float rangeAngle,
             bool inPlane = false)
         {

@@ -31,6 +31,7 @@ namespace Game.Installers.SampleScene
         private WeaponScreenState _weaponScreenState;
         private StatsScreenState _statsScreenState;
         private CraftScreenState _craftScreenState;
+        private DeathState _deathState;
 
         public override void InstallBindings()
         {
@@ -50,6 +51,7 @@ namespace Game.Installers.SampleScene
             _weaponScreenState = Container.CreateAndBindState<WeaponScreenState>();
             _statsScreenState = Container.CreateAndBindState<StatsScreenState>();
             _craftScreenState = Container.CreateAndBindState<CraftScreenState>();
+            _deathState = Container.CreateAndBindState<DeathState>();
         }
 
         private void CreateTransitions()
@@ -65,6 +67,9 @@ namespace Game.Installers.SampleScene
 
             Container.CreateAndBindTransition<StartScreenToCraftTransition>(_startScreenState, _craftScreenState);
             Container.CreateAndBindTransition<CraftScreenToStartTransition>(_craftScreenState, _startScreenState);
+
+            Container.CreateAndBindTransition<GameToDeathScreenTransition>(_gameState, _deathState);
+            Container.CreateAndBindTransition<DeathToStartScreenTransition>(_deathState, _startScreenState);
         }
 
         private void CreateStateMachine()
@@ -90,7 +95,7 @@ namespace Game.Installers.SampleScene
             Container.BindPreInitializeSystemWithState(levelInitializeSystem, _startScreenState);
 
             var levelDestroySystem = Container.Instantiate<LevelDestroySystem>();
-            Container.BindDestroySystemWithState(levelDestroySystem, _gameState);
+            Container.BindDestroySystemWithState(levelDestroySystem, _deathState);
 
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystemWithState(weaponInitializeSystem, _startScreenState);

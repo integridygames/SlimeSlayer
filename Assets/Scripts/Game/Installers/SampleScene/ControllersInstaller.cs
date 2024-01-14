@@ -1,4 +1,5 @@
-﻿using Game.Gameplay.Controllers.Abilities;
+﻿using Game.Gameplay.Controllers;
+using Game.Gameplay.Controllers.Abilities;
 using Game.Gameplay.Controllers.Character;
 using Zenject;
 using Game.Gameplay.Controllers.GameScreen;
@@ -27,6 +28,7 @@ namespace Game.Installers.SampleScene
             BindController<StartScreenController>();
             BindController<SettingsPopupController>();
             BindController<PauseController>();
+            BindController<DeathScreenController>();
         }
 
         private void BindController<TController>()

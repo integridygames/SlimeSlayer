@@ -31,14 +31,14 @@ namespace Game.Gameplay.Factories
 
             return enemyType switch
             {
-                EnemyType.CommonEnemy => CreateEnemy<CommonEnemy>(enemyView, enemyRecord._enemyDestructionStates),
+                EnemyType.Zombie => CreateEnemy<Zombie>(enemyView),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }
 
-        private T CreateEnemy<T>(EnemyViewBase enemyView, EnemyDestructionStates enemyDestructionStates) where T : EnemyBase
+        private T CreateEnemy<T>(EnemyViewBase enemyView) where T : EnemyBase
         {
-            return _container.Instantiate<T>(new object[] {enemyView, enemyDestructionStates});
+            return _container.Instantiate<T>(new object[] {enemyView});
         }
     }
 }

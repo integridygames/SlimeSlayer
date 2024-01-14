@@ -61,14 +61,14 @@ namespace Game.Gameplay.AbilitiesMechanics
             _recyclableParticlesPoolFactory.RecycleElement(RecyclableParticleType.PushingImpulse, _pushingImpulseView);
         }
 
-        private void OnEnemyCollideHandler(CommonEnemyView commonEnemyView)
+        private void OnEnemyCollideHandler(EnemyViewBase enemyViewBase)
         {
             _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
                 AbilityCharacteristicType.PushingImpulseForce, out float force);
 
-            var direction = commonEnemyView.transform.position - _characterView.transform.position;
+            var direction = enemyViewBase.transform.position - _characterView.transform.position;
             direction.y = 0;
-            commonEnemyView.Rigidbody.AddForce(direction.normalized * force, ForceMode.Impulse);
+            enemyViewBase.Rigidbody.AddForce(direction.normalized * force, ForceMode.Impulse);
         }
     }
 }
