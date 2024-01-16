@@ -15,6 +15,8 @@ namespace Game.Installers.SampleScene
             Container.Bind<WeaponsService>().AsSingle();
             Container.Bind<AbilitiesDistributorService>().AsSingle();
             Container.BindInterfacesAndSelfTo<CameraShakeService>().AsSingle();
+            Container.Bind<DamageFxService>().AsSingle();
+            Container.Bind<LevelDestroyService>().AsSingle();
         }
     }
 }

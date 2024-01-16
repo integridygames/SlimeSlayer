@@ -1,6 +1,8 @@
 ﻿using Game.DataBase.Abilities;
 using Game.DataBase.Character;
 using Game.Gameplay.Models.Abilities;
+using Game.Gameplay.Services;
+using Game.Gameplay.Views.Character;
 using TegridyCore;
 using UnityEngine;
 
@@ -11,8 +13,10 @@ namespace Game.Gameplay.Models.Character
         private const int StartReachPoint = 4;
 
         private readonly CharacterCharacteristics _characterCharacteristics;
+        private readonly CharacterView _characterView;
         private readonly AbilityTmpCharacteristics _abilityTmpCharacteristics;
         private readonly AbilitiesRepository _abilitiesRepository;
+        private readonly DamageFxService _damageFxService;
 
         private int _nextLevelReachPoint;
         private int _currentExperience;
@@ -72,12 +76,14 @@ namespace Game.Gameplay.Models.Character
 
         public bool ReadyForLevelUp => _currentExperience >= _nextLevelReachPoint;
 
-        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics,
-            AbilityTmpCharacteristics abilityTmpCharacteristics, AbilitiesRepository abilitiesRepository)
+        public CharacterCharacteristicsRepository(CharacterCharacteristics characterCharacteristics, CharacterView characterView,
+            AbilityTmpCharacteristics abilityTmpCharacteristics, AbilitiesRepository abilitiesRepository, DamageFxService damageFxService)
         {
             _characterCharacteristics = characterCharacteristics;
+            _characterView = characterView;
             _abilityTmpCharacteristics = abilityTmpCharacteristics;
             _abilitiesRepository = abilitiesRepository;
+            _damageFxService = damageFxService;
         }
 
         public void UpdateCharacteristics()
@@ -118,6 +124,7 @@ namespace Game.Gameplay.Models.Character
         public void RemoveHealth(float value)
         {
             _currentHealth.Value -= value;
+            _damageFxService.DoDamageFx((int) value, _characterView.transform.position, 10);
         }
 
         public void AddExperience()

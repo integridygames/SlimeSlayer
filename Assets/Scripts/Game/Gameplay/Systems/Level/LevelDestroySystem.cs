@@ -1,39 +1,20 @@
-﻿using Game.Gameplay.Models.Character;
-using Game.Gameplay.Models.Enemy;
-using Game.Gameplay.Models.GameResources;
-using Game.Gameplay.Models.Level;
+﻿using Game.Gameplay.Services;
 using TegridyCore.Base;
-using UnityEngine;
 
 namespace Game.Gameplay.Systems.Level
 {
     public class LevelDestroySystem : IDestroySystem
     {
-        private readonly LevelInfo _levelInfo;
-        private readonly ActiveEnemiesContainer _activeEnemiesContainer;
-        private readonly CharacterMovementData _characterMovementData;
-        private readonly ActiveCoinsContainer _activeCoinsContainer;
-        private readonly ActiveEssencesContainer _activeEssencesContainer;
+        private readonly LevelDestroyService _levelDestroyService;
 
-        public LevelDestroySystem(LevelInfo levelInfo, ActiveEnemiesContainer activeEnemiesContainer,
-            CharacterMovementData characterMovementData, ActiveCoinsContainer activeCoinsContainer,
-            ActiveEssencesContainer activeEssencesContainer)
+        public LevelDestroySystem(LevelDestroyService levelDestroyService)
         {
-            _levelInfo = levelInfo;
-            _activeEnemiesContainer = activeEnemiesContainer;
-            _characterMovementData = characterMovementData;
-            _activeCoinsContainer = activeCoinsContainer;
-            _activeEssencesContainer = activeEssencesContainer;
+            _levelDestroyService = levelDestroyService;
         }
 
         public void Destroy()
         {
-            Time.timeScale = 1;
-            _activeEnemiesContainer.Clear();
-            _characterMovementData.Reset();
-            _activeEssencesContainer.Clear();
-            _activeCoinsContainer.Clear();
-            Object.Destroy(_levelInfo.CurrentLevelView.Value.gameObject);
+            _levelDestroyService.DestroyLevel();
         }
     }
 }

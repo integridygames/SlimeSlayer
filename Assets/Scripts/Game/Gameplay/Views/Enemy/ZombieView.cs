@@ -5,6 +5,9 @@ namespace Game.Gameplay.Views.Enemy
 {
     public class ZombieView : EnemyViewBase
     {
+        [SerializeField] private Collider _zombieCollider;
+        [SerializeField] private Rigidbody _zombieRigidbody;
+
         private Animator _animator;
         public Animator Animator => _animator ??= GetComponentInChildren<Animator>();
 
@@ -22,6 +25,11 @@ namespace Game.Gameplay.Views.Enemy
 
         public override void SetDeathAnimation()
         {
+            Animator.applyRootMotion = true;
+            _zombieCollider.enabled = false;
+            _zombieRigidbody.isKinematic = true;
+            _zombieRigidbody.constraints = RigidbodyConstraints.None;
+
             Animator.SetTrigger(Death);
         }
 

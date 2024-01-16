@@ -20,11 +20,6 @@ namespace Game.Gameplay.Systems.Enemy
         {
             foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
             {
-                if (activeEnemy.IsOnAttack)
-                {
-                    continue;
-                }
-
                 activeEnemy.UpdateMovementData();
             }
         }
@@ -33,11 +28,6 @@ namespace Game.Gameplay.Systems.Enemy
         {
             foreach (var activeEnemy in _activeEnemiesContainer.ActiveEnemies)
             {
-                if (activeEnemy.IsOnAttack)
-                {
-                    continue;
-                }
-
                 MoveToPlayer(activeEnemy);
             }
         }

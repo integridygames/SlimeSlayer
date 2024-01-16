@@ -47,13 +47,13 @@ namespace Game.Gameplay.EnemiesMechanics.Components.AttackComponents
         public void Initialize()
         {
             _enemyViewBase.OnEnemyAttackCompleted += OnEnemyAttackCompleted;
-            _enemyViewBase.OnEnemyAttack += OnEnemyAttacked;
+            _enemyViewBase.OnEnemyAttack += OnEnemyAttackHandler;
         }
 
         public void Dispose()
         {
             _enemyViewBase.OnEnemyAttackCompleted -= OnEnemyAttackCompleted;
-            _enemyViewBase.OnEnemyAttack -= OnEnemyAttacked;
+            _enemyViewBase.OnEnemyAttack -= OnEnemyAttackHandler;
         }
 
         private void OnEnemyAttackCompleted()
@@ -62,9 +62,12 @@ namespace Game.Gameplay.EnemiesMechanics.Components.AttackComponents
             IsOnAttack = false;
         }
 
-        private void OnEnemyAttacked()
+        private void OnEnemyAttackHandler()
         {
-            _characterCharacteristicsRepository.RemoveHealth(_damage);
+            if (ReadyToAttack())
+            {
+                _characterCharacteristicsRepository.RemoveHealth(_damage);
+            }
         }
     }
 }

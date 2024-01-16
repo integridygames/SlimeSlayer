@@ -32,7 +32,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         private bool EnemyIsInRangeOfCharacter(EnemyBase enemy)
         {
             var distance = Vector3.Distance(_characterView.transform.position, enemy.Position);
-            return distance <= _characterCharacteristicsRepository.AttackRange;
+            return distance <= _characterCharacteristicsRepository.AttackRange && enemy.IsDead == false;
         }
     }
 }

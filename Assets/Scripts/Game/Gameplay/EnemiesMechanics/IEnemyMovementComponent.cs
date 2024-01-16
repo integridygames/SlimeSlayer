@@ -8,7 +8,7 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public Vector3 Target { get; set; }
 
-        public void UpdateMovementData();
+        public void UpdateMovementData(float speed);
 
         public void UpdateMovement();
     }

@@ -4,6 +4,7 @@ using Game.Gameplay.EnemiesMechanics.Components.DeathComponents;
 using Game.Gameplay.EnemiesMechanics.Components.MovementComponents;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Character;
+using Game.Gameplay.Services;
 using Game.Gameplay.Views;
 using Game.Gameplay.Views.CameraContainer;
 using Game.Gameplay.Views.Character;
@@ -22,8 +23,8 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyDeathComponent EnemyDeathComponent => _commonDeathComponent;
 
         public Zombie(ZombieView zombieView, CharacterCharacteristicsRepository characterCharacteristicsRepository, CharacterView characterView,
-            HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView, UiFxPoolFactory uiFxPoolFactory)
-            : base(zombieView, characterCharacteristicsRepository, healthBarsPoolFactory, cameraContainerView, canvasView, uiFxPoolFactory)
+            HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView, DamageFxService damageFxService)
+            : base(zombieView, characterCharacteristicsRepository, damageFxService, healthBarsPoolFactory, cameraContainerView, canvasView)
         {
             EnemyMovementComponent = new SmoothForwardMovementComponent(zombieView.Rigidbody);
             EnemyDamageComponent = new DummyDamageComponent();

@@ -39,6 +39,11 @@ namespace Game.Gameplay.Models.Enemy
 
         public void Clear()
         {
+            foreach (var activeEnemy in _activeEnemies)
+            {
+                activeEnemy.Dispose();
+            }
+
             _activeEnemies.Clear();
         }
     }   

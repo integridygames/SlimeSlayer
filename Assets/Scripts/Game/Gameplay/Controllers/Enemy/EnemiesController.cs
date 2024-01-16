@@ -48,8 +48,6 @@ namespace Game.Gameplay.Controllers.Enemy
             _activeEssencesContainer.Add((EssenceView) SpawnGameResource(enemy.Position, GameResourceType.Essence));
             _activeCoinsContainer.Add((CoinView) SpawnGameResource(enemy.Position, GameResourceType.Coin));
 
-            enemy.Destroy();
-
             RecycleSpawnZones();
         }
 

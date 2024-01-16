@@ -56,7 +56,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
         {
             foreach (var enemy in _activeEnemiesContainer.ActiveEnemies)
             {
-                if (enemy.IsInCharacterRange)
+                if (enemy.IsInCharacterRange && enemy.IsDead == false)
                 {
                     return true;
                 }
@@ -72,7 +72,7 @@ namespace Game.Gameplay.Systems.Character.TargetSystem
 
             foreach (var target in _activeEnemiesContainer.ActiveEnemies)
             {
-                if (target.IsInCharacterRange == false)
+                if (target.IsInCharacterRange == false || target.IsDead)
                 {
                     continue;
                 }

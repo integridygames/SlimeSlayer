@@ -2,6 +2,7 @@
 using Game.DataBase;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Character;
+using Game.Gameplay.Services;
 using Game.Gameplay.Views;
 using Game.Gameplay.Views.CameraContainer;
 using Game.Gameplay.Views.Enemy;
@@ -11,20 +12,19 @@ using TegridyCore;
 using TegridyUtils;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
-        private const float StartHealth = 100;
+        private const float StartHealth = 40;
 
         private readonly EnemyViewBase _enemyViewBase;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
+        private readonly DamageFxService _damageFxService;
         private readonly HealthBarsPoolFactory _healthBarsPoolFactory;
         private readonly CameraContainerView _cameraContainerView;
         private readonly CanvasView _canvasView;
-        private readonly UiFxPoolFactory _uiFxPoolFactory;
         private readonly RxField<float> _health;
         private bool _isDead;
 
@@ -52,15 +52,17 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public bool IsInCharacterRange { get; set; }
 
-        protected EnemyBase(EnemyViewBase enemyViewBase, CharacterCharacteristicsRepository characterCharacteristicsRepository,
-            HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView, UiFxPoolFactory uiFxPoolFactory)
+        public bool IsDead => _isDead;
+
+        protected EnemyBase(EnemyViewBase enemyViewBase, CharacterCharacteristicsRepository characterCharacteristicsRepository, DamageFxService damageFxService,
+            HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView)
         {
             _enemyViewBase = enemyViewBase;
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
+            _damageFxService = damageFxService;
             _healthBarsPoolFactory = healthBarsPoolFactory;
             _cameraContainerView = cameraContainerView;
             _canvasView = canvasView;
-            _uiFxPoolFactory = uiFxPoolFactory;
 
             _health = StartHealth;
         }
@@ -85,6 +87,8 @@ namespace Game.Gameplay.EnemiesMechanics
 
             _healthBarsPoolFactory.RecycleElement(HealthBarType.Red, _enemyHealthView);
 
+            Object.Destroy(_enemyViewBase.gameObject);
+
             OnEnd();
         }
 
@@ -98,29 +102,30 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public void UpdateMovementData()
         {
-            if (_isDead)
+            UpdateHealthPosition();
+
+            if (IsDead)
             {
                 return;
             }
 
-            EnemyMovementComponent.UpdateMovementData();
+            if (IsOnAttack)
+            {
+                EnemyMovementComponent.UpdateMovementData(0);
+                return;
+            }
 
-            UpdateHealthPosition();
+            EnemyMovementComponent.UpdateMovementData(1.5f);
         }
 
         public void UpdateMovement()
         {
-            if (_isDead)
+            if (IsDead)
             {
                 return;
             }
 
             EnemyMovementComponent.UpdateMovement();
-        }
-
-        public void Destroy()
-        {
-            Object.Destroy(_enemyViewBase.gameObject);
         }
 
         private void OnEnemyHitHandler(HitInfo hitInfo)
@@ -130,12 +135,12 @@ namespace Game.Gameplay.EnemiesMechanics
 
         private void HandleDamage(HitInfo hitInfo)
         {
-            if (_isDead)
+            if (IsDead)
             {
                 return;
             }
 
-            DoDamageFx(hitInfo);
+            _damageFxService.DoDamageFx((int) hitInfo.Damage, hitInfo.HitPosition, 70);
 
             _health.Value -= hitInfo.Damage;
 
@@ -153,24 +158,6 @@ namespace Game.Gameplay.EnemiesMechanics
             _enemyHealthView.SetHealthPercentage(_health.Value / StartHealth);
 
             _characterCharacteristicsRepository.HandleHealthStealing();
-        }
-
-        private void DoDamageFx(HitInfo hitInfo)
-        {
-            var damageFx = _uiFxPoolFactory.GetElement(0);
-
-            var damageFxPosition = MathUtils.ToScreenPositionWithOffset(_enemyViewBase.transform.position, _cameraContainerView.Camera,
-                0, 0);
-
-            var randomStartPos = Random.insideUnitCircle * 60 * _canvasView.Canvas.scaleFactor;
-
-            damageFxPosition.x += randomStartPos.x;
-            damageFxPosition.y += randomStartPos.y;
-
-            damageFx.transform.position = damageFxPosition;
-
-            damageFx.StartFx(((int) hitInfo.Damage).ToString(),
-                () => { _uiFxPoolFactory.RecycleElement(0, damageFx); });
         }
 
         private void OnEnemyDiedHandler()

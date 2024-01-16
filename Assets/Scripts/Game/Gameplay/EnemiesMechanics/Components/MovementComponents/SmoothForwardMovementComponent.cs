@@ -4,7 +4,6 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
 {
     public class SmoothForwardMovementComponent : IEnemyMovementComponent
     {
-        private const float Speed = 2.5f;
         private const float RotationSpeed = 2f;
         private const float Acceleration = 10f;
 
@@ -22,7 +21,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
             _enemyRigidBody = enemyRigidBody;
         }
 
-        public void UpdateMovementData()
+        public void UpdateMovementData(float speed)
         {
             var direction = (Target - Position).normalized;
             var forward = _enemyRigidBody.transform.forward;
@@ -31,7 +30,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
 
             _targetRotation = Quaternion.Lerp(_enemyRigidBody.rotation, Quaternion.LookRotation(direction, Vector3.up),
                 Time.deltaTime * RotationSpeed);
-            _targetVelocity = Vector3.Lerp(_enemyRigidBody.velocity, forward * Speed, Time.deltaTime * Acceleration);
+            _targetVelocity = Vector3.Lerp(_enemyRigidBody.velocity, forward * speed, Time.deltaTime * Acceleration);
         }
 
         public void UpdateMovement()
