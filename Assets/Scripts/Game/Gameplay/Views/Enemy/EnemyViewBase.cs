@@ -1,23 +1,30 @@
 using System;
 using Game.Gameplay.WeaponMechanics;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Gameplay.Views.Enemy
 {
     public abstract class EnemyViewBase : MonoBehaviour
     {
-        public abstract event Action OnEnemyDeathCompleted;
-        public abstract event Action OnEnemyAttack;
-        public abstract event Action OnEnemyAttackCompleted;
+        public event Action OnEnemyDeathCompleted;
+        public event Action OnEnemyAttack;
+        public event Action OnEnemyAttackCompleted;
 
         public event Action<HitInfo> OnEnemyHit;
         public event Action<Collision> OnEnemyCollide;
 
-        private MeshFilter _meshFilter;
-        public MeshFilter MeshFilter => _meshFilter ??= GetComponentInChildren<MeshFilter>();
+        private NavMeshAgent _navMeshAgent;
+        public NavMeshAgent NavMeshAgent => _navMeshAgent ??= GetComponentInChildren<NavMeshAgent>();
 
-        private Rigidbody _rigidbody;
-        public Rigidbody Rigidbody => _rigidbody ??= GetComponentInChildren<Rigidbody>();
+        private Collider _collider;
+        public Collider Collider => _collider ??= GetComponentInChildren<Collider>();
+
+        private Animator _animator;
+        public Animator Animator => _animator ??= GetComponentInChildren<Animator>();
+
+        private static readonly int IsAttack = Animator.StringToHash("IsAttack");
+        private static readonly int Death = Animator.StringToHash("Death");
 
         public void InvokeHit(HitInfo hitInfo)
         {
@@ -29,8 +36,34 @@ namespace Game.Gameplay.Views.Enemy
             OnEnemyCollide?.Invoke(collision);
         }
 
-        public abstract void SetAttackAnimation(bool isAttack);
+        public void BeginDie()
+        {
+            NavMeshAgent.enabled = false;
 
-        public abstract void SetDeathAnimation();
+            Animator.applyRootMotion = true;
+            Collider.enabled = false;
+
+            Animator.SetTrigger(Death);
+        }
+
+        public void SetAttackAnimation(bool isAttack)
+        {
+            Animator.SetBool(IsAttack, isAttack);
+        }
+
+        public void OnDeathAnimationCompleted()
+        {
+            OnEnemyDeathCompleted?.Invoke();
+        }
+
+        public void OnMidOfAttackAnimation()
+        {
+            OnEnemyAttack?.Invoke();
+        }
+
+        public void OnEndOfAttackAnimation()
+        {
+            OnEnemyAttackCompleted?.Invoke();
+        }
     }
 }

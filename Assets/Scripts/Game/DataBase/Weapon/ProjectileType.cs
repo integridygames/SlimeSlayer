@@ -6,5 +6,6 @@
         Grenade,
         LargeBullet,
         LongBullet,
+        FireBall,
     }
 }

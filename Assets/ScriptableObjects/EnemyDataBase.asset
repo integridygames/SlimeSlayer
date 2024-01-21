@@ -15,3 +15,5 @@ MonoBehaviour:
   _records:
   - _enemyType: 0
     _enemyViewBasePrefab: {fileID: 7900593474258132914, guid: 77a4ca28fbb769e4e887045e9d84d1ca, type: 3}
+  - _enemyType: 1
+    _enemyViewBasePrefab: {fileID: 770519834905363110, guid: fdaaef1388ef97b48a41e3897c73ad78, type: 3}

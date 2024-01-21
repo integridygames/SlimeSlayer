@@ -17,15 +17,13 @@ namespace Game.Gameplay.EnemiesMechanics
 {
     public abstract class EnemyBase
     {
-        private const float StartHealth = 40;
-
         private readonly EnemyViewBase _enemyViewBase;
         private readonly CharacterCharacteristicsRepository _characterCharacteristicsRepository;
         private readonly DamageFxService _damageFxService;
         private readonly HealthBarsPoolFactory _healthBarsPoolFactory;
         private readonly CameraContainerView _cameraContainerView;
         private readonly CanvasView _canvasView;
-        private readonly RxField<float> _health;
+        private readonly RxField<float> _health = new();
         private bool _isDead;
 
         private EnemyHealthView _enemyHealthView;
@@ -44,15 +42,13 @@ namespace Game.Gameplay.EnemiesMechanics
 
         public Vector3 Position => EnemyMovementComponent.Position;
 
-        public Vector3 Target
-        {
-            get => EnemyMovementComponent.Target;
-            set => EnemyMovementComponent.Target = value;
-        }
-
         public bool IsInCharacterRange { get; set; }
 
         public bool IsDead => _isDead;
+
+        public abstract float StartHealth { get; }
+
+        public abstract float Speed { get; }
 
         protected EnemyBase(EnemyViewBase enemyViewBase, CharacterCharacteristicsRepository characterCharacteristicsRepository, DamageFxService damageFxService,
             HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView)
@@ -63,12 +59,12 @@ namespace Game.Gameplay.EnemiesMechanics
             _healthBarsPoolFactory = healthBarsPoolFactory;
             _cameraContainerView = cameraContainerView;
             _canvasView = canvasView;
-
-            _health = StartHealth;
         }
 
         public void Initialize()
         {
+            _health.Value = StartHealth;
+
             _enemyViewBase.OnEnemyHit += OnEnemyHitHandler;
             EnemyDeathComponent.OnDied += OnEnemyDiedHandler;
 
@@ -100,7 +96,7 @@ namespace Game.Gameplay.EnemiesMechanics
         {
         }
 
-        public void UpdateMovementData()
+        public void UpdateMovement()
         {
             UpdateHealthPosition();
 
@@ -109,23 +105,7 @@ namespace Game.Gameplay.EnemiesMechanics
                 return;
             }
 
-            if (IsOnAttack)
-            {
-                EnemyMovementComponent.UpdateMovementData(0);
-                return;
-            }
-
-            EnemyMovementComponent.UpdateMovementData(1.5f);
-        }
-
-        public void UpdateMovement()
-        {
-            if (IsDead)
-            {
-                return;
-            }
-
-            EnemyMovementComponent.UpdateMovement();
+            EnemyMovementComponent.UpdateMovement(Speed, IsOnAttack);
         }
 
         private void OnEnemyHitHandler(HitInfo hitInfo)

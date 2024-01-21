@@ -32,6 +32,7 @@ namespace Game.Gameplay.Factories
             return enemyType switch
             {
                 EnemyType.Zombie => CreateEnemy<Zombie>(enemyView),
+                EnemyType.FireDemon => CreateEnemy<FireDemon>(enemyView),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null)
             };
         }

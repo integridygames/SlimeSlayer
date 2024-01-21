@@ -75,7 +75,7 @@ namespace Game.Gameplay.Services
                 bulletView.Initialize(direction, damage, BulletSpeed, canBeMultiple);
                 bulletView.Shoot();
 
-                bulletView.OnEnemyCollide += OnBulletEnemyCollideHandler;
+                bulletView.SetCollideAction(OnBulletEnemyCollideHandler);
 
                 _activeProjectilesContainer.AddProjectile(bulletView);
 
@@ -90,8 +90,6 @@ namespace Game.Gameplay.Services
 
         private void OnBulletEnemyCollideHandler(BulletView bulletView, EnemyViewBase enemyView)
         {
-            bulletView.OnEnemyCollide -= OnBulletEnemyCollideHandler;
-
             enemyView.InvokeHit(new HitInfo(bulletView.Damage,
                 bulletView.Direction,
                 enemyView.transform.position));

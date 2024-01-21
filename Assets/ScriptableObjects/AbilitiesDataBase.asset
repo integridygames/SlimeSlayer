@@ -34,6 +34,7 @@ MonoBehaviour:
     _weaponNeeds: 03000000
     _abilityNeeds: 02000000
     _name: Multiple Grenade
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 1
     _abilitySprite: {fileID: 21300000, guid: 3318aa90b02f6b04aaa57eb094efd54d, type: 3}
@@ -59,6 +60,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Enemy Death Explosion
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 2
     _abilitySprite: {fileID: 21300000, guid: 1e9d75a821006e44e89b157edf2b54e6, type: 3}
@@ -88,6 +90,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Periodic Grenade To Closest Enemy
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 3
     _abilitySprite: {fileID: 21300000, guid: 93e5860a8af59d34ab26609695624636, type: 3}
@@ -110,34 +113,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Fire Trail
-    _withoutLeveling: 0
-  - _abilityType: 4
-    _abilitySprite: {fileID: 21300000, guid: 437942b8286f78540981fb29e4cac2fe, type: 3}
-    _levelInfos:
-    - _level: 1
-      _wholeEffect: test whole effect
-      _abilityCharacteristics:
-      - _abilityCharacteristicType: 5
-        _value: 40
-      - _abilityCharacteristicType: 6
-        _value: 2
-    - _level: 2
-      _wholeEffect: test whole effect 2
-      _abilityCharacteristics:
-      - _abilityCharacteristicType: 5
-        _value: 50
-      - _abilityCharacteristicType: 0
-        _value: 8
-    - _level: 3
-      _wholeEffect: test whole effect 3
-      _abilityCharacteristics:
-      - _abilityCharacteristicType: 5
-        _value: 70
-      - _abilityCharacteristicType: 6
-        _value: 6
-    _weaponNeeds: 
-    _abilityNeeds: 
-    _name: Pushing Impulse
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 5
     _abilitySprite: {fileID: 21300000, guid: 5f3e6b5ae5f2906459a4391b020fbdbd, type: 3}
@@ -160,6 +136,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Speed Fire
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 6
     _abilitySprite: {fileID: 21300000, guid: 4726a19e4352bfb4bb3309182a2d1983, type: 3}
@@ -182,6 +159,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Speed Reload
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 7
     _abilitySprite: {fileID: 21300000, guid: 386b9d789cedc0541a5cae9efbe98f94, type: 3}
@@ -208,6 +186,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Many Random Missled
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 8
     _abilitySprite: {fileID: 21300000, guid: 16903deddb2b8224a942e3d5de2c5c0f, type: 3}
@@ -230,6 +209,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Health Regeneration
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 9
     _abilitySprite: {fileID: 21300000, guid: 90eb0b3a9b0c1d340a911f50ee61901c, type: 3}
@@ -246,6 +226,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: More Health
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 10
     _abilitySprite: {fileID: 21300000, guid: b0c51fbfa7d4ede47902d812007a97b5, type: 3}
@@ -268,6 +249,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Movement Speed
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 12
     _abilitySprite: {fileID: 21300000, guid: e2e0020e00f0f2146a295c0a458e72be, type: 3}
@@ -284,6 +266,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Charge Improvment
+    _description: 
     _withoutLeveling: 0
   - _abilityType: 13
     _abilitySprite: {fileID: 21300000, guid: a9a8ab1fbc695d342ba1724f9c64b90f, type: 3}
@@ -295,6 +278,7 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Health Recovery
+    _description: 
     _withoutLeveling: 1
   - _abilityType: 14
     _abilitySprite: {fileID: 21300000, guid: ed7b38409bb46d24a8c0345efd55cdb4, type: 3}
@@ -305,4 +289,5 @@ MonoBehaviour:
     _weaponNeeds: 
     _abilityNeeds: 
     _name: Soft Currency
+    _description: 
     _withoutLeveling: 1

@@ -17,7 +17,7 @@ namespace Game.Gameplay.EnemiesMechanics.Components.DeathComponents
 
         public void BeginDie()
         {
-            _enemyViewBase.SetDeathAnimation();
+            _enemyViewBase.BeginDie();
         }
 
         public void Initialize()

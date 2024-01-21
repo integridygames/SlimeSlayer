@@ -22,11 +22,14 @@ namespace Game.Gameplay.EnemiesMechanics.Enemies
         protected override IEnemyAttackComponent EnemyAttackComponent => _closeAttackComponent;
         protected override IEnemyDeathComponent EnemyDeathComponent => _commonDeathComponent;
 
+        public override float StartHealth => 40;
+        public override float Speed => 1.5f;
+
         public Zombie(ZombieView zombieView, CharacterCharacteristicsRepository characterCharacteristicsRepository, CharacterView characterView,
             HealthBarsPoolFactory healthBarsPoolFactory, CameraContainerView cameraContainerView, CanvasView canvasView, DamageFxService damageFxService)
             : base(zombieView, characterCharacteristicsRepository, damageFxService, healthBarsPoolFactory, cameraContainerView, canvasView)
         {
-            EnemyMovementComponent = new SmoothForwardMovementComponent(zombieView.Rigidbody);
+            EnemyMovementComponent = new SmoothForwardMovementComponent(zombieView.NavMeshAgent, characterView);
             EnemyDamageComponent = new DummyDamageComponent();
             _closeAttackComponent = new CloseAttackComponent(zombieView, characterView.transform,
                 zombieView.transform, characterCharacteristicsRepository, 1);

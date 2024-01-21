@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Character
   - EssenceTrigger
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Joystick
   - Coin
   - Enemy
-  - 
+  - EssenceTrigger
   - 
   - 
   - 

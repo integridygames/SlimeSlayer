@@ -23,7 +23,6 @@ namespace Game.Gameplay.Factories
                 AbilityType.PeriodicGrenadeToRandomEnemy =>
                     _container.Instantiate<PeriodicGrenadeToClosestEnemyAbility>(),
                 AbilityType.FireTrail => _container.Instantiate<FireTrailAbility>(),
-                AbilityType.PushingImpulse => _container.Instantiate<PushingImpulseAbility>(),
                 AbilityType.SpeedFire => _container.Instantiate<SpeedFireAbility>(),
                 AbilityType.SpeedReload => _container.Instantiate<SpeedReloadAbility>(),
                 AbilityType.ManyRandomMissiles => _container.Instantiate<ManyRandomMissilesAbility>(),

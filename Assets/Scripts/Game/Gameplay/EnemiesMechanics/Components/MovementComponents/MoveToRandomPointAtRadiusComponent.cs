@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
 {
-    public class SmoothForwardMovementComponent : IEnemyMovementComponent
+    public class MoveToRandomPointAtRadiusComponent : IEnemyMovementComponent
     {
         private const float RotationSpeed = 2f;
         private const float Acceleration = 10f;
@@ -15,7 +15,9 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
         public Vector3 Position => _navMeshAgent.transform.position;
         public Vector3 Target => _navMeshAgent.destination;
 
-        public SmoothForwardMovementComponent(NavMeshAgent navMeshAgent, CharacterView characterView)
+        private Vector3? _currentDestinationOffset;
+
+        public MoveToRandomPointAtRadiusComponent(NavMeshAgent navMeshAgent, CharacterView characterView)
         {
             _navMeshAgent = navMeshAgent;
             _characterView = characterView;
@@ -25,19 +27,35 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
         {
             if (isOnAttack)
             {
+                _currentDestinationOffset = null;
                 Move(0);
                 return;
             }
 
+            if (_currentDestinationOffset == null)
+            {
+                UpdateDestinationPoint();
+            }
+
+
             Move(speed);
+        }
+
+        private void UpdateDestinationPoint()
+        {
+            _currentDestinationOffset = Random.insideUnitCircle * 5f;
         }
 
         private void Move(float speed)
         {
             _navMeshAgent.speed = speed;
-            _navMeshAgent.destination = _characterView.transform.position;
             _navMeshAgent.acceleration = Acceleration;
             _navMeshAgent.angularSpeed = RotationSpeed;
+
+            if (_currentDestinationOffset != null)
+            {
+                _navMeshAgent.destination = new Vector3(_characterView.transform.position.x + _currentDestinationOffset.Value.x, 0, _characterView.transform.position.z + _currentDestinationOffset.Value.y);
+            }
 
             if (speed != 0)
             {
