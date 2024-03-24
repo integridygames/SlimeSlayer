@@ -14,16 +14,29 @@ namespace Game.Gameplay.Models.Zone
 
         private float _currentTimeout;
 
+        /// <summary>
+        /// Спавн работает пока это значение дошло до 1.
+        /// </summary>
         public float SpawnProgressNormalized { get; set; }
-        public float CurrentProgressPoint { get; set; }
 
+        /// <summary>
+        /// Индекс следующего врага для спавна
+        /// </summary>
         public int CurrentSpawnIndex { get; set; }
 
+        /// <summary>
+        /// Происходит ли спавн прямо сейчас
+        /// </summary>
         public bool SpawnInProgress { get; set; }
-        public bool AbleToSpawn { get; set; } = true;
 
+        /// <summary>
+        /// Общее время спавна
+        /// </summary>
         public float SpawnTime => _spawnBoundsView.SpawnTime;
 
+        /// <summary>
+        /// Общее кол-во всех врагов для спавна
+        /// </summary>
         public int MaxEnemiesCount { get; }
 
         public IReadOnlyList<EnemySpawnSettingsRecord> BattlefieldSpawnSettings =>
@@ -51,14 +64,9 @@ namespace Game.Gameplay.Models.Zone
             return _spawnBoundsView.Bounds.GetRandomPoint();
         }
 
-        public bool InBoundsOfSpawn(Vector3 position)
-        {
-            return _spawnBoundsView.Bounds.Contains(position);
-        }
-
         public void Recycle()
         {
-            AbleToSpawn = true;
+            SpawnInProgress = false;
             CurrentTimeout = EnemyRespawnTime;
         }
     }

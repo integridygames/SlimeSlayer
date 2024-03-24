@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-573496333328518584
+--- !u!114 &-3152009872847262333
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,17 +20,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FireDemonMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: df5bb027d94a6c44bb32b3c31ec1303f, type: 3}
+  m_Name: Default
+  m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
+  - TCP2_SPECULAR_STYLIZED
+  - _EMISSION
+  m_InvalidKeywords:
   - TCP2_UV_NORMALS_FULL
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -41,11 +43,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 242011205bf781d4b8c66d1f1635673d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7fc00b9ac1eb434458ed5478b5570798, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cd94827dc48fa334ba755506a2d2ace1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,11 +63,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d793316a043afc74287a73c4ca7efdda, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 2800000, guid: d793316a043afc74287a73c4ca7efdda, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 242011205bf781d4b8c66d1f1635673d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapMask:
@@ -104,6 +110,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 15ffef8b0ac1b96428d71d5492ccb4a8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -133,11 +143,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionChannel: 4
+    - _EmissionContrast: 0
     - _EnvironmentReflections: 1
     - _FresnelMax: 1.5
     - _FresnelMin: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.4472136
     - _GlossyReflections: 1
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
@@ -156,15 +167,16 @@ Material:
     - _OutlinePixelSizeType: 0
     - _OutlineTextureLOD: 5
     - _OutlineTextureType: 0
-    - _OutlineWidth: 0.98
+    - _OutlineWidth: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _RampBands: 4
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmoothing: 0.1
-    - _RampThreshold: 0.681
+    - _RampSmoothing: 0.481
+    - _RampThreshold: 0.75
     - _RampType: 0
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
@@ -175,27 +187,28 @@ Material:
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
     - _SingleIndirectColor: 0
-    - _Smoothness: 0
+    - _Smooth: 0
+    - _Smoothness: 0.4472136
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
     - _SpecularRoughness: 0.5
     - _SpecularToonSize: 0.25
     - _SpecularToonSmoothness: 0.05
-    - _SpecularType: 0
+    - _SpecularType: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
     - _UseAlphaTest: 0
-    - _UseEmission: 0
+    - _UseEmission: 1
     - _UseFresnelReflections: 1
     - _UseMatCap: 0
     - _UseMatCapMask: 0
     - _UseMobileMode: 0
     - _UseNormalMap: 0
     - _UseOcclusion: 0
-    - _UseOutline: 1
+    - _UseOutline: 0
     - _UseReflections: 0
     - _UseRim: 0
     - _UseRimLightMask: 1
@@ -204,15 +217,16 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.2396226, b: 0.2396226, a: 1}
+    - _BaseColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.2679245, g: 0.09782111, b: 0, a: 1}
+    - _EmitColor: {r: 0.3336653, g: 0.3336653, b: 0.3336653, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
-    - _SColor: {r: 1, g: 0.6363354, b: 0.1415093, a: 1}
+    - _SColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
   m_BuildTextureStacks: []

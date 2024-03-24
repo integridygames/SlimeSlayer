@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.DataBase.Enemies;
-using Game.DataBase.Essence;
 using Game.DataBase.GameResource;
 using Game.Gameplay.Factories;
 using Game.Gameplay.Models.Enemy;
@@ -37,7 +36,7 @@ namespace Game.Gameplay.Systems.Enemy
         {
             foreach (var spawnZoneData in _spawnZonesDataContainer.SpawnZonesData)
             {
-                if (ReadyToSpawn(spawnZoneData) || spawnZoneData.SpawnInProgress)
+                if (ReadyToSpawn(spawnZoneData))
                 {
                     if (spawnZoneData.SpawnInProgress == false)
                     {
@@ -59,15 +58,13 @@ namespace Game.Gameplay.Systems.Enemy
 
         public bool ReadyToSpawn(SpawnZoneData spawnZoneData)
         {
-            return spawnZoneData.AbleToSpawn && spawnZoneData.CurrentTimeout <= 0;
+            return spawnZoneData.SpawnInProgress || spawnZoneData.CurrentTimeout <= 0;
         }
 
         public void BeginSpawn(SpawnZoneData spawnZoneData)
         {
             spawnZoneData.SpawnInProgress = true;
             spawnZoneData.SpawnProgressNormalized = 0;
-            spawnZoneData.CurrentProgressPoint = 0;
-            spawnZoneData.AbleToSpawn = false;
             spawnZoneData.CurrentSpawnIndex = 0;
 
             PrepareRandomizedEnemiesToSpawnList(spawnZoneData);
@@ -91,20 +88,19 @@ namespace Game.Gameplay.Systems.Enemy
 
         public void TryToSpawn(SpawnZoneData spawnZoneData)
         {
-            var spawnProgressValueForOneEnemy = 1f / _enemiesToSpawn.Count;
+            var nextEnemySpawnProgressPoint = 1.0f / _enemiesToSpawn.Count * spawnZoneData.CurrentSpawnIndex;
 
-            if (spawnZoneData.CurrentProgressPoint < spawnZoneData.SpawnProgressNormalized)
+            if (nextEnemySpawnProgressPoint < spawnZoneData.SpawnProgressNormalized)
             {
                 var branchSpawnIndex = 0;
 
-                while (spawnZoneData.CurrentProgressPoint < 1 && branchSpawnIndex < CountInBranch && spawnZoneData.CurrentSpawnIndex < spawnZoneData.MaxEnemiesCount)
+                while (branchSpawnIndex < CountInBranch && spawnZoneData.CurrentSpawnIndex < spawnZoneData.MaxEnemiesCount)
                 {
                     var spawnPosition = spawnZoneData.GetRandomPoint();
                     spawnPosition.y = _characterView.transform.position.y;
 
                     Spawn(_enemiesToSpawn[spawnZoneData.CurrentSpawnIndex], spawnPosition);
 
-                    spawnZoneData.CurrentProgressPoint += spawnProgressValueForOneEnemy;
                     spawnZoneData.CurrentSpawnIndex++;
 
                     branchSpawnIndex++;
