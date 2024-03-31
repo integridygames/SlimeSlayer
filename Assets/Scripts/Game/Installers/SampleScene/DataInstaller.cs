@@ -8,7 +8,7 @@ using Game.Gameplay.Models.Weapon;
 using Zenject;
 using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.GameResources;
-using Game.Gameplay.Models.Zone;
+using Game.Gameplay.TrashArchitecture;
 
 namespace Game.Installers.SampleScene
 {
@@ -27,7 +27,6 @@ namespace Game.Installers.SampleScene
             Container.Bind<ActiveEssencesContainer>().AsSingle();
             Container.Bind<ActiveEnemiesContainer>().AsSingle();
             Container.Bind<GameResourceData>().AsSingle();
-            Container.Bind<SpawnZonesDataContainer>().AsSingle();
             Container.Bind<CameraStats>().AsSingle();
             Container.Bind<ActiveCoinsContainer>().AsSingle();
             Container.Bind<WeaponsCharacteristics>().AsSingle();

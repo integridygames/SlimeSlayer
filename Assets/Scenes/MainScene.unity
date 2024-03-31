@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 88344986}
   - component: {fileID: 88344988}
   - component: {fileID: 88344987}
+  - component: {fileID: 88344989}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -172,6 +173,7 @@ MonoBehaviour:
   - {fileID: 88344985}
   - {fileID: 88344986}
   - {fileID: 88344984}
+  - {fileID: 88344989}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -316,6 +318,7 @@ MonoBehaviour:
   _characterCharacteristicsDataBase: {fileID: 11400000, guid: d7b076800a9808749ae56f5959525f34, type: 2}
   _abilitiesDataBase: {fileID: 11400000, guid: 05e8d82d73c623142ba37cac1c85f10b, type: 2}
   _healthBarsDataBase: {fileID: 11400000, guid: 691b648d576660042a1f8d80cea97d1d, type: 2}
+  _enemiesSpawnSettingsDataBase: {fileID: 11400000, guid: acad0a58cd258984da9cf81ff38cbe02, type: 2}
 --- !u!114 &88344988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +329,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07f58a7bed161f444877cfd172745f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &88344989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88344977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf46a59c28fe422dbae16d3a0cdc5886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &124072722

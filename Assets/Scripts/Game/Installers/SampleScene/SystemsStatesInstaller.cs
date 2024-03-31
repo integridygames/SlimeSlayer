@@ -17,7 +17,7 @@ using Game.Gameplay.Systems.Enemy;
 using Game.Gameplay.Systems.Character.IK;
 using Game.Gameplay.Systems.Character.Shooting;
 using Game.Gameplay.Systems.Essence;
-using Game.Gameplay.Systems.Zone;
+using Game.Gameplay.TrashArchitecture;
 
 namespace Game.Installers.SampleScene
 {
@@ -141,18 +141,13 @@ namespace Game.Installers.SampleScene
             var characterHealthViewMovingSystem = Container.Instantiate<CharacterHealthViewMovingSystem>();
             Container.BindUpdateSystem(characterHealthViewMovingSystem);
 
-            var zonesInitializeSystem = Container.Instantiate<ZonesInitializeSystem>();
-            Container.BindInitializeSystemWithState(zonesInitializeSystem, _gameState);
-
-            var spawnTimeoutSystem = Container.Instantiate<SpawnTimeoutSystem>();
-            Container.BindUpdateSystemWithState(spawnTimeoutSystem, _gameState);
-
-            var enemiesSpawnSystem = Container.Instantiate<EnemiesSpawnSystem>();
-            Container.BindUpdateSystemWithState(enemiesSpawnSystem, _gameState);
-
             var enemiesMovementSystem = Container.Instantiate<EnemiesMovementSystem>();
             Container.BindFixedSystemWithState(enemiesMovementSystem, _gameState);
             Container.BindUpdateSystemWithState(enemiesMovementSystem, _gameState);
+
+            var enemiesSpawner = Container.Instantiate<EnemiesSpawner>();
+            Container.BindInitializeSystemWithState(enemiesSpawner, _gameState);
+            Container.BindUpdateSystemWithState(enemiesSpawner, _gameState);
 
             var enemiesAttackSystem = Container.Instantiate<EnemiesAttackSystem>();
             Container.BindUpdateSystemWithState(enemiesAttackSystem, _gameState);

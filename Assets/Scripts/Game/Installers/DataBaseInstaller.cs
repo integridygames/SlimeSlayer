@@ -7,9 +7,10 @@ using Game.DataBase.FX;
 using Game.DataBase.Weapon;
 using Game.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
-namespace Game.Installers 
+namespace Game.Installers
 {
     public class DataBaseInstaller : MonoInstaller
     {
@@ -24,6 +25,7 @@ namespace Game.Installers
         [SerializeField] private CharacterCharacteristicsDataBase _characterCharacteristicsDataBase;
         [SerializeField] private AbilitiesDataBase _abilitiesDataBase;
         [SerializeField] private HealthBarsDataBase _healthBarsDataBase;
+        [SerializeField] private EnemiesSpawnSettingsDataBase _enemiesSpawnSettingsDataBase;
 
         public override void InstallBindings()
         {
@@ -38,6 +40,7 @@ namespace Game.Installers
             Container.BindInstance(_characterCharacteristicsDataBase).AsSingle();
             Container.BindInstance(_abilitiesDataBase).AsSingle();
             Container.BindInstance(_healthBarsDataBase).AsSingle();
+            Container.BindInstance(_enemiesSpawnSettingsDataBase).AsSingle();
         }
     }
 }
