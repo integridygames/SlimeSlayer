@@ -7,7 +7,7 @@ namespace Game.Installers.SampleScene
     {
         public override void InstallBindings()
         {
-
+            Container.Bind<SpawnerCommandFactory>().AsSingle();
         }
     }
 }

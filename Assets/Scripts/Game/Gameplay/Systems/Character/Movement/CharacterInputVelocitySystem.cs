@@ -31,7 +31,7 @@ namespace Game.Gameplay.Systems.Character.Movement
             }
 
             _characterMovementData.MovingVector = movingVector;
-            _characterMovementData.NextPosition = _characterView.Rigidbody.position +
+            _characterMovementData. NextPosition = _characterView.Rigidbody.position +
                                                   movingVector * _characterCharacteristicsRepository.MovingSpeed *
                                                   Time.deltaTime;
         }

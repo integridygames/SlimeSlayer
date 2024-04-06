@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Game.DataBase.Enemies;
 using Game.Gameplay.Factories;
-using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.Models.Level;
-using Game.Gameplay.TrashArchitecture.Commands;
 using TegridyCore.Base;
 
 namespace Game.Gameplay.TrashArchitecture
@@ -14,31 +11,26 @@ namespace Game.Gameplay.TrashArchitecture
     /// </summary>
     public class EnemiesSpawner : IInitializeSystem, IUpdateSystem
     {
-        private readonly EnemyFactory _enemyFactory;
         private readonly EnemiesSpawnSettingsDataBase _powersSpawnSettingsDataBase;
+        private readonly SpawnerCommandFactory _spawnerCommandFactory;
         private readonly LevelInfo _levelInfo;
 
         private int _currentWaveIndex;
 
         /// <summary>
-        /// По индексу очереди получаем индекс группы врагов для спавна внутри этой очереди
-        /// </summary>
-        private Dictionary<int, int> _currentSpawnGroupIndexByQueueIndex;
-
-        /// <summary>
         /// По индкесу очереди получаем текущую команду спавнера
         /// </summary>
-        private Dictionary<int, ISpawnerCommand> _currentSpawnCommandByQueueIndex;
+        private Dictionary<int, Queue<ISpawnerCommand>> _currentSpawnCommandByQueueIndex;
 
         /// <summary>
         /// Текущая волна
         /// </summary>
         private EnemyWave CurrentWave => _powersSpawnSettingsDataBase.EnemyWaves[_currentWaveIndex];
 
-        public EnemiesSpawner(EnemyFactory enemyFactory, EnemiesSpawnSettingsDataBase powersSpawnSettingsDataBase)
+        public EnemiesSpawner(EnemyFactory enemyFactory, EnemiesSpawnSettingsDataBase powersSpawnSettingsDataBase, SpawnerCommandFactory spawnerCommandFactory)
         {
-            _enemyFactory = enemyFactory;
             _powersSpawnSettingsDataBase = powersSpawnSettingsDataBase;
+            _spawnerCommandFactory = spawnerCommandFactory;
         }
 
         public void Initialize()
@@ -61,23 +53,25 @@ namespace Game.Gameplay.TrashArchitecture
 
         private void InitializeGroupsForSpawn()
         {
-            _currentSpawnGroupIndexByQueueIndex = new Dictionary<int, int>();
-            _currentSpawnCommandByQueueIndex =  new Dictionary<int, ISpawnerCommand>();
+            _currentSpawnCommandByQueueIndex = new Dictionary<int, Queue<ISpawnerCommand>>();
 
             for (var queueIndex = 0; queueIndex < CurrentWave.EnemyQueues.Count; queueIndex++)
             {
-                _currentSpawnGroupIndexByQueueIndex[queueIndex] = 0;
-
-                var enemyGroupSpawnSettings = CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings.FirstOrDefault();
-                _currentSpawnCommandByQueueIndex[queueIndex] = new EnemySpawnGroupCommand(enemyGroupSpawnSettings, _enemyFactory, queueIndex);
-                _currentSpawnCommandByQueueIndex[queueIndex].OnEnd += AllGroupSpawnedHandler;
+                _currentSpawnCommandByQueueIndex[queueIndex] = new Queue<ISpawnerCommand>();
+                
+                foreach (var enemyGroupSpawnSettings in CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings)
+                {
+                    var spawnerCommand = _spawnerCommandFactory.CreateCommand(enemyGroupSpawnSettings, queueIndex);
+                    _currentSpawnCommandByQueueIndex[queueIndex].Enqueue(spawnerCommand);
+                    spawnerCommand.OnEnd += AllGroupSpawnedHandler;
+                }
             }
         }
 
         private void AllGroupSpawnedHandler(ISpawnerCommand spawnerCommand)
         {
             spawnerCommand.OnEnd -= AllGroupSpawnedHandler;
-           TryToStartNextSpawnGroup(spawnerCommand.QueueIndex);
+            TryToStartNextSpawnGroup(spawnerCommand.QueueIndex);
         }
 
         public void Update()
@@ -89,21 +83,23 @@ namespace Game.Gameplay.TrashArchitecture
         {
             for (var queueIndex = 0; queueIndex < CurrentWave.EnemyQueues.Count; queueIndex++)
             {
-                var enemySpawnGroup = _currentSpawnCommandByQueueIndex[queueIndex];
-                enemySpawnGroup.Execute();
+                if (_currentSpawnCommandByQueueIndex[queueIndex].Count == 0)
+                {
+                    return;
+                }
+                
+                _currentSpawnCommandByQueueIndex[queueIndex].Peek().Execute();
             }
         }
 
         private void TryToStartNextSpawnGroup(int queueIndex)
         {
-            if (++_currentSpawnGroupIndexByQueueIndex[queueIndex] >= CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings.Count)
+            if (_currentSpawnCommandByQueueIndex[queueIndex].Count == 0)
             {
                 return;
             }
 
-            var nextGroupIndex = _currentSpawnGroupIndexByQueueIndex[queueIndex];
-            var enemyGroupSpawnSettings = CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings[nextGroupIndex];
-            _currentSpawnCommandByQueueIndex[queueIndex] = new EnemySpawnGroupCommand(enemyGroupSpawnSettings, _enemyFactory, queueIndex);
+            _currentSpawnCommandByQueueIndex[queueIndex].Dequeue();
         }
     }
 }

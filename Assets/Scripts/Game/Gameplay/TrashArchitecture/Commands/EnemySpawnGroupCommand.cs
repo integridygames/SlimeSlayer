@@ -22,7 +22,7 @@ namespace Game.Gameplay.TrashArchitecture.Commands
 
         private float _delayTimer = 0.0f;
 
-        public EnemySpawnGroupCommand(EnemyGroupSpawnSettings enemyGroupSpawnSettings, EnemyFactory enemyFactory, int queueIndex)
+        public EnemySpawnGroupCommand(EnemyGroupSpawnSettings enemyGroupSpawnSettings, int queueIndex, EnemyFactory enemyFactory)
         {
             _enemyGroupSpawnSettings = enemyGroupSpawnSettings;
             _enemyFactory = enemyFactory;

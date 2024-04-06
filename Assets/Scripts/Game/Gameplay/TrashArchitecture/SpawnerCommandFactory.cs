@@ -1,6 +1,5 @@
 ﻿using System;
 using Game.DataBase.Enemies;
-using Game.Gameplay.Models.Enemy;
 using Game.Gameplay.TrashArchitecture.Commands;
 using Zenject;
 
@@ -15,13 +14,13 @@ namespace Game.Gameplay.TrashArchitecture
             _container = container;
         }
 
-        public ISpawnerCommand CreateCommand(EnemyQueueType queueType)
+        public ISpawnerCommand CreateCommand(EnemyGroupSpawnSettings enemyGroupSpawnSettings, int queueIndex)
         {
-            return queueType switch
+            return enemyGroupSpawnSettings.QueueType switch
             {
-                EnemyQueueType.Enemy => _container.Resolve<EnemySpawnGroupCommand>(),
-                EnemyQueueType.SyncWait => _container.Resolve<SyncWaitCommand>(),
-                _ => throw new ArgumentOutOfRangeException(nameof(queueType), queueType, null)
+                EnemyQueueType.Enemy => _container.Instantiate<EnemySpawnGroupCommand>(new object[] { enemyGroupSpawnSettings, queueIndex }),
+                EnemyQueueType.SyncWait => _container.Instantiate<SyncWaitCommand>(new object[] { enemyGroupSpawnSettings, queueIndex }),
+                _ => throw new ArgumentOutOfRangeException(nameof(enemyGroupSpawnSettings.QueueType), enemyGroupSpawnSettings.QueueType, null)
             };
         }
     }
