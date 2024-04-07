@@ -38,21 +38,41 @@ MonoBehaviour:
         _enemyGroupInfo:
           _enemyType: 1
           _count: 2
-          _spawnDelay: 1
+          _spawnDelay: 3
       - _enemyQueueType: 0
         _enemyGroupInfo:
-          _enemyType: 0
-          _count: 15
-          _spawnDelay: 1
+          _enemyType: 1
+          _count: 5
+          _spawnDelay: 2
+      - _enemyQueueType: 0
+        _enemyGroupInfo:
+          _enemyType: 1
+          _count: 2
+          _spawnDelay: 2
+      - _enemyQueueType: 1
+        _enemyGroupInfo:
+          _enemyType: 1
+          _count: 2
+          _spawnDelay: 2
+      - _enemyQueueType: 0
+        _enemyGroupInfo:
+          _enemyType: 1
+          _count: 2
+          _spawnDelay: 2
     - _enemyGroupsSettings:
       - _enemyQueueType: 0
         _enemyGroupInfo:
           _enemyType: 0
           _count: 10
           _spawnDelay: 1
+      - _enemyQueueType: 1
+        _enemyGroupInfo:
+          _enemyType: 0
+          _count: 10
+          _spawnDelay: 1
       - _enemyQueueType: 0
         _enemyGroupInfo:
-          _enemyType: 1
-          _count: 5
-          _spawnDelay: 2
+          _enemyType: 0
+          _count: 20
+          _spawnDelay: 0.5
     _pauseTime: 0

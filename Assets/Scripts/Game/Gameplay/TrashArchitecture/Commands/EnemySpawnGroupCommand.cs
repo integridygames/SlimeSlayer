@@ -1,5 +1,4 @@
-﻿using System;
-using Game.DataBase.Enemies;
+﻿using Game.DataBase.Enemies;
 using Game.DataBase.GameResource;
 using Game.Gameplay.EnemiesMechanics;
 using Game.Gameplay.Factories;
@@ -9,7 +8,7 @@ namespace Game.Gameplay.TrashArchitecture.Commands
 {
     public class EnemySpawnGroupCommand : ISpawnerCommand
     {
-        public event Action<ISpawnerCommand> OnEnd;
+        public bool IsEnded { get; private set; }
 
         private readonly EnemyGroupSpawnSettings _enemyGroupSpawnSettings;
         private readonly EnemyFactory _enemyFactory;
@@ -47,7 +46,7 @@ namespace Game.Gameplay.TrashArchitecture.Commands
 
             if (_currentSpawnIndex == _diedEnemiesCount)
             {
-                OnEnd?.Invoke(this);
+                IsEnded = true;
             }
         }
 

@@ -19,7 +19,7 @@ namespace Game.Gameplay.TrashArchitecture
             return enemyGroupSpawnSettings.QueueType switch
             {
                 EnemyQueueType.Enemy => _container.Instantiate<EnemySpawnGroupCommand>(new object[] { enemyGroupSpawnSettings, queueIndex }),
-                EnemyQueueType.SyncWait => _container.Instantiate<SyncWaitCommand>(new object[] { enemyGroupSpawnSettings, queueIndex }),
+                EnemyQueueType.SyncWait => _container.Instantiate<SyncWaitCommand>(new object[] { queueIndex }),
                 _ => throw new ArgumentOutOfRangeException(nameof(enemyGroupSpawnSettings.QueueType), enemyGroupSpawnSettings.QueueType, null)
             };
         }

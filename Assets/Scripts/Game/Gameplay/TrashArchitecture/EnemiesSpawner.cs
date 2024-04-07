@@ -12,33 +12,18 @@ namespace Game.Gameplay.TrashArchitecture
     /// </summary>
     public class EnemiesSpawner : IInitializeSystem, IUpdateSystem
     {
-        private readonly EnemiesSpawnSettingsDataBase _powersSpawnSettingsDataBase;
-        private readonly SpawnerCommandFactory _spawnerCommandFactory;
         private readonly GameScreenView _gameScreenView;
+        private readonly SpawnerRepository _spawnerRepository;
+        private readonly SpawnerCommandFactory _spawnerCommandFactory;
+        private readonly EnemiesSpawnSettingsDataBase _enemiesSpawnSettingsDataBase;
         private readonly LevelInfo _levelInfo;
 
-        private int _currentWaveIndex;
-        private int _spawnedQueuesCount;
-
-        public float TimeToNextWave { get; private set; }
-
-        /// <summary>
-        /// По индкесу очереди получаем текущую команду спавнера
-        /// </summary>
-        private Dictionary<int, Queue<ISpawnerCommand>> _currentSpawnCommandByQueueIndex;
-
-        private bool _isWin;
-
-        /// <summary>
-        /// Текущая волна
-        /// </summary>
-        private EnemyWave CurrentWave => _powersSpawnSettingsDataBase.EnemyWaves[_currentWaveIndex];
-
-        public EnemiesSpawner(EnemiesSpawnSettingsDataBase powersSpawnSettingsDataBase, SpawnerCommandFactory spawnerCommandFactory, GameScreenView gameScreenView)
+        public EnemiesSpawner(GameScreenView gameScreenView, SpawnerRepository spawnerRepository, SpawnerCommandFactory spawnerCommandFactory, EnemiesSpawnSettingsDataBase enemiesSpawnSettingsDataBase)
         {
-            _powersSpawnSettingsDataBase = powersSpawnSettingsDataBase;
-            _spawnerCommandFactory = spawnerCommandFactory;
             _gameScreenView = gameScreenView;
+            _spawnerRepository = spawnerRepository;
+            _spawnerCommandFactory = spawnerCommandFactory;
+            _enemiesSpawnSettingsDataBase = enemiesSpawnSettingsDataBase;
         }
 
         public void Initialize()
@@ -48,121 +33,132 @@ namespace Game.Gameplay.TrashArchitecture
 
         private void InitializeSpawner()
         {
-            _currentWaveIndex = 0;
-            _spawnedQueuesCount = 0;
-
+            _spawnerRepository.Refresh();
             InitializeGroupsForSpawn();
         }
 
-        private void NextWave()
+        public void InitializeGroupsForSpawn()
         {
-            _currentWaveIndex++;
+            _spawnerRepository.CurrentSpawnCommandByQueueIndex.Clear();
 
-            if (_currentWaveIndex >= _powersSpawnSettingsDataBase.EnemyWaves.Count)
+            for (var queueIndex = 0; queueIndex < _spawnerRepository.CurrentWave.EnemyQueues.Count; queueIndex++)
             {
-                Win();
-                return;
-            }
+                _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex] = new Queue<ISpawnerCommand>();
 
-            _gameScreenView.TimeToNextWave.gameObject.SetActive(true);
-            _spawnedQueuesCount = 0;
-            InitializeGroupsForSpawn();
-        }
-
-        private void Win()
-        {
-            _isWin = true;
-            Debug.Log("Win");
-        }
-
-        private void InitializeGroupsForSpawn()
-        {
-            _currentSpawnCommandByQueueIndex = new Dictionary<int, Queue<ISpawnerCommand>>();
-
-            for (var queueIndex = 0; queueIndex < CurrentWave.EnemyQueues.Count; queueIndex++)
-            {
-                _currentSpawnCommandByQueueIndex[queueIndex] = new Queue<ISpawnerCommand>();
-
-                foreach (var enemyGroupSpawnSettings in CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings)
+                foreach (var enemyGroupSpawnSettings in _spawnerRepository.CurrentWave.EnemyQueues[queueIndex].EnemyGroupsSettings)
                 {
                     var spawnerCommand = _spawnerCommandFactory.CreateCommand(enemyGroupSpawnSettings, queueIndex);
-                    _currentSpawnCommandByQueueIndex[queueIndex].Enqueue(spawnerCommand);
-                    spawnerCommand.OnEnd += AllGroupSpawnedHandler;
+                    _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Enqueue(spawnerCommand);
                 }
             }
         }
 
-        private void AllGroupSpawnedHandler(ISpawnerCommand spawnerCommand)
+        private void NextWave()
         {
-            spawnerCommand.OnEnd -= AllGroupSpawnedHandler;
-            TryToStartNextSpawnGroup(spawnerCommand.QueueIndex);
+            _spawnerRepository.CurrentWaveIndex++;
+
+            if (_spawnerRepository.CurrentWaveIndex >= _enemiesSpawnSettingsDataBase.EnemyWaves.Count)
+            {
+                _spawnerRepository.Win();
+                return;
+            }
+
+            _gameScreenView.TimeToNextWave.gameObject.SetActive(true);
+            _spawnerRepository.SpawnedQueuesCount = 0;
+            InitializeGroupsForSpawn();
+        }
+
+        private bool AllWaveSpawned()
+        {
+            return _spawnerRepository.SpawnedQueuesCount == _spawnerRepository.CurrentWave.EnemyQueues.Count;
+        }
+
+        private bool AllQueueSpawned(int queueIndex)
+        {
+            return _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Count == 0;
         }
 
         public void Update()
         {
-            if (_isWin)
+            if (_spawnerRepository.IsWin)
             {
                 return;
             }
-            
-            if (TimeToNextWave > 0)
+
+            if (_spawnerRepository.TimeToNextWave > 0)
             {
                 UpdateTimeToNextWave();
                 return;
             }
 
             TrySpawn();
+
+            if (AllWaveSpawned() == false) return;
+            
+            _spawnerRepository.TimeToNextWave = _spawnerRepository.CurrentWave.PauseTime;
+            _gameScreenView.TimeToNextWave.text = _spawnerRepository.TimeToNextWave.ToString("0");
+
+            NextWave();
         }
 
         private void UpdateTimeToNextWave()
         {
-            _gameScreenView.TimeToNextWave.text = TimeToNextWave.ToString("0");
-            TimeToNextWave -= Time.deltaTime;
+            _gameScreenView.TimeToNextWave.text = _spawnerRepository.TimeToNextWave.ToString("0");
+            _spawnerRepository.TimeToNextWave -= Time.deltaTime;
 
-            if (TimeToNextWave > 0) return;
+            if (_spawnerRepository.TimeToNextWave > 0) return;
 
             _gameScreenView.TimeToNextWave.gameObject.SetActive(false);
         }
 
         private void TrySpawn()
         {
-            for (var queueIndex = 0; queueIndex < CurrentWave.EnemyQueues.Count; queueIndex++)
+            for (var queueIndex = 0; queueIndex < _spawnerRepository.CurrentWave.EnemyQueues.Count; queueIndex++)
             {
-                if (_currentSpawnCommandByQueueIndex[queueIndex].Count == 0)
-                {
-                    continue;
-                }
-                
-                _currentSpawnCommandByQueueIndex[queueIndex].Peek().Execute();
+                ExecuteCommands(queueIndex);
             }
+
+            for (var queueIndex = 0; queueIndex < _spawnerRepository.CurrentWave.EnemyQueues.Count; queueIndex++)
+            {
+                TryCompleteCommands(queueIndex);
+            }
+        }
+
+        private void ExecuteCommands(int queueIndex)
+        {
+            if (_spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Count == 0)
+            {
+                return;
+            }
+
+            var spawnerCommand = _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Peek();
+
+            spawnerCommand.Execute();
         }
 
         private void TryToStartNextSpawnGroup(int queueIndex)
         {
-            _currentSpawnCommandByQueueIndex[queueIndex].Dequeue();
+            _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Dequeue();
 
             if (AllQueueSpawned(queueIndex))
             {
-                _spawnedQueuesCount++;
-
-                if (AllWaveSpawned())
-                {
-                    TimeToNextWave = CurrentWave.PauseTime;
-                    _gameScreenView.TimeToNextWave.text = TimeToNextWave.ToString("0");
-            
-                    NextWave();
-                }
+                _spawnerRepository.SpawnedQueuesCount++;
             }
         }
 
-        private bool AllWaveSpawned()
+        private void TryCompleteCommands(int queueIndex)
         {
-            return _spawnedQueuesCount == CurrentWave.EnemyQueues.Count;
-        }
+            if (_spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Count == 0)
+            {
+                return;
+            }
 
-        private bool AllQueueSpawned(int queueIndex)
-        {
-            return _currentSpawnCommandByQueueIndex[queueIndex].Count == 0;
+            var spawnerCommand = _spawnerRepository.CurrentSpawnCommandByQueueIndex[queueIndex].Peek();
+
+            if (spawnerCommand.IsEnded)
+            {
+                TryToStartNextSpawnGroup(queueIndex);
+            }
         }
     }
 }
