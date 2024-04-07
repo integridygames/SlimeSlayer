@@ -36,6 +36,7 @@ namespace Game.Gameplay.Controllers.GameScreen
             ControlledEntity.LeftReloadBar.gameObject.SetActive(false);
             ControlledEntity.RightReloadBar.gameObject.SetActive(false);
             _chooseAbilityView.gameObject.SetActive(false);
+            ControlledEntity.TimeToNextWave.gameObject.SetActive(false);
         }
 
         private void OnPauseButtonPressedHandler()

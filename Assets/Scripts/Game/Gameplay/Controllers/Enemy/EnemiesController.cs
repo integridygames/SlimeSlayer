@@ -43,21 +43,14 @@ namespace Game.Gameplay.Controllers.Enemy
         {
             _activeEssencesContainer.Add((EssenceView) SpawnGameResource(enemy.Position, GameResourceType.Essence));
             _activeCoinsContainer.Add((CoinView) SpawnGameResource(enemy.Position, GameResourceType.Coin));
-
-            RecycleSpawners();
         }
 
         private GameResourceViewBase SpawnGameResource(Vector3 position, GameResourceType gameResourceType)
         {
             var view = _gameResourcePoolFactory.GetElement(gameResourceType);
-            view.transform.position = position;
+            view.transform.position = new Vector3(position.x, 1, position.z);
 
             return view;
-        }
-
-        private void RecycleSpawners()
-        {
-            // TODO оповестить спавнеры о возможном завершении пачки врагов
         }
     }
 }

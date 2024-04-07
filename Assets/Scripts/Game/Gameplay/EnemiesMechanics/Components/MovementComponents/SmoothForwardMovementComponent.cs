@@ -39,14 +39,15 @@ namespace Game.Gameplay.EnemiesMechanics.Components.MovementComponents
             _navMeshAgent.acceleration = Acceleration;
             _navMeshAgent.angularSpeed = RotationSpeed;
 
-            if (speed != 0)
-            {
-                var turnTowardNavSteeringTarget = _navMeshAgent.steeringTarget;
-                var direction = (turnTowardNavSteeringTarget - _navMeshAgent.transform.position).normalized;
-                var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            if (speed == 0) return;
+            
+            var turnTowardNavSteeringTarget = _navMeshAgent.steeringTarget;
+            var direction = (turnTowardNavSteeringTarget - _navMeshAgent.transform.position).normalized;
 
-                _navMeshAgent.transform.rotation = Quaternion.Slerp(_navMeshAgent.transform.rotation, lookRotation, Time.deltaTime * 5);
-            }
+            if (direction is { x: 0, z: 0 }) return;
+                
+            var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            _navMeshAgent.transform.rotation = Quaternion.Slerp(_navMeshAgent.transform.rotation, lookRotation, Time.deltaTime * 5);
         }
     }
 }

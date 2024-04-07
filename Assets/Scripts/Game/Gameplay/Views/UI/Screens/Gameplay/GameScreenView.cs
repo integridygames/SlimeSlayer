@@ -13,6 +13,7 @@ namespace Game.Gameplay.Views.UI.Screens.Gameplay
         [SerializeField] private ProgressBarView _rightReloadBar;
         [SerializeField] private ProgressBarView _levelProgressBar;
         [SerializeField] private TMP_Text _level;
+        [SerializeField] private TMP_Text _timeToNextWave;
 
         public UiButton ToPauseScreenButton => _toPauseScreenButton;
 
@@ -23,5 +24,7 @@ namespace Game.Gameplay.Views.UI.Screens.Gameplay
         public ProgressBarView LevelProgressBar => _levelProgressBar;
 
         public TMP_Text Level => _level;
+        
+        public TMP_Text TimeToNextWave => _timeToNextWave;
     }
 }
