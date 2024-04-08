@@ -26,7 +26,6 @@ namespace Game.Installers.SampleScene
         private StartScreenState _startScreenState;
         private GameState _gameState;
         private PauseScreenState _pauseScreenState;
-        private GunCabinetState _gunCabinetState;
         private EndScreenState _endScreenState;
         private WeaponScreenState _weaponScreenState;
         private StatsScreenState _statsScreenState;
@@ -46,7 +45,6 @@ namespace Game.Installers.SampleScene
             _startScreenState = Container.CreateAndBindState<StartScreenState>();
             _gameState = Container.CreateAndBindState<GameState>();
             _pauseScreenState = Container.CreateAndBindState<PauseScreenState>();
-            _gunCabinetState = Container.CreateAndBindState<GunCabinetState>();
             _endScreenState = Container.CreateAndBindState<EndScreenState>();
             _weaponScreenState = Container.CreateAndBindState<WeaponScreenState>();
             _statsScreenState = Container.CreateAndBindState<StatsScreenState>();
@@ -121,7 +119,6 @@ namespace Game.Installers.SampleScene
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _endScreenState);
             Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
-            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gunCabinetState);
 
             var handsRecoilSystem = Container.Instantiate<HandsRecoilSystem>();
             Container.BindUpdateSystemWithState(handsRecoilSystem, _gameState);

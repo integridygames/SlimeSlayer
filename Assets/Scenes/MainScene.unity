@@ -369,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0e344d832a8135b4ab49c32c0dbe1fb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.157
+      value: 0.768
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0e344d832a8135b4ab49c32c0dbe1fb4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1309,7 +1309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6874115300667253993, guid: 14b5687cc5041a54d857dc3da8b41865, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6874115300667253993, guid: 14b5687cc5041a54d857dc3da8b41865, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2646,6 +2646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2082149264}
     m_Modifications:
+    - target: {fileID: 787807495742085617, guid: 74f850a1389590c4d9928615abf937c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5432439153670471306, guid: 74f850a1389590c4d9928615abf937c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2733,6 +2737,10 @@ PrefabInstance:
     - target: {fileID: 5432439153670471307, guid: 74f850a1389590c4d9928615abf937c3, type: 3}
       propertyPath: m_Name
       value: EndScreenView
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263531578103229381, guid: 74f850a1389590c4d9928615abf937c3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
