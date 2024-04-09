@@ -80,7 +80,7 @@ namespace Game.Gameplay.TrashArchitecture
 
         public void Update()
         {
-            if (_spawnerRepository.IsWin)
+            if (_spawnerRepository.AllWaveCompleted)
             {
                 return;
             }

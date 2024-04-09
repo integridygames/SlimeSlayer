@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using Game.DataBase.Enemies;
 using Game.Gameplay.Views.UI.Screens.Gameplay;
-using UnityEngine;
 
 namespace Game.Gameplay.TrashArchitecture
 {
     public class SpawnerRepository
     {
+        public event Action OnAllWaveCompleted;
+        
         private readonly EnemiesSpawnSettingsDataBase _powersSpawnSettingsDataBase;
         private readonly GameScreenView _gameScreenView;
         private readonly SpawnerCommandFactory _spawnerCommandFactory;
@@ -18,7 +20,7 @@ namespace Game.Gameplay.TrashArchitecture
         /// </summary>
         public EnemyWave CurrentWave => _powersSpawnSettingsDataBase.EnemyWaves[CurrentWaveIndex];
 
-        public bool IsWin { get; private set; }
+        public bool AllWaveCompleted { get; private set; }
 
         /// <summary>
         /// По индкесу очереди получаем текущую команду спавнера
@@ -41,8 +43,8 @@ namespace Game.Gameplay.TrashArchitecture
 
         public void Win()
         {
-            IsWin = true;
-            Debug.Log("Win");
+            AllWaveCompleted = true;
+            OnAllWaveCompleted?.Invoke();
         }
     }
 }

@@ -68,6 +68,9 @@ namespace Game.Installers.SampleScene
 
             Container.CreateAndBindTransition<GameToDeathScreenTransition>(_gameState, _deathState);
             Container.CreateAndBindTransition<DeathToStartScreenTransition>(_deathState, _startScreenState);
+            
+            Container.CreateAndBindTransition<GameToEndScreenTransition>(_gameState, _endScreenState);
+            Container.CreateAndBindTransition<EndScreenToStartScreenTransition>(_endScreenState, _startScreenState);
         }
 
         private void CreateStateMachine()

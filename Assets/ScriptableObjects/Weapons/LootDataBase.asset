@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: LootDataBase
+  m_EditorClassIdentifier: Game:Game.DataBase.Loot:LootDataBase
+  levelLootTables:
+  - levelType: 0
+    lootItems:
+    - weaponType: 1
+      rarityType: 1
+      dropChance: 50
+    - weaponType: 1
+      rarityType: 2
+      dropChance: 25
+    - weaponType: 1
+      rarityType: 3
+      dropChance: 10
+    - weaponType: 1
+      rarityType: 4
+      dropChance: 5
+    - weaponType: 1
+      rarityType: 5
+      dropChance: 2
+    - weaponType: 2
+      rarityType: 1
+      dropChance: 40
+    - weaponType: 2
+      rarityType: 2
+      dropChance: 20
+    - weaponType: 2
+      rarityType: 3
+      dropChance: 8
+    - weaponType: 2
+      rarityType: 4
+      dropChance: 4
+    - weaponType: 2
+      rarityType: 5
+      dropChance: 1
+    - weaponType: 7
+      rarityType: 1
+      dropChance: 40
+    - weaponType: 7
+      rarityType: 2
+      dropChance: 20
+    - weaponType: 7
+      rarityType: 3
+      dropChance: 8
+    - weaponType: 7
+      rarityType: 4
+      dropChance: 4
+    - weaponType: 7
+      rarityType: 5
+      dropChance: 1
+    minLootCount: 1
+    maxLootCount: 5
+    lootCountDecreaseFactor: 1
