@@ -17,7 +17,7 @@
         /// <summary>
         /// Reloading time in seconds
         /// </summary>
-        ReloadTime = 3,
+        ReloadSpeed = 3,
         /// <summary>
         /// Upgrade price in coins
         /// </summary>

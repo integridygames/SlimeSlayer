@@ -29,6 +29,7 @@ namespace Game.Installers.SampleScene
             BindController<SettingsPopupController>();
             BindController<PauseController>();
             BindController<DeathScreenController>();
+            BindController<EndScreenController>();
         }
 
         private void BindController<TController>()

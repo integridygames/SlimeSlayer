@@ -38,7 +38,7 @@ namespace Game.Gameplay.Controllers.GameResources
         {
             if (gameResourceType == GameResourceType.Coin)
             {
-                SetCoins(count);
+                SetCoins(_gameResourceData.GetResourceQuantity(GameResourceType.Coin));
             }
         }
 

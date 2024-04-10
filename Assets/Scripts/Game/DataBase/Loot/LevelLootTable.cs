@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Game.DataBase.Weapon;
-using NaughtyAttributes;
 using TegridyUtils.Attributes;
 using UnityEngine;
 
 namespace Game.DataBase.Loot
 {
     [CreateAssetMenu(fileName = "LootDataBase", menuName = "ScriptableObjects/LootDataBase")]
-    public class LootDataBase : ScriptableObject
+    public class WeaponLootDataBase : ScriptableObject
     {
         [SerializeField, ArrayWithKey] private List<LevelLootTable> levelLootTables;
 
@@ -25,21 +23,6 @@ namespace Game.DataBase.Loot
             loot.AddRange(lootItems.Select(lootItem => new PlayerWeaponData(lootItem.weaponType, lootItem.rarityType)));
 
             return loot;
-        }
-
-        [Button]
-        public void TestLootSystem()
-        {
-            var playerWeaponDatas = GetLootForLevel(LevelType.LevelWithDemons);
-
-            var stringBuilder = new StringBuilder();
-            
-            foreach (var playerWeaponData in playerWeaponDatas)
-            {
-                stringBuilder.AppendLine($"WeaponType: {playerWeaponData._weaponType}, RarityType: {playerWeaponData._rarityType}");
-            }
-
-            Debug.Log(stringBuilder.ToString());
         }
     }
 

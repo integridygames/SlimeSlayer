@@ -4,6 +4,7 @@ using Game.DataBase.Character;
 using Game.DataBase.Enemies;
 using Game.DataBase.Essence;
 using Game.DataBase.FX;
+using Game.DataBase.Loot;
 using Game.DataBase.Weapon;
 using Game.Services;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace Game.Installers
         [SerializeField] private AbilitiesDataBase _abilitiesDataBase;
         [SerializeField] private HealthBarsDataBase _healthBarsDataBase;
         [SerializeField] private EnemiesSpawnSettingsDataBase _enemiesSpawnSettingsDataBase;
+        [FormerlySerializedAs("_lootDataBase")] [SerializeField] private WeaponLootDataBase weaponLootDataBase;
 
         public override void InstallBindings()
         {
@@ -41,6 +43,7 @@ namespace Game.Installers
             Container.BindInstance(_abilitiesDataBase).AsSingle();
             Container.BindInstance(_healthBarsDataBase).AsSingle();
             Container.BindInstance(_enemiesSpawnSettingsDataBase).AsSingle();
+            Container.BindInstance(weaponLootDataBase).AsSingle();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Game.Gameplay.Models.Level
     public class LevelInfo
     {
         public RxField<LevelView> CurrentLevelView { get; set; } = new();
+        
+        public int GoldEarned { get; set; }
     }
 }

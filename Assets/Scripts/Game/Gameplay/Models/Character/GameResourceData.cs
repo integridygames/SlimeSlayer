@@ -23,7 +23,7 @@ namespace Game.Gameplay.Models.Character
 
             _characterResources[gameResourceType] = count;
 
-            OnResourceQuantityChanged?.Invoke(gameResourceType, _characterResources[gameResourceType]);
+            OnResourceQuantityChanged?.Invoke(gameResourceType, count);
         }
 
         public void AddResource(GameResourceType gameResourceType, int count)
@@ -32,7 +32,7 @@ namespace Game.Gameplay.Models.Character
 
             _characterResources[gameResourceType] += count;
 
-            OnResourceQuantityChanged?.Invoke(gameResourceType, _characterResources[gameResourceType]);
+            OnResourceQuantityChanged?.Invoke(gameResourceType, count);
         }
 
         public void RemoveResource(GameResourceType gameResourceType, int count)
@@ -41,7 +41,7 @@ namespace Game.Gameplay.Models.Character
 
             _characterResources[gameResourceType] -= count;
 
-            OnResourceQuantityChanged?.Invoke(gameResourceType, _characterResources[gameResourceType]);
+            OnResourceQuantityChanged?.Invoke(gameResourceType, count);
         }
 
         private void CreateEssenceIfNeed(GameResourceType gameResourceType)

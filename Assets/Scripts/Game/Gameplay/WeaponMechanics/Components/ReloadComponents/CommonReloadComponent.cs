@@ -39,16 +39,16 @@ namespace Game.Gameplay.WeaponMechanics.Components.ReloadComponents
 
         public void Reload()
         {
-            var reloadTime =
+            var reloadSpeed =
                 _weaponsCharacteristics.GetCharacteristic(_playerWeaponData,
-                    WeaponCharacteristicType.ReloadTime);
+                    WeaponCharacteristicType.ReloadSpeed);
 
             _characterCharacteristicsRepository.TryGetAbilityCharacteristic(
                 AbilityCharacteristicType.ReloadBoostPercent, out float boostPercent);
+            
+            reloadSpeed += reloadSpeed * boostPercent;
 
-            reloadTime -= reloadTime * boostPercent;
-
-            _reloadProgress.Value += Time.deltaTime / reloadTime;
+            _reloadProgress.Value += Time.deltaTime * reloadSpeed;
 
             if (_reloadProgress.Value >= 1)
             {

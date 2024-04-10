@@ -97,6 +97,7 @@ namespace Game.Installers.SampleScene
 
             var levelDestroySystem = Container.Instantiate<LevelDestroySystem>();
             Container.BindDestroySystemWithState(levelDestroySystem, _deathState);
+            Container.BindDestroySystemWithState(levelDestroySystem, _endScreenState);
 
             var weaponInitializeSystem = Container.Instantiate<WeaponInitializeSystem>();
             Container.BindInitializeSystemWithState(weaponInitializeSystem, _startScreenState);

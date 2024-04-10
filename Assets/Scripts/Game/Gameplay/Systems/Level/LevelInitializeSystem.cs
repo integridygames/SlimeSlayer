@@ -22,6 +22,7 @@ namespace Game.Gameplay.Systems.Level
             var levelView = _levelFactory.Create();
 
             _levelInfo.CurrentLevelView.Value = levelView;
+            _levelInfo.GoldEarned = 0;
         }
     }
 }

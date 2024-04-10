@@ -577,6 +577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isCached: 0
   _completeButton: {fileID: 2077465590338048067}
+  _weaponCardsView: {fileID: 325377918443105796}
+  _goldEarnedValue: {fileID: 2345948118365186798}
 --- !u!1 &5737078016118179613
 GameObject:
   m_ObjectHideFlags: 0

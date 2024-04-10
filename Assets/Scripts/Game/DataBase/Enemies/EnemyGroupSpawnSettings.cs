@@ -1,5 +1,4 @@
 ﻿using System;
-using NaughtyAttributes;
 using TegridyUtils.Attributes;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Game.DataBase.Enemies
     {
         [SerializeField, ArrayKey] private EnemyQueueType _enemyQueueType;
 
-        [SerializeField, ShowIf(nameof(_enemyQueueType), EnemyQueueType.Enemy), AllowNesting]
+        [SerializeField]
         private EnemyGroupInfo _enemyGroupInfo;
 
         public EnemyQueueType QueueType => _enemyQueueType;
