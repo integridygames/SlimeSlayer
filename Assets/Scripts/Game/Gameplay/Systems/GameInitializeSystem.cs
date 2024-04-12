@@ -3,6 +3,7 @@ using Game.Services;
 using JetBrains.Annotations;
 using TegridyCore.Base;
 using TegridyCore.FiniteStateMachine;
+using UnityEngine;
 
 namespace Game.Gameplay.Systems
 {

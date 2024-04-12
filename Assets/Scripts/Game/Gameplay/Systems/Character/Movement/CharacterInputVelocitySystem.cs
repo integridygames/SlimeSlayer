@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Gameplay.Systems.Character.Movement
 {
-    public class CharacterInputVelocitySystem : IUpdateSystem
+    public class CharacterInputVelocitySystem : IFixedUpdateSystem
     {
         private readonly Joystick _joystick;
         private readonly CharacterMovementData _characterMovementData;
@@ -22,7 +22,7 @@ namespace Game.Gameplay.Systems.Character.Movement
             _characterCharacteristicsRepository = characterCharacteristicsRepository;
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             var movingVector = new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y);
             if (movingVector.sqrMagnitude <= 0.1f)
@@ -33,7 +33,7 @@ namespace Game.Gameplay.Systems.Character.Movement
             _characterMovementData.MovingVector = movingVector;
             _characterMovementData. NextPosition = _characterView.Rigidbody.position +
                                                   movingVector * _characterCharacteristicsRepository.MovingSpeed *
-                                                  Time.deltaTime;
+                                                  Time.fixedDeltaTime;
         }
     }
 }

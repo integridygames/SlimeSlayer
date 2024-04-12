@@ -120,9 +120,10 @@ namespace Game.Installers.SampleScene
             Container.BindInitializeSystemWithState(characterSpawnSystem, _startScreenState);
 
             var characterInputVelocitySystem = Container.Instantiate<CharacterInputVelocitySystem>();
-            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _gameState);
-            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _endScreenState);
-            Container.BindUpdateSystemWithState(characterInputVelocitySystem, _pauseScreenState);
+            Container.BindFixedSystemWithState(characterInputVelocitySystem, _gameState);
+            Container.BindFixedSystemWithState(characterInputVelocitySystem, _endScreenState);
+            Container.BindFixedSystemWithState(characterInputVelocitySystem, _pauseScreenState);
+            Container.BindFixedSystemWithState(characterInputVelocitySystem, _deathState);
 
             var handsRecoilSystem = Container.Instantiate<HandsRecoilSystem>();
             Container.BindUpdateSystemWithState(handsRecoilSystem, _gameState);
